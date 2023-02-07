@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -9109,7 +9109,7 @@ void dsoptimalsplitk(/* Real    */ ae_vector* a,
      double* cve,
      ae_state *_state);
 void _cvreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _cvreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _cvreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _cvreport_clear(void* _p);
 void _cvreport_destroy(void* _p);
 #endif
@@ -9520,15 +9520,15 @@ ae_bool _trypexec_mlpallerrorsx(multilayerperceptron* network,
     ae_shared_pool* buf,
     modelerrors* rep, ae_state *_state);
 void _modelerrors_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _modelerrors_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _modelerrors_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _modelerrors_clear(void* _p);
 void _modelerrors_destroy(void* _p);
 void _smlpgrad_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _smlpgrad_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _smlpgrad_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _smlpgrad_clear(void* _p);
 void _smlpgrad_destroy(void* _p);
 void _multilayerperceptron_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _multilayerperceptron_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _multilayerperceptron_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _multilayerperceptron_clear(void* _p);
 void _multilayerperceptron_destroy(void* _p);
 #endif
@@ -9687,7 +9687,7 @@ void mlpeunserialize(ae_serializer* s,
      mlpensemble* ensemble,
      ae_state *_state);
 void _mlpensemble_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlpensemble_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlpensemble_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlpensemble_clear(void* _p);
 void _mlpensemble_destroy(void* _p);
 #endif
@@ -9796,19 +9796,19 @@ ae_bool _trypexec_kmeansupdatedistances(/* Real    */ ae_matrix* xy,
     /* Real    */ ae_vector* xydist2,
     ae_shared_pool* bufferpool, ae_state *_state);
 void _kmeansbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _kmeansbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _kmeansbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _kmeansbuffers_clear(void* _p);
 void _kmeansbuffers_destroy(void* _p);
 void _clusterizerstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _clusterizerstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _clusterizerstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _clusterizerstate_clear(void* _p);
 void _clusterizerstate_destroy(void* _p);
 void _ahcreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _ahcreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _ahcreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _ahcreport_clear(void* _p);
 void _ahcreport_destroy(void* _p);
 void _kmeansreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _kmeansreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _kmeansreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _kmeansreport_clear(void* _p);
 void _kmeansreport_destroy(void* _p);
 #endif
@@ -9940,39 +9940,39 @@ void dfbuildinternal(/* Real    */ ae_matrix* xy,
      dfreport* rep,
      ae_state *_state);
 void _decisionforestbuilder_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _decisionforestbuilder_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _decisionforestbuilder_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _decisionforestbuilder_clear(void* _p);
 void _decisionforestbuilder_destroy(void* _p);
 void _dfworkbuf_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _dfworkbuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _dfworkbuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _dfworkbuf_clear(void* _p);
 void _dfworkbuf_destroy(void* _p);
 void _dfvotebuf_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _dfvotebuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _dfvotebuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _dfvotebuf_clear(void* _p);
 void _dfvotebuf_destroy(void* _p);
 void _dfpermimpbuf_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _dfpermimpbuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _dfpermimpbuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _dfpermimpbuf_clear(void* _p);
 void _dfpermimpbuf_destroy(void* _p);
 void _dftreebuf_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _dftreebuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _dftreebuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _dftreebuf_clear(void* _p);
 void _dftreebuf_destroy(void* _p);
 void _decisionforestbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _decisionforestbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _decisionforestbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _decisionforestbuffer_clear(void* _p);
 void _decisionforestbuffer_destroy(void* _p);
 void _decisionforest_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _decisionforest_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _decisionforest_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _decisionforest_clear(void* _p);
 void _decisionforest_destroy(void* _p);
 void _dfreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _dfreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _dfreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _dfreport_clear(void* _p);
 void _dfreport_destroy(void* _p);
 void _dfinternalbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _dfinternalbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _dfinternalbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _dfinternalbuffers_clear(void* _p);
 void _dfinternalbuffers_destroy(void* _p);
 #endif
@@ -10050,11 +10050,11 @@ void lrline(/* Real    */ ae_matrix* xy,
      double* b,
      ae_state *_state);
 void _linearmodel_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _linearmodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _linearmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _linearmodel_clear(void* _p);
 void _linearmodel_destroy(void* _p);
 void _lrreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _lrreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _lrreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _lrreport_clear(void* _p);
 void _lrreport_destroy(void* _p);
 #endif
@@ -10150,7 +10150,7 @@ void ssaforecastavgsequence(ssamodel* s,
      /* Real    */ ae_vector* trend,
      ae_state *_state);
 void _ssamodel_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _ssamodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _ssamodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _ssamodel_clear(void* _p);
 void _ssamodel_destroy(void* _p);
 #endif
@@ -10225,11 +10225,11 @@ void mcpdresults(mcpdstate* s,
      mcpdreport* rep,
      ae_state *_state);
 void _mcpdstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mcpdstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mcpdstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mcpdstate_clear(void* _p);
 void _mcpdstate_destroy(void* _p);
 void _mcpdreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mcpdreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mcpdreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mcpdreport_clear(void* _p);
 void _mcpdreport_destroy(void* _p);
 #endif
@@ -10286,15 +10286,15 @@ ae_int_t mnlclserror(logitmodel* lm,
      ae_int_t npoints,
      ae_state *_state);
 void _logitmodel_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _logitmodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _logitmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _logitmodel_clear(void* _p);
 void _logitmodel_destroy(void* _p);
 void _logitmcstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _logitmcstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _logitmcstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _logitmcstate_clear(void* _p);
 void _logitmcstate_destroy(void* _p);
 void _mnlreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mnlreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mnlreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mnlreport_clear(void* _p);
 void _mnlreport_destroy(void* _p);
 #endif
@@ -10372,19 +10372,19 @@ void knnalloc(ae_serializer* s, knnmodel* model, ae_state *_state);
 void knnserialize(ae_serializer* s, knnmodel* model, ae_state *_state);
 void knnunserialize(ae_serializer* s, knnmodel* model, ae_state *_state);
 void _knnbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _knnbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _knnbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _knnbuffer_clear(void* _p);
 void _knnbuffer_destroy(void* _p);
 void _knnbuilder_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _knnbuilder_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _knnbuilder_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _knnbuilder_clear(void* _p);
 void _knnbuilder_destroy(void* _p);
 void _knnmodel_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _knnmodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _knnmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _knnmodel_clear(void* _p);
 void _knnmodel_destroy(void* _p);
 void _knnreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _knnreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _knnreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _knnreport_clear(void* _p);
 void _knnreport_destroy(void* _p);
 #endif
@@ -10513,27 +10513,27 @@ void mlptrainensemblees(mlptrainer* s,
      mlpreport* rep,
      ae_state *_state);
 void _mlpreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlpreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlpreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlpreport_clear(void* _p);
 void _mlpreport_destroy(void* _p);
 void _mlpcvreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlpcvreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlpcvreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlpcvreport_clear(void* _p);
 void _mlpcvreport_destroy(void* _p);
 void _smlptrnsession_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _smlptrnsession_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _smlptrnsession_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _smlptrnsession_clear(void* _p);
 void _smlptrnsession_destroy(void* _p);
 void _mlpetrnsession_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlpetrnsession_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlpetrnsession_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlpetrnsession_clear(void* _p);
 void _mlpetrnsession_destroy(void* _p);
 void _mlptrainer_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlptrainer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlptrainer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlptrainer_clear(void* _p);
 void _mlptrainer_destroy(void* _p);
 void _mlpparallelizationcv_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlpparallelizationcv_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlpparallelizationcv_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlpparallelizationcv_clear(void* _p);
 void _mlpparallelizationcv_destroy(void* _p);
 #endif

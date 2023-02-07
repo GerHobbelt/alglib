@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -4192,7 +4192,7 @@ void polynomialsolve(/* Real    */ ae_vector* a,
      polynomialsolverreport* rep,
      ae_state *_state);
 void _polynomialsolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _polynomialsolverreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _polynomialsolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _polynomialsolverreport_clear(void* _p);
 void _polynomialsolverreport_destroy(void* _p);
 #endif
@@ -4479,11 +4479,11 @@ void rmatrixsolvels(/* Real    */ ae_matrix* a,
      /* Real    */ ae_vector* x,
      ae_state *_state);
 void _densesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _densesolverreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _densesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _densesolverreport_clear(void* _p);
 void _densesolverreport_destroy(void* _p);
 void _densesolverlsreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _densesolverlsreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _densesolverlsreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _densesolverlsreport_clear(void* _p);
 void _densesolverlsreport_destroy(void* _p);
 #endif
@@ -4520,7 +4520,7 @@ void sparselusolve(sparsematrix* a,
      ae_state *_state);
 void initsparsesolverreport(sparsesolverreport* rep, ae_state *_state);
 void _sparsesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sparsesolverreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sparsesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sparsesolverreport_clear(void* _p);
 void _sparsesolverreport_destroy(void* _p);
 #endif
@@ -4595,7 +4595,7 @@ void sparsesolveroocstop(sparsesolverstate* state,
 void sparsesolverrequesttermination(sparsesolverstate* state,
      ae_state *_state);
 void _sparsesolverstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sparsesolverstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sparsesolverstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sparsesolverstate_clear(void* _p);
 void _sparsesolverstate_destroy(void* _p);
 #endif
@@ -4632,11 +4632,11 @@ void lincgsetrupdatefreq(lincgstate* state,
 void lincgsetxrep(lincgstate* state, ae_bool needxrep, ae_state *_state);
 void lincgrestart(lincgstate* state, ae_state *_state);
 void _lincgstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _lincgstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _lincgstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _lincgstate_clear(void* _p);
 void _lincgstate_destroy(void* _p);
 void _lincgreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _lincgreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _lincgreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _lincgreport_clear(void* _p);
 void _lincgreport_destroy(void* _p);
 #endif
@@ -4678,11 +4678,11 @@ void linlsqrrestart(linlsqrstate* state, ae_state *_state);
 ae_int_t linlsqrpeekiterationscount(linlsqrstate* s, ae_state *_state);
 void linlsqrrequesttermination(linlsqrstate* state, ae_state *_state);
 void _linlsqrstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _linlsqrstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _linlsqrstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _linlsqrstate_clear(void* _p);
 void _linlsqrstate_destroy(void* _p);
 void _linlsqrreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _linlsqrreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _linlsqrreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _linlsqrreport_clear(void* _p);
 void _linlsqrreport_destroy(void* _p);
 #endif
@@ -4711,11 +4711,11 @@ void nleqrestartfrom(nleqstate* state,
      /* Real    */ ae_vector* x,
      ae_state *_state);
 void _nleqstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _nleqstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _nleqstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _nleqstate_clear(void* _p);
 void _nleqstate_destroy(void* _p);
 void _nleqreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _nleqreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _nleqreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _nleqreport_clear(void* _p);
 void _nleqreport_destroy(void* _p);
 #endif

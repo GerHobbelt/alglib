@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -262,11 +262,11 @@ void odesolverresults(odesolverstate* state,
      odesolverreport* rep,
      ae_state *_state);
 void _odesolverstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _odesolverstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _odesolverstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _odesolverstate_clear(void* _p);
 void _odesolverstate_destroy(void* _p);
 void _odesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _odesolverreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _odesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _odesolverreport_clear(void* _p);
 void _odesolverreport_destroy(void* _p);
 #endif

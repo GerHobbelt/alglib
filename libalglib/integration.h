@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -845,15 +845,15 @@ void autogkresults(autogkstate* state,
      autogkreport* rep,
      ae_state *_state);
 void _autogkreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _autogkreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _autogkreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _autogkreport_clear(void* _p);
 void _autogkreport_destroy(void* _p);
 void _autogkinternalstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _autogkinternalstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _autogkinternalstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _autogkinternalstate_clear(void* _p);
 void _autogkinternalstate_destroy(void* _p);
 void _autogkstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _autogkstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _autogkstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _autogkstate_clear(void* _p);
 void _autogkstate_destroy(void* _p);
 #endif

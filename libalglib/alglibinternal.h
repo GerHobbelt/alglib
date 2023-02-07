@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -76,6 +76,39 @@ typedef struct
 {
     ae_vector val;
 } scomplexarray;
+typedef struct
+{
+    ae_int_t n;
+    ae_int_t temporariescount;
+    ae_shared_pool sourcepool;
+    ae_shared_pool temporarypool;
+    sbooleanarray seed0;
+    sbooleanarray seedn;
+} nbpool;
+typedef struct
+{
+    ae_int_t n;
+    ae_int_t temporariescount;
+    ae_shared_pool sourcepool;
+    ae_shared_pool temporarypool;
+    sintegerarray seed0;
+    sintegerarray seedn;
+} nipool;
+typedef struct
+{
+    ae_int_t n;
+    ae_int_t temporariescount;
+    ae_shared_pool sourcepool;
+    ae_shared_pool temporarypool;
+    srealarray seed0;
+    srealarray seedn;
+} nrpool;
+typedef struct
+{
+    double rsum;
+    double rcnt;
+    double prior;
+} savgcounter;
 #endif
 #if defined(AE_COMPILE_ABLASF) || !defined(AE_PARTIAL_BUILD)
 #endif
@@ -96,6 +129,16 @@ typedef struct
 #if defined(AE_COMPILE_ROTATIONS) || !defined(AE_PARTIAL_BUILD)
 #endif
 #if defined(AE_COMPILE_BASICSTATOPS) || !defined(AE_PARTIAL_BUILD)
+#endif
+#if defined(AE_COMPILE_APSTRUCT) || !defined(AE_PARTIAL_BUILD)
+typedef struct
+{
+    ae_int_t n;
+    ae_int_t nstored;
+    ae_vector items;
+    ae_vector locationof;
+    ae_int_t iteridx;
+} niset;
 #endif
 #if defined(AE_COMPILE_TRLINSOLVE) || !defined(AE_PARTIAL_BUILD)
 #endif
@@ -308,6 +351,9 @@ void ivectorappend(/* Integer */ ae_vector* x,
 ae_bool isfinitevector(/* Real    */ ae_vector* x,
      ae_int_t n,
      ae_state *_state);
+ae_bool isfiniteornanvector(/* Real    */ ae_vector* x,
+     ae_int_t n,
+     ae_state *_state);
 ae_bool isfinitecvector(/* Complex */ ae_vector* z,
      ae_int_t n,
      ae_state *_state);
@@ -359,6 +405,11 @@ void swapentries(/* Real    */ ae_vector* a,
      ae_int_t i1,
      ae_int_t entrywidth,
      ae_state *_state);
+void swapentriesb(/* Boolean */ ae_vector* a,
+     ae_int_t i0,
+     ae_int_t i1,
+     ae_int_t entrywidth,
+     ae_state *_state);
 void swapelements(/* Real    */ ae_vector* a,
      ae_int_t i0,
      ae_int_t i1,
@@ -387,6 +438,9 @@ double rmaxabs3(double r0, double r1, double r2, ae_state *_state);
 double boundval(double x, double b1, double b2, ae_state *_state);
 ae_int_t iboundval(ae_int_t x, ae_int_t b1, ae_int_t b2, ae_state *_state);
 double rboundval(double x, double b1, double b2, ae_state *_state);
+ae_bool bcase2(ae_bool cond, ae_bool v0, ae_bool v1, ae_state *_state);
+ae_int_t icase2(ae_bool cond, ae_int_t v0, ae_int_t v1, ae_state *_state);
+double rcase2(ae_bool cond, double v0, double v1, ae_state *_state);
 ae_int_t countnz1(/* Real    */ ae_vector* v,
      ae_int_t n,
      ae_state *_state);
@@ -401,12 +455,23 @@ void allocrealarray(ae_serializer* s,
      /* Real    */ ae_vector* v,
      ae_int_t n,
      ae_state *_state);
+void allocbooleanarray(ae_serializer* s,
+     /* Boolean */ ae_vector* v,
+     ae_int_t n,
+     ae_state *_state);
 void serializerealarray(ae_serializer* s,
      /* Real    */ ae_vector* v,
      ae_int_t n,
      ae_state *_state);
+void serializebooleanarray(ae_serializer* s,
+     /* Boolean */ ae_vector* v,
+     ae_int_t n,
+     ae_state *_state);
 void unserializerealarray(ae_serializer* s,
      /* Real    */ ae_vector* v,
+     ae_state *_state);
+void unserializebooleanarray(ae_serializer* s,
+     /* Boolean */ ae_vector* v,
      ae_state *_state);
 void allocintegerarray(ae_serializer* s,
      /* Integer */ ae_vector* v,
@@ -447,6 +512,27 @@ void copyrealmatrix(/* Real    */ ae_matrix* src,
 void unsetintegerarray(/* Integer */ ae_vector* a, ae_state *_state);
 void unsetrealarray(/* Real    */ ae_vector* a, ae_state *_state);
 void unsetrealmatrix(/* Real    */ ae_matrix* a, ae_state *_state);
+void nbpoolinit(nbpool* pool, ae_int_t n, ae_state *_state);
+void nbpoolretrieve(nbpool* pool,
+     /* Boolean */ ae_vector* a,
+     ae_state *_state);
+void nbpoolrecycle(nbpool* pool,
+     /* Boolean */ ae_vector* a,
+     ae_state *_state);
+void nipoolinit(nipool* pool, ae_int_t n, ae_state *_state);
+void nipoolretrieve(nipool* pool,
+     /* Integer */ ae_vector* a,
+     ae_state *_state);
+void nipoolrecycle(nipool* pool,
+     /* Integer */ ae_vector* a,
+     ae_state *_state);
+void nrpoolinit(nrpool* pool, ae_int_t n, ae_state *_state);
+void nrpoolretrieve(nrpool* pool,
+     /* Real    */ ae_vector* a,
+     ae_state *_state);
+void nrpoolrecycle(nrpool* pool,
+     /* Real    */ ae_vector* a,
+     ae_state *_state);
 void tiledsplit(ae_int_t tasksize,
      ae_int_t tilesize,
      ae_int_t* task0,
@@ -517,42 +603,66 @@ void tracerownrm1e6(/* Real    */ ae_matrix* a,
      ae_int_t j0,
      ae_int_t j1,
      ae_state *_state);
+void tracespaces(ae_int_t cnt, ae_state *_state);
+double minspeedup(ae_state *_state);
+#ifdef ALGLIB_NO_FAST_KERNELS
+ae_int_t maxconcurrency(ae_state *_state);
+#endif
+void savgcounterinit(savgcounter* c, double priorvalue, ae_state *_state);
+void savgcounterenqueue(savgcounter* c, double v, ae_state *_state);
+double savgcounterget(savgcounter* c, ae_state *_state);
 void _apbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _apbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _apbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _apbuffers_clear(void* _p);
 void _apbuffers_destroy(void* _p);
 void _sboolean_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sboolean_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sboolean_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sboolean_clear(void* _p);
 void _sboolean_destroy(void* _p);
 void _sbooleanarray_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sbooleanarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sbooleanarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sbooleanarray_clear(void* _p);
 void _sbooleanarray_destroy(void* _p);
 void _sinteger_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sinteger_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sinteger_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sinteger_clear(void* _p);
 void _sinteger_destroy(void* _p);
 void _sintegerarray_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sintegerarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sintegerarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sintegerarray_clear(void* _p);
 void _sintegerarray_destroy(void* _p);
 void _sreal_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sreal_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sreal_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sreal_clear(void* _p);
 void _sreal_destroy(void* _p);
 void _srealarray_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _srealarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _srealarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _srealarray_clear(void* _p);
 void _srealarray_destroy(void* _p);
 void _scomplex_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _scomplex_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _scomplex_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _scomplex_clear(void* _p);
 void _scomplex_destroy(void* _p);
 void _scomplexarray_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _scomplexarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _scomplexarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _scomplexarray_clear(void* _p);
 void _scomplexarray_destroy(void* _p);
+void _nbpool_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _nbpool_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _nbpool_clear(void* _p);
+void _nbpool_destroy(void* _p);
+void _nipool_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _nipool_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _nipool_clear(void* _p);
+void _nipool_destroy(void* _p);
+void _nrpool_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _nrpool_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _nrpool_clear(void* _p);
+void _nrpool_destroy(void* _p);
+void _savgcounter_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _savgcounter_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _savgcounter_clear(void* _p);
+void _savgcounter_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_ABLASF) || !defined(AE_PARTIAL_BUILD)
 #ifdef ALGLIB_NO_FAST_KERNELS
@@ -808,6 +918,10 @@ void bsetv(ae_int_t n,
      /* Boolean */ ae_vector* x,
      ae_state *_state);
 #endif
+void csetv(ae_int_t n,
+     ae_complex v,
+     /* Complex */ ae_vector* x,
+     ae_state *_state);
 #ifdef ALGLIB_NO_FAST_KERNELS
 void rsetm(ae_int_t m,
      ae_int_t n,
@@ -825,6 +939,7 @@ void rsetallocm(ae_int_t m,
      /* Real    */ ae_matrix* a,
      ae_state *_state);
 void rallocv(ae_int_t n, /* Real    */ ae_vector* x, ae_state *_state);
+void callocv(ae_int_t n, /* Complex */ ae_vector* x, ae_state *_state);
 void iallocv(ae_int_t n, /* Integer */ ae_vector* x, ae_state *_state);
 void ballocv(ae_int_t n, /* Boolean */ ae_vector* x, ae_state *_state);
 void rallocm(ae_int_t m,
@@ -838,6 +953,10 @@ void isetallocv(ae_int_t n,
 void bsetallocv(ae_int_t n,
      ae_bool v,
      /* Boolean */ ae_vector* x,
+     ae_state *_state);
+void csetallocv(ae_int_t n,
+     ae_complex v,
+     /* Complex */ ae_vector* x,
      ae_state *_state);
 #ifdef ALGLIB_NO_FAST_KERNELS
 void rsetr(ae_int_t n,
@@ -1612,6 +1731,7 @@ ae_int_t getrbfserializationcode(ae_state *_state);
 ae_int_t getspline2dserializationcode(ae_state *_state);
 ae_int_t getidwserializationcode(ae_state *_state);
 ae_int_t getsparsematrixserializationcode(ae_state *_state);
+ae_int_t getspline2dwithmissingnodesserializationcode(ae_state *_state);
 ae_int_t getknnserializationcode(ae_state *_state);
 ae_int_t getlptestserializationcode(ae_state *_state);
 #endif
@@ -1645,6 +1765,11 @@ void tagsortfast(/* Real    */ ae_vector* a,
      ae_state *_state);
 void tagsortmiddleir(/* Integer */ ae_vector* a,
      /* Real    */ ae_vector* b,
+     ae_int_t offset,
+     ae_int_t n,
+     ae_state *_state);
+void tagsortmiddleri(/* Real    */ ae_vector* a,
+     /* Integer */ ae_vector* b,
      ae_int_t offset,
      ae_int_t n,
      ae_state *_state);
@@ -1818,6 +1943,21 @@ void rankxuntied(/* Real    */ ae_vector* x,
      apbuffers* buf,
      ae_state *_state);
 #endif
+#if defined(AE_COMPILE_APSTRUCT) || !defined(AE_PARTIAL_BUILD)
+void nisinitemptyslow(ae_int_t n, niset* sa, ae_state *_state);
+void niscopy(niset* ssrc, niset* sdst, ae_state *_state);
+void nisaddelement(niset* sa, ae_int_t k, ae_state *_state);
+void nissubtract1(niset* sa, niset* src, ae_state *_state);
+void nisclear(niset* sa, ae_state *_state);
+ae_int_t niscount(niset* sa, ae_state *_state);
+ae_bool nisequal(niset* s0, niset* s1, ae_state *_state);
+void nisstartenumeration(niset* sa, ae_state *_state);
+ae_bool nisenumerate(niset* sa, ae_int_t* i, ae_state *_state);
+void _niset_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _niset_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _niset_clear(void* _p);
+void _niset_destroy(void* _p);
+#endif
 #if defined(AE_COMPILE_TRLINSOLVE) || !defined(AE_PARTIAL_BUILD)
 void rmatrixtrsafesolve(/* Real    */ ae_matrix* a,
      ae_int_t n,
@@ -1909,11 +2049,11 @@ void armijoresults(armijostate* state,
      double* f,
      ae_state *_state);
 void _linminstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _linminstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _linminstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _linminstate_clear(void* _p);
 void _linminstate_destroy(void* _p);
 void _armijostate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _armijostate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _armijostate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _armijostate_clear(void* _p);
 void _armijostate_destroy(void* _p);
 #endif
@@ -1948,7 +2088,7 @@ ae_int_t ftbasefindsmooth(ae_int_t n, ae_state *_state);
 ae_int_t ftbasefindsmootheven(ae_int_t n, ae_state *_state);
 double ftbasegetflopestimate(ae_int_t n, ae_state *_state);
 void _fasttransformplan_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _fasttransformplan_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _fasttransformplan_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _fasttransformplan_clear(void* _p);
 void _fasttransformplan_destroy(void* _p);
 #endif
@@ -1986,7 +2126,7 @@ ae_bool hpcchunkedprocess(/* Real    */ ae_vector* weights,
      /* Real    */ ae_vector* hpcbuf,
      ae_state *_state);
 void _mlpbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _mlpbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _mlpbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _mlpbuffers_clear(void* _p);
 void _mlpbuffers_destroy(void* _p);
 #endif

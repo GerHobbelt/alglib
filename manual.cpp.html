@@ -93,9 +93,10 @@ a.nav:hover     { color:#000077; font-weight:bold; text-decoration: underline; }
         <a href='#gs_comm_mkl_own'>6.4.2 Using your own installation of Intel MKL</a>
 <a href='#gs_advanced'>7 Advanced topics</a>
     <a href='#gs_redzones'>7.1 Using Red Zones to find memory access violations</a>
-    <a href='#gs_exceptionfree'>7.2 Exception-free mode</a>
-    <a href='#gs_partial_compiling'>7.3 Partial compilation</a>
-    <a href='#gs_testing'>7.4 Testing ALGLIB</a>
+    <a href='#gs_std_rand'>7.2 Replacing stdlib rand() as an entropy source with OpenSSL implementation</a>
+    <a href='#gs_exceptionfree'>7.3 Exception-free mode</a>
+    <a href='#gs_partial_compiling'>7.4 Partial compilation</a>
+    <a href='#gs_testing'>7.5 Testing ALGLIB</a>
 <a href='#alglib_main'>8 ALGLIB packages and subpackages</a>
     <a href='#pck_AlglibMisc'>8.1 <code>AlglibMisc</code> package</a>
     <a href='#pck_DataAnalysis'>8.2 <code>DataAnalysis</code> package</a>
@@ -2082,7 +2083,30 @@ Red zones add some memory overhead (insignificant for large arrays) and some mod
 Your program may become a few percent slower (in the very worst case - a few tens of percent).
 </p>
 
-<a name='gs_exceptionfree' class='sheader'></a><h2>7.2 Exception-free mode</h2>
+<a name='gs_std_rand' class='sheader'></a><h2>7.2 Replacing stdlib rand() as an entropy source with OpenSSL implementation</h2>
+
+<p>
+ALGLIB uses and provides to its users its own random numbers generator.
+Whilst it is not cryptographically secure, it is good enough for scientific purposes.
+However, this generator has to be primed with an external entropy source - one which provides random or pseudorandom seeds.
+</p>
+
+<p>
+In its default configuration ALGLIB obtains these seeds with stdlib <code>rand()</code>,
+whish was chosen as the default entropy source for portability reasons.
+In most cases it is acceptable - all we need is just two integers
+which will be used to prime a high-quality generator implemented in ALGLIB.
+However, some users may prefer to use other sources of entropy.
+Entropy source used by ALGLIB can be configured by #defining <code>ALGLIB_ENTROPY_SRC</code> to be one of the following:
+</p>
+
+<ul>
+<li><code>ALGLIB_ENTROPY_SRC_STDRAND</code> to use the default source - <code>rand()</code> function provided by <code>stdlib.h</code></li>
+<li><code>ALGLIB_ENTROPY_SRC_OPENSSL</code> to use OpenSSL facilities as the entropy source.
+One has to have OpenSSL installed on its system to use this option.</li>
+</ul>
+
+<a name='gs_exceptionfree' class='sheader'></a><h2>7.3 Exception-free mode</h2>
 
 <p>
 ALGLIB for C++ can be compiled in exception-free mode, with exceptions
@@ -2171,7 +2195,7 @@ and attaching to external memory with <code>attach_to_ptr()</code>
 </li>
 </ul>
 
-<a name='gs_partial_compiling' class='sheader'></a><h2>7.3 Partial compilation</h2>
+<a name='gs_partial_compiling' class='sheader'></a><h2>7.4 Partial compilation</h2>
 
 <p>
 Due to ALGLIB modular structure it is possible to selectively enable/disable some of its subpackages along with their dependencies.
@@ -2206,7 +2230,7 @@ Subpackage names can be found in the <a href='#alglib_main'>list of ALGLIB packa
 </li>
 </ul>
 
-<a name='gs_testing' class='sheader'></a><h2>7.4 Testing ALGLIB</h2>
+<a name='gs_testing' class='sheader'></a><h2>7.5 Testing ALGLIB</h2>
 
 <p>
 There are three test suites in ALGLIB: computational tests, interface tests, extended tests.
@@ -33741,7 +33765,7 @@ ALGORITHM INFORMATION:
 INPUT PARAMETERS:
     State   -   optimizer
     Eps     -   stopping condition, Eps&gt;=0:
-                * should be small number about 1E-7 or 1E-8.
+                * should be small number about 1E-6 or 1E-8.
                 * zero value means that solver automatically selects good
                   value (can be different in different ALGLIB versions)
                 * default value is zero
@@ -46459,6 +46483,8 @@ In both cases following fields are returned:
   between steps #stpidxa and #stpidxb (usually we have  stpidxb=stpidxa+3,
   with  most  likely  position  of  the  violation  between  stpidxa+1 and
   stpidxa+2.
+* inneriter, outeriter - inner and outer iteration indexes (can be -1 if no
+  iteration information was specified)
 
 You can plot function values stored in stp[]  and  f[]  arrays  and  study
 behavior of your function by your own eyes, just  to  be  sure  that  test
@@ -46479,6 +46505,8 @@ correctly reported C1 violation.
     ae_int_t             cnt;
     ae_int_t             stpidxa;
     ae_int_t             stpidxb;
+    ae_int_t             inneriter;
+    ae_int_t             outeriter;
 };
 
 </div></pre>
@@ -46522,6 +46550,8 @@ In both cases following fields are returned:
   between steps #stpidxa and #stpidxb (usually we have  stpidxb=stpidxa+3,
   with  most  likely  position  of  the  violation  between  stpidxa+1 and
   stpidxa+2.
+* inneriter, outeriter - inner and outer iteration indexes (can be -1 if no
+  iteration information was specified)
 
 You can plot function values stored in stp[]  and  f[]  arrays  and  study
 behavior of your function by your own eyes, just  to  be  sure  that  test
@@ -46542,6 +46572,8 @@ correctly reported C1 violation.
     ae_int_t             cnt;
     ae_int_t             stpidxa;
     ae_int_t             stpidxb;
+    ae_int_t             inneriter;
+    ae_int_t             outeriter;
 };
 
 </div></pre>
@@ -46596,6 +46628,8 @@ In both cases following fields are returned:
   between steps #stpidxa and #stpidxb (usually we have  stpidxb=stpidxa+3,
   with  most  likely  position  of  the  violation  between  stpidxa+1 and
   stpidxa+2.
+* inneriter, outeriter - inner and outer iteration indexes (can be -1 if  no
+  iteration information was specified)
 
 You can plot function values stored in stp[]  and  g[]  arrays  and  study
 behavior of your function by your own eyes, just  to  be  sure  that  test
@@ -46617,6 +46651,8 @@ correctly reported C1 violation.
     ae_int_t             cnt;
     ae_int_t             stpidxa;
     ae_int_t             stpidxb;
+    ae_int_t             inneriter;
+    ae_int_t             outeriter;
 };
 
 </div></pre>
@@ -50361,6 +50397,7 @@ OUTPUT PARAMETERS:
 <a href='#sub_rbfdiff2' class=toc>rbfdiff2</a><br>
 <a href='#sub_rbfdiff3' class=toc>rbfdiff3</a><br>
 <a href='#sub_rbfdiffbuf' class=toc>rbfdiffbuf</a><br>
+<a href='#sub_rbffastcalc' class=toc>rbffastcalc</a><br>
 <a href='#sub_rbfgetmodelversion' class=toc>rbfgetmodelversion</a><br>
 <a href='#sub_rbfgridcalc2' class=toc>rbfgridcalc2</a><br>
 <a href='#sub_rbfgridcalc2v' class=toc>rbfgridcalc2v</a><br>
@@ -50380,12 +50417,14 @@ OUTPUT PARAMETERS:
 <a href='#sub_rbfsetalgoqnn' class=toc>rbfsetalgoqnn</a><br>
 <a href='#sub_rbfsetalgothinplatespline' class=toc>rbfsetalgothinplatespline</a><br>
 <a href='#sub_rbfsetconstterm' class=toc>rbfsetconstterm</a><br>
+<a href='#sub_rbfsetfastevaltol' class=toc>rbfsetfastevaltol</a><br>
 <a href='#sub_rbfsetlinterm' class=toc>rbfsetlinterm</a><br>
 <a href='#sub_rbfsetpoints' class=toc>rbfsetpoints</a><br>
 <a href='#sub_rbfsetpointsandscales' class=toc>rbfsetpointsandscales</a><br>
 <a href='#sub_rbfsetv2bf' class=toc>rbfsetv2bf</a><br>
 <a href='#sub_rbfsetv2its' class=toc>rbfsetv2its</a><br>
 <a href='#sub_rbfsetv2supportr' class=toc>rbfsetv2supportr</a><br>
+<a href='#sub_rbfsetv3tol' class=toc>rbfsetv3tol</a><br>
 <a href='#sub_rbfsetzeroterm' class=toc>rbfsetzeroterm</a><br>
 <a href='#sub_rbftscalcbuf' class=toc>rbftscalcbuf</a><br>
 <a href='#sub_rbftsdiffbuf' class=toc>rbftsdiffbuf</a><br>
@@ -51067,6 +51106,49 @@ OUTPUT PARAMETERS:
     <b>const</b> xparams _params = alglib::xdefault);
 
 </div></pre>
+<a name='sub_rbffastcalc'></a><h3 class=pageheader><code>rbffastcalc</code> function</h3>
+<pre class=source>
+<div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
+This function calculates values of the RBF model at the given point  using
+a fast approximate algorithm whenever possible. If no  fast  algorithm  is
+available for a given model type, traditional O(N) approach is used.
+
+Presently, fast evaluation is implemented only for biharmonic splines.
+
+The absolute approximation accuracy is controlled by the rbfsetfastevaltol()
+function.
+
+IMPORTANT: THIS FUNCTION IS THREAD-UNSAFE. It uses fields of  rbfmodel  as
+           temporary arrays, i.e. it is  impossible  to  perform  parallel
+           evaluation on the same rbfmodel object (parallel calls of  this
+           function for independent rbfmodel objects are safe).
+           If you want to perform parallel model evaluation  from multiple
+           threads, use rbftscalcbuf() with a per-thread buffer object.
+
+This function returns 0.0 when model is not initialized.
+
+INPUT PARAMETERS:
+    S       -   RBF model
+    X       -   coordinates, array[NX].
+                X may have more than NX elements, in this case only
+                leading NX will be used.
+
+OUTPUT PARAMETERS:
+    Y       -   function value, array[NY]. Y is out-parameter and
+                reallocated after call to this function. In case you  want
+                to reuse previously allocated Y, you may use RBFCalcBuf(),
+                which reallocates Y only when it is too small.
+
+  -- ALGLIB --
+     Copyright 19.09.2022 by Bochkanov Sergey
+*************************************************************************/
+</div><div style='margin-top: 0; margin-bottom: 0;'><b>void</b> alglib::rbffastcalc(
+    rbfmodel s,
+    real_1d_array x,
+    real_1d_array&amp; y,
+    <b>const</b> xparams _params = alglib::xdefault);
+
+</div></pre>
 <a name='sub_rbfgetmodelversion'></a><h3 class=pageheader><code>rbfgetmodelversion</code> function</h3>
 <pre class=source>
 <div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
@@ -51680,9 +51762,11 @@ This algorithm has following important features:
 * no tunable parameters
 * C0 continuous RBF model (the model has discontinuous derivatives at  the
   interpolation nodes)
-* fast  model construction algorithm with O(N) memory and  O(N^2)  running
+* fast model construction algorithm with O(N) memory and O(N*logN) running
   time requirements. Hundreds of thousands of points can be  handled  with
   this algorithm.
+* accelerated evaluation using far field expansions  (aka  fast multipoles
+  method) is supported. See rbffastcalc() for more information.
 * controllable smoothing via optional nonlinearity penalty
 
 INPUT PARAMETERS:
@@ -52098,6 +52182,62 @@ INPUT PARAMETERS:
 
 </div></pre>
 <p align=left class=pagecontent><span class=inlineheader>Examples:</span>&nbsp;&nbsp;&nbsp;<a href='#example_rbf_d_polterm' class=nav>[1]</a>&nbsp;&nbsp;</p>
+<a name='sub_rbfsetfastevaltol'></a><h3 class=pageheader><code>rbfsetfastevaltol</code> function</h3>
+<pre class=source>
+<div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
+This function sets absolute accuracy of a  fast evaluation  algorithm used
+by rbffastcalc() and other fast evaluation functions.
+
+A fast evaluation algorithm is model-dependent and is available  only  for
+some RBF models. Usually it utilizes far field expansions (a generalization
+of the fast multipoles  method).  If  no  approximate  fast  evaluator  is
+available for the  current RBF model type, this function has no effect.
+
+NOTE: this function can be called before or after the model was built. The
+      result will be the same.
+
+NOTE: this  function  has  O(N) running time, where N is a  points  count.
+      Most fast evaluators work by aggregating influence of  point groups,
+      i.e. by computing so called far field. Changing evaluator  tolerance
+      means that far field radii have to  be  recomputed  for  each  point
+      cluster, and we have O(N) such clusters.
+
+      This function is still very fast, but  it  should  not be called too
+      often, e.g. every time you call rbffastcalc() in a loop.
+
+NOTE: the tolerance  set  by this function is an accuracy of an  evaluator
+      which computes the value of the model. It is  NOT  accuracy  of  the
+      model itself.
+
+      E.g., if you set evaluation accuracy to 1E-12, the model value  will
+      be computed with required precision. However, the model itself is an
+      approximation of the target (the default requirement is to fit model
+      with ~6 digits of precision) and THIS accuracy can  not  be  changed
+      after the model was built.
+
+IMPORTANT: THIS FUNCTION IS THREAD-UNSAFE. Calling it while another thread
+           tries to use rbffastcalc() is unsafe because it means that  the
+           accuracy requirements will change in the middle of computations.
+           The algorithm may behave unpredictably.
+
+INPUT PARAMETERS:
+    S       -   RBF model
+    TOL     -   TOL&gt;0, desired evaluation tolerance:
+                * should be somewhere between 1E-3 and 1E-6
+                * values outside of this range will cause no problems (the
+                  evaluator will do the job anyway). However,  too  strict
+                  precision requirements may mean  that  no  approximation
+                  speed-up will be achieved.
+
+  -- ALGLIB --
+     Copyright 19.09.2022 by Bochkanov Sergey
+*************************************************************************/
+</div><div style='margin-top: 0; margin-bottom: 0;'><b>void</b> alglib::rbfsetfastevaltol(
+    rbfmodel s,
+    <b>double</b> tol,
+    <b>const</b> xparams _params = alglib::xdefault);
+
+</div></pre>
 <a name='sub_rbfsetlinterm'></a><h3 class=pageheader><code>rbfsetlinterm</code> function</h3>
 <pre class=source>
 <div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
@@ -52314,6 +52454,40 @@ INPUT PARAMETERS:
 </div><div style='margin-top: 0; margin-bottom: 0;'><b>void</b> alglib::rbfsetv2supportr(
     rbfmodel s,
     <b>double</b> r,
+    <b>const</b> xparams _params = alglib::xdefault);
+
+</div></pre>
+<a name='sub_rbfsetv3tol'></a><h3 class=pageheader><code>rbfsetv3tol</code> function</h3>
+<pre class=source>
+<div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
+This function sets desired accuracy for a version 3 RBF model.
+
+As of ALGLIB 3.20.0, version 3 models include biharmonic RBFs, thin  plate
+splines, multiquadrics.
+
+Version 3 models are fit  with  specialized  domain  decomposition  method
+which splits problem into smaller  chunks.  Models  with  size  less  than
+the DDM chunk size are computed nearly exactly in one step. Larger  models
+are built with an iterative linear solver. This function controls accuracy
+of the solver.
+
+INPUT PARAMETERS:
+    S       -   RBF model, initialized by RBFCreate() call
+    TOL     -   desired precision:
+                * must be non-negative
+                * should be somewhere between 0.001 and 0.000001
+                * values higher than 0.001 make little sense   -  you  may
+                  lose a lot of precision with no performance gains.
+                * values below 1E-6 usually require too much time to converge,
+                  so they are silenly replaced by a 1E-6 cutoff value. Thus,
+                  zero can be used to denote 'maximum precision'.
+
+  -- ALGLIB --
+     Copyright 01.10.2022 by Bochkanov Sergey
+*************************************************************************/
+</div><div style='margin-top: 0; margin-bottom: 0;'><b>void</b> alglib::rbfsetv3tol(
+    rbfmodel s,
+    <b>double</b> tol,
     <b>const</b> xparams _params = alglib::xdefault);
 
 </div></pre>
@@ -57169,8 +57343,10 @@ using namespace alglib;
 <a href='#struct_spline2dinterpolant' class=toc>spline2dinterpolant</a><br>
 <h3 class=pageheader>Functions</h3>
 <a href='#sub_spline2dbuildbicubic' class=toc>spline2dbuildbicubic</a><br>
+<a href='#sub_spline2dbuildbicubicmissing' class=toc>spline2dbuildbicubicmissing</a><br>
 <a href='#sub_spline2dbuildbicubicv' class=toc>spline2dbuildbicubicv</a><br>
 <a href='#sub_spline2dbuildbilinear' class=toc>spline2dbuildbilinear</a><br>
+<a href='#sub_spline2dbuildbilinearmissing' class=toc>spline2dbuildbilinearmissing</a><br>
 <a href='#sub_spline2dbuildbilinearv' class=toc>spline2dbuildbilinearv</a><br>
 <a href='#sub_spline2dbuildercreate' class=toc>spline2dbuildercreate</a><br>
 <a href='#sub_spline2dbuildersetalgoblocklls' class=toc>spline2dbuildersetalgoblocklls</a><br>
@@ -57268,6 +57444,59 @@ flexible and accepts its arguments in more convenient order.
     <b>const</b> xparams _params = alglib::xdefault);
 
 </div></pre>
+<a name='sub_spline2dbuildbicubicmissing'></a><h3 class=pageheader><code>spline2dbuildbicubicmissing</code> function</h3>
+<pre class=source>
+<div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
+This  subroutine builds bicubic vector-valued  spline,  with  some  spline
+cells being missing due to missing nodes.
+
+When the node (i,j) is missing, it means that: a) we don't  have  function
+value at this point (elements of F[] are ignored), and  b)  we  don't need
+spline value at cells adjacent to the node (i,j), i.e. up to 4 spline cells
+will be dropped. An attempt to compute spline value at  the  missing  cell
+will return NAN.
+
+It is important to  understand  that  this  subroutine  does  NOT  support
+interpolation on scattered grids. It allows us to drop some nodes, but  at
+the cost of making a &quot;hole in the spline&quot; around this point. If  you  want
+function  that   can   &quot;fill  the  gap&quot;,  use  RBF  or  another  scattered
+interpolation method.
+
+The  intended  usage  for  this  subroutine  are  regularly  sampled,  but
+non-rectangular datasets.
+
+Input parameters:
+    X   -   spline abscissas, array[0..N-1]
+    Y   -   spline ordinates, array[0..M-1]
+    F   -   function values, array[0..M*N*D-1]:
+            * first D elements store D values at (X[0],Y[0])
+            * next D elements store D values at (X[1],Y[0])
+            * general form - D function values at (X[i],Y[j]) are stored
+              at F[D*(J*N+I)...D*(J*N+I)+D-1].
+            * missing values are ignored
+    Missing array[M*N], Missing[J*N+I]=True means that corresponding entries
+            of F[] are missing nodes.
+    M,N -   grid size, M&gt;=2, N&gt;=2
+    D   -   vector dimension, D&gt;=1
+
+Output parameters:
+    C   -   spline interpolant
+
+  -- ALGLIB PROJECT --
+     Copyright 27.06.2022 by Bochkanov Sergey
+*************************************************************************/
+</div><div style='margin-top: 0; margin-bottom: 0;'><b>void</b> alglib::spline2dbuildbicubicmissing(
+    real_1d_array x,
+    ae_int_t n,
+    real_1d_array y,
+    ae_int_t m,
+    real_1d_array f,
+    boolean_1d_array missing,
+    ae_int_t d,
+    spline2dinterpolant&amp; c,
+    <b>const</b> xparams _params = alglib::xdefault);
+
+</div></pre>
 <a name='sub_spline2dbuildbicubicv'></a><h3 class=pageheader><code>spline2dbuildbicubicv</code> function</h3>
 <pre class=source>
 <div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
@@ -57319,6 +57548,59 @@ flexible and accepts its arguments in more convenient order.
     real_2d_array f,
     ae_int_t m,
     ae_int_t n,
+    spline2dinterpolant&amp; c,
+    <b>const</b> xparams _params = alglib::xdefault);
+
+</div></pre>
+<a name='sub_spline2dbuildbilinearmissing'></a><h3 class=pageheader><code>spline2dbuildbilinearmissing</code> function</h3>
+<pre class=source>
+<div style='color: navy; margin-top: 0; margin-bottom: 0;'>/*************************************************************************
+This subroutine builds bilinear vector-valued  spline,  with  some  spline
+cells being missing due to missing nodes.
+
+When the node (i,j) is missing, it means that: a) we don't  have  function
+value at this point (elements of F[] are ignored), and  b)  we  don't need
+spline value at cells adjacent to the node (i,j), i.e. up to 4 spline cells
+will be dropped. An attempt to compute spline value at  the  missing  cell
+will return NAN.
+
+It is important to  understand  that  this  subroutine  does  NOT  support
+interpolation on scattered grids. It allows us to drop some nodes, but  at
+the cost of making a &quot;hole in the spline&quot; around this point. If  you  want
+function  that   can   &quot;fill  the  gap&quot;,  use  RBF  or  another  scattered
+interpolation method.
+
+The  intended  usage  for  this  subroutine  are  regularly  sampled,  but
+non-rectangular datasets.
+
+Input parameters:
+    X   -   spline abscissas, array[0..N-1]
+    Y   -   spline ordinates, array[0..M-1]
+    F   -   function values, array[0..M*N*D-1]:
+            * first D elements store D values at (X[0],Y[0])
+            * next D elements store D values at (X[1],Y[0])
+            * general form - D function values at (X[i],Y[j]) are stored
+              at F[D*(J*N+I)...D*(J*N+I)+D-1].
+            * missing values are ignored
+    Missing array[M*N], Missing[J*N+I]=True means that corresponding entries
+            of F[] are missing nodes.
+    M,N -   grid size, M&gt;=2, N&gt;=2
+    D   -   vector dimension, D&gt;=1
+
+Output parameters:
+    C   -   spline interpolant
+
+  -- ALGLIB PROJECT --
+     Copyright 27.06.2022 by Bochkanov Sergey
+*************************************************************************/
+</div><div style='margin-top: 0; margin-bottom: 0;'><b>void</b> alglib::spline2dbuildbilinearmissing(
+    real_1d_array x,
+    ae_int_t n,
+    real_1d_array y,
+    ae_int_t m,
+    real_1d_array f,
+    boolean_1d_array missing,
+    ae_int_t d,
     spline2dinterpolant&amp; c,
     <b>const</b> xparams _params = alglib::xdefault);
 
@@ -58179,7 +58461,7 @@ Result:
     M, N-   grid size (x-axis and y-axis)
     D   -   number of components
     Tbl -   coefficients table, unpacked format,
-            D - components: [0..(N-1)*(M-1)*D-1, 0..19].
+            D - components: [0..(N-1)*(M-1)*D-1, 0..20].
             For T=0..D-1 (component index), I = 0...N-2 (x index),
             J=0..M-2 (y index):
                 K :=  T + I*D + J*D*(N-1)
@@ -58199,6 +58481,8 @@ Result:
                 Tbl[K,9] = C11
                 ...
                 Tbl[K,19] = C33
+                Tbl[K,20] = 1 if the cell is present, 0 if the cell is missing.
+                            In the latter case Tbl[4..19] are exactly zero.
             On each grid square spline is equals to:
                 S(x) = SUM(c[i,j]*(t^i)*(u^j), i=0..3, j=0..3)
                 t = x-x[j]
@@ -58465,7 +58749,7 @@ using namespace alglib;
 
     <font color=navy>// unpack and test</font>
     spline2dunpackv(s, m, n, d, c);
-    printf(<font color=blue><b>&quot;%s\n&quot;</b></font>, c.tostring(4).c_str()); <font color=navy>// EXPECTED: [[0, 1, 0, 1, 0,2,0,0, 1,3,0,0, 0,0,0,0, 0,0,0,0 ]]</font>
+    printf(<font color=blue><b>&quot;%s\n&quot;</b></font>, c.tostring(4).c_str()); <font color=navy>// EXPECTED: [[0, 1, 0, 1, 0,2,0,0, 1,3,0,0, 0,0,0,0, 0,0,0,0, 1]]</font>
     <b>return</b> 0;
 }
 

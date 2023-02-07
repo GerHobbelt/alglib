@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -168,11 +168,11 @@ double gammafunction(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::gammafunction(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -222,11 +222,11 @@ double lngamma(const double x, double &sgngam, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::lngamma(x, &sgngam, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -272,11 +272,11 @@ double errorfunction(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::errorfunction(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -321,11 +321,11 @@ double errorfunctionc(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::errorfunctionc(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -346,11 +346,11 @@ double normaldistribution(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::normaldistribution(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -380,11 +380,11 @@ double normalpdf(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::normalpdf(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -432,11 +432,11 @@ double normalcdf(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::normalcdf(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -460,11 +460,11 @@ double inverf(const double e, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::inverf(e, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -485,11 +485,11 @@ double invnormaldistribution(const double y0, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invnormaldistribution(y0, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -532,11 +532,11 @@ double invnormalcdf(const double y0, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invnormalcdf(y0, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -572,11 +572,11 @@ double bivariatenormalpdf(const double x, const double y, const double rho, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::bivariatenormalpdf(x, y, rho, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -629,11 +629,11 @@ double bivariatenormalcdf(const double x, const double y, const double rho, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::bivariatenormalcdf(x, y, rho, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -694,11 +694,11 @@ double incompletebeta(const double a, const double b, const double x, const xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::incompletebeta(a, b, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -744,11 +744,11 @@ double invincompletebeta(const double a, const double b, const double y, const x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invincompletebeta(a, b, y, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -809,11 +809,11 @@ double studenttdistribution(const ae_int_t k, const double t, const xparams _xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::studenttdistribution(k, t, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -848,11 +848,11 @@ double invstudenttdistribution(const ae_int_t k, const double p, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invstudenttdistribution(k, p, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -904,11 +904,11 @@ double fdistribution(const ae_int_t a, const ae_int_t b, const double x, const x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::fdistribution(a, b, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -962,11 +962,11 @@ double fcdistribution(const ae_int_t a, const ae_int_t b, const double x, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::fcdistribution(a, b, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1019,11 +1019,11 @@ double invfdistribution(const ae_int_t a, const ae_int_t b, const double y, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invfdistribution(a, b, y, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -1072,11 +1072,11 @@ double incompletegamma(const double a, const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::incompletegamma(a, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1127,11 +1127,11 @@ double incompletegammac(const double a, const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::incompletegammac(a, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1185,11 +1185,11 @@ double invincompletegammac(const double a, const double y0, const xparams _xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invincompletegammac(a, y0, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -1242,11 +1242,11 @@ double chisquaredistribution(const double v, const double x, const xparams _xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::chisquaredistribution(v, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1295,11 +1295,11 @@ double chisquarecdistribution(const double v, const double x, const xparams _xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::chisquarecdistribution(v, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1337,11 +1337,11 @@ double invchisquaredistribution(const double v, const double y, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invchisquaredistribution(v, y, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -1392,11 +1392,11 @@ double binomialdistribution(const ae_int_t k, const ae_int_t n, const double p, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::binomialdistribution(k, n, p, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1447,11 +1447,11 @@ double binomialcdistribution(const ae_int_t k, const ae_int_t n, const double p,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::binomialcdistribution(k, n, p, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1497,11 +1497,11 @@ double invbinomialdistribution(const ae_int_t k, const ae_int_t n, const double 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invbinomialdistribution(k, n, y, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -1546,11 +1546,11 @@ double exponentialintegralei(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::exponentialintegralei(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1599,11 +1599,11 @@ double exponentialintegralen(const double x, const ae_int_t n, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::exponentialintegralen(x, n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -1663,7 +1663,7 @@ void jacobianellipticfunctions(const double u, const double m, double &sn, doubl
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::jacobianellipticfunctions(u, m, &sn, &cn, &dn, &ph, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1726,7 +1726,7 @@ void sinecosineintegrals(const double x, double &si, double &ci, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sinecosineintegrals(x, &si, &ci, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1788,7 +1788,7 @@ void hyperbolicsinecosineintegrals(const double x, double &shi, double &chi, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hyperbolicsinecosineintegrals(x, &shi, &chi, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1824,11 +1824,11 @@ double chebyshevcalculate(const ae_int_t r, const ae_int_t n, const double x, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::chebyshevcalculate(r, n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1863,11 +1863,11 @@ double chebyshevsum(const real_1d_array &c, const ae_int_t r, const ae_int_t n, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::chebyshevsum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), r, n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1894,7 +1894,7 @@ void chebyshevcoefficients(const ae_int_t n, real_1d_array &c, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::chebyshevcoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1929,7 +1929,7 @@ void fromchebyshev(const real_1d_array &a, const ae_int_t n, real_1d_array &b, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fromchebyshev(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1978,11 +1978,11 @@ double poissondistribution(const ae_int_t k, const double m, const xparams _xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::poissondistribution(k, m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2026,11 +2026,11 @@ double poissoncdistribution(const ae_int_t k, const double m, const xparams _xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::poissoncdistribution(k, m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2067,11 +2067,11 @@ double invpoissondistribution(const ae_int_t k, const double y, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::invpoissondistribution(k, y, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -2113,11 +2113,11 @@ double beta(const double a, const double b, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::beta(a, b, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -2179,7 +2179,7 @@ void fresnelintegral(const double x, double &c, double &s, const xparams _xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fresnelintegral(x, &c, &s, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2242,11 +2242,11 @@ double psi(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::psi(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -2298,7 +2298,7 @@ void airy(const double x, double &ai, double &aip, double &bi, double &bip, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::airy(x, &ai, &aip, &bi, &bip, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2347,11 +2347,11 @@ double dawsonintegral(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dawsonintegral(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -2381,11 +2381,11 @@ double hermitecalculate(const ae_int_t n, const double x, const xparams _xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::hermitecalculate(n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2416,11 +2416,11 @@ double hermitesum(const real_1d_array &c, const ae_int_t n, const double x, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::hermitesum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2447,7 +2447,7 @@ void hermitecoefficients(const ae_int_t n, real_1d_array &c, const xparams _xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hermitecoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2481,11 +2481,11 @@ double legendrecalculate(const ae_int_t n, const double x, const xparams _xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::legendrecalculate(n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2516,11 +2516,11 @@ double legendresum(const real_1d_array &c, const ae_int_t n, const double x, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::legendresum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2547,7 +2547,7 @@ void legendrecoefficients(const ae_int_t n, real_1d_array &c, const xparams _xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::legendrecoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2601,11 +2601,11 @@ double besselj0(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besselj0(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2643,11 +2643,11 @@ double besselj1(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besselj1(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2692,11 +2692,11 @@ double besseljn(const ae_int_t n, const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besseljn(n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2742,11 +2742,11 @@ double bessely0(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::bessely0(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2785,11 +2785,11 @@ double bessely1(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::bessely1(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2829,11 +2829,11 @@ double besselyn(const ae_int_t n, const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besselyn(n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2872,11 +2872,11 @@ double besseli0(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besseli0(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2915,11 +2915,11 @@ double besseli1(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besseli1(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2958,11 +2958,11 @@ double besselk0(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besselk0(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2999,11 +2999,11 @@ double besselk1(const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besselk1(x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3043,11 +3043,11 @@ double besselkn(const ae_int_t nn, const double x, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::besselkn(nn, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -3077,11 +3077,11 @@ double laguerrecalculate(const ae_int_t n, const double x, const xparams _xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::laguerrecalculate(n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3111,11 +3111,11 @@ double laguerresum(const real_1d_array &c, const ae_int_t n, const double x, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::laguerresum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3142,7 +3142,7 @@ void laguerrecoefficients(const ae_int_t n, real_1d_array &c, const xparams _xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::laguerrecoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3196,11 +3196,11 @@ double ellipticintegralk(const double m, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::ellipticintegralk(m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3254,11 +3254,11 @@ double ellipticintegralkhighprecision(const double m1, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::ellipticintegralkhighprecision(m1, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3310,11 +3310,11 @@ double incompleteellipticintegralk(const double phi, const double m, const xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::incompleteellipticintegralk(phi, m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3359,11 +3359,11 @@ double ellipticintegrale(const double m, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::ellipticintegrale(m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3411,11 +3411,11 @@ double incompleteellipticintegrale(const double phi, const double m, const xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::incompleteellipticintegrale(phi, m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 }
@@ -3640,7 +3640,7 @@ double gammafunction(double x, ae_state *_state)
             z = q-p;
             if( ae_fp_greater(z,0.5) )
             {
-                p = p+1;
+                p = p+(double)1;
                 z = q-p;
             }
             z = q*ae_sin(ae_pi*z, _state);
@@ -3657,24 +3657,24 @@ double gammafunction(double x, ae_state *_state)
     z = (double)(1);
     while(ae_fp_greater_eq(x,(double)(3)))
     {
-        x = x-1;
+        x = x-(double)1;
         z = z*x;
     }
     while(ae_fp_less(x,(double)(0)))
     {
         if( ae_fp_greater(x,-0.000000001) )
         {
-            result = z/((1+0.5772156649015329*x)*x);
+            result = z/(((double)1+0.5772156649015329*x)*x);
             return result;
         }
         z = z/x;
-        x = x+1;
+        x = x+(double)1;
     }
     while(ae_fp_less(x,(double)(2)))
     {
         if( ae_fp_less(x,0.000000001) )
         {
-            result = z/((1+0.5772156649015329*x)*x);
+            result = z/(((double)1+0.5772156649015329*x)*x);
             return result;
         }
         z = z/x;
@@ -3758,7 +3758,7 @@ double lngamma(double x, double* sgngam, ae_state *_state)
     double tmp;
     double result;
 
-    *sgngam = 0;
+    *sgngam = 0.0;
 
     *sgngam = (double)(1);
     logpi = 1.14472988584940017414;
@@ -3780,7 +3780,7 @@ double lngamma(double x, double* sgngam, ae_state *_state)
         z = q-p;
         if( ae_fp_greater(z,0.5) )
         {
-            p = p+1;
+            p = p+(double)1;
             z = p-q;
         }
         z = q*ae_sin(ae_pi*z, _state);
@@ -3794,14 +3794,14 @@ double lngamma(double x, double* sgngam, ae_state *_state)
         u = x;
         while(ae_fp_greater_eq(u,(double)(3)))
         {
-            p = p-1;
+            p = p-(double)1;
             u = x+p;
             z = z*u;
         }
         while(ae_fp_less(u,(double)(2)))
         {
             z = z/u;
-            p = p+1;
+            p = p+(double)1;
             u = x+p;
         }
         if( ae_fp_less(z,(double)(0)) )
@@ -3818,7 +3818,7 @@ double lngamma(double x, double* sgngam, ae_state *_state)
             result = ae_log(z, _state);
             return result;
         }
-        p = p-2;
+        p = p-(double)2;
         x = x+p;
         b = -1378.25152569120859100;
         b = -38801.6315134637840924+x*b;
@@ -3843,7 +3843,7 @@ double lngamma(double x, double* sgngam, ae_state *_state)
         result = q;
         return result;
     }
-    p = 1/(x*x);
+    p = (double)1/(x*x);
     if( ae_fp_greater_eq(x,1000.0) )
     {
         q = q+((7.9365079365079365079365*0.0001*p-2.7777777777777777777778*0.001)*p+0.0833333333333333333333)/x;
@@ -3874,13 +3874,13 @@ static double gammafunc_gammastirf(double x, ae_state *_state)
     double result;
 
 
-    w = 1/x;
+    w = (double)1/x;
     stir = 7.87311395793093628397E-4;
     stir = -2.29549961613378126380E-4+w*stir;
     stir = -2.68132617805781232825E-3+w*stir;
     stir = 3.47222221605458667310E-3+w*stir;
     stir = 8.33333333333482257126E-2+w*stir;
-    w = 1+w*stir;
+    w = (double)1+w*stir;
     y = ae_exp(x, _state);
     if( ae_fp_greater(x,143.01608) )
     {
@@ -3962,7 +3962,7 @@ double errorfunction(double x, ae_state *_state)
         result = s;
         return result;
     }
-    result = s*(1-errorfunctionc(x, _state));
+    result = s*((double)1-errorfunctionc(x, _state));
     return result;
 }
 
@@ -4003,7 +4003,7 @@ double errorfunctionc(double x, ae_state *_state)
 
     if( ae_fp_less(x,(double)(0)) )
     {
-        result = 2-errorfunctionc(-x, _state);
+        result = (double)2-errorfunctionc(-x, _state);
         return result;
     }
     if( ae_fp_less(x,0.5) )
@@ -4047,7 +4047,7 @@ double normaldistribution(double x, ae_state *_state)
     double result;
 
 
-    result = 0.5*(errorfunction(x/1.41421356237309504880, _state)+1);
+    result = 0.5*(errorfunction(x/1.41421356237309504880, _state)+(double)1);
     return result;
 }
 
@@ -4070,7 +4070,7 @@ double normalpdf(double x, ae_state *_state)
 
 
     ae_assert(ae_isfinite(x, _state), "NormalPDF: X is infinite", _state);
-    result = ae_exp(-x*x/2, _state)/ae_sqrt(2*ae_pi, _state);
+    result = ae_exp(-x*x/(double)2, _state)/ae_sqrt((double)2*ae_pi, _state);
     return result;
 }
 
@@ -4110,7 +4110,7 @@ double normalcdf(double x, ae_state *_state)
     double result;
 
 
-    result = 0.5*(errorfunction(x/1.41421356237309504880, _state)+1);
+    result = 0.5*(errorfunction(x/1.41421356237309504880, _state)+(double)1);
     return result;
 }
 
@@ -4126,7 +4126,7 @@ double inverf(double e, ae_state *_state)
     double result;
 
 
-    result = invnormaldistribution(0.5*(e+1), _state)/ae_sqrt((double)(2), _state);
+    result = invnormaldistribution(0.5*(e+(double)1), _state)/ae_sqrt((double)(2), _state);
     return result;
 }
 
@@ -4319,8 +4319,8 @@ double bivariatenormalpdf(double x,
     ae_assert(ae_isfinite(y, _state), "BivariateNormalCDF: Y is infinite", _state);
     ae_assert(ae_isfinite(rho, _state), "BivariateNormalCDF: Rho is infinite", _state);
     ae_assert(ae_fp_less((double)(-1),rho)&&ae_fp_less(rho,(double)(1)), "BivariateNormalCDF: Rho is not in (-1,+1) range", _state);
-    onerho2 = (1-rho)*(1+rho);
-    result = ae_exp(-(x*x+y*y-2*rho*x*y)/(2*onerho2), _state)/(2*ae_pi*ae_sqrt(onerho2, _state));
+    onerho2 = ((double)1-rho)*((double)1+rho);
+    result = ae_exp(-(x*x+y*y-(double)2*rho*x*y)/((double)2*onerho2), _state)/((double)2*ae_pi*ae_sqrt(onerho2, _state));
     return result;
 }
 
@@ -4409,7 +4409,7 @@ double bivariatenormalcdf(double x,
         v = v+normaldistr_bvnintegrate3(rangea, rangeb, x, y, 0.1069393259953184, 0.9041172563704749, _state);
         v = v+normaldistr_bvnintegrate3(rangea, rangeb, x, y, 0.0471753363865118, -0.9815606342467192, _state);
         v = v+normaldistr_bvnintegrate3(rangea, rangeb, x, y, 0.0471753363865118, 0.9815606342467192, _state);
-        v = v*0.5*(rangeb-rangea)/(2*ae_pi);
+        v = v*0.5*(rangeb-rangea)/((double)2*ae_pi);
         result = normalcdf(x, _state)*normalcdf(y, _state)+v;
     }
     else
@@ -4431,16 +4431,16 @@ double bivariatenormalcdf(double x,
             fxys = ae_maxreal(0.0, normalcdf(-x, _state)-normalcdf(y, _state), _state);
         }
         rangea = (double)(0);
-        rangeb = ae_sqrt((1-rho)*(1+rho), _state);
+        rangeb = ae_sqrt(((double)1-rho)*((double)1+rho), _state);
         
         /*
          * Compute first term (analytic integral) from formula (6)
          */
         ta = rangeb;
         tb = ae_fabs(x-s*y, _state);
-        tc = (4-s*x*y)/8;
-        v0 = ta*(1-tc*(tb*tb-ta*ta)/3)*ae_exp(-tb*tb/(2*ta*ta), _state)-tb*(1-tc*tb*tb/3)*ae_sqrt(2*ae_pi, _state)*normalcdf(-tb/ta, _state);
-        v0 = v0*ae_exp(-s*x*y/2, _state)/(2*ae_pi);
+        tc = ((double)4-s*x*y)/(double)8;
+        v0 = ta*((double)1-tc*(tb*tb-ta*ta)/(double)3)*ae_exp(-tb*tb/((double)2*ta*ta), _state)-tb*((double)1-tc*tb*tb/(double)3)*ae_sqrt((double)2*ae_pi, _state)*normalcdf(-tb/ta, _state);
+        v0 = v0*ae_exp(-s*x*y/(double)2, _state)/((double)2*ae_pi);
         
         /*
          * Compute second term (numerical integral, 20-point Gauss-Legendre rule) from formula (6)
@@ -4466,7 +4466,7 @@ double bivariatenormalcdf(double x,
         v1 = v1+normaldistr_bvnintegrate6(rangea, rangeb, x, y, s, 0.0406014298003869, 0.9639719272779138, _state);
         v1 = v1+normaldistr_bvnintegrate6(rangea, rangeb, x, y, s, 0.0176140071391521, -0.9931285991850949, _state);
         v1 = v1+normaldistr_bvnintegrate6(rangea, rangeb, x, y, s, 0.0176140071391521, 0.9931285991850949, _state);
-        v1 = v1*0.5*(rangeb-rangea)/(2*ae_pi);
+        v1 = v1*0.5*(rangeb-rangea)/((double)2*ae_pi);
         result = fxys-s*(v0+v1);
     }
     result = ae_maxreal(result, (double)(0), _state);
@@ -4500,10 +4500,10 @@ static double normaldistr_bvnintegrate3(double rangea,
 
     r = (rangeb-rangea)*0.5*gx+(rangeb+rangea)*0.5;
     t2 = ae_tan(0.5*r, _state);
-    dd = 1/(1+t2*t2);
-    sinr = 2*t2*dd;
-    cosr = (1-t2*t2)*dd;
-    result = gw*ae_exp(-(x*x+y*y-2*x*y*sinr)/(2*cosr*cosr), _state);
+    dd = (double)1/((double)1+t2*t2);
+    sinr = (double)2*t2*dd;
+    cosr = ((double)1-t2*t2)*dd;
+    result = gw*ae_exp(-(x*x+y*y-(double)2*x*y*sinr)/((double)2*cosr*cosr), _state);
     return result;
 }
 
@@ -4533,11 +4533,11 @@ static double normaldistr_bvnintegrate6(double rangea,
 
 
     r = (rangeb-rangea)*0.5*gx+(rangeb+rangea)*0.5;
-    exphsk22x2 = ae_exp(-(x-s*y)*(x-s*y)/(2*r*r), _state);
-    exphsk2 = ae_exp(-x*s*y/2, _state);
-    sqrt1x2 = ae_sqrt((1-r)*(1+r), _state);
-    exphsk1sqrt1x2 = ae_exp(-x*s*y/(1+sqrt1x2), _state);
-    result = gw*exphsk22x2*(exphsk1sqrt1x2/sqrt1x2-exphsk2*(1+(4-x*y*s)*r*r/8));
+    exphsk22x2 = ae_exp(-(x-s*y)*(x-s*y)/((double)2*r*r), _state);
+    exphsk2 = ae_exp(-x*s*y/(double)2, _state);
+    sqrt1x2 = ae_sqrt(((double)1-r)*((double)1+r), _state);
+    exphsk1sqrt1x2 = ae_exp(-x*s*y/((double)1+sqrt1x2), _state);
+    result = gw*exphsk22x2*(exphsk1sqrt1x2/sqrt1x2-exphsk2*((double)1+((double)4-x*y*s)*r*r/(double)8));
     return result;
 }
 
@@ -5581,7 +5581,7 @@ double studenttdistribution(ae_int_t k, double t, ae_state *_state)
             j = 3;
             while(j<=k-2&&ae_fp_greater(tz/f,ae_machineepsilon))
             {
-                tz = tz*((j-1)/(z*j));
+                tz = tz*((double)(j-1)/(z*(double)j));
                 f = f+tz;
                 j = j+2;
             }
@@ -5596,7 +5596,7 @@ double studenttdistribution(ae_int_t k, double t, ae_state *_state)
         j = 2;
         while(j<=k-2&&ae_fp_greater(tz/f,ae_machineepsilon))
         {
-            tz = tz*((j-1)/(z*j));
+            tz = tz*((double)(j-1)/(z*(double)j));
             f = f+tz;
             j = j+2;
         }
@@ -5665,11 +5665,11 @@ double invstudenttdistribution(ae_int_t k, double p, ae_state *_state)
     z = invincompletebeta(0.5*rk, 0.5, 2.0*p, _state);
     if( ae_fp_less(ae_maxrealnumber*z,rk) )
     {
-        result = rflg*ae_maxrealnumber;
+        result = (double)rflg*ae_maxrealnumber;
         return result;
     }
     t = ae_sqrt(rk/z-rk, _state);
-    result = rflg*t;
+    result = (double)rflg*t;
     return result;
 }
 
@@ -5717,9 +5717,9 @@ double fdistribution(ae_int_t a, ae_int_t b, double x, ae_state *_state)
 
 
     ae_assert((a>=1&&b>=1)&&ae_fp_greater_eq(x,(double)(0)), "Domain error in FDistribution", _state);
-    w = a*x;
-    w = w/(b+w);
-    result = incompletebeta(0.5*a, 0.5*b, w, _state);
+    w = (double)a*x;
+    w = w/((double)b+w);
+    result = incompletebeta(0.5*(double)a, 0.5*(double)b, w, _state);
     return result;
 }
 
@@ -5767,8 +5767,8 @@ double fcdistribution(ae_int_t a, ae_int_t b, double x, ae_state *_state)
 
 
     ae_assert((a>=1&&b>=1)&&ae_fp_greater_eq(x,(double)(0)), "Domain error in FCDistribution", _state);
-    w = b/(b+a*x);
-    result = incompletebeta(0.5*b, 0.5*a, w, _state);
+    w = (double)b/((double)b+(double)a*x);
+    result = incompletebeta(0.5*(double)b, 0.5*(double)a, w, _state);
     return result;
 }
 
@@ -5822,7 +5822,7 @@ double invfdistribution(ae_int_t a,
     /*
      * Compute probability for x = 0.5
      */
-    w = incompletebeta(0.5*b, 0.5*a, 0.5, _state);
+    w = incompletebeta(0.5*(double)b, 0.5*(double)a, 0.5, _state);
     
     /*
      * If that is greater than y, then the solution w < .5
@@ -5830,13 +5830,13 @@ double invfdistribution(ae_int_t a,
      */
     if( ae_fp_greater(w,y)||ae_fp_less(y,0.001) )
     {
-        w = invincompletebeta(0.5*b, 0.5*a, y, _state);
-        result = (b-b*w)/(a*w);
+        w = invincompletebeta(0.5*(double)b, 0.5*(double)a, y, _state);
+        result = ((double)b-(double)b*w)/((double)a*w);
     }
     else
     {
-        w = invincompletebeta(0.5*a, 0.5*b, 1.0-y, _state);
-        result = b*w/(a*(1.0-w));
+        w = invincompletebeta(0.5*(double)a, 0.5*(double)b, 1.0-y, _state);
+        result = (double)b*w/((double)a*(1.0-w));
     }
     return result;
 }
@@ -5894,7 +5894,7 @@ double incompletegamma(double a, double x, ae_state *_state)
     }
     if( ae_fp_greater(x,(double)(1))&&ae_fp_greater(x,a) )
     {
-        result = 1-incompletegammac(a, x, _state);
+        result = (double)1-incompletegammac(a, x, _state);
         return result;
     }
     ax = a*ae_log(x, _state)-x-lngamma(a, &tmp, _state);
@@ -5909,7 +5909,7 @@ double incompletegamma(double a, double x, ae_state *_state)
     ans = (double)(1);
     do
     {
-        r = r+1;
+        r = r+(double)1;
         c = c*x/r;
         ans = ans+c;
     }
@@ -5985,7 +5985,7 @@ double incompletegammac(double a, double x, ae_state *_state)
     }
     if( ae_fp_less(x,(double)(1))||ae_fp_less(x,a) )
     {
-        result = 1-incompletegamma(a, x, _state);
+        result = (double)1-incompletegamma(a, x, _state);
         return result;
     }
     ax = a*ae_log(x, _state)-x-lngamma(a, &tmp, _state);
@@ -5995,19 +5995,19 @@ double incompletegammac(double a, double x, ae_state *_state)
         return result;
     }
     ax = ae_exp(ax, _state);
-    y = 1-a;
-    z = x+y+1;
+    y = (double)1-a;
+    z = x+y+(double)1;
     c = (double)(0);
     pkm2 = (double)(1);
     qkm2 = x;
-    pkm1 = x+1;
+    pkm1 = x+(double)1;
     qkm1 = z*x;
     ans = pkm1/qkm1;
     do
     {
-        c = c+1;
-        y = y+1;
-        z = z+2;
+        c = c+(double)1;
+        y = y+(double)1;
+        z = z+(double)2;
         yc = y*c;
         pk = pkm1*z-pkm2*yc;
         qk = qkm1*z-qkm2*yc;
@@ -6100,9 +6100,9 @@ double invincompletegammac(double a, double y0, ae_state *_state)
     yl = (double)(0);
     x1 = (double)(0);
     yh = (double)(1);
-    dithresh = 5*igammaepsilon;
-    d = 1/(9*a);
-    y = 1-d-invnormaldistribution(y0, _state)*ae_sqrt(d, _state);
+    dithresh = (double)5*igammaepsilon;
+    d = (double)1/((double)9*a);
+    y = (double)1-d-invnormaldistribution(y0, _state)*ae_sqrt(d, _state);
     x = a*y*y*y;
     lgm = lngamma(a, &tmp, _state);
     i = 0;
@@ -6129,7 +6129,7 @@ double invincompletegammac(double a, double y0, ae_state *_state)
             x1 = x;
             yh = y;
         }
-        d = (a-1)*ae_log(x, _state)-x-lgm;
+        d = (a-(double)1)*ae_log(x, _state)-x-lgm;
         if( ae_fp_less(d,-709.78271289338399) )
         {
             d = 0.0625;
@@ -6153,7 +6153,7 @@ double invincompletegammac(double a, double y0, ae_state *_state)
         }
         while(ae_fp_eq(x0,iinvgammabignumber))
         {
-            x = (1+d)*x;
+            x = ((double)1+d)*x;
             y = incompletegammac(a, x, _state);
             if( ae_fp_less(y,y0) )
             {
@@ -6352,7 +6352,7 @@ double invchisquaredistribution(double v, double y, ae_state *_state)
 
 
     ae_assert((ae_fp_greater_eq(y,(double)(0))&&ae_fp_less_eq(y,(double)(1)))&&ae_fp_greater_eq(v,(double)(1)), "Domain error in InvChiSquareDistribution", _state);
-    result = 2*invincompletegammac(0.5*v, y, _state);
+    result = (double)2*invincompletegammac(0.5*v, y, _state);
     return result;
 }
 
@@ -6642,7 +6642,7 @@ double exponentialintegralei(double x, ae_state *_state)
     }
     if( ae_fp_less(x,(double)(4)) )
     {
-        w = 1/x;
+        w = (double)1/x;
         f1 = 1.981808503259689673238E-2;
         f1 = f1*w-1.271645625984917501326;
         f1 = f1*w-2.088160335681228318920;
@@ -6660,12 +6660,12 @@ double exponentialintegralei(double x, ae_state *_state)
         f2 = f2*w+1.727439612206521482874E-4;
         f2 = f2*w+3.953167195549672482304E-5;
         f = f1/f2;
-        result = ae_exp(x, _state)*w*(1+w*f);
+        result = ae_exp(x, _state)*w*((double)1+w*f);
         return result;
     }
     if( ae_fp_less(x,(double)(8)) )
     {
-        w = 1/x;
+        w = (double)1/x;
         f1 = -1.373215375871208729803;
         f1 = f1*w-7.084559133740838761406E-1;
         f1 = f1*w+1.580806855547941010501;
@@ -6684,12 +6684,12 @@ double exponentialintegralei(double x, ae_state *_state)
         f2 = f2*w+(-4.729848351866523044863E-6);
         f2 = f2*w+2.665195537390710170105E-6;
         f = f1/f2;
-        result = ae_exp(x, _state)*w*(1+w*f);
+        result = ae_exp(x, _state)*w*((double)1+w*f);
         return result;
     }
     if( ae_fp_less(x,(double)(16)) )
     {
-        w = 1/x;
+        w = (double)1/x;
         f1 = -2.106934601691916512584;
         f1 = f1*w+1.732733869664688041885;
         f1 = f1*w-2.423619178935841904839E-1;
@@ -6711,12 +6711,12 @@ double exponentialintegralei(double x, ae_state *_state)
         f2 = f2*w+1.394634930353847498145E-8;
         f2 = f2*w+6.150865933977338354138E-10;
         f = f1/f2;
-        result = ae_exp(x, _state)*w*(1+w*f);
+        result = ae_exp(x, _state)*w*((double)1+w*f);
         return result;
     }
     if( ae_fp_less(x,(double)(32)) )
     {
-        w = 1/x;
+        w = (double)1/x;
         f1 = -2.458119367674020323359E-1;
         f1 = f1*w-1.483382253322077687183E-1;
         f1 = f1*w+7.248291795735551591813E-2;
@@ -6735,12 +6735,12 @@ double exponentialintegralei(double x, ae_state *_state)
         f2 = f2*w+2.728938403476726394024E-6;
         f2 = f2*w-4.239462431819542051337E-8;
         f = f1/f2;
-        result = ae_exp(x, _state)*w*(1+w*f);
+        result = ae_exp(x, _state)*w*((double)1+w*f);
         return result;
     }
     if( ae_fp_less(x,(double)(64)) )
     {
-        w = 1/x;
+        w = (double)1/x;
         f1 = 1.212561118105456670844E-1;
         f1 = f1*w-5.823133179043894485122E-1;
         f1 = f1*w+2.348887314557016779211E-1;
@@ -6754,10 +6754,10 @@ double exponentialintegralei(double x, ae_state *_state)
         f2 = f2*w+1.560544881127388842819E-3;
         f2 = f2*w-2.523137093603234562648E-5;
         f = f1/f2;
-        result = ae_exp(x, _state)*w*(1+w*f);
+        result = ae_exp(x, _state)*w*((double)1+w*f);
         return result;
     }
-    w = 1/x;
+    w = (double)1/x;
     f1 = -7.657847078286127362028E-1;
     f1 = f1*w+6.886192415566705051750E-1;
     f1 = f1*w-2.132598113545206124553E-1;
@@ -6778,7 +6778,7 @@ double exponentialintegralei(double x, ae_state *_state)
     f2 = f2*w+1.239754287483206878024E-7;
     f2 = f2*w-1.086076102793126632978E-9;
     f = f1/f2;
-    result = ae_exp(x, _state)*w*(1+w*f);
+    result = ae_exp(x, _state)*w*((double)1+w*f);
     return result;
 }
 
@@ -6854,13 +6854,13 @@ double exponentialintegralen(double x, ae_int_t n, ae_state *_state)
     }
     if( n>5000 )
     {
-        xk = x+n;
-        yk = 1/(xk*xk);
+        xk = x+(double)n;
+        yk = (double)1/(xk*xk);
         t = (double)(n);
-        result = yk*t*(6*x*x-8*t*x+t*t);
+        result = yk*t*((double)6*x*x-(double)8*t*x+t*t);
         result = yk*(result+t*(t-2.0*x));
         result = yk*(result+t);
-        result = (result+1)*ae_exp(-x, _state)/xk;
+        result = (result+(double)1)*ae_exp(-x, _state)/xk;
         return result;
     }
     if( ae_fp_less_eq(x,(double)(1)) )
@@ -6884,9 +6884,9 @@ double exponentialintegralen(double x, ae_int_t n, ae_state *_state)
         }
         do
         {
-            xk = xk+1;
+            xk = xk+(double)1;
             yk = yk*z/xk;
-            pk = pk+1;
+            pk = pk+(double)1;
             if( ae_fp_neq(pk,(double)(0)) )
             {
                 result = result+yk/pk;
@@ -6904,7 +6904,7 @@ double exponentialintegralen(double x, ae_int_t n, ae_state *_state)
         t = (double)(1);
         for(i=1; i<=n-1; i++)
         {
-            t = t*z/i;
+            t = t*z/(double)i;
         }
         result = psi*t-result;
         return result;
@@ -6915,7 +6915,7 @@ double exponentialintegralen(double x, ae_int_t n, ae_state *_state)
         pkm2 = (double)(1);
         qkm2 = x;
         pkm1 = 1.0;
-        qkm1 = x+n;
+        qkm1 = x+(double)n;
         result = pkm1/qkm1;
         do
         {
@@ -6923,7 +6923,7 @@ double exponentialintegralen(double x, ae_int_t n, ae_state *_state)
             if( k%2==1 )
             {
                 yk = (double)(1);
-                xk = n+(double)(k-1)/(double)2;
+                xk = (double)n+(double)(k-1)/(double)2;
             }
             else
             {
@@ -7026,10 +7026,10 @@ void jacobianellipticfunctions(double u,
     ae_frame_make(_state, &_frame_block);
     memset(&a, 0, sizeof(a));
     memset(&c, 0, sizeof(c));
-    *sn = 0;
-    *cn = 0;
-    *dn = 0;
-    *ph = 0;
+    *sn = 0.0;
+    *cn = 0.0;
+    *dn = 0.0;
+    *ph = 0.0;
     ae_vector_init(&a, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&c, 0, DT_REAL, _state, ae_true);
 
@@ -7164,8 +7164,8 @@ void sinecosineintegrals(double x,
     double gn;
     double gd;
 
-    *si = 0;
-    *ci = 0;
+    *si = 0.0;
+    *ci = 0.0;
 
     if( ae_fp_less(x,(double)(0)) )
     {
@@ -7370,8 +7370,8 @@ void hyperbolicsinecosineintegrals(double x,
     double b1;
     double b2;
 
-    *shi = 0;
-    *chi = 0;
+    *shi = 0.0;
+    *chi = 0.0;
 
     if( ae_fp_less(x,(double)(0)) )
     {
@@ -7600,7 +7600,7 @@ double chebyshevcalculate(ae_int_t r,
     else
     {
         a = (double)(1);
-        b = 2*x;
+        b = (double)2*x;
     }
     
     /*
@@ -7622,7 +7622,7 @@ double chebyshevcalculate(ae_int_t r,
      */
     for(i=2; i<=n; i++)
     {
-        result = 2*x*b-a;
+        result = (double)2*x*b-a;
         a = b;
         b = result;
     }
@@ -7663,7 +7663,7 @@ double chebyshevsum(/* Real    */ ae_vector* c,
     b2 = (double)(0);
     for(i=n; i>=1; i--)
     {
-        result = 2*x*b1-b2+c->ptr.p_double[i];
+        result = (double)2*x*b1-b2+c->ptr.p_double[i];
         b2 = b1;
         b1 = result;
     }
@@ -7673,7 +7673,7 @@ double chebyshevsum(/* Real    */ ae_vector* c,
     }
     else
     {
-        result = -b2+2*x*b1+c->ptr.p_double[0];
+        result = -b2+(double)2*x*b1+c->ptr.p_double[0];
     }
     return result;
 }
@@ -7707,10 +7707,10 @@ void chebyshevcoefficients(ae_int_t n,
     }
     else
     {
-        c->ptr.p_double[n] = ae_exp((n-1)*ae_log((double)(2), _state), _state);
+        c->ptr.p_double[n] = ae_exp((double)(n-1)*ae_log((double)(2), _state), _state);
         for(i=0; i<=n/2-1; i++)
         {
-            c->ptr.p_double[n-2*(i+1)] = -c->ptr.p_double[n-2*i]*(n-2*i)*(n-2*i-1)/4/(i+1)/(n-i-1);
+            c->ptr.p_double[n-2*(i+1)] = -c->ptr.p_double[n-2*i]*(double)(n-2*i)*(double)(n-2*i-1)/(double)4/(double)(i+1)/(double)(n-i-1);
         }
     }
 }
@@ -7763,7 +7763,7 @@ void fromchebyshev(/* Real    */ ae_vector* a,
             {
                 if( i!=0 )
                 {
-                    b->ptr.p_double[k] = 2*d;
+                    b->ptr.p_double[k] = (double)2*d;
                 }
                 if( k>i+1 )
                 {
@@ -8065,20 +8065,20 @@ void fresnelintegral(double x, double* c, double* s, ae_state *_state)
         cd = cd*t+8.68029542941784300606E-4;
         cd = cd*t+4.12142090722199792936E-2;
         cd = cd*t+1.00000000000000000118E0;
-        *s = ae_sign(xxa, _state)*x*x2*sn/sd;
-        *c = ae_sign(xxa, _state)*x*cn/cd;
+        *s = (double)ae_sign(xxa, _state)*x*x2*sn/sd;
+        *c = (double)ae_sign(xxa, _state)*x*cn/cd;
         return;
     }
     if( ae_fp_greater(x,36974.0) )
     {
-        *c = ae_sign(xxa, _state)*0.5;
-        *s = ae_sign(xxa, _state)*0.5;
+        *c = (double)ae_sign(xxa, _state)*0.5;
+        *s = (double)ae_sign(xxa, _state)*0.5;
         return;
     }
     x2 = x*x;
     t = mpi*x2;
-    u = 1/(t*t);
-    t = 1/t;
+    u = (double)1/(t*t);
+    t = (double)1/t;
     fn = 4.21543555043677546506E-1;
     fn = fn*u+1.43407919780758885261E-1;
     fn = fn*u+1.15220955073585758835E-2;
@@ -8123,7 +8123,7 @@ void fresnelintegral(double x, double* c, double* s, ae_state *_state)
     gd = gd*u+1.38796531259578871258E-15;
     gd = gd*u+8.39158816283118707363E-19;
     gd = gd*u+1.86958710162783236342E-22;
-    f = 1-u*fn/fd;
+    f = (double)1-u*fn/fd;
     g = t*gn/gd;
     t = mpio2*x2;
     cc = ae_cos(t, _state);
@@ -8131,8 +8131,8 @@ void fresnelintegral(double x, double* c, double* s, ae_state *_state)
     t = mpi*x;
     *c = 0.5+(f*ss-g*cc)/t;
     *s = 0.5-(f*cc+g*ss)/t;
-    *c = *c*ae_sign(xxa, _state);
-    *s = *s*ae_sign(xxa, _state);
+    *c = *c*(double)ae_sign(xxa, _state);
+    *s = *s*(double)ae_sign(xxa, _state);
 }
 
 
@@ -8346,10 +8346,10 @@ void airy(double x,
     double bppn;
     double bppd;
 
-    *ai = 0;
-    *aip = 0;
-    *bi = 0;
-    *bip = 0;
+    *ai = 0.0;
+    *aip = 0.0;
+    *bi = 0.0;
+    *bip = 0.0;
 
     sqpii = 5.64189583547756286948E-1;
     c1 = 0.35502805388781723926;
@@ -8688,7 +8688,7 @@ double dawsonintegral(double x, ae_state *_state)
         ad = ad*x2+5.74918629489320327824E-1;
         ad = ad*x2+1.00000000000000000539E0;
         y = x*an/ad;
-        result = sg*y;
+        result = (double)sg*y;
         return result;
     }
     x2 = 1.0/(x*x);
@@ -8717,12 +8717,12 @@ double dawsonintegral(double x, ae_state *_state)
         bd = bd*x2-4.91324691331920606875E-9;
         bd = bd*x2+7.18466403235734541950E-11;
         y = 1.0/x+x2*bn/(bd*x);
-        result = sg*0.5*y;
+        result = (double)sg*0.5*y;
         return result;
     }
     if( ae_fp_greater(x,1.0E9) )
     {
-        result = sg*0.5/x;
+        result = (double)sg*0.5/x;
         return result;
     }
     cn = -5.90592860534773254987E-1;
@@ -8737,7 +8737,7 @@ double dawsonintegral(double x, ae_state *_state)
     cd = cd*x2+3.44278924041233391079E-2;
     cd = cd*x2-9.73655226040941223894E-4;
     y = 1.0/x+x2*cn/(cd*x);
-    result = sg*0.5*y;
+    result = (double)sg*0.5*y;
     return result;
 }
 
@@ -8770,7 +8770,7 @@ double hermitecalculate(ae_int_t n, double x, ae_state *_state)
      * Prepare A and B
      */
     a = (double)(1);
-    b = 2*x;
+    b = (double)2*x;
     
     /*
      * Special cases: N=0 or N=1
@@ -8791,7 +8791,7 @@ double hermitecalculate(ae_int_t n, double x, ae_state *_state)
      */
     for(i=2; i<=n; i++)
     {
-        result = 2*x*b-2*(i-1)*a;
+        result = (double)2*x*b-(double)(2*(i-1))*a;
         a = b;
         b = result;
     }
@@ -8828,7 +8828,7 @@ double hermitesum(/* Real    */ ae_vector* c,
     result = (double)(0);
     for(i=n; i>=0; i--)
     {
-        result = 2*(x*b1-(i+1)*b2)+c->ptr.p_double[i];
+        result = (double)2*(x*b1-(double)(i+1)*b2)+c->ptr.p_double[i];
         b2 = b1;
         b1 = result;
     }
@@ -8858,10 +8858,10 @@ void hermitecoefficients(ae_int_t n,
     {
         c->ptr.p_double[i] = (double)(0);
     }
-    c->ptr.p_double[n] = ae_exp(n*ae_log((double)(2), _state), _state);
+    c->ptr.p_double[n] = ae_exp((double)n*ae_log((double)(2), _state), _state);
     for(i=0; i<=n/2-1; i++)
     {
-        c->ptr.p_double[n-2*(i+1)] = -c->ptr.p_double[n-2*i]*(n-2*i)*(n-2*i-1)/4/(i+1);
+        c->ptr.p_double[n-2*(i+1)] = -c->ptr.p_double[n-2*i]*(double)(n-2*i)*(double)(n-2*i-1)/(double)4/(double)(i+1);
     }
 }
 
@@ -8903,7 +8903,7 @@ double legendrecalculate(ae_int_t n, double x, ae_state *_state)
     }
     for(i=2; i<=n; i++)
     {
-        result = ((2*i-1)*x*b-(i-1)*a)/i;
+        result = ((double)(2*i-1)*x*b-(double)(i-1)*a)/(double)i;
         a = b;
         b = result;
     }
@@ -8940,7 +8940,7 @@ double legendresum(/* Real    */ ae_vector* c,
     result = (double)(0);
     for(i=n; i>=0; i--)
     {
-        result = (2*i+1)*x*b1/(i+1)-(i+1)*b2/(i+2)+c->ptr.p_double[i];
+        result = (double)(2*i+1)*x*b1/(double)(i+1)-(double)(i+1)*b2/(double)(i+2)+c->ptr.p_double[i];
         b2 = b1;
         b1 = result;
     }
@@ -8973,11 +8973,11 @@ void legendrecoefficients(ae_int_t n,
     c->ptr.p_double[n] = (double)(1);
     for(i=1; i<=n; i++)
     {
-        c->ptr.p_double[n] = c->ptr.p_double[n]*(n+i)/2/i;
+        c->ptr.p_double[n] = c->ptr.p_double[n]*(double)(n+i)/(double)2/(double)i;
     }
     for(i=0; i<=n/2-1; i++)
     {
-        c->ptr.p_double[n-2*(i+1)] = -c->ptr.p_double[n-2*i]*(n-2*i)*(n-2*i-1)/2/(i+1)/(2*(n-i)-1);
+        c->ptr.p_double[n-2*(i+1)] = -c->ptr.p_double[n-2*i]*(double)(n-2*i)*(double)(n-2*i-1)/(double)2/(double)(i+1)/(double)(2*(n-i)-1);
     }
 }
 
@@ -9034,8 +9034,8 @@ double besselj0(double x, ae_state *_state)
     if( ae_fp_greater(x,8.0) )
     {
         bessel_besselasympt0(x, &pzero, &qzero, _state);
-        nn = x-ae_pi/4;
-        result = ae_sqrt(2/ae_pi/x, _state)*(pzero*ae_cos(nn, _state)-qzero*ae_sin(nn, _state));
+        nn = x-ae_pi/(double)4;
+        result = ae_sqrt((double)2/ae_pi/x, _state)*(pzero*ae_cos(nn, _state)-qzero*ae_sin(nn, _state));
         return result;
     }
     xsq = ae_sqr(x, _state);
@@ -9102,8 +9102,8 @@ double besselj1(double x, ae_state *_state)
     if( ae_fp_greater(x,8.0) )
     {
         bessel_besselasympt1(x, &pzero, &qzero, _state);
-        nn = x-3*ae_pi/4;
-        result = ae_sqrt(2/ae_pi/x, _state)*(pzero*ae_cos(nn, _state)-qzero*ae_sin(nn, _state));
+        nn = x-(double)3*ae_pi/(double)4;
+        result = ae_sqrt((double)2/ae_pi/x, _state)*(pzero*ae_cos(nn, _state)-qzero*ae_sin(nn, _state));
         if( ae_fp_less(s,(double)(0)) )
         {
             result = -result;
@@ -9200,12 +9200,12 @@ double besseljn(ae_int_t n, double x, ae_state *_state)
     }
     if( n==0 )
     {
-        result = sg*besselj0(x, _state);
+        result = (double)sg*besselj0(x, _state);
         return result;
     }
     if( n==1 )
     {
-        result = sg*besselj1(x, _state);
+        result = (double)sg*besselj1(x, _state);
         return result;
     }
     if( n==2 )
@@ -9216,7 +9216,7 @@ double besseljn(ae_int_t n, double x, ae_state *_state)
         }
         else
         {
-            result = sg*(2.0*besselj1(x, _state)/x-besselj0(x, _state));
+            result = (double)sg*(2.0*besselj1(x, _state)/x-besselj0(x, _state));
         }
         return result;
     }
@@ -9258,7 +9258,7 @@ double besseljn(ae_int_t n, double x, ae_state *_state)
     {
         ans = besselj0(x, _state)/pkm1;
     }
-    result = sg*ans;
+    result = (double)sg*ans;
     return result;
 }
 
@@ -9305,8 +9305,8 @@ double bessely0(double x, ae_state *_state)
     if( ae_fp_greater(x,8.0) )
     {
         bessel_besselasympt0(x, &pzero, &qzero, _state);
-        nn = x-ae_pi/4;
-        result = ae_sqrt(2/ae_pi/x, _state)*(pzero*ae_sin(nn, _state)+qzero*ae_cos(nn, _state));
+        nn = x-ae_pi/(double)4;
+        result = ae_sqrt((double)2/ae_pi/x, _state)*(pzero*ae_sin(nn, _state)+qzero*ae_cos(nn, _state));
         return result;
     }
     xsq = ae_sqr(x, _state);
@@ -9328,7 +9328,7 @@ double bessely0(double x, ae_state *_state)
     q4 = 23928830434997818.57439356652+xsq*q4;
     q4 = 4192417043410839973.904769661+xsq*q4;
     q4 = 372645883898616588198.9980+xsq*q4;
-    result = p4/q4+2/ae_pi*besselj0(x, _state)*ae_log(x, _state);
+    result = p4/q4+(double)2/ae_pi*besselj0(x, _state)*ae_log(x, _state);
     return result;
 }
 
@@ -9368,8 +9368,8 @@ double bessely1(double x, ae_state *_state)
     if( ae_fp_greater(x,8.0) )
     {
         bessel_besselasympt1(x, &pzero, &qzero, _state);
-        nn = x-3*ae_pi/4;
-        result = ae_sqrt(2/ae_pi/x, _state)*(pzero*ae_sin(nn, _state)+qzero*ae_cos(nn, _state));
+        nn = x-(double)3*ae_pi/(double)4;
+        result = ae_sqrt((double)2/ae_pi/x, _state)*(pzero*ae_sin(nn, _state)+qzero*ae_cos(nn, _state));
         return result;
     }
     xsq = ae_sqr(x, _state);
@@ -9392,7 +9392,7 @@ double bessely1(double x, ae_state *_state)
     q4 = 29549879358971486742.90758119+xsq*q4;
     q4 = 5435310377188854170800.653097+xsq*q4;
     q4 = 508206736694124324531442.4152+xsq*q4;
-    result = x*p4/q4+2/ae_pi*(besselj1(x, _state)*ae_log(x, _state)-1/x);
+    result = x*p4/q4+(double)2/ae_pi*(besselj1(x, _state)*ae_log(x, _state)-(double)1/x);
     return result;
 }
 
@@ -9453,7 +9453,7 @@ double besselyn(ae_int_t n, double x, ae_state *_state)
     for(i=1; i<=n-1; i++)
     {
         tmp = b;
-        b = 2*i/x*b-a;
+        b = (double)(2*i)/x*b-a;
         a = tmp;
     }
     result = s*b;
@@ -9925,15 +9925,15 @@ double besselkn(ae_int_t nn, double x, ae_state *_state)
             }
             else
             {
-                nk1f = fn/n;
+                nk1f = fn/(double)n;
                 kf = 1.0;
                 s = nk1f;
                 z = -z0;
                 zn = 1.0;
                 for(i=1; i<=n-1; i++)
                 {
-                    nk1f = nk1f/(n-i);
-                    kf = kf*i;
+                    nk1f = nk1f/(double)(n-i);
+                    kf = kf*(double)i;
                     zn = zn*z;
                     t = nk1f*zn/kf;
                     s = s+t;
@@ -9957,16 +9957,16 @@ double besselkn(ae_int_t nn, double x, ae_state *_state)
         }
         else
         {
-            pn = pn+1.0/n;
+            pn = pn+1.0/(double)n;
             t = 1.0/fn;
         }
         s = (pk+pn-tlg)*t;
         k = 1.0;
         do
         {
-            t = t*(z0/(k*(k+n)));
+            t = t*(z0/(k*(k+(double)n)));
             pk = pk+1.0/k;
-            pn = pn+1.0/(k+n);
+            pn = pn+1.0/(k+(double)n);
             s = s+(pk+pn-tlg)*t;
             k = k+1.0;
         }
@@ -10108,8 +10108,8 @@ static void bessel_besselasympt0(double x,
     double p3;
     double q3;
 
-    *pzero = 0;
-    *qzero = 0;
+    *pzero = 0.0;
+    *qzero = 0.0;
 
     xsq = 64.0/(x*x);
     p2 = 0.0;
@@ -10141,7 +10141,7 @@ static void bessel_besselasympt0(double x,
     q3 = 666745.4239319826986004038103+xsq*q3;
     q3 = 255015.5108860942382983170882+xsq*q3;
     *pzero = p2/q2;
-    *qzero = 8*p3/q3/x;
+    *qzero = (double)8*p3/q3/x;
 }
 
 
@@ -10156,8 +10156,8 @@ static void bessel_besselasympt1(double x,
     double p3;
     double q3;
 
-    *pzero = 0;
-    *qzero = 0;
+    *pzero = 0.0;
+    *qzero = 0.0;
 
     xsq = 64.0/(x*x);
     p2 = -1611.616644324610116477412898;
@@ -10187,7 +10187,7 @@ static void bessel_besselasympt1(double x,
     q3 = 1819458.042243997298924553839+xsq*q3;
     q3 = 708712.8194102874357377502472+xsq*q3;
     *pzero = p2/q2;
-    *qzero = 8*p3/q3/x;
+    *qzero = (double)8*p3/q3/x;
 }
 
 
@@ -10215,7 +10215,7 @@ double laguerrecalculate(ae_int_t n, double x, ae_state *_state)
 
     result = (double)(1);
     a = (double)(1);
-    b = 1-x;
+    b = (double)1-x;
     if( n==1 )
     {
         result = b;
@@ -10223,10 +10223,10 @@ double laguerrecalculate(ae_int_t n, double x, ae_state *_state)
     i = (double)(2);
     while(ae_fp_less_eq(i,(double)(n)))
     {
-        result = ((2*i-1-x)*b-(i-1)*a)/i;
+        result = (((double)2*i-(double)1-x)*b-(i-(double)1)*a)/i;
         a = b;
         b = result;
-        i = i+1;
+        i = i+(double)1;
     }
     return result;
 }
@@ -10260,7 +10260,7 @@ double laguerresum(/* Real    */ ae_vector* c,
     result = (double)(0);
     for(i=n; i>=0; i--)
     {
-        result = (2*i+1-x)*b1/(i+1)-(i+1)*b2/(i+2)+c->ptr.p_double[i];
+        result = ((double)(2*i+1)-x)*b1/(double)(i+1)-(double)(i+1)*b2/(double)(i+2)+c->ptr.p_double[i];
         b2 = b1;
         b1 = result;
     }
@@ -10289,7 +10289,7 @@ void laguerrecoefficients(ae_int_t n,
     c->ptr.p_double[0] = (double)(1);
     for(i=0; i<=n-1; i++)
     {
-        c->ptr.p_double[i+1] = -c->ptr.p_double[i]*(n-i)/(i+1)/(i+1);
+        c->ptr.p_double[i+1] = -c->ptr.p_double[i]*(double)(n-i)/(double)(i+1)/(double)(i+1);
     }
 }
 
@@ -10472,7 +10472,7 @@ double incompleteellipticintegralk(double phi, double m, ae_state *_state)
         result = phi;
         return result;
     }
-    a = 1-m;
+    a = (double)1-m;
     if( ae_fp_eq(a,(double)(0)) )
     {
         result = ae_log(ae_tan(0.5*(pio2+phi), _state), _state);
@@ -10485,8 +10485,8 @@ double incompleteellipticintegralk(double phi, double m, ae_state *_state)
     }
     if( npio2!=0 )
     {
-        k = ellipticintegralk(1-a, _state);
-        phi = phi-npio2*pio2;
+        k = ellipticintegralk((double)1-a, _state);
+        phi = phi-(double)npio2*pio2;
     }
     else
     {
@@ -10511,14 +10511,14 @@ double incompleteellipticintegralk(double phi, double m, ae_state *_state)
             e = ae_atan(e, _state);
             if( npio2==0 )
             {
-                k = ellipticintegralk(1-a, _state);
+                k = ellipticintegralk((double)1-a, _state);
             }
             temp = k-incompleteellipticintegralk(e, m, _state);
             if( s<0 )
             {
                 temp = -temp;
             }
-            result = temp+npio2*k;
+            result = temp+(double)npio2*k;
             return result;
         }
     }
@@ -10529,7 +10529,7 @@ double incompleteellipticintegralk(double phi, double m, ae_state *_state)
     while(ae_fp_greater(ae_fabs(c/a, _state),ae_machineepsilon))
     {
         temp = b/a;
-        phi = phi+ae_atan(t*temp, _state)+md*ae_pi;
+        phi = phi+ae_atan(t*temp, _state)+(double)md*ae_pi;
         md = ae_trunc((phi+pio2)/ae_pi, _state);
         t = t*(1.0+temp)/(1.0-temp*t*t);
         c = 0.5*(a-b);
@@ -10538,12 +10538,12 @@ double incompleteellipticintegralk(double phi, double m, ae_state *_state)
         b = temp;
         d = d+d;
     }
-    temp = (ae_atan(t, _state)+md*ae_pi)/(d*a);
+    temp = (ae_atan(t, _state)+(double)md*ae_pi)/((double)d*a);
     if( s<0 )
     {
         temp = -temp;
     }
-    result = temp+npio2*k;
+    result = temp+(double)npio2*k;
     return result;
 }
 
@@ -10583,7 +10583,7 @@ double ellipticintegrale(double m, ae_state *_state)
 
 
     ae_assert(ae_fp_greater_eq(m,(double)(0))&&ae_fp_less_eq(m,(double)(1)), "Domain error in EllipticIntegralE: m<0 or m>1", _state);
-    m = 1-m;
+    m = (double)1-m;
     if( ae_fp_eq(m,(double)(0)) )
     {
         result = (double)(1);
@@ -10675,7 +10675,7 @@ double incompleteellipticintegrale(double phi, double m, ae_state *_state)
     {
         npio2 = npio2+1;
     }
-    lphi = lphi-npio2*pio2;
+    lphi = lphi-(double)npio2*pio2;
     if( ae_fp_less(lphi,(double)(0)) )
     {
         lphi = -lphi;
@@ -10694,7 +10694,7 @@ double incompleteellipticintegrale(double phi, double m, ae_state *_state)
         {
             temp = -temp;
         }
-        result = temp+npio2*ebig;
+        result = temp+(double)npio2*ebig;
         return result;
     }
     t = ae_tan(lphi, _state);
@@ -10723,7 +10723,7 @@ double incompleteellipticintegrale(double phi, double m, ae_state *_state)
             {
                 temp = -temp;
             }
-            result = temp+npio2*ebig;
+            result = temp+(double)npio2*ebig;
             return result;
         }
     }
@@ -10735,7 +10735,7 @@ double incompleteellipticintegrale(double phi, double m, ae_state *_state)
     while(ae_fp_greater(ae_fabs(c/a, _state),ae_machineepsilon))
     {
         temp = b/a;
-        lphi = lphi+ae_atan(t*temp, _state)+md*ae_pi;
+        lphi = lphi+ae_atan(t*temp, _state)+(double)md*ae_pi;
         md = ae_trunc((lphi+pio2)/ae_pi, _state);
         t = t*(1.0+temp)/(1.0-temp*t*t);
         c = 0.5*(a-b);
@@ -10746,13 +10746,13 @@ double incompleteellipticintegrale(double phi, double m, ae_state *_state)
         e = e+c*ae_sin(lphi, _state);
     }
     temp = ebig/ellipticintegralk(m, _state);
-    temp = temp*((ae_atan(t, _state)+md*ae_pi)/(d*a));
+    temp = temp*((ae_atan(t, _state)+(double)md*ae_pi)/((double)d*a));
     temp = temp+e;
     if( s<0 )
     {
         temp = -temp;
     }
-    result = temp+npio2*ebig;
+    result = temp+(double)npio2*ebig;
     return result;
 }
 

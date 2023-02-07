@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -51,6 +51,7 @@ namespace alglib
 namespace alglib_impl
 {
 #if defined(AE_COMPILE_APSERV) || !defined(AE_PARTIAL_BUILD)
+static ae_int_t apserv_maxtemporariesinnpool = 1000;
 
 
 #endif
@@ -132,6 +133,10 @@ static void tsort_tagsortfastrec(/* Real    */ ae_vector* a,
 
 
 #endif
+#if defined(AE_COMPILE_APSTRUCT) || !defined(AE_PARTIAL_BUILD)
+
+
+#endif
 #if defined(AE_COMPILE_TRLINSOLVE) || !defined(AE_PARTIAL_BUILD)
 
 
@@ -161,7 +166,7 @@ static double xblas_xfastpow(double r, ae_int_t n, ae_state *_state);
 #endif
 #if defined(AE_COMPILE_LINMIN) || !defined(AE_PARTIAL_BUILD)
 static double linmin_ftol = 0.001;
-static double linmin_xtol = 100*ae_machineepsilon;
+static double linmin_xtol = (double)100*ae_machineepsilon;
 static ae_int_t linmin_maxfev = 20;
 static double linmin_stpmin = 1.0E-50;
 static double linmin_defstpmax = 1.0E+50;
@@ -408,7 +413,7 @@ void seterrorflagdiff(ae_bool* flag,
 {
 
 
-    ae_set_error_flag(flag, ae_fp_greater(ae_fabs(val-refval, _state),tol*ae_maxreal(ae_fabs(refval, _state), s, _state)), __FILE__, __LINE__, "apserv.ap:162");
+    ae_set_error_flag(flag, ae_fp_greater(ae_fabs(val-refval, _state),tol*ae_maxreal(ae_fabs(refval, _state), s, _state)), __FILE__, __LINE__, "apserv.ap:223");
 }
 
 
@@ -601,25 +606,25 @@ void taskgenint1d(double a,
     if( n>1 )
     {
         x->ptr.p_double[0] = a;
-        y->ptr.p_double[0] = 2*ae_randomreal(_state)-1;
-        h = (b-a)/(n-1);
+        y->ptr.p_double[0] = (double)2*ae_randomreal(_state)-(double)1;
+        h = (b-a)/(double)(n-1);
         for(i=1; i<=n-1; i++)
         {
             if( i!=n-1 )
             {
-                x->ptr.p_double[i] = a+(i+0.2*(2*ae_randomreal(_state)-1))*h;
+                x->ptr.p_double[i] = a+((double)i+0.2*((double)2*ae_randomreal(_state)-(double)1))*h;
             }
             else
             {
                 x->ptr.p_double[i] = b;
             }
-            y->ptr.p_double[i] = y->ptr.p_double[i-1]+(2*ae_randomreal(_state)-1)*(x->ptr.p_double[i]-x->ptr.p_double[i-1]);
+            y->ptr.p_double[i] = y->ptr.p_double[i-1]+((double)2*ae_randomreal(_state)-(double)1)*(x->ptr.p_double[i]-x->ptr.p_double[i-1]);
         }
     }
     else
     {
         x->ptr.p_double[0] = 0.5*(a+b);
-        y->ptr.p_double[0] = 2*ae_randomreal(_state)-1;
+        y->ptr.p_double[0] = (double)2*ae_randomreal(_state)-(double)1;
     }
 }
 
@@ -652,18 +657,18 @@ void taskgenint1dequidist(double a,
     if( n>1 )
     {
         x->ptr.p_double[0] = a;
-        y->ptr.p_double[0] = 2*ae_randomreal(_state)-1;
-        h = (b-a)/(n-1);
+        y->ptr.p_double[0] = (double)2*ae_randomreal(_state)-(double)1;
+        h = (b-a)/(double)(n-1);
         for(i=1; i<=n-1; i++)
         {
-            x->ptr.p_double[i] = a+i*h;
-            y->ptr.p_double[i] = y->ptr.p_double[i-1]+(2*ae_randomreal(_state)-1)*h;
+            x->ptr.p_double[i] = a+(double)i*h;
+            y->ptr.p_double[i] = y->ptr.p_double[i-1]+((double)2*ae_randomreal(_state)-(double)1)*h;
         }
     }
     else
     {
         x->ptr.p_double[0] = 0.5*(a+b);
-        y->ptr.p_double[0] = 2*ae_randomreal(_state)-1;
+        y->ptr.p_double[0] = (double)2*ae_randomreal(_state)-(double)1;
     }
 }
 
@@ -696,21 +701,21 @@ void taskgenint1dcheb1(double a,
     {
         for(i=0; i<=n-1; i++)
         {
-            x->ptr.p_double[i] = 0.5*(b+a)+0.5*(b-a)*ae_cos(ae_pi*(2*i+1)/(2*n), _state);
+            x->ptr.p_double[i] = 0.5*(b+a)+0.5*(b-a)*ae_cos(ae_pi*(double)(2*i+1)/(double)(2*n), _state);
             if( i==0 )
             {
-                y->ptr.p_double[i] = 2*ae_randomreal(_state)-1;
+                y->ptr.p_double[i] = (double)2*ae_randomreal(_state)-(double)1;
             }
             else
             {
-                y->ptr.p_double[i] = y->ptr.p_double[i-1]+(2*ae_randomreal(_state)-1)*(x->ptr.p_double[i]-x->ptr.p_double[i-1]);
+                y->ptr.p_double[i] = y->ptr.p_double[i-1]+((double)2*ae_randomreal(_state)-(double)1)*(x->ptr.p_double[i]-x->ptr.p_double[i-1]);
             }
         }
     }
     else
     {
         x->ptr.p_double[0] = 0.5*(a+b);
-        y->ptr.p_double[0] = 2*ae_randomreal(_state)-1;
+        y->ptr.p_double[0] = (double)2*ae_randomreal(_state)-(double)1;
     }
 }
 
@@ -743,21 +748,21 @@ void taskgenint1dcheb2(double a,
     {
         for(i=0; i<=n-1; i++)
         {
-            x->ptr.p_double[i] = 0.5*(b+a)+0.5*(b-a)*ae_cos(ae_pi*i/(n-1), _state);
+            x->ptr.p_double[i] = 0.5*(b+a)+0.5*(b-a)*ae_cos(ae_pi*(double)i/(double)(n-1), _state);
             if( i==0 )
             {
-                y->ptr.p_double[i] = 2*ae_randomreal(_state)-1;
+                y->ptr.p_double[i] = (double)2*ae_randomreal(_state)-(double)1;
             }
             else
             {
-                y->ptr.p_double[i] = y->ptr.p_double[i-1]+(2*ae_randomreal(_state)-1)*(x->ptr.p_double[i]-x->ptr.p_double[i-1]);
+                y->ptr.p_double[i] = y->ptr.p_double[i-1]+((double)2*ae_randomreal(_state)-(double)1)*(x->ptr.p_double[i]-x->ptr.p_double[i-1]);
             }
         }
     }
     else
     {
         x->ptr.p_double[0] = 0.5*(a+b);
-        y->ptr.p_double[0] = 2*ae_randomreal(_state)-1;
+        y->ptr.p_double[0] = (double)2*ae_randomreal(_state)-(double)1;
     }
 }
 
@@ -812,7 +817,7 @@ ae_bool aredistinct(/* Real    */ ae_vector* x,
     ae_assert(!nonsorted, "APSERVAreDistinct: internal error (not sorted)", _state);
     for(i=1; i<=n-1; i++)
     {
-        if( ae_fp_eq((x->ptr.p_double[i]-a)/(b-a)+1,(x->ptr.p_double[i-1]-a)/(b-a)+1) )
+        if( ae_fp_eq((x->ptr.p_double[i]-a)/(b-a)+(double)1,(x->ptr.p_double[i-1]-a)/(b-a)+(double)1) )
         {
             result = ae_false;
             return result;
@@ -1001,7 +1006,7 @@ void bvectorgrowto(/* Boolean */ ae_vector* x,
     /*
      * Choose new size
      */
-    n = ae_maxint(n, ae_round(1.8*x->cnt+1, _state), _state);
+    n = ae_maxint(n, ae_round(1.8*(double)x->cnt+(double)1, _state), _state);
     
     /*
      * Grow
@@ -1060,7 +1065,7 @@ void ivectorgrowto(/* Integer */ ae_vector* x,
     /*
      * Choose new size
      */
-    n = ae_maxint(n, ae_round(1.8*x->cnt+1, _state), _state);
+    n = ae_maxint(n, ae_round(1.8*(double)x->cnt+(double)1, _state), _state);
     
     /*
      * Grow
@@ -1127,7 +1132,7 @@ void rmatrixgrowrowsto(/* Real    */ ae_matrix* a,
      */
     if( a->rows<n )
     {
-        n = ae_maxint(n, ae_round(1.8*a->rows+1, _state), _state);
+        n = ae_maxint(n, ae_round(1.8*(double)a->rows+(double)1, _state), _state);
     }
     n2 = ae_minint(a->rows, n, _state);
     m = a->cols;
@@ -1192,7 +1197,7 @@ void rmatrixgrowcolsto(/* Real    */ ae_matrix* a,
      */
     if( a->cols<n )
     {
-        n = ae_maxint(n, ae_round(1.8*a->cols+1, _state), _state);
+        n = ae_maxint(n, ae_round(1.8*(double)a->cols+(double)1, _state), _state);
     }
     n2 = ae_minint(a->cols, n, _state);
     m = a->rows;
@@ -1249,7 +1254,7 @@ void rvectorgrowto(/* Real    */ ae_vector* x,
     /*
      * Choose new size
      */
-    n = ae_maxint(n, ae_round(1.8*x->cnt+1, _state), _state);
+    n = ae_maxint(n, ae_round(1.8*(double)x->cnt+(double)1, _state), _state);
     
     /*
      * Grow
@@ -1506,6 +1511,64 @@ ae_bool isfinitevector(/* Real    */ ae_vector* x,
         v = 0.01*v+x->ptr.p_double[i];
     }
     result = ae_isfinite(v, _state);
+    return result;
+}
+
+
+/*************************************************************************
+This function checks that length(X) is at least N and first N values  from
+X[] are finite or NANs
+
+  -- ALGLIB --
+     Copyright 18.06.2010 by Bochkanov Sergey
+*************************************************************************/
+ae_bool isfiniteornanvector(/* Real    */ ae_vector* x,
+     ae_int_t n,
+     ae_state *_state)
+{
+    ae_int_t i;
+    double v;
+    ae_bool result;
+
+
+    ae_assert(n>=0, "APSERVIsFiniteVector: internal error (N<0)", _state);
+    if( n==0 )
+    {
+        result = ae_true;
+        return result;
+    }
+    if( x->cnt<n )
+    {
+        result = ae_false;
+        return result;
+    }
+    
+    /*
+     * Is it entirely finite?
+     */
+    v = (double)(0);
+    for(i=0; i<=n-1; i++)
+    {
+        v = 0.01*v+x->ptr.p_double[i];
+    }
+    if( ae_isfinite(v, _state) )
+    {
+        result = ae_true;
+        return result;
+    }
+    
+    /*
+     * OK, check that either finite or nan
+     */
+    for(i=0; i<=n-1; i++)
+    {
+        if( !ae_isfinite(x->ptr.p_double[i], _state)&&!ae_isnan(x->ptr.p_double[i], _state) )
+        {
+            result = ae_false;
+            return result;
+        }
+    }
+    result = ae_true;
     return result;
 }
 
@@ -1779,7 +1842,7 @@ double safepythag2(double x, double y, ae_state *_state)
     }
     else
     {
-        result = w*ae_sqrt(1+ae_sqr(z/w, _state), _state);
+        result = w*ae_sqrt((double)1+ae_sqr(z/w, _state), _state);
     }
     return result;
 }
@@ -1833,7 +1896,7 @@ ae_int_t saferdiv(double x, double y, double* r, ae_state *_state)
 {
     ae_int_t result;
 
-    *r = 0;
+    *r = 0.0;
 
     
     /*
@@ -1927,7 +1990,7 @@ double safeminposrv(double x, double y, double v, ae_state *_state)
     double result;
 
 
-    if( y>=1 )
+    if( y>=(double)1 )
     {
         
         /*
@@ -1984,7 +2047,7 @@ void apperiodicmap(double* x,
      ae_state *_state)
 {
 
-    *k = 0;
+    *k = 0.0;
 
     ae_assert(ae_fp_less(a,b), "APPeriodicMap: internal error!", _state);
     *k = (double)(ae_ifloor((*x-a)/(b-a), _state));
@@ -1992,12 +2055,12 @@ void apperiodicmap(double* x,
     while(ae_fp_less(*x,a))
     {
         *x = *x+(b-a);
-        *k = *k-1;
+        *k = *k-(double)1;
     }
     while(ae_fp_greater(*x,b))
     {
         *x = *x-(b-a);
-        *k = *k+1;
+        *k = *k+(double)1;
     }
     *x = ae_maxreal(*x, a, _state);
     *x = ae_minreal(*x, b, _state);
@@ -2020,8 +2083,8 @@ double randomnormal(ae_state *_state)
 
     for(;;)
     {
-        u = 2*ae_randomreal(_state)-1;
-        v = 2*ae_randomreal(_state)-1;
+        u = (double)2*ae_randomreal(_state)-(double)1;
+        v = (double)2*ae_randomreal(_state)-(double)1;
         s = ae_sqr(u, _state)+ae_sqr(v, _state);
         if( ae_fp_greater(s,(double)(0))&&ae_fp_less(s,(double)(1)) )
         {
@@ -2030,7 +2093,7 @@ double randomnormal(ae_state *_state)
              * two Sqrt's instead of one to
              * avoid overflow when S is too small
              */
-            s = ae_sqrt(-2*ae_log(s, _state), _state)/ae_sqrt(s, _state);
+            s = ae_sqrt(-(double)2*ae_log(s, _state), _state)/ae_sqrt(s, _state);
             result = u*s;
             break;
         }
@@ -2069,7 +2132,7 @@ void randomunit(ae_int_t n, /* Real    */ ae_vector* x, ae_state *_state)
         }
     }
     while(ae_fp_less_eq(v,(double)(0)));
-    v = 1/ae_sqrt(v, _state);
+    v = (double)1/ae_sqrt(v, _state);
     for(i=0; i<=n-1; i++)
     {
         x->ptr.p_double[i] = x->ptr.p_double[i]*v;
@@ -2194,6 +2257,37 @@ void swapentries(/* Real    */ ae_vector* a,
         v = a->ptr.p_double[offs0+j];
         a->ptr.p_double[offs0+j] = a->ptr.p_double[offs1+j];
         a->ptr.p_double[offs1+j] = v;
+    }
+}
+
+
+/*************************************************************************
+This function is used to swap two "entries" in 1-dimensional array composed
+from D-element entries
+*************************************************************************/
+void swapentriesb(/* Boolean */ ae_vector* a,
+     ae_int_t i0,
+     ae_int_t i1,
+     ae_int_t entrywidth,
+     ae_state *_state)
+{
+    ae_int_t offs0;
+    ae_int_t offs1;
+    ae_int_t j;
+    ae_bool v;
+
+
+    if( i0==i1 )
+    {
+        return;
+    }
+    offs0 = i0*entrywidth;
+    offs1 = i1*entrywidth;
+    for(j=0; j<=entrywidth-1; j++)
+    {
+        v = a->ptr.p_bool[offs0+j];
+        a->ptr.p_bool[offs0+j] = a->ptr.p_bool[offs1+j];
+        a->ptr.p_bool[offs1+j] = v;
     }
 }
 
@@ -2613,6 +2707,66 @@ double rboundval(double x, double b1, double b2, ae_state *_state)
 
 
 /*************************************************************************
+Boolean case-2: returns V0 if Cond=True, V1 otherwise
+*************************************************************************/
+ae_bool bcase2(ae_bool cond, ae_bool v0, ae_bool v1, ae_state *_state)
+{
+    ae_bool result;
+
+
+    if( cond )
+    {
+        result = v0;
+    }
+    else
+    {
+        result = v1;
+    }
+    return result;
+}
+
+
+/*************************************************************************
+Integer case-2: returns V0 if Cond=True, V1 otherwise
+*************************************************************************/
+ae_int_t icase2(ae_bool cond, ae_int_t v0, ae_int_t v1, ae_state *_state)
+{
+    ae_int_t result;
+
+
+    if( cond )
+    {
+        result = v0;
+    }
+    else
+    {
+        result = v1;
+    }
+    return result;
+}
+
+
+/*************************************************************************
+Real case-2: returns V0 if Cond=True, V1 otherwise
+*************************************************************************/
+double rcase2(ae_bool cond, double v0, double v1, ae_state *_state)
+{
+    double result;
+
+
+    if( cond )
+    {
+        result = v0;
+    }
+    else
+    {
+        result = v1;
+    }
+    return result;
+}
+
+
+/*************************************************************************
 Returns number of non-zeros
 *************************************************************************/
 ae_int_t countnz1(/* Real    */ ae_vector* v,
@@ -2626,7 +2780,7 @@ ae_int_t countnz1(/* Real    */ ae_vector* v,
     result = 0;
     for(i=0; i<=n-1; i++)
     {
-        if( !(v->ptr.p_double[i]==0) )
+        if( !(v->ptr.p_double[i]==(double)0) )
         {
             result = result+1;
         }
@@ -2653,7 +2807,7 @@ ae_int_t countnz2(/* Real    */ ae_matrix* v,
     {
         for(j=0; j<=n-1; j++)
         {
-            if( !(v->ptr.pp_double[i][j]==0) )
+            if( !(v->ptr.pp_double[i][j]==(double)0) )
             {
                 result = result+1;
             }
@@ -2725,6 +2879,29 @@ void allocrealarray(ae_serializer* s,
 
 
 /*************************************************************************
+Allocation of serializer: boolean array
+*************************************************************************/
+void allocbooleanarray(ae_serializer* s,
+     /* Boolean */ ae_vector* v,
+     ae_int_t n,
+     ae_state *_state)
+{
+    ae_int_t i;
+
+
+    if( n<0 )
+    {
+        n = v->cnt;
+    }
+    ae_serializer_alloc_entry(s);
+    for(i=0; i<=n-1; i++)
+    {
+        ae_serializer_alloc_entry(s);
+    }
+}
+
+
+/*************************************************************************
 Serialization: complex value
 *************************************************************************/
 void serializerealarray(ae_serializer* s,
@@ -2743,6 +2920,29 @@ void serializerealarray(ae_serializer* s,
     for(i=0; i<=n-1; i++)
     {
         ae_serializer_serialize_double(s, v->ptr.p_double[i], _state);
+    }
+}
+
+
+/*************************************************************************
+Serialization: boolean array
+*************************************************************************/
+void serializebooleanarray(ae_serializer* s,
+     /* Boolean */ ae_vector* v,
+     ae_int_t n,
+     ae_state *_state)
+{
+    ae_int_t i;
+
+
+    if( n<0 )
+    {
+        n = v->cnt;
+    }
+    ae_serializer_serialize_int(s, n, _state);
+    for(i=0; i<=n-1; i++)
+    {
+        ae_serializer_serialize_bool(s, v->ptr.p_bool[i], _state);
     }
 }
 
@@ -2770,6 +2970,33 @@ void unserializerealarray(ae_serializer* s,
     {
         ae_serializer_unserialize_double(s, &t, _state);
         v->ptr.p_double[i] = t;
+    }
+}
+
+
+/*************************************************************************
+Unserialization: boolean value
+*************************************************************************/
+void unserializebooleanarray(ae_serializer* s,
+     /* Boolean */ ae_vector* v,
+     ae_state *_state)
+{
+    ae_int_t n;
+    ae_int_t i;
+    ae_bool t;
+
+    ae_vector_clear(v);
+
+    ae_serializer_unserialize_int(s, &n, _state);
+    if( n==0 )
+    {
+        return;
+    }
+    ae_vector_set_length(v, n, _state);
+    for(i=0; i<=n-1; i++)
+    {
+        ae_serializer_unserialize_bool(s, &t, _state);
+        v->ptr.p_bool[i] = t;
     }
 }
 
@@ -3046,6 +3273,7 @@ void unsetintegerarray(/* Integer */ ae_vector* a, ae_state *_state)
 
     ae_vector_clear(a);
 
+    ae_vector_set_length(a, 0, _state);
 }
 
 
@@ -3057,6 +3285,7 @@ void unsetrealarray(/* Real    */ ae_vector* a, ae_state *_state)
 
     ae_vector_clear(a);
 
+    ae_vector_set_length(a, 0, _state);
 }
 
 
@@ -3068,6 +3297,343 @@ void unsetrealmatrix(/* Real    */ ae_matrix* a, ae_state *_state)
 
     ae_matrix_clear(a);
 
+    ae_matrix_set_length(a, 0, 0, _state);
+}
+
+
+/*************************************************************************
+Initialize nbPool - prepare it to store N-length arrays, N>=0.
+Tries to reuse previously allocated memory as much as possible.
+*************************************************************************/
+void nbpoolinit(nbpool* pool, ae_int_t n, ae_state *_state)
+{
+
+
+    ae_assert(n>=0, "niPoolInit: N<0", _state);
+    pool->n = n;
+    pool->temporariescount = 0;
+    if( n==0 )
+    {
+        return;
+    }
+    if( pool->seed0.val.cnt!=0 )
+    {
+        ae_vector_set_length(&pool->seed0.val, 0, _state);
+    }
+    if( pool->seedn.val.cnt!=n )
+    {
+        ae_vector_set_length(&pool->seedn.val, n, _state);
+    }
+    ae_shared_pool_set_seed(&pool->sourcepool, &pool->seedn, (ae_int_t)sizeof(pool->seedn), (ae_constructor)_sbooleanarray_init, (ae_copy_constructor)_sbooleanarray_init_copy, (ae_destructor)_sbooleanarray_destroy, _state);
+    ae_shared_pool_set_seed(&pool->temporarypool, &pool->seed0, (ae_int_t)sizeof(pool->seed0), (ae_constructor)_sbooleanarray_init, (ae_copy_constructor)_sbooleanarray_init_copy, (ae_destructor)_sbooleanarray_destroy, _state);
+}
+
+
+/*************************************************************************
+Thread-safe retrieval of array from the nbPool. If there are enough arrays
+in the pool, it is performed without additional dynamic allocations.
+
+INPUT PARAMETERS:
+    Pool        -   nbPool properly initialized with nbPoolInit
+    A           -   array[0], must have exactly zero length (exception will
+                    be generated if length is different from zero)
+                    
+OUTPUT PARAMETERS:
+    A           -   array[N], contents undefined
+*************************************************************************/
+void nbpoolretrieve(nbpool* pool,
+     /* Boolean */ ae_vector* a,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    sbooleanarray *tmp;
+    ae_smart_ptr _tmp;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&_tmp, 0, sizeof(_tmp));
+    ae_smart_ptr_init(&_tmp, (void**)&tmp, _state, ae_true);
+
+    ae_assert(a->cnt==0, "nbPoolRetrieve: A has non-zero length on entry", _state);
+    if( pool->n==0 )
+    {
+        ae_frame_leave(_state);
+        return;
+    }
+    ae_shared_pool_retrieve(&pool->sourcepool, &_tmp, _state);
+    ae_swap_vectors(&tmp->val, a);
+    ae_shared_pool_recycle(&pool->temporarypool, &_tmp, _state);
+    threadunsafeinc(&pool->temporariescount, _state);
+    if( pool->temporariescount>apserv_maxtemporariesinnpool )
+    {
+        pool->temporariescount = 0;
+        ae_shared_pool_clear_recycled(&pool->temporarypool, _state);
+    }
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Thread-safe recycling of N-length array to the nbPool.
+
+INPUT PARAMETERS:
+    Pool        -   nbPool properly initialized with nbPoolInit
+    A           -   array[N], length must be N exactly (exception will
+                    be generated if length is different from N)
+                    
+OUTPUT PARAMETERS:
+    A           -   array[0], length is exactly zero on exit
+*************************************************************************/
+void nbpoolrecycle(nbpool* pool,
+     /* Boolean */ ae_vector* a,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    sbooleanarray *tmp;
+    ae_smart_ptr _tmp;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&_tmp, 0, sizeof(_tmp));
+    ae_smart_ptr_init(&_tmp, (void**)&tmp, _state, ae_true);
+
+    ae_assert(a->cnt==pool->n, "nbPoolRecycle: A has length<>N on entry", _state);
+    if( pool->n==0 )
+    {
+        ae_frame_leave(_state);
+        return;
+    }
+    ae_shared_pool_retrieve(&pool->temporarypool, &_tmp, _state);
+    ae_swap_vectors(&tmp->val, a);
+    ae_shared_pool_recycle(&pool->sourcepool, &_tmp, _state);
+    threadunsafeincby(&pool->temporariescount, -1, _state);
+    if( pool->temporariescount<0 )
+    {
+        pool->temporariescount = 0;
+    }
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Initialize niPool - prepare it to store N-length arrays, N>=0.
+Tries to reuse previously allocated memory as much as possible.
+*************************************************************************/
+void nipoolinit(nipool* pool, ae_int_t n, ae_state *_state)
+{
+
+
+    ae_assert(n>=0, "niPoolInit: N<0", _state);
+    pool->n = n;
+    pool->temporariescount = 0;
+    if( n==0 )
+    {
+        return;
+    }
+    if( pool->seed0.val.cnt!=0 )
+    {
+        ae_vector_set_length(&pool->seed0.val, 0, _state);
+    }
+    if( pool->seedn.val.cnt!=n )
+    {
+        ae_vector_set_length(&pool->seedn.val, n, _state);
+    }
+    ae_shared_pool_set_seed(&pool->sourcepool, &pool->seedn, (ae_int_t)sizeof(pool->seedn), (ae_constructor)_sintegerarray_init, (ae_copy_constructor)_sintegerarray_init_copy, (ae_destructor)_sintegerarray_destroy, _state);
+    ae_shared_pool_set_seed(&pool->temporarypool, &pool->seed0, (ae_int_t)sizeof(pool->seed0), (ae_constructor)_sintegerarray_init, (ae_copy_constructor)_sintegerarray_init_copy, (ae_destructor)_sintegerarray_destroy, _state);
+}
+
+
+/*************************************************************************
+Thread-safe retrieval of array from the nrPool. If there are enough arrays
+in the pool, it is performed without additional dynamic allocations.
+
+INPUT PARAMETERS:
+    Pool        -   niPool properly initialized with niPoolInit
+    A           -   array[0], must have exactly zero length (exception will
+                    be generated if length is different from zero)
+                    
+OUTPUT PARAMETERS:
+    A           -   array[N], contents undefined
+*************************************************************************/
+void nipoolretrieve(nipool* pool,
+     /* Integer */ ae_vector* a,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    sintegerarray *tmp;
+    ae_smart_ptr _tmp;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&_tmp, 0, sizeof(_tmp));
+    ae_smart_ptr_init(&_tmp, (void**)&tmp, _state, ae_true);
+
+    ae_assert(a->cnt==0, "niPoolRetrieve: A has non-zero length on entry", _state);
+    if( pool->n==0 )
+    {
+        ae_frame_leave(_state);
+        return;
+    }
+    ae_shared_pool_retrieve(&pool->sourcepool, &_tmp, _state);
+    ae_swap_vectors(&tmp->val, a);
+    ae_shared_pool_recycle(&pool->temporarypool, &_tmp, _state);
+    threadunsafeinc(&pool->temporariescount, _state);
+    if( pool->temporariescount>apserv_maxtemporariesinnpool )
+    {
+        pool->temporariescount = 0;
+        ae_shared_pool_clear_recycled(&pool->temporarypool, _state);
+    }
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Thread-safe recycling of N-length array to the niPool.
+
+INPUT PARAMETERS:
+    Pool        -   niPool properly initialized with niPoolInit
+    A           -   array[N], length must be N exactly (exception will
+                    be generated if length is different from N)
+                    
+OUTPUT PARAMETERS:
+    A           -   array[0], length is exactly zero on exit
+*************************************************************************/
+void nipoolrecycle(nipool* pool,
+     /* Integer */ ae_vector* a,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    sintegerarray *tmp;
+    ae_smart_ptr _tmp;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&_tmp, 0, sizeof(_tmp));
+    ae_smart_ptr_init(&_tmp, (void**)&tmp, _state, ae_true);
+
+    ae_assert(a->cnt==pool->n, "niPoolRecycle: A has length<>N on entry", _state);
+    if( pool->n==0 )
+    {
+        ae_frame_leave(_state);
+        return;
+    }
+    ae_shared_pool_retrieve(&pool->temporarypool, &_tmp, _state);
+    ae_swap_vectors(&tmp->val, a);
+    ae_shared_pool_recycle(&pool->sourcepool, &_tmp, _state);
+    threadunsafeincby(&pool->temporariescount, -1, _state);
+    if( pool->temporariescount<0 )
+    {
+        pool->temporariescount = 0;
+    }
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Initialize nrPool - prepare it to store N-length arrays, N>=0.
+Tries to reuse previously allocated memory as much as possible.
+*************************************************************************/
+void nrpoolinit(nrpool* pool, ae_int_t n, ae_state *_state)
+{
+
+
+    ae_assert(n>=0, "nrPoolInit: N<0", _state);
+    pool->n = n;
+    pool->temporariescount = 0;
+    if( n==0 )
+    {
+        return;
+    }
+    if( pool->seed0.val.cnt!=0 )
+    {
+        ae_vector_set_length(&pool->seed0.val, 0, _state);
+    }
+    if( pool->seedn.val.cnt!=n )
+    {
+        ae_vector_set_length(&pool->seedn.val, n, _state);
+    }
+    ae_shared_pool_set_seed(&pool->sourcepool, &pool->seedn, (ae_int_t)sizeof(pool->seedn), (ae_constructor)_srealarray_init, (ae_copy_constructor)_srealarray_init_copy, (ae_destructor)_srealarray_destroy, _state);
+    ae_shared_pool_set_seed(&pool->temporarypool, &pool->seed0, (ae_int_t)sizeof(pool->seed0), (ae_constructor)_srealarray_init, (ae_copy_constructor)_srealarray_init_copy, (ae_destructor)_srealarray_destroy, _state);
+}
+
+
+/*************************************************************************
+Thread-safe retrieval of array from the nrPool. If there are enough arrays
+in the pool, it is performed without additional dynamic allocations.
+
+INPUT PARAMETERS:
+    Pool        -   nrPool properly initialized with nrPoolInit
+    A           -   array[0], must have exactly zero length (exception will
+                    be generated if length is different from zero)
+                    
+OUTPUT PARAMETERS:
+    A           -   array[N], contents undefined
+*************************************************************************/
+void nrpoolretrieve(nrpool* pool,
+     /* Real    */ ae_vector* a,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    srealarray *tmp;
+    ae_smart_ptr _tmp;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&_tmp, 0, sizeof(_tmp));
+    ae_smart_ptr_init(&_tmp, (void**)&tmp, _state, ae_true);
+
+    ae_assert(a->cnt==0, "nrPoolRetrieve: A has non-zero length on entry", _state);
+    if( pool->n==0 )
+    {
+        ae_frame_leave(_state);
+        return;
+    }
+    ae_shared_pool_retrieve(&pool->sourcepool, &_tmp, _state);
+    ae_swap_vectors(&tmp->val, a);
+    ae_shared_pool_recycle(&pool->temporarypool, &_tmp, _state);
+    threadunsafeinc(&pool->temporariescount, _state);
+    if( pool->temporariescount>apserv_maxtemporariesinnpool )
+    {
+        pool->temporariescount = 0;
+        ae_shared_pool_clear_recycled(&pool->temporarypool, _state);
+    }
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Thread-safe recycling of N-length array to the nrPool.
+
+INPUT PARAMETERS:
+    Pool        -   nrPool properly initialized with nrPoolInit
+    A           -   array[N], length must be N exactly (exception will
+                    be generated if length is different from N)
+                    
+OUTPUT PARAMETERS:
+    A           -   array[0], length is exactly zero on exit
+*************************************************************************/
+void nrpoolrecycle(nrpool* pool,
+     /* Real    */ ae_vector* a,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    srealarray *tmp;
+    ae_smart_ptr _tmp;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&_tmp, 0, sizeof(_tmp));
+    ae_smart_ptr_init(&_tmp, (void**)&tmp, _state, ae_true);
+
+    ae_assert(a->cnt==pool->n, "nrPoolRecycle: A has length<>N on entry", _state);
+    if( pool->n==0 )
+    {
+        ae_frame_leave(_state);
+        return;
+    }
+    ae_shared_pool_retrieve(&pool->temporarypool, &_tmp, _state);
+    ae_swap_vectors(&tmp->val, a);
+    ae_shared_pool_recycle(&pool->sourcepool, &_tmp, _state);
+    threadunsafeincby(&pool->temporariescount, -1, _state);
+    if( pool->temporariescount<0 )
+    {
+        pool->temporariescount = 0;
+    }
+    ae_frame_leave(_state);
 }
 
 
@@ -3344,7 +3910,7 @@ double smpactivationlevel(ae_state *_state)
 
 
     nn = (double)(2*matrixtilesizeb(_state));
-    result = ae_maxreal(0.95*2*nn*nn*nn, 1.0E7, _state);
+    result = ae_maxreal(0.95*(double)2*nn*nn*nn, 1.0E7, _state);
     return result;
 }
 
@@ -3365,7 +3931,7 @@ double spawnlevel(ae_state *_state)
 
 
     nn = (double)(2*matrixtilesizea(_state));
-    result = 0.95*2*nn*nn*nn;
+    result = 0.95*(double)2*nn*nn*nn;
     return result;
 }
 
@@ -3798,6 +4364,96 @@ void tracerownrm1e6(/* Real    */ ae_matrix* a,
 }
 
 
+/*************************************************************************
+Outputs specified number of spaces
+*************************************************************************/
+void tracespaces(ae_int_t cnt, ae_state *_state)
+{
+    ae_int_t i;
+
+
+    for(i=0; i<=cnt-1; i++)
+    {
+        ae_trace(" ");
+    }
+}
+
+
+/*************************************************************************
+Minimum speedup feasible for multithreading
+*************************************************************************/
+double minspeedup(ae_state *_state)
+{
+    double result;
+
+
+    result = 1.5;
+    return result;
+}
+
+
+#ifdef ALGLIB_NO_FAST_KERNELS
+/*************************************************************************
+Maximum concurrency on given system, with given compilation settings
+*************************************************************************/
+ae_int_t maxconcurrency(ae_state *_state)
+{
+    ae_int_t result;
+
+
+    result = 1;
+    return result;
+}
+#endif
+
+
+/*************************************************************************
+Initialize SAvgCounter
+
+Prior value is a value that is returned when no values are in the buffer
+*************************************************************************/
+void savgcounterinit(savgcounter* c, double priorvalue, ae_state *_state)
+{
+
+
+    c->rsum = (double)(0);
+    c->rcnt = (double)(0);
+    c->prior = priorvalue;
+}
+
+
+/*************************************************************************
+Enqueue value into SAvgCounter
+*************************************************************************/
+void savgcounterenqueue(savgcounter* c, double v, ae_state *_state)
+{
+
+
+    c->rsum = c->rsum+v;
+    c->rcnt = c->rcnt+(double)1;
+}
+
+
+/*************************************************************************
+Enqueue value into SAvgCounter
+*************************************************************************/
+double savgcounterget(savgcounter* c, ae_state *_state)
+{
+    double result;
+
+
+    if( ae_fp_eq(c->rcnt,(double)(0)) )
+    {
+        result = c->prior;
+    }
+    else
+    {
+        result = c->rsum/c->rcnt;
+    }
+    return result;
+}
+
+
 void _apbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic)
 {
     apbuffers *p = (apbuffers*)_p;
@@ -3816,10 +4472,10 @@ void _apbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _apbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _apbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    apbuffers *dst = (apbuffers*)_dst;
-    apbuffers *src = (apbuffers*)_src;
+    apbuffers       *dst = (apbuffers*)_dst;
+    const apbuffers *src = (const apbuffers*)_src;
     ae_vector_init_copy(&dst->ba0, &src->ba0, _state, make_automatic);
     ae_vector_init_copy(&dst->ia0, &src->ia0, _state, make_automatic);
     ae_vector_init_copy(&dst->ia1, &src->ia1, _state, make_automatic);
@@ -3877,10 +4533,10 @@ void _sboolean_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sboolean_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sboolean_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sboolean *dst = (sboolean*)_dst;
-    sboolean *src = (sboolean*)_src;
+    sboolean       *dst = (sboolean*)_dst;
+    const sboolean *src = (const sboolean*)_src;
     dst->val = src->val;
 }
 
@@ -3907,10 +4563,10 @@ void _sbooleanarray_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sbooleanarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sbooleanarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sbooleanarray *dst = (sbooleanarray*)_dst;
-    sbooleanarray *src = (sbooleanarray*)_src;
+    sbooleanarray       *dst = (sbooleanarray*)_dst;
+    const sbooleanarray *src = (const sbooleanarray*)_src;
     ae_vector_init_copy(&dst->val, &src->val, _state, make_automatic);
 }
 
@@ -3938,10 +4594,10 @@ void _sinteger_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sinteger_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sinteger_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sinteger *dst = (sinteger*)_dst;
-    sinteger *src = (sinteger*)_src;
+    sinteger       *dst = (sinteger*)_dst;
+    const sinteger *src = (const sinteger*)_src;
     dst->val = src->val;
 }
 
@@ -3968,10 +4624,10 @@ void _sintegerarray_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sintegerarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sintegerarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sintegerarray *dst = (sintegerarray*)_dst;
-    sintegerarray *src = (sintegerarray*)_src;
+    sintegerarray       *dst = (sintegerarray*)_dst;
+    const sintegerarray *src = (const sintegerarray*)_src;
     ae_vector_init_copy(&dst->val, &src->val, _state, make_automatic);
 }
 
@@ -3999,10 +4655,10 @@ void _sreal_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sreal_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sreal_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sreal *dst = (sreal*)_dst;
-    sreal *src = (sreal*)_src;
+    sreal       *dst = (sreal*)_dst;
+    const sreal *src = (const sreal*)_src;
     dst->val = src->val;
 }
 
@@ -4029,10 +4685,10 @@ void _srealarray_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _srealarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _srealarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    srealarray *dst = (srealarray*)_dst;
-    srealarray *src = (srealarray*)_src;
+    srealarray       *dst = (srealarray*)_dst;
+    const srealarray *src = (const srealarray*)_src;
     ae_vector_init_copy(&dst->val, &src->val, _state, make_automatic);
 }
 
@@ -4060,10 +4716,10 @@ void _scomplex_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _scomplex_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _scomplex_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    scomplex *dst = (scomplex*)_dst;
-    scomplex *src = (scomplex*)_src;
+    scomplex       *dst = (scomplex*)_dst;
+    const scomplex *src = (const scomplex*)_src;
     dst->val = src->val;
 }
 
@@ -4090,10 +4746,10 @@ void _scomplexarray_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _scomplexarray_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _scomplexarray_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    scomplexarray *dst = (scomplexarray*)_dst;
-    scomplexarray *src = (scomplexarray*)_src;
+    scomplexarray       *dst = (scomplexarray*)_dst;
+    const scomplexarray *src = (const scomplexarray*)_src;
     ae_vector_init_copy(&dst->val, &src->val, _state, make_automatic);
 }
 
@@ -4111,6 +4767,175 @@ void _scomplexarray_destroy(void* _p)
     scomplexarray *p = (scomplexarray*)_p;
     ae_touch_ptr((void*)p);
     ae_vector_destroy(&p->val);
+}
+
+
+void _nbpool_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    nbpool *p = (nbpool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_init(&p->sourcepool, _state, make_automatic);
+    ae_shared_pool_init(&p->temporarypool, _state, make_automatic);
+    _sbooleanarray_init(&p->seed0, _state, make_automatic);
+    _sbooleanarray_init(&p->seedn, _state, make_automatic);
+}
+
+
+void _nbpool_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    nbpool       *dst = (nbpool*)_dst;
+    const nbpool *src = (const nbpool*)_src;
+    dst->n = src->n;
+    dst->temporariescount = src->temporariescount;
+    ae_shared_pool_init_copy(&dst->sourcepool, &src->sourcepool, _state, make_automatic);
+    ae_shared_pool_init_copy(&dst->temporarypool, &src->temporarypool, _state, make_automatic);
+    _sbooleanarray_init_copy(&dst->seed0, &src->seed0, _state, make_automatic);
+    _sbooleanarray_init_copy(&dst->seedn, &src->seedn, _state, make_automatic);
+}
+
+
+void _nbpool_clear(void* _p)
+{
+    nbpool *p = (nbpool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_clear(&p->sourcepool);
+    ae_shared_pool_clear(&p->temporarypool);
+    _sbooleanarray_clear(&p->seed0);
+    _sbooleanarray_clear(&p->seedn);
+}
+
+
+void _nbpool_destroy(void* _p)
+{
+    nbpool *p = (nbpool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_destroy(&p->sourcepool);
+    ae_shared_pool_destroy(&p->temporarypool);
+    _sbooleanarray_destroy(&p->seed0);
+    _sbooleanarray_destroy(&p->seedn);
+}
+
+
+void _nipool_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    nipool *p = (nipool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_init(&p->sourcepool, _state, make_automatic);
+    ae_shared_pool_init(&p->temporarypool, _state, make_automatic);
+    _sintegerarray_init(&p->seed0, _state, make_automatic);
+    _sintegerarray_init(&p->seedn, _state, make_automatic);
+}
+
+
+void _nipool_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    nipool       *dst = (nipool*)_dst;
+    const nipool *src = (const nipool*)_src;
+    dst->n = src->n;
+    dst->temporariescount = src->temporariescount;
+    ae_shared_pool_init_copy(&dst->sourcepool, &src->sourcepool, _state, make_automatic);
+    ae_shared_pool_init_copy(&dst->temporarypool, &src->temporarypool, _state, make_automatic);
+    _sintegerarray_init_copy(&dst->seed0, &src->seed0, _state, make_automatic);
+    _sintegerarray_init_copy(&dst->seedn, &src->seedn, _state, make_automatic);
+}
+
+
+void _nipool_clear(void* _p)
+{
+    nipool *p = (nipool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_clear(&p->sourcepool);
+    ae_shared_pool_clear(&p->temporarypool);
+    _sintegerarray_clear(&p->seed0);
+    _sintegerarray_clear(&p->seedn);
+}
+
+
+void _nipool_destroy(void* _p)
+{
+    nipool *p = (nipool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_destroy(&p->sourcepool);
+    ae_shared_pool_destroy(&p->temporarypool);
+    _sintegerarray_destroy(&p->seed0);
+    _sintegerarray_destroy(&p->seedn);
+}
+
+
+void _nrpool_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    nrpool *p = (nrpool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_init(&p->sourcepool, _state, make_automatic);
+    ae_shared_pool_init(&p->temporarypool, _state, make_automatic);
+    _srealarray_init(&p->seed0, _state, make_automatic);
+    _srealarray_init(&p->seedn, _state, make_automatic);
+}
+
+
+void _nrpool_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    nrpool       *dst = (nrpool*)_dst;
+    const nrpool *src = (const nrpool*)_src;
+    dst->n = src->n;
+    dst->temporariescount = src->temporariescount;
+    ae_shared_pool_init_copy(&dst->sourcepool, &src->sourcepool, _state, make_automatic);
+    ae_shared_pool_init_copy(&dst->temporarypool, &src->temporarypool, _state, make_automatic);
+    _srealarray_init_copy(&dst->seed0, &src->seed0, _state, make_automatic);
+    _srealarray_init_copy(&dst->seedn, &src->seedn, _state, make_automatic);
+}
+
+
+void _nrpool_clear(void* _p)
+{
+    nrpool *p = (nrpool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_clear(&p->sourcepool);
+    ae_shared_pool_clear(&p->temporarypool);
+    _srealarray_clear(&p->seed0);
+    _srealarray_clear(&p->seedn);
+}
+
+
+void _nrpool_destroy(void* _p)
+{
+    nrpool *p = (nrpool*)_p;
+    ae_touch_ptr((void*)p);
+    ae_shared_pool_destroy(&p->sourcepool);
+    ae_shared_pool_destroy(&p->temporarypool);
+    _srealarray_destroy(&p->seed0);
+    _srealarray_destroy(&p->seedn);
+}
+
+
+void _savgcounter_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    savgcounter *p = (savgcounter*)_p;
+    ae_touch_ptr((void*)p);
+}
+
+
+void _savgcounter_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    savgcounter       *dst = (savgcounter*)_dst;
+    const savgcounter *src = (const savgcounter*)_src;
+    dst->rsum = src->rsum;
+    dst->rcnt = src->rcnt;
+    dst->prior = src->prior;
+}
+
+
+void _savgcounter_clear(void* _p)
+{
+    savgcounter *p = (savgcounter*)_p;
+    ae_touch_ptr((void*)p);
+}
+
+
+void _savgcounter_destroy(void* _p)
+{
+    savgcounter *p = (savgcounter*)_p;
+    ae_touch_ptr((void*)p);
 }
 
 
@@ -5418,6 +6243,36 @@ void bsetv(ae_int_t n,
 #endif
 
 
+/*************************************************************************
+Sets vector X[] to V
+
+INPUT PARAMETERS:
+    N       -   vector length
+    V       -   value to set
+    X       -   array[N]
+
+OUTPUT PARAMETERS:
+    X       -   leading N elements are replaced by V
+
+  -- ALGLIB --
+     Copyright 20.01.2020 by Bochkanov Sergey
+*************************************************************************/
+void csetv(ae_int_t n,
+     ae_complex v,
+     /* Complex */ ae_vector* x,
+     ae_state *_state)
+{
+    ae_int_t j;
+
+
+    for(j=0; j<=n-1; j++)
+    {
+        x->ptr.p_complex[j].x = v.x;
+        x->ptr.p_complex[j].y = v.y;
+    }
+}
+
+
 #ifdef ALGLIB_NO_FAST_KERNELS
 /*************************************************************************
 Sets matrix A[] to V
@@ -5531,6 +6386,31 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rallocv(ae_int_t n, /* Real    */ ae_vector* x, ae_state *_state)
+{
+
+
+    if( x->cnt<n )
+    {
+        ae_vector_set_length(x, n, _state);
+    }
+}
+
+
+/*************************************************************************
+Reallocates X[] if its length is less than required value. Does not change
+its length and contents if it is large enough.
+
+INPUT PARAMETERS:
+    N       -   desired vector length
+    X       -   possibly preallocated array
+
+OUTPUT PARAMETERS:
+    X       -   length(X)>=N
+
+  -- ALGLIB --
+     Copyright 20.07.2022 by Bochkanov Sergey
+*************************************************************************/
+void callocv(ae_int_t n, /* Complex */ ae_vector* x, ae_state *_state)
 {
 
 
@@ -5677,6 +6557,36 @@ void bsetallocv(ae_int_t n,
         ae_vector_set_length(x, n, _state);
     }
     bsetv(n, v, x, _state);
+}
+
+
+/*************************************************************************
+Sets vector X[] to V, reallocating X[] if too small
+
+INPUT PARAMETERS:
+    N       -   vector length
+    V       -   value to set
+    X       -   possibly preallocated array
+
+OUTPUT PARAMETERS:
+    X       -   leading N elements are replaced by V; array is reallocated
+                if its length is less than N.
+
+  -- ALGLIB --
+     Copyright 20.01.2020 by Bochkanov Sergey
+*************************************************************************/
+void csetallocv(ae_int_t n,
+     ae_complex v,
+     /* Complex */ ae_vector* x,
+     ae_state *_state)
+{
+
+
+    if( x->cnt<n )
+    {
+        ae_vector_set_length(x, n, _state);
+    }
+    csetv(n, v, x, _state);
 }
 
 
@@ -6106,7 +7016,7 @@ void igrowv(ae_int_t newn, /* Integer */ ae_vector* x, ae_state *_state)
         return;
     }
     oldn = x->cnt;
-    newn = ae_maxint(newn, ae_round(1.8*oldn+1, _state), _state);
+    newn = ae_maxint(newn, ae_round(1.8*(double)oldn+(double)1, _state), _state);
     ae_swap_vectors(x, &oldx);
     ae_vector_set_length(x, newn, _state);
     icopyv(oldn, &oldx, x, _state);
@@ -6140,7 +7050,7 @@ void rgrowv(ae_int_t newn, /* Real    */ ae_vector* x, ae_state *_state)
         return;
     }
     oldn = x->cnt;
-    newn = ae_maxint(newn, ae_round(1.8*oldn+1, _state), _state);
+    newn = ae_maxint(newn, ae_round(1.8*(double)oldn+(double)1, _state), _state);
     ae_swap_vectors(x, &oldx);
     ae_vector_set_length(x, newn, _state);
     rcopyv(oldn, &oldx, x, _state);
@@ -6807,7 +7717,7 @@ void rtrsvx(ae_int_t n,
                 v = v/a->ptr.pp_double[ia+i][ja+i];
             }
             x->ptr.p_double[ix+i] = v;
-            if( v==0 )
+            if( v==(double)0 )
             {
                 continue;
             }
@@ -6828,7 +7738,7 @@ void rtrsvx(ae_int_t n,
                 v = v/a->ptr.pp_double[ia+i][ja+i];
             }
             x->ptr.p_double[ix+i] = v;
-            if( v==0 )
+            if( v==(double)0 )
             {
                 continue;
             }
@@ -8969,8 +9879,8 @@ void complexgeneratereflection(/* Complex */ ae_vector* x,
     double s;
     ae_complex v;
 
-    tau->x = 0;
-    tau->y = 0;
+    tau->x = 0.0;
+    tau->y = 0.0;
 
     if( n<=0 )
     {
@@ -8993,13 +9903,13 @@ void complexgeneratereflection(/* Complex */ ae_vector* x,
         if( ae_fp_less(mx,(double)(1)) )
         {
             s = ae_sqrt(ae_minrealnumber, _state);
-            v = ae_complex_from_d(1/s);
+            v = ae_complex_from_d((double)1/s);
             ae_v_cmulc(&x->ptr.p_complex[1], 1, ae_v_len(1,n), v);
         }
         else
         {
             s = ae_sqrt(ae_maxrealnumber, _state);
-            v = ae_complex_from_d(1/s);
+            v = ae_complex_from_d((double)1/s);
             ae_v_cmulc(&x->ptr.p_complex[1], 1, ae_v_len(1,n), v);
         }
     }
@@ -9040,7 +9950,7 @@ void complexgeneratereflection(/* Complex */ ae_vector* x,
     }
     tau->x = (beta-alphr)/beta;
     tau->y = -alphi/beta;
-    alpha = ae_c_d_div(1,ae_c_sub_d(alpha,beta));
+    alpha = ae_c_d_div((double)(1),ae_c_sub_d(alpha,beta));
     if( n>1 )
     {
         ae_v_cmulc(&x->ptr.p_complex[2], 1, ae_v_len(2,n), alpha);
@@ -10441,6 +11351,16 @@ ae_int_t getsparsematrixserializationcode(ae_state *_state)
 }
 
 
+ae_int_t getspline2dwithmissingnodesserializationcode(ae_state *_state)
+{
+    ae_int_t result;
+
+
+    result = 9;
+    return result;
+}
+
+
 ae_int_t getknnserializationcode(ae_state *_state)
 {
     ae_int_t result;
@@ -10981,6 +11901,120 @@ void tagsortmiddleir(/* Integer */ ae_vector* a,
             a->ptr.p_int[p0] = ak;
             b->ptr.p_double[p0] = b->ptr.p_double[p1];
             b->ptr.p_double[p1] = bt;
+            t = k;
+        }
+    }
+}
+
+
+/*************************************************************************
+Sorting function optimized for real keys and integer labels, can be used
+to sort middle of the array
+
+A is sorted, and same permutations are applied to B.
+
+NOTES:
+    this function assumes that A[] is finite; it doesn't checks that
+    condition. All other conditions (size of input arrays, etc.) are not
+    checked too.
+
+  -- ALGLIB --
+     Copyright 11.12.2008 by Bochkanov Sergey
+*************************************************************************/
+void tagsortmiddleri(/* Real    */ ae_vector* a,
+     /* Integer */ ae_vector* b,
+     ae_int_t offset,
+     ae_int_t n,
+     ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t k;
+    ae_int_t t;
+    double tmpa;
+    ae_int_t tmpi;
+    ae_int_t p0;
+    ae_int_t p1;
+    double at;
+    double ak;
+    double ak1;
+    ae_int_t bt;
+
+
+    
+    /*
+     * Special cases
+     */
+    if( n<=1 )
+    {
+        return;
+    }
+    
+    /*
+     * General case, N>1: sort, update B
+     */
+    for(i=2; i<=n; i++)
+    {
+        t = i;
+        while(t!=1)
+        {
+            k = t/2;
+            p0 = offset+k-1;
+            p1 = offset+t-1;
+            ak = a->ptr.p_double[p0];
+            at = a->ptr.p_double[p1];
+            if( ae_fp_greater_eq(ak,at) )
+            {
+                break;
+            }
+            a->ptr.p_double[p0] = at;
+            a->ptr.p_double[p1] = ak;
+            tmpi = b->ptr.p_int[p0];
+            b->ptr.p_int[p0] = b->ptr.p_int[p1];
+            b->ptr.p_int[p1] = tmpi;
+            t = k;
+        }
+    }
+    for(i=n-1; i>=1; i--)
+    {
+        p0 = offset+0;
+        p1 = offset+i;
+        tmpa = a->ptr.p_double[p1];
+        a->ptr.p_double[p1] = a->ptr.p_double[p0];
+        a->ptr.p_double[p0] = tmpa;
+        at = tmpa;
+        tmpi = b->ptr.p_int[p1];
+        b->ptr.p_int[p1] = b->ptr.p_int[p0];
+        b->ptr.p_int[p0] = tmpi;
+        bt = tmpi;
+        t = 0;
+        for(;;)
+        {
+            k = 2*t+1;
+            if( k+1>i )
+            {
+                break;
+            }
+            p0 = offset+t;
+            p1 = offset+k;
+            ak = a->ptr.p_double[p1];
+            if( k+1<i )
+            {
+                ak1 = a->ptr.p_double[p1+1];
+                if( ae_fp_greater(ak1,ak) )
+                {
+                    ak = ak1;
+                    p1 = p1+1;
+                    k = k+1;
+                }
+            }
+            if( ae_fp_greater_eq(at,ak) )
+            {
+                break;
+            }
+            a->ptr.p_double[p1] = at;
+            a->ptr.p_double[p0] = ak;
+            b->ptr.p_int[p0] = b->ptr.p_int[p1];
+            b->ptr.p_int[p1] = bt;
             t = k;
         }
     }
@@ -12218,7 +13252,7 @@ double vectornorm2(/* Real    */ ae_vector* x,
             absxi = ae_fabs(x->ptr.p_double[ix], _state);
             if( ae_fp_less(scl,absxi) )
             {
-                ssq = 1+ssq*ae_sqr(scl/absxi, _state);
+                ssq = (double)1+ssq*ae_sqr(scl/absxi, _state);
                 scl = absxi;
             }
             else
@@ -12540,7 +13574,7 @@ double pythag2(double x, double y, ae_state *_state)
     }
     else
     {
-        result = w*ae_sqrt(1+ae_sqr(z/w, _state), _state);
+        result = w*ae_sqrt((double)1+ae_sqr(z/w, _state), _state);
     }
     return result;
 }
@@ -13042,9 +14076,9 @@ void generaterotation(double f,
     double f1;
     double g1;
 
-    *cs = 0;
-    *sn = 0;
-    *r = 0;
+    *cs = 0.0;
+    *sn = 0.0;
+    *r = 0.0;
 
     if( ae_fp_eq(g,(double)(0)) )
     {
@@ -13066,11 +14100,11 @@ void generaterotation(double f,
             g1 = g;
             if( ae_fp_greater(ae_fabs(f1, _state),ae_fabs(g1, _state)) )
             {
-                *r = ae_fabs(f1, _state)*ae_sqrt(1+ae_sqr(g1/f1, _state), _state);
+                *r = ae_fabs(f1, _state)*ae_sqrt((double)1+ae_sqr(g1/f1, _state), _state);
             }
             else
             {
-                *r = ae_fabs(g1, _state)*ae_sqrt(1+ae_sqr(f1/g1, _state), _state);
+                *r = ae_fabs(g1, _state)*ae_sqrt((double)1+ae_sqr(f1/g1, _state), _state);
             }
             *cs = f1/(*r);
             *sn = g1/(*r);
@@ -13259,6 +14293,361 @@ void rankxuntied(/* Real    */ ae_vector* x,
 
 
 #endif
+#if defined(AE_COMPILE_APSTRUCT) || !defined(AE_PARTIAL_BUILD)
+
+
+/*************************************************************************
+Initializes n-set by empty structure.
+
+IMPORTANT: this function need O(N) time for initialization. It is recommended
+           to reduce its usage as much as possible, and use nisClear()
+           where possible.
+
+INPUT PARAMETERS
+    N           -   possible set size
+    
+OUTPUT PARAMETERS
+    SA          -   empty N-set
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+void nisinitemptyslow(ae_int_t n, niset* sa, ae_state *_state)
+{
+
+
+    sa->n = n;
+    sa->nstored = 0;
+    isetallocv(n, -999999999, &sa->locationof, _state);
+    isetallocv(n, -999999999, &sa->items, _state);
+}
+
+
+/*************************************************************************
+Copies n-set to properly initialized target set. The target set has to  be
+properly initialized, and it can be non-empty. If  it  is  non-empty,  its
+contents is quickly erased before copying.
+
+The cost of this function is O(max(SrcSize,DstSize))
+
+INPUT PARAMETERS
+    SSrc        -   source N-set
+    SDst        -   destination N-set (has same size as SSrc)
+    
+OUTPUT PARAMETERS
+    SDst        -   copy of SSrc
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+void niscopy(niset* ssrc, niset* sdst, ae_state *_state)
+{
+    ae_int_t ns;
+    ae_int_t i;
+    ae_int_t k;
+
+
+    nisclear(sdst, _state);
+    ns = ssrc->nstored;
+    for(i=0; i<=ns-1; i++)
+    {
+        k = ssrc->items.ptr.p_int[i];
+        sdst->items.ptr.p_int[i] = k;
+        sdst->locationof.ptr.p_int[k] = i;
+    }
+    sdst->nstored = ns;
+}
+
+
+/*************************************************************************
+Add K-th element to the set. The element may already exist in the set.
+
+INPUT PARAMETERS
+    SA          -   set
+    K           -   element to add, 0<=K<N.
+    
+OUTPUT PARAMETERS
+    SA          -   modified SA
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+void nisaddelement(niset* sa, ae_int_t k, ae_state *_state)
+{
+    ae_int_t ns;
+
+
+    if( sa->locationof.ptr.p_int[k]>=0 )
+    {
+        return;
+    }
+    ns = sa->nstored;
+    sa->locationof.ptr.p_int[k] = ns;
+    sa->items.ptr.p_int[ns] = k;
+    sa->nstored = ns+1;
+}
+
+
+/*************************************************************************
+Subtracts K-th set from the source structure
+
+INPUT PARAMETERS
+    SA          -   set
+    Src, K      -   source kn-set and set index K
+    
+OUTPUT PARAMETERS
+    SA          -   modified SA
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+void nissubtract1(niset* sa, niset* src, ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t j;
+    ae_int_t loc;
+    ae_int_t item;
+    ae_int_t ns;
+    ae_int_t ss;
+
+
+    ns = sa->nstored;
+    ss = src->nstored;
+    if( ss<ns )
+    {
+        for(i=0; i<=ss-1; i++)
+        {
+            j = src->items.ptr.p_int[i];
+            loc = sa->locationof.ptr.p_int[j];
+            if( loc>=0 )
+            {
+                item = sa->items.ptr.p_int[ns-1];
+                sa->items.ptr.p_int[loc] = item;
+                sa->locationof.ptr.p_int[item] = loc;
+                sa->locationof.ptr.p_int[j] = -1;
+                ns = ns-1;
+            }
+        }
+    }
+    else
+    {
+        i = 0;
+        while(i<ns)
+        {
+            j = sa->items.ptr.p_int[i];
+            loc = src->locationof.ptr.p_int[j];
+            if( loc>=0 )
+            {
+                item = sa->items.ptr.p_int[ns-1];
+                sa->items.ptr.p_int[i] = item;
+                sa->locationof.ptr.p_int[item] = i;
+                sa->locationof.ptr.p_int[j] = -1;
+                ns = ns-1;
+            }
+            else
+            {
+                i = i+1;
+            }
+        }
+    }
+    sa->nstored = ns;
+}
+
+
+/*************************************************************************
+Clears set
+
+INPUT PARAMETERS
+    SA          -   set to be cleared
+    
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+void nisclear(niset* sa, ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t ns;
+
+
+    ns = sa->nstored;
+    for(i=0; i<=ns-1; i++)
+    {
+        sa->locationof.ptr.p_int[sa->items.ptr.p_int[i]] = -1;
+    }
+    sa->nstored = 0;
+}
+
+
+/*************************************************************************
+Counts set elements
+
+INPUT PARAMETERS
+    SA          -   set
+    
+RESULT
+    number of elements in SA
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+ae_int_t niscount(niset* sa, ae_state *_state)
+{
+    ae_int_t result;
+
+
+    result = sa->nstored;
+    return result;
+}
+
+
+/*************************************************************************
+Compare two sets, returns True for equal sets
+
+INPUT PARAMETERS
+    S0          -   set 0
+    S1          -   set 1, must have same parameter N as set 0
+    
+RESULT
+    True, if sets are equal
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+ae_bool nisequal(niset* s0, niset* s1, ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t ns0;
+    ae_int_t ns1;
+    ae_bool result;
+
+
+    result = ae_false;
+    if( s0->n!=s1->n )
+    {
+        return result;
+    }
+    if( s0->nstored!=s1->nstored )
+    {
+        return result;
+    }
+    ns0 = s0->nstored;
+    ns1 = s1->nstored;
+    for(i=0; i<=ns0-1; i++)
+    {
+        if( s1->locationof.ptr.p_int[s0->items.ptr.p_int[i]]<0 )
+        {
+            return result;
+        }
+    }
+    for(i=0; i<=ns1-1; i++)
+    {
+        if( s0->locationof.ptr.p_int[s1->items.ptr.p_int[i]]<0 )
+        {
+            return result;
+        }
+    }
+    result = ae_true;
+    return result;
+}
+
+
+/*************************************************************************
+Prepares iteration over set
+
+INPUT PARAMETERS
+    SA          -   set
+    
+OUTPUT PARAMETERS
+    SA          -   SA ready for repeated calls of nisEnumerate()
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+void nisstartenumeration(niset* sa, ae_state *_state)
+{
+
+
+    sa->iteridx = 0;
+}
+
+
+/*************************************************************************
+Iterates over the set. Subsequent calls return True and set J to  new  set
+item until iteration stops and False is returned.
+
+INPUT PARAMETERS
+    SA          -   n-set
+    
+OUTPUT PARAMETERS
+    J           -   if:
+                    * Result=True - index of element in the set
+                    * Result=False - not set
+
+
+  -- ALGLIB PROJECT --
+     Copyright 05.10.2020 by Bochkanov Sergey.
+*************************************************************************/
+ae_bool nisenumerate(niset* sa, ae_int_t* i, ae_state *_state)
+{
+    ae_int_t k;
+    ae_bool result;
+
+    *i = 0;
+
+    k = sa->iteridx;
+    if( k>=sa->nstored )
+    {
+        result = ae_false;
+        return result;
+    }
+    *i = sa->items.ptr.p_int[k];
+    sa->iteridx = k+1;
+    result = ae_true;
+    return result;
+}
+
+
+void _niset_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    niset *p = (niset*)_p;
+    ae_touch_ptr((void*)p);
+    ae_vector_init(&p->items, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->locationof, 0, DT_INT, _state, make_automatic);
+}
+
+
+void _niset_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    niset       *dst = (niset*)_dst;
+    const niset *src = (const niset*)_src;
+    dst->n = src->n;
+    dst->nstored = src->nstored;
+    ae_vector_init_copy(&dst->items, &src->items, _state, make_automatic);
+    ae_vector_init_copy(&dst->locationof, &src->locationof, _state, make_automatic);
+    dst->iteridx = src->iteridx;
+}
+
+
+void _niset_clear(void* _p)
+{
+    niset *p = (niset*)_p;
+    ae_touch_ptr((void*)p);
+    ae_vector_clear(&p->items);
+    ae_vector_clear(&p->locationof);
+}
+
+
+void _niset_destroy(void* _p)
+{
+    niset *p = (niset*)_p;
+    ae_touch_ptr((void*)p);
+    ae_vector_destroy(&p->items);
+    ae_vector_destroy(&p->locationof);
+}
+
+
+#endif
 #if defined(AE_COMPILE_TRLINSOLVE) || !defined(AE_PARTIAL_BUILD)
 
 
@@ -13323,7 +14712,7 @@ void rmatrixtrsafesolve(/* Real    */ ae_matrix* a,
     memset(&cnorm, 0, sizeof(cnorm));
     memset(&a1, 0, sizeof(a1));
     memset(&x1, 0, sizeof(x1));
-    *s = 0;
+    *s = 0.0;
     ae_vector_init(&cnorm, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&a1, 0, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&x1, 0, DT_REAL, _state, ae_true);
@@ -13400,7 +14789,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
     ae_bool upper;
     ae_bool nounit;
 
-    *s = 0;
+    *s = 0.0;
 
     upper = isupper;
     notran = !istrans;
@@ -13423,8 +14812,8 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
     /*
      * Determine machine dependent parameters to control overflow.
      */
-    smlnum = ae_minrealnumber/(ae_machineepsilon*2);
-    bignum = 1/smlnum;
+    smlnum = ae_minrealnumber/(ae_machineepsilon*(double)2);
+    bignum = (double)1/smlnum;
     *s = (double)(1);
     if( !normin )
     {
@@ -13487,7 +14876,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
     }
     else
     {
-        tscal = 1/(smlnum*tmax);
+        tscal = (double)1/(smlnum*tmax);
         ae_v_muld(&cnorm->ptr.p_double[1], 1, ae_v_len(1,n), tscal);
     }
     
@@ -13538,7 +14927,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                  * Compute GROW = 1/G(j) and XBND = 1/M(j).
                  * Initially, G(0) = max{x(i), i=1,...,n}.
                  */
-                grow = 1/ae_maxreal(xbnd, smlnum, _state);
+                grow = (double)1/ae_maxreal(xbnd, smlnum, _state);
                 xbnd = grow;
                 j = jfirst;
                 while((jinc>0&&j<=jlast)||(jinc<0&&j>=jlast))
@@ -13588,7 +14977,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                  *
                  * Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
                  */
-                grow = ae_minreal((double)(1), 1/ae_maxreal(xbnd, smlnum, _state), _state);
+                grow = ae_minreal((double)(1), (double)1/ae_maxreal(xbnd, smlnum, _state), _state);
                 j = jfirst;
                 while((jinc>0&&j<=jlast)||(jinc<0&&j>=jlast))
                 {
@@ -13604,7 +14993,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                     /*
                      * G(j) = G(j-1)*( 1 + CNORM(j) )
                      */
-                    grow = grow*(1/(1+cnorm->ptr.p_double[j]));
+                    grow = grow*((double)1/((double)1+cnorm->ptr.p_double[j]));
                     j = j+jinc;
                 }
             }
@@ -13643,7 +15032,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                  * Compute GROW = 1/G(j) and XBND = 1/M(j).
                  * Initially, M(0) = max{x(i), i=1,...,n}.
                  */
-                grow = 1/ae_maxreal(xbnd, smlnum, _state);
+                grow = (double)1/ae_maxreal(xbnd, smlnum, _state);
                 xbnd = grow;
                 j = jfirst;
                 while((jinc>0&&j<=jlast)||(jinc<0&&j>=jlast))
@@ -13660,7 +15049,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                     /*
                      * G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
                      */
-                    xj = 1+cnorm->ptr.p_double[j];
+                    xj = (double)1+cnorm->ptr.p_double[j];
                     grow = ae_minreal(grow, xbnd/xj, _state);
                     
                     /*
@@ -13686,7 +15075,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                  *
                  * Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
                  */
-                grow = ae_minreal((double)(1), 1/ae_maxreal(xbnd, smlnum, _state), _state);
+                grow = ae_minreal((double)(1), (double)1/ae_maxreal(xbnd, smlnum, _state), _state);
                 j = jfirst;
                 while((jinc>0&&j<=jlast)||(jinc<0&&j>=jlast))
                 {
@@ -13702,7 +15091,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                     /*
                      * G(j) = ( 1 + CNORM(j) )*G(j-1)
                      */
-                    xj = 1+cnorm->ptr.p_double[j];
+                    xj = (double)1+cnorm->ptr.p_double[j];
                     grow = grow/xj;
                     j = j+jinc;
                 }
@@ -13844,7 +15233,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                                 /*
                                  * Scale x by 1/b(j).
                                  */
-                                rec = 1/xj;
+                                rec = (double)1/xj;
                                 ae_v_muld(&x->ptr.p_double[1], 1, ae_v_len(1,n), rec);
                                 *s = *s*rec;
                                 xmax = xmax*rec;
@@ -13910,7 +15299,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                  */
                 if( ae_fp_greater(xj,(double)(1)) )
                 {
-                    rec = 1/xj;
+                    rec = (double)1/xj;
                     if( ae_fp_greater(cnorm->ptr.p_double[j],(bignum-xmax)*rec) )
                     {
                         
@@ -13999,7 +15388,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                  */
                 xj = ae_fabs(x->ptr.p_double[j], _state);
                 uscal = tscal;
-                rec = 1/ae_maxreal(xmax, (double)(1), _state);
+                rec = (double)1/ae_maxreal(xmax, (double)(1), _state);
                 if( ae_fp_greater(cnorm->ptr.p_double[j],(bignum-xj)*rec) )
                 {
                     
@@ -14130,7 +15519,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
                                     /*
                                      * Scale X by 1/abs(x(j)).
                                      */
-                                    rec = 1/xj;
+                                    rec = (double)1/xj;
                                     ae_v_muld(&x->ptr.p_double[1], 1, ae_v_len(1,n), rec);
                                     *s = *s*rec;
                                     xmax = xmax*rec;
@@ -14198,7 +15587,7 @@ void safesolvetriangular(/* Real    */ ae_matrix* a,
      */
     if( ae_fp_neq(tscal,(double)(1)) )
     {
-        v = 1/tscal;
+        v = (double)1/tscal;
         ae_v_muld(&cnorm->ptr.p_double[1], 1, ae_v_len(1,n), v);
     }
 }
@@ -14840,8 +16229,8 @@ static ae_bool safesolve_cbasicsolveandupdate(ae_complex alpha,
     double v;
     ae_bool result;
 
-    x->x = 0;
-    x->y = 0;
+    x->x = 0.0;
+    x->y = 0.0;
 
     result = ae_false;
     if( ae_c_eq_d(alpha,(double)(0)) )
@@ -14920,8 +16309,8 @@ void xdot(/* Real    */ ae_vector* a,
     double mx;
     double v;
 
-    *r = 0;
-    *rerr = 0;
+    *r = 0.0;
+    *rerr = 0.0;
 
     
     /*
@@ -14986,9 +16375,9 @@ void xcdot(/* Complex */ ae_vector* a,
     double rerrx;
     double rerry;
 
-    r->x = 0;
-    r->y = 0;
-    *rerr = 0;
+    r->x = 0.0;
+    r->y = 0.0;
+    *rerr = 0.0;
 
     
     /*
@@ -15057,7 +16446,7 @@ void xcdot(/* Complex */ ae_vector* a,
     }
     else
     {
-        *rerr = ae_maxreal(rerrx, rerry, _state)*ae_sqrt(1+ae_sqr(ae_minreal(rerrx, rerry, _state)/ae_maxreal(rerrx, rerry, _state), _state), _state);
+        *rerr = ae_maxreal(rerrx, rerry, _state)*ae_sqrt((double)1+ae_sqr(ae_minreal(rerrx, rerry, _state)/ae_maxreal(rerrx, rerry, _state), _state), _state);
     }
 }
 
@@ -15095,8 +16484,8 @@ static void xblas_xsum(/* Real    */ ae_vector* w,
     double invchunk;
     ae_bool allzeros;
 
-    *r = 0;
-    *rerr = 0;
+    *r = 0.0;
+    *rerr = 0.0;
 
     
     /*
@@ -15151,10 +16540,10 @@ static void xblas_xsum(/* Real    */ ae_vector* w,
     }
     while(ae_fp_less(s*mx,0.5))
     {
-        s = 2*s;
+        s = (double)2*s;
     }
     ae_v_muld(&w->ptr.p_double[0], 1, ae_v_len(0,n-1), s);
-    s = 1/s;
+    s = (double)1/s;
     
     /*
      * find Chunk=2^M such that N*Chunk<2^29
@@ -15169,7 +16558,7 @@ static void xblas_xsum(/* Real    */ ae_vector* w,
     {
         chunk = (double)(2);
     }
-    invchunk = 1/chunk;
+    invchunk = (double)1/chunk;
     
     /*
      * calculate result
@@ -15189,12 +16578,11 @@ static void xblas_xsum(/* Real    */ ae_vector* w,
             {
                 allzeros = ae_false;
             }
-            w->ptr.p_double[i] = chunk*(v-k);
+            w->ptr.p_double[i] = chunk*(v-(double)k);
             ks = ks+k;
         }
-        *r = *r+s*ks;
-        v = ae_fabs(*r, _state);
-        if( allzeros||ae_fp_eq(s*n+mx,mx) )
+        *r = *r+s*(double)ks;
+        if( allzeros||ae_fp_eq(s*(double)n+mx,mx) )
         {
             break;
         }
@@ -15237,7 +16625,7 @@ static double xblas_xfastpow(double r, ae_int_t n, ae_state *_state)
     }
     if( n<0 )
     {
-        result = xblas_xfastpow(1/r, -n, _state);
+        result = xblas_xfastpow((double)1/r, -n, _state);
     }
     return result;
 }
@@ -15277,7 +16665,7 @@ void linminnormalized(/* Real    */ ae_vector* d,
     {
         return;
     }
-    s = 1/mx;
+    s = (double)1/mx;
     ae_v_muld(&d->ptr.p_double[0], 1, ae_v_len(0,n-1), s);
     *stp = *stp/s;
     
@@ -15285,7 +16673,7 @@ void linminnormalized(/* Real    */ ae_vector* d,
      * normalize D
      */
     s = ae_v_dotproduct(&d->ptr.p_double[0], 1, &d->ptr.p_double[0], 1, ae_v_len(0,n-1));
-    s = 1/ae_sqrt(s, _state);
+    s = (double)1/ae_sqrt(s, _state);
     ae_v_muld(&d->ptr.p_double[0], 1, ae_v_len(0,n-1), s);
     *stp = *stp/s;
 }
@@ -15826,7 +17214,7 @@ ae_bool armijoiteration(armijostate* state, ae_state *_state)
     else
     {
         n = 359;
-        v = -58;
+        v = -58.0;
     }
     if( state->rstate.stage==0 )
     {
@@ -16120,7 +17508,7 @@ static void linmin_mcstep(double* stx,
     {
         *info = 1;
         bound = ae_true;
-        theta = 3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
+        theta = (double)3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
         s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dx, _state), ae_fabs(dp, _state), _state), _state);
         gamma = s*ae_sqrt(ae_sqr(theta/s, _state)-*dx/s*(dp/s), _state);
         if( ae_fp_less(*stp,*stx) )
@@ -16131,14 +17519,14 @@ static void linmin_mcstep(double* stx,
         q = gamma-(*dx)+gamma+dp;
         r = p/q;
         stpc = *stx+r*(*stp-(*stx));
-        stpq = *stx+*dx/((*fx-fp)/(*stp-(*stx))+(*dx))/2*(*stp-(*stx));
+        stpq = *stx+*dx/((*fx-fp)/(*stp-(*stx))+(*dx))/(double)2*(*stp-(*stx));
         if( ae_fp_less(ae_fabs(stpc-(*stx), _state),ae_fabs(stpq-(*stx), _state)) )
         {
             stpf = stpc;
         }
         else
         {
-            stpf = stpc+(stpq-stpc)/2;
+            stpf = stpc+(stpq-stpc)/(double)2;
         }
         *brackt = ae_true;
     }
@@ -16155,7 +17543,7 @@ static void linmin_mcstep(double* stx,
              */
             *info = 2;
             bound = ae_false;
-            theta = 3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
+            theta = (double)3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
             s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dx, _state), ae_fabs(dp, _state), _state), _state);
             gamma = s*ae_sqrt(ae_sqr(theta/s, _state)-*dx/s*(dp/s), _state);
             if( ae_fp_greater(*stp,*stx) )
@@ -16194,7 +17582,7 @@ static void linmin_mcstep(double* stx,
                  */
                 *info = 3;
                 bound = ae_true;
-                theta = 3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
+                theta = (double)3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
                 s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dx, _state), ae_fabs(dp, _state), _state), _state);
                 
                 /*
@@ -16261,7 +17649,7 @@ static void linmin_mcstep(double* stx,
                 bound = ae_false;
                 if( *brackt )
                 {
-                    theta = 3*(fp-(*fy))/(*sty-(*stp))+(*dy)+dp;
+                    theta = (double)3*(fp-(*fy))/(*sty-(*stp))+(*dy)+dp;
                     s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dy, _state), ae_fabs(dp, _state), _state), _state);
                     gamma = s*ae_sqrt(ae_sqr(theta/s, _state)-*dy/s*(dp/s), _state);
                     if( ae_fp_greater(*stp,*sty) )
@@ -16339,10 +17727,10 @@ void _linminstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _linminstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _linminstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    linminstate *dst = (linminstate*)_dst;
-    linminstate *src = (linminstate*)_src;
+    linminstate       *dst = (linminstate*)_dst;
+    const linminstate *src = (const linminstate*)_src;
     dst->brackt = src->brackt;
     dst->stage1 = src->stage1;
     dst->infoc = src->infoc;
@@ -16396,10 +17784,10 @@ void _armijostate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _armijostate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _armijostate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    armijostate *dst = (armijostate*)_dst;
-    armijostate *src = (armijostate*)_src;
+    armijostate       *dst = (armijostate*)_dst;
+    const armijostate *src = (const armijostate*)_src;
     dst->needf = src->needf;
     ae_vector_init_copy(&dst->x, &src->x, _state, make_automatic);
     dst->f = src->f;
@@ -16515,7 +17903,7 @@ double nucosm1(double x, ae_state *_state)
 
     if( ae_fp_less(x,-0.25*ae_pi)||ae_fp_greater(x,0.25*ae_pi) )
     {
-        result = ae_cos(x, _state)-1;
+        result = ae_cos(x, _state)-(double)1;
         return result;
     }
     xx = x*x;
@@ -16901,7 +18289,7 @@ void ftcomplexfftplan(ae_int_t n,
     ae_vector_set_length(&plan->buffer, 2*n*k, _state);
     ftbase_ftcomplexfftplanrec(n, k, ae_true, ae_true, &rowptr, &bluesteinsize, &precrptr, &preciptr, plan, _state);
     ae_vector_set_length(&bluesteinbuf.val, bluesteinsize, _state);
-    ae_shared_pool_set_seed(&plan->bluesteinpool, &bluesteinbuf, sizeof(bluesteinbuf), _srealarray_init, _srealarray_init_copy, _srealarray_destroy, _state);
+    ae_shared_pool_set_seed(&plan->bluesteinpool, &bluesteinbuf, (ae_int_t)sizeof(bluesteinbuf), (ae_constructor)_srealarray_init, (ae_copy_constructor)_srealarray_init_copy, (ae_destructor)_srealarray_destroy, _state);
     
     /*
      * Check that actual amount of precomputed space used by transformation
@@ -17114,7 +18502,7 @@ double ftbasegetflopestimate(ae_int_t n, ae_state *_state)
     double result;
 
 
-    result = ftbase_ftbaseinefficiencyfactor*(4*n*ae_log((double)(n), _state)/ae_log((double)(2), _state)-6*n+8);
+    result = ftbase_ftbaseinefficiencyfactor*((double)(4*n)*ae_log((double)(n), _state)/ae_log((double)(2), _state)-(double)(6*n)+(double)8);
     return result;
 }
 
@@ -17702,7 +19090,6 @@ static void ftbase_ftapplysubplan(fasttransformplan* plan,
     ae_int_t parentsize;
     ae_int_t childsize;
     ae_int_t chunksize;
-    ae_int_t lastchunksize;
     srealarray *bufa;
     ae_smart_ptr _bufa;
     srealarray *bufb;
@@ -17756,11 +19143,6 @@ static void ftbase_ftapplysubplan(fasttransformplan* plan,
             ae_assert(plan->entries.ptr.pp_int[rowidx+param0][ftbase_coltype]==ftbase_opstart, "FTApplySubPlan: incorrect child subplan header", _state);
             ae_assert(parentsize==childsize, "FTApplySubPlan: incorrect child subplan header", _state);
             chunksize = ae_maxint(ftbase_recursivethreshold/childsize, 1, _state);
-            lastchunksize = operandscnt%chunksize;
-            if( lastchunksize==0 )
-            {
-                lastchunksize = chunksize;
-            }
             i = 0;
             while(i<operandscnt)
             {
@@ -17925,8 +19307,8 @@ static void ftbase_ftapplycomplexreffft(/* Real    */ ae_vector* a,
             {
                 re = a->ptr.p_double[offs+opidx*operandsize*2+2*k+0];
                 im = a->ptr.p_double[offs+opidx*operandsize*2+2*k+1];
-                c = ae_cos(-2*ae_pi*k*i/n, _state);
-                s = ae_sin(-2*ae_pi*k*i/n, _state);
+                c = ae_cos(-(double)2*ae_pi*(double)k*(double)i/(double)n, _state);
+                s = ae_sin(-(double)2*ae_pi*(double)k*(double)i/(double)n, _state);
                 hre = hre+c*re-s*im;
                 him = him+c*im+s*re;
             }
@@ -18052,8 +19434,8 @@ static void ftbase_ftapplycomplexcodeletfft(/* Real    */ ae_vector* a,
     }
     if( n==3 )
     {
-        c1 = ae_cos(2*ae_pi/3, _state)-1;
-        c2 = ae_sin(2*ae_pi/3, _state);
+        c1 = ae_cos((double)2*ae_pi/(double)3, _state)-(double)1;
+        c2 = ae_sin((double)2*ae_pi/(double)3, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
             aoffset = offs+opidx*operandsize*2;
@@ -18120,12 +19502,12 @@ static void ftbase_ftapplycomplexcodeletfft(/* Real    */ ae_vector* a,
     }
     if( n==5 )
     {
-        v = 2*ae_pi/5;
-        c1 = (ae_cos(v, _state)+ae_cos(2*v, _state))/2-1;
-        c2 = (ae_cos(v, _state)-ae_cos(2*v, _state))/2;
+        v = (double)2*ae_pi/(double)5;
+        c1 = (ae_cos(v, _state)+ae_cos((double)2*v, _state))/(double)2-(double)1;
+        c2 = (ae_cos(v, _state)-ae_cos((double)2*v, _state))/(double)2;
         c3 = -ae_sin(v, _state);
-        c4 = -(ae_sin(v, _state)+ae_sin(2*v, _state));
-        c5 = ae_sin(v, _state)-ae_sin(2*v, _state);
+        c4 = -(ae_sin(v, _state)+ae_sin((double)2*v, _state));
+        c5 = ae_sin(v, _state)-ae_sin((double)2*v, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
             aoffset = offs+opidx*operandsize*2;
@@ -18174,10 +19556,10 @@ static void ftbase_ftapplycomplexcodeletfft(/* Real    */ ae_vector* a,
     }
     if( n==6 )
     {
-        c1 = ae_cos(2*ae_pi/3, _state)-1;
-        c2 = ae_sin(2*ae_pi/3, _state);
-        c3 = ae_cos(-ae_pi/3, _state);
-        c4 = ae_sin(-ae_pi/3, _state);
+        c1 = ae_cos((double)2*ae_pi/(double)3, _state)-(double)1;
+        c2 = ae_sin((double)2*ae_pi/(double)3, _state);
+        c3 = ae_cos(-ae_pi/(double)3, _state);
+        c4 = ae_sin(-ae_pi/(double)3, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
             aoffset = offs+opidx*operandsize*2;
@@ -18385,8 +19767,8 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
     ae_assert(n<=ftbase_maxradix, "FTApplyComplexCodeletTwFFT: N>MaxRadix", _state);
     if( n==2 )
     {
-        v = -2*ae_pi/(n*m);
-        tw0 = -2*ae_sqr(ae_sin(0.5*v, _state), _state);
+        v = -(double)2*ae_pi/(double)(n*m);
+        tw0 = -(double)2*ae_sqr(ae_sin(0.5*v, _state), _state);
         tw1 = ae_sin(v, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
@@ -18406,15 +19788,15 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 v3 = a0y-a1y;
                 a->ptr.p_double[aoffset0] = v0;
                 a->ptr.p_double[aoffset0+1] = v1;
-                a->ptr.p_double[aoffset2] = v2*(1+twxm1)-v3*twy;
-                a->ptr.p_double[aoffset2+1] = v3*(1+twxm1)+v2*twy;
+                a->ptr.p_double[aoffset2] = v2*((double)1+twxm1)-v3*twy;
+                a->ptr.p_double[aoffset2+1] = v3*((double)1+twxm1)+v2*twy;
                 aoffset0 = aoffset0+2;
                 aoffset2 = aoffset2+2;
                 if( (mvidx+1)%ftbase_updatetw==0 )
                 {
-                    v = -2*ae_pi*(mvidx+1)/(n*m);
+                    v = -(double)2*ae_pi*(double)(mvidx+1)/(double)(n*m);
                     twxm1 = ae_sin(0.5*v, _state);
-                    twxm1 = -2*twxm1*twxm1;
+                    twxm1 = -(double)2*twxm1*twxm1;
                     twy = ae_sin(v, _state);
                 }
                 else
@@ -18429,11 +19811,11 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
     }
     if( n==3 )
     {
-        v = -2*ae_pi/(n*m);
-        tw0 = -2*ae_sqr(ae_sin(0.5*v, _state), _state);
+        v = -(double)2*ae_pi/(double)(n*m);
+        tw0 = -(double)2*ae_sqr(ae_sin(0.5*v, _state), _state);
         tw1 = ae_sin(v, _state);
-        c1 = ae_cos(2*ae_pi/3, _state)-1;
-        c2 = ae_sin(2*ae_pi/3, _state);
+        c1 = ae_cos((double)2*ae_pi/(double)3, _state)-(double)1;
+        c2 = ae_sin((double)2*ae_pi/(double)3, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
             aoffset0 = offs+opidx*operandsize*microvectorsize;
@@ -18465,7 +19847,7 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 a2x = s1x-m2x;
                 a2y = s1y-m2y;
                 tw2x = twx*twx-twy*twy;
-                tw2y = 2*twx*twy;
+                tw2y = (double)2*twx*twy;
                 a->ptr.p_double[aoffset0] = a0x;
                 a->ptr.p_double[aoffset0+1] = a0y;
                 a->ptr.p_double[aoffset2] = a1x*twx-a1y*twy;
@@ -18477,18 +19859,18 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 aoffset4 = aoffset4+2;
                 if( (mvidx+1)%ftbase_updatetw==0 )
                 {
-                    v = -2*ae_pi*(mvidx+1)/(n*m);
+                    v = -(double)2*ae_pi*(double)(mvidx+1)/(double)(n*m);
                     twxm1 = ae_sin(0.5*v, _state);
-                    twxm1 = -2*twxm1*twxm1;
+                    twxm1 = -(double)2*twxm1*twxm1;
                     twy = ae_sin(v, _state);
-                    twx = twxm1+1;
+                    twx = twxm1+(double)1;
                 }
                 else
                 {
                     v = twxm1+tw0+twxm1*tw0-twy*tw1;
                     twy = twy+tw1+twxm1*tw1+twy*tw0;
                     twxm1 = v;
-                    twx = v+1;
+                    twx = v+(double)1;
                 }
             }
         }
@@ -18496,8 +19878,8 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
     }
     if( n==4 )
     {
-        v = -2*ae_pi/(n*m);
-        tw0 = -2*ae_sqr(ae_sin(0.5*v, _state), _state);
+        v = -(double)2*ae_pi/(double)(n*m);
+        tw0 = -(double)2*ae_sqr(ae_sin(0.5*v, _state), _state);
         tw1 = ae_sin(v, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
@@ -18527,7 +19909,7 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 m3x = a1y-a3y;
                 m3y = a3x-a1x;
                 tw2x = twx*twx-twy*twy;
-                tw2y = 2*twx*twy;
+                tw2y = (double)2*twx*twy;
                 tw3x = twx*tw2x-twy*tw2y;
                 tw3y = twx*tw2y+twy*tw2x;
                 a1x = m2x+m3x;
@@ -18550,18 +19932,18 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 aoffset6 = aoffset6+2;
                 if( (mvidx+1)%ftbase_updatetw==0 )
                 {
-                    v = -2*ae_pi*(mvidx+1)/(n*m);
+                    v = -(double)2*ae_pi*(double)(mvidx+1)/(double)(n*m);
                     twxm1 = ae_sin(0.5*v, _state);
-                    twxm1 = -2*twxm1*twxm1;
+                    twxm1 = -(double)2*twxm1*twxm1;
                     twy = ae_sin(v, _state);
-                    twx = twxm1+1;
+                    twx = twxm1+(double)1;
                 }
                 else
                 {
                     v = twxm1+tw0+twxm1*tw0-twy*tw1;
                     twy = twy+tw1+twxm1*tw1+twy*tw0;
                     twxm1 = v;
-                    twx = v+1;
+                    twx = v+(double)1;
                 }
             }
         }
@@ -18569,15 +19951,15 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
     }
     if( n==5 )
     {
-        v = -2*ae_pi/(n*m);
-        tw0 = -2*ae_sqr(ae_sin(0.5*v, _state), _state);
+        v = -(double)2*ae_pi/(double)(n*m);
+        tw0 = -(double)2*ae_sqr(ae_sin(0.5*v, _state), _state);
         tw1 = ae_sin(v, _state);
-        v = 2*ae_pi/5;
-        c1 = (ae_cos(v, _state)+ae_cos(2*v, _state))/2-1;
-        c2 = (ae_cos(v, _state)-ae_cos(2*v, _state))/2;
+        v = (double)2*ae_pi/(double)5;
+        c1 = (ae_cos(v, _state)+ae_cos((double)2*v, _state))/(double)2-(double)1;
+        c2 = (ae_cos(v, _state)-ae_cos((double)2*v, _state))/(double)2;
         c3 = -ae_sin(v, _state);
-        c4 = -(ae_sin(v, _state)+ae_sin(2*v, _state));
-        c5 = ae_sin(v, _state)-ae_sin(2*v, _state);
+        c4 = -(ae_sin(v, _state)+ae_sin((double)2*v, _state));
+        c5 = ae_sin(v, _state)-ae_sin((double)2*v, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
             aoffset0 = offs+opidx*operandsize*microvectorsize;
@@ -18633,7 +20015,7 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 s4x = s1x-m2x;
                 s4y = s1y-m2y;
                 tw2x = twx*twx-twy*twy;
-                tw2y = 2*twx*twy;
+                tw2y = (double)2*twx*twy;
                 tw3x = twx*tw2x-twy*tw2y;
                 tw3y = twx*tw2y+twy*tw2x;
                 tw4x = tw2x*tw2x-tw2y*tw2y;
@@ -18663,18 +20045,18 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 aoffset8 = aoffset8+2;
                 if( (mvidx+1)%ftbase_updatetw==0 )
                 {
-                    v = -2*ae_pi*(mvidx+1)/(n*m);
+                    v = -(double)2*ae_pi*(double)(mvidx+1)/(double)(n*m);
                     twxm1 = ae_sin(0.5*v, _state);
-                    twxm1 = -2*twxm1*twxm1;
+                    twxm1 = -(double)2*twxm1*twxm1;
                     twy = ae_sin(v, _state);
-                    twx = twxm1+1;
+                    twx = twxm1+(double)1;
                 }
                 else
                 {
                     v = twxm1+tw0+twxm1*tw0-twy*tw1;
                     twy = twy+tw1+twxm1*tw1+twy*tw0;
                     twxm1 = v;
-                    twx = v+1;
+                    twx = v+(double)1;
                 }
             }
         }
@@ -18682,12 +20064,12 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
     }
     if( n==6 )
     {
-        c1 = ae_cos(2*ae_pi/3, _state)-1;
-        c2 = ae_sin(2*ae_pi/3, _state);
-        c3 = ae_cos(-ae_pi/3, _state);
-        c4 = ae_sin(-ae_pi/3, _state);
-        v = -2*ae_pi/(n*m);
-        tw0 = -2*ae_sqr(ae_sin(0.5*v, _state), _state);
+        c1 = ae_cos((double)2*ae_pi/(double)3, _state)-(double)1;
+        c2 = ae_sin((double)2*ae_pi/(double)3, _state);
+        c3 = ae_cos(-ae_pi/(double)3, _state);
+        c4 = ae_sin(-ae_pi/(double)3, _state);
+        v = -(double)2*ae_pi/(double)(n*m);
+        tw0 = -(double)2*ae_sqr(ae_sin(0.5*v, _state), _state);
         tw1 = ae_sin(v, _state);
         for(opidx=0; opidx<=operandscnt-1; opidx++)
         {
@@ -18769,11 +20151,11 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 a5x = s1x-m2x;
                 a5y = s1y-m2y;
                 tw2x = twx*twx-twy*twy;
-                tw2y = 2*twx*twy;
+                tw2y = (double)2*twx*twy;
                 tw3x = twx*tw2x-twy*tw2y;
                 tw3y = twx*tw2y+twy*tw2x;
                 tw4x = tw2x*tw2x-tw2y*tw2y;
-                tw4y = 2*tw2x*tw2y;
+                tw4y = (double)2*tw2x*tw2y;
                 tw5x = tw3x*tw2x-tw3y*tw2y;
                 tw5y = tw3x*tw2y+tw3y*tw2x;
                 a->ptr.p_double[aoffset0+0] = a0x;
@@ -18796,18 +20178,18 @@ static void ftbase_ftapplycomplexcodelettwfft(/* Real    */ ae_vector* a,
                 aoffset10 = aoffset10+2;
                 if( (mvidx+1)%ftbase_updatetw==0 )
                 {
-                    v = -2*ae_pi*(mvidx+1)/(n*m);
+                    v = -(double)2*ae_pi*(double)(mvidx+1)/(double)(n*m);
                     twxm1 = ae_sin(0.5*v, _state);
-                    twxm1 = -2*twxm1*twxm1;
+                    twxm1 = -(double)2*twxm1*twxm1;
                     twy = ae_sin(v, _state);
-                    twx = twxm1+1;
+                    twx = twxm1+(double)1;
                 }
                 else
                 {
                     v = twxm1+tw0+twxm1*tw0-twy*tw1;
                     twy = twy+tw1+twxm1*tw1+twy*tw0;
                     twxm1 = v;
-                    twx = v+1;
+                    twx = v+(double)1;
                 }
             }
         }
@@ -18865,8 +20247,8 @@ static void ftbase_ftprecomputebluesteinsfft(ae_int_t n,
     }
     for(i=0; i<=n-1; i++)
     {
-        bx = ae_cos(ae_pi/n*i*i, _state);
-        by = ae_sin(ae_pi/n*i*i, _state);
+        bx = ae_cos(ae_pi/(double)n*(double)i*(double)i, _state);
+        by = ae_sin(ae_pi/(double)n*(double)i*(double)i, _state);
         precr->ptr.p_double[offs+2*i+0] = bx;
         precr->ptr.p_double[offs+2*i+1] = by;
         precr->ptr.p_double[offs+2*((m-i)%m)+0] = bx;
@@ -19004,8 +20386,8 @@ static void ftbase_ftbluesteinsfft(fasttransformplan* plan,
         {
             bx = plan->precr.ptr.p_double[p0+0];
             by = plan->precr.ptr.p_double[p0+1];
-            rx = bufa->ptr.p_double[p1+0]/m;
-            ry = -bufa->ptr.p_double[p1+1]/m;
+            rx = bufa->ptr.p_double[p1+0]/(double)m;
+            ry = -bufa->ptr.p_double[p1+1]/(double)m;
             a->ptr.p_double[p2+0] = rx*bx-ry*(-by);
             a->ptr.p_double[p2+1] = rx*(-by)+ry*bx;
             p0 = p0+2;
@@ -19062,7 +20444,7 @@ static void ftbase_ftprecomputeradersfft(ae_int_t n,
     kiq = 1;
     for(q=0; q<=n-2; q++)
     {
-        v = -2*ae_pi*kiq/n;
+        v = -(double)2*ae_pi*(double)kiq/(double)n;
         precr->ptr.p_double[offs+2*q+0] = ae_cos(v, _state);
         precr->ptr.p_double[offs+2*q+1] = ae_sin(v, _state);
         kiq = kiq*riq%n;
@@ -19188,8 +20570,8 @@ static void ftbase_ftradersfft(fasttransformplan* plan,
         p0 = abase+aoffset+opidx*n*2;
         for(i=0; i<=n-2; i++)
         {
-            a->ptr.p_double[p0+0] = a->ptr.p_double[p0+0]/(n-1);
-            a->ptr.p_double[p0+1] = -a->ptr.p_double[p0+1]/(n-1);
+            a->ptr.p_double[p0+0] = a->ptr.p_double[p0+0]/(double)(n-1);
+            a->ptr.p_double[p0+1] = -a->ptr.p_double[p0+1]/(double)(n-1);
             p0 = p0+2;
         }
         
@@ -19345,7 +20727,7 @@ static ae_int_t ftbase_ftoptimisticestimate(ae_int_t n, ae_state *_state)
 
 
     ae_assert(n>0, "FTOptimisticEstimate: N<=0", _state);
-    result = ae_ifloor(1.0E-5*5*n*ae_log((double)(n), _state)/ae_log((double)(2), _state), _state);
+    result = ae_ifloor(1.0E-5*(double)5*(double)n*ae_log((double)(n), _state)/ae_log((double)(2), _state), _state);
     return result;
 }
 
@@ -19429,8 +20811,8 @@ static void ftbase_ffttwcalc(/* Real    */ ae_vector* a,
     updatetw2 = ftbase_updatetw/2;
     halfn1 = n1/2;
     n = n1*n2;
-    v = -2*ae_pi/n;
-    twbasexm1 = -2*ae_sqr(ae_sin(0.5*v, _state), _state);
+    v = -(double)2*ae_pi/(double)n;
+    twbasexm1 = -(double)2*ae_sqr(ae_sin(0.5*v, _state), _state);
     twbasey = ae_sin(v, _state);
     twrowxm1 = (double)(0);
     twrowy = (double)(0);
@@ -19460,17 +20842,17 @@ static void ftbase_ffttwcalc(/* Real    */ ae_vector* a,
              */
             x = a->ptr.p_double[offs+0];
             y = a->ptr.p_double[offs+1];
-            tmpx = x*(1+twxm1)-y*twy;
-            tmpy = x*twy+y*(1+twxm1);
+            tmpx = x*((double)1+twxm1)-y*twy;
+            tmpy = x*twy+y*((double)1+twxm1);
             a->ptr.p_double[offs+0] = tmpx;
             a->ptr.p_double[offs+1] = tmpy;
-            tmpx = (1+twxm1)*twrowxm1-twy*twrowy;
-            twy = twy+(1+twxm1)*twrowy+twy*twrowxm1;
+            tmpx = ((double)1+twxm1)*twrowxm1-twy*twrowy;
+            twy = twy+((double)1+twxm1)*twrowy+twy*twrowxm1;
             twxm1 = twxm1+tmpx;
             x = a->ptr.p_double[offs+2];
             y = a->ptr.p_double[offs+3];
-            tmpx = x*(1+twxm1)-y*twy;
-            tmpy = x*twy+y*(1+twxm1);
+            tmpx = x*((double)1+twxm1)-y*twy;
+            tmpy = x*twy+y*((double)1+twxm1);
             a->ptr.p_double[offs+2] = tmpx;
             a->ptr.p_double[offs+3] = tmpy;
             offs = offs+4;
@@ -19480,9 +20862,9 @@ static void ftbase_ffttwcalc(/* Real    */ ae_vector* a,
                 /*
                  * Recalculate twiddle factor
                  */
-                v = -2*ae_pi*i*2*(j2+1)/n;
+                v = -(double)2*ae_pi*(double)i*(double)2*(double)(j2+1)/(double)n;
                 twxm1 = ae_sin(0.5*v, _state);
-                twxm1 = -2*twxm1*twxm1;
+                twxm1 = -(double)2*twxm1*twxm1;
                 twy = ae_sin(v, _state);
             }
             else
@@ -19491,8 +20873,8 @@ static void ftbase_ffttwcalc(/* Real    */ ae_vector* a,
                 /*
                  * Update twiddle factor
                  */
-                tmpx = (1+twxm1)*twrowxm1-twy*twrowy;
-                twy = twy+(1+twxm1)*twrowy+twy*twrowxm1;
+                tmpx = ((double)1+twxm1)*twrowxm1-twy*twrowy;
+                twy = twy+((double)1+twxm1)*twrowy+twy*twrowxm1;
                 twxm1 = twxm1+tmpx;
             }
         }
@@ -19504,8 +20886,8 @@ static void ftbase_ffttwcalc(/* Real    */ ae_vector* a,
              */
             x = a->ptr.p_double[offs+0];
             y = a->ptr.p_double[offs+1];
-            tmpx = x*(1+twxm1)-y*twy;
-            tmpy = x*twy+y*(1+twxm1);
+            tmpx = x*((double)1+twxm1)-y*twy;
+            tmpy = x*twy+y*((double)1+twxm1);
             a->ptr.p_double[offs+0] = tmpx;
             a->ptr.p_double[offs+1] = tmpy;
             offs = offs+2;
@@ -19518,9 +20900,9 @@ static void ftbase_ffttwcalc(/* Real    */ ae_vector* a,
         {
             if( (i+1)%ftbase_updatetw==0 )
             {
-                v = -2*ae_pi*(i+1)/n;
+                v = -(double)2*ae_pi*(double)(i+1)/(double)n;
                 twrowxm1 = ae_sin(0.5*v, _state);
-                twrowxm1 = -2*twrowxm1*twrowxm1;
+                twrowxm1 = -(double)2*twrowxm1*twrowxm1;
                 twrowy = ae_sin(v, _state);
             }
             else
@@ -19694,10 +21076,10 @@ void _fasttransformplan_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _fasttransformplan_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _fasttransformplan_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    fasttransformplan *dst = (fasttransformplan*)_dst;
-    fasttransformplan *src = (fasttransformplan*)_src;
+    fasttransformplan       *dst = (fasttransformplan*)_dst;
+    const fasttransformplan *src = (const fasttransformplan*)_src;
     ae_matrix_init_copy(&dst->entries, &src->entries, _state, make_automatic);
     ae_vector_init_copy(&dst->buffer, &src->buffer, _state, make_automatic);
     ae_vector_init_copy(&dst->precr, &src->precr, _state, make_automatic);
@@ -19964,10 +21346,10 @@ void _mlpbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mlpbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlpbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlpbuffers *dst = (mlpbuffers*)_dst;
-    mlpbuffers *src = (mlpbuffers*)_src;
+    mlpbuffers       *dst = (mlpbuffers*)_dst;
+    const mlpbuffers *src = (const mlpbuffers*)_src;
     dst->chunksize = src->chunksize;
     dst->ntotal = src->ntotal;
     dst->nin = src->nin;

@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -1826,7 +1826,7 @@ double hqrndcontinuous(hqrndstate* state,
      ae_int_t n,
      ae_state *_state);
 void _hqrndstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _hqrndstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _hqrndstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _hqrndstate_clear(void* _p);
 void _hqrndstate_destroy(void* _p);
 #endif
@@ -1891,7 +1891,7 @@ double xdebugmaskedbiasedproductsum(ae_int_t m,
      /* Boolean */ ae_matrix* c,
      ae_state *_state);
 void _xdebugrecord1_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _xdebugrecord1_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _xdebugrecord1_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _xdebugrecord1_clear(void* _p);
 void _xdebugrecord1_destroy(void* _p);
 #endif
@@ -2033,11 +2033,11 @@ void kdtreealloc(ae_serializer* s, kdtree* tree, ae_state *_state);
 void kdtreeserialize(ae_serializer* s, kdtree* tree, ae_state *_state);
 void kdtreeunserialize(ae_serializer* s, kdtree* tree, ae_state *_state);
 void _kdtreerequestbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _kdtreerequestbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _kdtreerequestbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _kdtreerequestbuffer_clear(void* _p);
 void _kdtreerequestbuffer_destroy(void* _p);
 void _kdtree_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _kdtree_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _kdtree_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _kdtree_clear(void* _p);
 void _kdtree_destroy(void* _p);
 #endif

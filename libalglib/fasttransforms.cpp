@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -101,7 +101,7 @@ void fftc1d(complex_1d_array &a, const ae_int_t n, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftc1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -149,7 +149,7 @@ void fftc1d(complex_1d_array &a, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftc1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, &_alglib_env_state);
 
@@ -193,7 +193,7 @@ void fftc1dinv(complex_1d_array &a, const ae_int_t n, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftc1dinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -232,7 +232,7 @@ void fftc1dinv(complex_1d_array &a, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftc1dinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, &_alglib_env_state);
 
@@ -279,7 +279,7 @@ void fftr1d(const real_1d_array &a, const ae_int_t n, complex_1d_array &f, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftr1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(f.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -321,7 +321,7 @@ void fftr1d(const real_1d_array &a, complex_1d_array &f, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftr1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(f.c_ptr()), &_alglib_env_state);
 
@@ -380,7 +380,7 @@ void fftr1dinv(const complex_1d_array &f, const ae_int_t n, real_1d_array &a, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftr1dinv(const_cast<alglib_impl::ae_vector*>(f.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -434,7 +434,7 @@ void fftr1dinv(const complex_1d_array &f, real_1d_array &a, const xparams _xpara
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fftr1dinv(const_cast<alglib_impl::ae_vector*>(f.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(a.c_ptr()), &_alglib_env_state);
 
@@ -477,7 +477,7 @@ void fhtr1d(real_1d_array &a, const ae_int_t n, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fhtr1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -515,7 +515,7 @@ void fhtr1dinv(real_1d_array &a, const ae_int_t n, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fhtr1dinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -568,7 +568,7 @@ void convc1d(const complex_1d_array &a, const ae_int_t m, const complex_1d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convc1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -616,7 +616,7 @@ void convc1dinv(const complex_1d_array &a, const ae_int_t m, const complex_1d_ar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convc1dinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -666,7 +666,7 @@ void convc1dcircular(const complex_1d_array &s, const ae_int_t m, const complex_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convc1dcircular(const_cast<alglib_impl::ae_vector*>(s.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -714,7 +714,7 @@ void convc1dcircularinv(const complex_1d_array &a, const ae_int_t m, const compl
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convc1dcircularinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -758,7 +758,7 @@ void convr1d(const real_1d_array &a, const ae_int_t m, const real_1d_array &b, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convr1d(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -806,7 +806,7 @@ void convr1dinv(const real_1d_array &a, const ae_int_t m, const real_1d_array &b
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convr1dinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -850,7 +850,7 @@ void convr1dcircular(const real_1d_array &s, const ae_int_t m, const real_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convr1dcircular(const_cast<alglib_impl::ae_vector*>(s.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -898,7 +898,7 @@ void convr1dcircularinv(const real_1d_array &a, const ae_int_t m, const real_1d_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::convr1dcircularinv(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -958,7 +958,7 @@ void corrc1d(const complex_1d_array &signal, const ae_int_t n, const complex_1d_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::corrc1d(const_cast<alglib_impl::ae_vector*>(signal.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(pattern.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1007,7 +1007,7 @@ void corrc1dcircular(const complex_1d_array &signal, const ae_int_t m, const com
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::corrc1dcircular(const_cast<alglib_impl::ae_vector*>(signal.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(pattern.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1065,7 +1065,7 @@ void corrr1d(const real_1d_array &signal, const ae_int_t n, const real_1d_array 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::corrr1d(const_cast<alglib_impl::ae_vector*>(signal.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(pattern.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1114,7 +1114,7 @@ void corrr1dcircular(const real_1d_array &signal, const ae_int_t m, const real_1
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::corrr1dcircular(const_cast<alglib_impl::ae_vector*>(signal.c_ptr()), m, const_cast<alglib_impl::ae_vector*>(pattern.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1281,8 +1281,8 @@ void fftc1dinv(/* Complex */ ae_vector* a, ae_int_t n, ae_state *_state)
     fftc1d(a, n, _state);
     for(i=0; i<=n-1; i++)
     {
-        a->ptr.p_complex[i].x = a->ptr.p_complex[i].x/n;
-        a->ptr.p_complex[i].y = -a->ptr.p_complex[i].y/n;
+        a->ptr.p_complex[i].x = a->ptr.p_complex[i].x/(double)n;
+        a->ptr.p_complex[i].y = -a->ptr.p_complex[i].y/(double)n;
     }
 }
 
@@ -1384,8 +1384,8 @@ void fftr1d(/* Real    */ ae_vector* a,
             idx = 2*((n2-i)%n2);
             hmnc.x = buf.ptr.p_double[idx+0];
             hmnc.y = -buf.ptr.p_double[idx+1];
-            v.x = -ae_sin(-2*ae_pi*i/n, _state);
-            v.y = ae_cos(-2*ae_pi*i/n, _state);
+            v.x = -ae_sin(-(double)2*ae_pi*(double)i/(double)n, _state);
+            v.y = ae_cos(-(double)2*ae_pi*(double)i/(double)n, _state);
             f->ptr.p_complex[i] = ae_c_sub(ae_c_add(hn,hmnc),ae_c_mul(v,ae_c_sub(hn,hmnc)));
             f->ptr.p_complex[i].x = 0.5*f->ptr.p_complex[i].x;
             f->ptr.p_complex[i].y = 0.5*f->ptr.p_complex[i].y;
@@ -1516,7 +1516,7 @@ void fftr1dinv(/* Complex */ ae_vector* f,
     fftr1d(&h, n, &fh, _state);
     for(i=0; i<=n-1; i++)
     {
-        a->ptr.p_double[i] = (fh.ptr.p_complex[i].x-fh.ptr.p_complex[i].y)/n;
+        a->ptr.p_double[i] = (fh.ptr.p_complex[i].x-fh.ptr.p_complex[i].y)/(double)n;
     }
     ae_frame_leave(_state);
 }
@@ -1577,8 +1577,8 @@ void fftr1dinternaleven(/* Real    */ ae_vector* a,
         idx = 2*(n2-i);
         hmnc.x = buf->ptr.p_double[idx+0];
         hmnc.y = -buf->ptr.p_double[idx+1];
-        v.x = -ae_sin(-2*ae_pi*i/n, _state);
-        v.y = ae_cos(-2*ae_pi*i/n, _state);
+        v.x = -ae_sin(-(double)2*ae_pi*(double)i/(double)n, _state);
+        v.y = ae_cos(-(double)2*ae_pi*(double)i/(double)n, _state);
         v = ae_c_sub(ae_c_add(hn,hmnc),ae_c_mul(v,ae_c_sub(hn,hmnc)));
         a->ptr.p_double[2*i+0] = 0.5*v.x;
         a->ptr.p_double[2*i+1] = 0.5*v.y;
@@ -1642,7 +1642,7 @@ void fftr1dinvinternaleven(/* Real    */ ae_vector* a,
     }
     buf->ptr.p_double[n2] = a->ptr.p_double[1];
     fftr1dinternaleven(buf, n, a, plan, _state);
-    a->ptr.p_double[0] = buf->ptr.p_double[0]/n;
+    a->ptr.p_double[0] = buf->ptr.p_double[0]/(double)n;
     t = (double)1/(double)n;
     for(i=1; i<=n2-1; i++)
     {
@@ -1651,7 +1651,7 @@ void fftr1dinvinternaleven(/* Real    */ ae_vector* a,
         a->ptr.p_double[i] = t*(x-y);
         a->ptr.p_double[n-i] = t*(x+y);
     }
-    a->ptr.p_double[n2] = buf->ptr.p_double[1]/n;
+    a->ptr.p_double[n2] = buf->ptr.p_double[1]/(double)n;
 }
 
 
@@ -1750,7 +1750,7 @@ void fhtr1dinv(/* Real    */ ae_vector* a, ae_int_t n, ae_state *_state)
     fhtr1d(a, n, _state);
     for(i=0; i<=n-1; i++)
     {
-        a->ptr.p_double[i] = a->ptr.p_double[i]/n;
+        a->ptr.p_double[i] = a->ptr.p_double[i]/(double)n;
     }
 }
 
@@ -2591,7 +2591,7 @@ void convc1dx(/* Complex */ ae_vector* a,
                 /*
                  * special code for circular convolution of a sequence with a smooth length
                  */
-                flopcand = 3*ftbasegetflopestimate(m, _state)+6*m;
+                flopcand = (double)3*ftbasegetflopestimate(m, _state)+(double)(6*m);
                 if( ae_fp_less(flopcand,flopbest) )
                 {
                     algbest = 1;
@@ -2605,7 +2605,7 @@ void convc1dx(/* Complex */ ae_vector* a,
                  * general cyclic/non-cyclic convolution
                  */
                 p = ftbasefindsmooth(m+n-1, _state);
-                flopcand = 3*ftbasegetflopestimate(p, _state)+6*p;
+                flopcand = (double)3*ftbasegetflopestimate(p, _state)+(double)(6*p);
                 if( ae_fp_less(flopcand,flopbest) )
                 {
                     algbest = 1;
@@ -2626,7 +2626,7 @@ void convc1dx(/* Complex */ ae_vector* a,
         while(ptotal<=m+n-1)
         {
             p = ptotal-n+1;
-            flopcand = ae_iceil((double)m/(double)p, _state)*(2*ftbasegetflopestimate(ptotal, _state)+8*ptotal);
+            flopcand = (double)ae_iceil((double)m/(double)p, _state)*((double)2*ftbasegetflopestimate(ptotal, _state)+(double)(8*ptotal));
             if( ae_fp_less(flopcand,flopbest) )
             {
                 flopbest = flopcand;
@@ -3061,7 +3061,7 @@ void convr1dx(/* Real    */ ae_vector* a,
         algbest = 0;
         if( alg==-1 )
         {
-            flopbest = 0.15*m*n;
+            flopbest = 0.15*(double)m*(double)n;
         }
         else
         {
@@ -3079,7 +3079,7 @@ void convr1dx(/* Real    */ ae_vector* a,
                 /*
                  * special code for circular convolution of a sequence with a smooth length
                  */
-                flopcand = 3*ftbasegetflopestimate(m/2, _state)+(double)(6*m)/(double)2;
+                flopcand = (double)3*ftbasegetflopestimate(m/2, _state)+(double)(6*m)/(double)2;
                 if( ae_fp_less(flopcand,flopbest) )
                 {
                     algbest = 1;
@@ -3093,7 +3093,7 @@ void convr1dx(/* Real    */ ae_vector* a,
                  * general cyclic/non-cyclic convolution
                  */
                 p = ftbasefindsmootheven(m+n-1, _state);
-                flopcand = 3*ftbasegetflopestimate(p/2, _state)+(double)(6*p)/(double)2;
+                flopcand = (double)3*ftbasegetflopestimate(p/2, _state)+(double)(6*p)/(double)2;
                 if( ae_fp_less(flopcand,flopbest) )
                 {
                     algbest = 1;
@@ -3114,7 +3114,7 @@ void convr1dx(/* Real    */ ae_vector* a,
         while(ptotal<=m+n-1)
         {
             p = ptotal-n+1;
-            flopcand = ae_iceil((double)m/(double)p, _state)*(2*ftbasegetflopestimate(ptotal/2, _state)+1*(ptotal/2));
+            flopcand = (double)ae_iceil((double)m/(double)p, _state)*((double)2*ftbasegetflopestimate(ptotal/2, _state)+(double)(1*(ptotal/2)));
             if( ae_fp_less(flopcand,flopbest) )
             {
                 flopbest = flopcand;

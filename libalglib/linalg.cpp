@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -153,7 +153,7 @@ void cmatrixtranspose(const ae_int_t m, const ae_int_t n, const complex_2d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixtranspose(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -188,7 +188,7 @@ void rmatrixtranspose(const ae_int_t m, const ae_int_t n, const real_2d_array &a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixtranspose(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -220,7 +220,7 @@ void rmatrixenforcesymmetricity(const real_2d_array &a, const ae_int_t n, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixenforcesymmetricity(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -255,7 +255,7 @@ void cmatrixcopy(const ae_int_t m, const ae_int_t n, const complex_2d_array &a, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixcopy(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -287,7 +287,7 @@ void rvectorcopy(const ae_int_t n, const real_1d_array &a, const ae_int_t ia, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rvectorcopy(n, const_cast<alglib_impl::ae_vector*>(a.c_ptr()), ia, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), ib, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -322,7 +322,7 @@ void rmatrixcopy(const ae_int_t m, const ae_int_t n, const real_2d_array &a, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixcopy(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -363,7 +363,7 @@ void rmatrixgencopy(const ae_int_t m, const ae_int_t n, const double alpha, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixgencopy(m, n, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, beta, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -410,7 +410,7 @@ void rmatrixger(const ae_int_t m, const ae_int_t n, const real_2d_array &a, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixger(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, alpha, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), iu, const_cast<alglib_impl::ae_vector*>(v.c_ptr()), iv, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -446,7 +446,7 @@ void cmatrixrank1(const ae_int_t m, const ae_int_t n, complex_2d_array &a, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixrank1(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), iu, const_cast<alglib_impl::ae_vector*>(v.c_ptr()), iv, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -485,7 +485,7 @@ void rmatrixrank1(const ae_int_t m, const ae_int_t n, real_2d_array &a, const ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixrank1(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), iu, const_cast<alglib_impl::ae_vector*>(v.c_ptr()), iv, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -510,7 +510,7 @@ void rmatrixgemv(const ae_int_t m, const ae_int_t n, const double alpha, const r
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixgemv(m, n, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, opa, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, beta, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), iy, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -564,7 +564,7 @@ void cmatrixmv(const ae_int_t m, const ae_int_t n, const complex_2d_array &a, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixmv(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, opa, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), iy, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -618,7 +618,7 @@ void rmatrixmv(const ae_int_t m, const ae_int_t n, const real_2d_array &a, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixmv(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, opa, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), iy, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -643,7 +643,7 @@ void rmatrixsymv(const ae_int_t n, const double alpha, const real_2d_array &a, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixsymv(n, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, isupper, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, beta, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), iy, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -668,11 +668,11 @@ double rmatrixsyvmv(const ae_int_t n, const real_2d_array &a, const ae_int_t ia,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixsyvmv(n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, isupper, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, const_cast<alglib_impl::ae_vector*>(tmp.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -724,7 +724,7 @@ void rmatrixtrsv(const ae_int_t n, const real_2d_array &a, const ae_int_t ia, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixtrsv(n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, isupper, isunit, optype, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -797,7 +797,7 @@ void cmatrixrighttrsm(const ae_int_t m, const ae_int_t n, const complex_2d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixrighttrsm(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), i1, j1, isupper, isunit, optype, const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), i2, j2, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -870,7 +870,7 @@ void cmatrixlefttrsm(const ae_int_t m, const ae_int_t n, const complex_2d_array 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixlefttrsm(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), i1, j1, isupper, isunit, optype, const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), i2, j2, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -942,7 +942,7 @@ void rmatrixrighttrsm(const ae_int_t m, const ae_int_t n, const real_2d_array &a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixrighttrsm(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), i1, j1, isupper, isunit, optype, const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), i2, j2, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1014,7 +1014,7 @@ void rmatrixlefttrsm(const ae_int_t m, const ae_int_t n, const real_2d_array &a,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixlefttrsm(m, n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), i1, j1, isupper, isunit, optype, const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), i2, j2, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1094,7 +1094,7 @@ void cmatrixherk(const ae_int_t n, const ae_int_t k, const double alpha, const c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixherk(n, k, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, optypea, beta, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), ic, jc, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1172,7 +1172,7 @@ void rmatrixsyrk(const ae_int_t n, const ae_int_t k, const double alpha, const r
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixsyrk(n, k, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, optypea, beta, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), ic, jc, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1266,7 +1266,7 @@ void cmatrixgemm(const ae_int_t m, const ae_int_t n, const ae_int_t k, const alg
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixgemm(m, n, k, *alpha.c_ptr(), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, optypea, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, optypeb, *beta.c_ptr(), const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), ic, jc, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1358,7 +1358,7 @@ void rmatrixgemm(const ae_int_t m, const ae_int_t n, const ae_int_t k, const dou
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixgemm(m, n, k, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, optypea, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), ib, jb, optypeb, beta, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), ic, jc, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1389,7 +1389,7 @@ void cmatrixsyrk(const ae_int_t n, const ae_int_t k, const double alpha, const c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixsyrk(n, k, alpha, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), ia, ja, optypea, beta, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), ic, jc, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1472,7 +1472,7 @@ void rmatrixqr(real_2d_array &a, const ae_int_t m, const ae_int_t n, real_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixqr(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1553,7 +1553,7 @@ void rmatrixlq(real_2d_array &a, const ae_int_t m, const ae_int_t n, real_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixlq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1620,7 +1620,7 @@ void cmatrixqr(complex_2d_array &a, const ae_int_t m, const ae_int_t n, complex_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixqr(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1687,7 +1687,7 @@ void cmatrixlq(complex_2d_array &a, const ae_int_t m, const ae_int_t n, complex_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixlq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1754,7 +1754,7 @@ void rmatrixqrunpackq(const real_2d_array &a, const ae_int_t m, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixqrunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), qcolumns, const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1792,7 +1792,7 @@ void rmatrixqrunpackr(const real_2d_array &a, const ae_int_t m, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixqrunpackr(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_matrix*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1859,7 +1859,7 @@ void rmatrixlqunpackq(const real_2d_array &a, const ae_int_t m, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixlqunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), qrows, const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1897,7 +1897,7 @@ void rmatrixlqunpackl(const real_2d_array &a, const ae_int_t m, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixlqunpackl(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_matrix*>(l.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1964,7 +1964,7 @@ void cmatrixqrunpackq(const complex_2d_array &a, const ae_int_t m, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixqrunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), qcolumns, const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2002,7 +2002,7 @@ void cmatrixqrunpackr(const complex_2d_array &a, const ae_int_t m, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixqrunpackr(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_matrix*>(r.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2069,7 +2069,7 @@ void cmatrixlqunpackq(const complex_2d_array &a, const ae_int_t m, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixlqunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), qrows, const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2107,7 +2107,7 @@ void cmatrixlqunpackl(const complex_2d_array &a, const ae_int_t m, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixlqunpackl(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_matrix*>(l.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2198,7 +2198,7 @@ void rmatrixbd(real_2d_array &a, const ae_int_t m, const ae_int_t n, real_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixbd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tauq.c_ptr()), const_cast<alglib_impl::ae_vector*>(taup.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2254,7 +2254,7 @@ void rmatrixbdunpackq(const real_2d_array &qp, const ae_int_t m, const ae_int_t 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixbdunpackq(const_cast<alglib_impl::ae_matrix*>(qp.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tauq.c_ptr()), qcolumns, const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2318,7 +2318,7 @@ void rmatrixbdmultiplybyq(const real_2d_array &qp, const ae_int_t m, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixbdmultiplybyq(const_cast<alglib_impl::ae_matrix*>(qp.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(tauq.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), zrows, zcolumns, fromtheright, dotranspose, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2362,7 +2362,7 @@ void rmatrixbdunpackpt(const real_2d_array &qp, const ae_int_t m, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixbdunpackpt(const_cast<alglib_impl::ae_matrix*>(qp.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(taup.c_ptr()), ptrows, const_cast<alglib_impl::ae_matrix*>(pt.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2414,7 +2414,7 @@ void rmatrixbdmultiplybyp(const real_2d_array &qp, const ae_int_t m, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixbdmultiplybyp(const_cast<alglib_impl::ae_matrix*>(qp.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(taup.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), zrows, zcolumns, fromtheright, dotranspose, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2459,7 +2459,7 @@ void rmatrixbdunpackdiagonals(const real_2d_array &b, const ae_int_t m, const ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixbdunpackdiagonals(const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, n, &isupper, const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2527,7 +2527,7 @@ void rmatrixhessenberg(real_2d_array &a, const ae_int_t n, real_1d_array &tau, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixhessenberg(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2578,7 +2578,7 @@ void rmatrixhessenbergunpackq(const real_2d_array &a, const ae_int_t n, const re
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixhessenbergunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2614,7 +2614,7 @@ void rmatrixhessenbergunpackh(const real_2d_array &a, const ae_int_t n, real_2d_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixhessenbergunpackh(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(h.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2717,7 +2717,7 @@ void smatrixtd(real_2d_array &a, const ae_int_t n, const bool isupper, real_1d_a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::smatrixtd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2768,7 +2768,7 @@ void smatrixtdunpackq(const real_2d_array &a, const ae_int_t n, const bool isupp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::smatrixtdunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2871,7 +2871,7 @@ void hmatrixtd(complex_2d_array &a, const ae_int_t n, const bool isupper, comple
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hmatrixtd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2922,7 +2922,7 @@ void hmatrixtdunpackq(const complex_2d_array &a, const ae_int_t n, const bool is
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hmatrixtdunpackq(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(tau.c_ptr()), const_cast<alglib_impl::ae_matrix*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2970,7 +2970,7 @@ void rmatrixrndorthogonal(const ae_int_t n, real_2d_array &a, const xparams _xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixrndorthogonal(n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3006,7 +3006,7 @@ void rmatrixrndcond(const ae_int_t n, const double c, real_2d_array &a, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixrndcond(n, c, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3052,7 +3052,7 @@ void cmatrixrndorthogonal(const ae_int_t n, complex_2d_array &a, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixrndorthogonal(n, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3089,7 +3089,7 @@ void cmatrixrndcond(const ae_int_t n, const double c, complex_2d_array &a, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixrndcond(n, c, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3126,7 +3126,7 @@ void smatrixrndcond(const ae_int_t n, const double c, real_2d_array &a, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::smatrixrndcond(n, c, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3163,7 +3163,7 @@ void spdmatrixrndcond(const ae_int_t n, const double c, real_2d_array &a, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixrndcond(n, c, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3200,7 +3200,7 @@ void hmatrixrndcond(const ae_int_t n, const double c, complex_2d_array &a, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hmatrixrndcond(n, c, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3237,7 +3237,7 @@ void hpdmatrixrndcond(const ae_int_t n, const double c, complex_2d_array &a, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hpdmatrixrndcond(n, c, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3273,7 +3273,7 @@ void rmatrixrndorthogonalfromtheright(real_2d_array &a, const ae_int_t m, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixrndorthogonalfromtheright(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3309,7 +3309,7 @@ void rmatrixrndorthogonalfromtheleft(real_2d_array &a, const ae_int_t m, const a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixrndorthogonalfromtheleft(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3346,7 +3346,7 @@ void cmatrixrndorthogonalfromtheright(complex_2d_array &a, const ae_int_t m, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixrndorthogonalfromtheright(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3383,7 +3383,7 @@ void cmatrixrndorthogonalfromtheleft(complex_2d_array &a, const ae_int_t m, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixrndorthogonalfromtheleft(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3420,7 +3420,7 @@ void smatrixrndmultiply(real_2d_array &a, const ae_int_t n, const xparams _xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::smatrixrndmultiply(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3457,7 +3457,7 @@ void hmatrixrndmultiply(complex_2d_array &a, const ae_int_t n, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hmatrixrndmultiply(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3980,7 +3980,7 @@ void sparsecreate(const ae_int_t m, const ae_int_t n, const ae_int_t k, sparsema
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreate(m, n, k, const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4057,7 +4057,7 @@ void sparsecreate(const ae_int_t m, const ae_int_t n, sparsematrix &s, const xpa
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreate(m, n, k, const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
 
@@ -4108,7 +4108,7 @@ void sparsecreatebuf(const ae_int_t m, const ae_int_t n, const ae_int_t k, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatebuf(m, n, k, const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4154,7 +4154,7 @@ void sparsecreatebuf(const ae_int_t m, const ae_int_t n, const sparsematrix &s, 
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatebuf(m, n, k, const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
 
@@ -4212,7 +4212,7 @@ void sparsecreatecrs(const ae_int_t m, const ae_int_t n, const integer_1d_array 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatecrs(m, n, const_cast<alglib_impl::ae_vector*>(ner.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4267,7 +4267,7 @@ void sparsecreatecrsbuf(const ae_int_t m, const ae_int_t n, const integer_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatecrsbuf(m, n, const_cast<alglib_impl::ae_vector*>(ner.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4318,7 +4318,7 @@ void sparsecreatesks(const ae_int_t m, const ae_int_t n, const integer_1d_array 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatesks(m, n, const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(u.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4368,7 +4368,7 @@ void sparsecreatesksbuf(const ae_int_t m, const ae_int_t n, const integer_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatesksbuf(m, n, const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(u.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4418,7 +4418,7 @@ void sparsecreatesksband(const ae_int_t m, const ae_int_t n, const ae_int_t bw, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatesksband(m, n, bw, const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4463,7 +4463,7 @@ void sparsecreatesksbandbuf(const ae_int_t m, const ae_int_t n, const ae_int_t b
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecreatesksbandbuf(m, n, bw, const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4496,7 +4496,7 @@ void sparsecopy(const sparsematrix &s0, sparsematrix &s1, const xparams _xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopy(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4528,7 +4528,7 @@ void sparsecopybuf(const sparsematrix &s0, const sparsematrix &s1, const xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopybuf(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4556,7 +4556,7 @@ void sparseswap(const sparsematrix &s0, const sparsematrix &s1, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseswap(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4602,7 +4602,7 @@ void sparseadd(const sparsematrix &s, const ae_int_t i, const ae_int_t j, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseadd(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, j, v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4662,7 +4662,7 @@ void sparseset(const sparsematrix &s, const ae_int_t i, const ae_int_t j, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseset(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, j, v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4702,11 +4702,11 @@ double sparseget(const sparsematrix &s, const ae_int_t i, const ae_int_t j, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::sparseget(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, j, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -4745,11 +4745,11 @@ bool sparseexists(const sparsematrix &s, const ae_int_t i, const ae_int_t j, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparseexists(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, j, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -4786,11 +4786,11 @@ double sparsegetdiagonal(const sparsematrix &s, const ae_int_t i, const xparams 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::sparsegetdiagonal(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -4831,7 +4831,7 @@ void sparsemv(const sparsematrix &s, const real_1d_array &x, real_1d_array &y, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsemv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4876,7 +4876,7 @@ void sparsemtv(const sparsematrix &s, const real_1d_array &x, real_1d_array &y, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsemtv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4947,7 +4947,7 @@ void sparsegemv(const sparsematrix &s, const double alpha, const ae_int_t ops, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsegemv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), alpha, ops, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), ix, beta, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), iy, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4998,7 +4998,7 @@ void sparsemv2(const sparsematrix &s, const real_1d_array &x, real_1d_array &y0,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsemv2(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y0.c_ptr()), const_cast<alglib_impl::ae_vector*>(y1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5050,7 +5050,7 @@ void sparsesmv(const sparsematrix &s, const bool isupper, const real_1d_array &x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsesmv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5099,11 +5099,11 @@ double sparsevsmv(const sparsematrix &s, const bool isupper, const real_1d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::sparsevsmv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -5145,7 +5145,7 @@ void sparsemm(const sparsematrix &s, const real_2d_array &a, const ae_int_t k, r
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsemm(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), k, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5191,7 +5191,7 @@ void sparsemtm(const sparsematrix &s, const real_2d_array &a, const ae_int_t k, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsemtm(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), k, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5243,7 +5243,7 @@ void sparsemm2(const sparsematrix &s, const real_2d_array &a, const ae_int_t k, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsemm2(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), k, const_cast<alglib_impl::ae_matrix*>(b0.c_ptr()), const_cast<alglib_impl::ae_matrix*>(b1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5296,7 +5296,7 @@ void sparsesmm(const sparsematrix &s, const bool isupper, const real_2d_array &a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsesmm(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), isupper, const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), k, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5357,7 +5357,7 @@ void sparsetrmv(const sparsematrix &s, const bool isupper, const bool isunit, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsetrmv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), isupper, isunit, optype, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5421,7 +5421,7 @@ void sparsetrsv(const sparsematrix &s, const bool isupper, const bool isunit, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsetrsv(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), isupper, isunit, optype, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5478,7 +5478,7 @@ void sparsesymmpermtbl(const sparsematrix &a, const bool isupper, const integer_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsesymmpermtbl(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(p.c_ptr()), const_cast<alglib_impl::sparsematrix*>(b.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5538,7 +5538,7 @@ void sparsesymmpermtblbuf(const sparsematrix &a, const bool isupper, const integ
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsesymmpermtblbuf(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(p.c_ptr()), const_cast<alglib_impl::sparsematrix*>(b.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5568,7 +5568,7 @@ void sparseresizematrix(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseresizematrix(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5630,11 +5630,11 @@ bool sparseenumerate(const sparsematrix &s, ae_int_t &t0, ae_int_t &t1, ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparseenumerate(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &t0, &t1, &i, &j, &v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -5680,11 +5680,11 @@ bool sparserewriteexisting(const sparsematrix &s, const ae_int_t i, const ae_int
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparserewriteexisting(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, j, v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -5730,7 +5730,7 @@ void sparsegetrow(const sparsematrix &s, const ae_int_t i, real_1d_array &irow, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsegetrow(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, const_cast<alglib_impl::ae_vector*>(irow.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5791,7 +5791,7 @@ void sparsegetcompressedrow(const sparsematrix &s, const ae_int_t i, integer_1d_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsegetcompressedrow(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), i, const_cast<alglib_impl::ae_vector*>(colidx.c_ptr()), const_cast<alglib_impl::ae_vector*>(vals.c_ptr()), &nzcnt, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5828,7 +5828,7 @@ void sparsetransposesks(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsetransposesks(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5865,7 +5865,7 @@ void sparsetransposecrs(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsetransposecrs(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5899,7 +5899,7 @@ void sparsecopytransposecrs(const sparsematrix &s0, sparsematrix &s1, const xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytransposecrs(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5936,7 +5936,7 @@ void sparsecopytransposecrsbuf(const sparsematrix &s0, const sparsematrix &s1, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytransposecrsbuf(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5981,7 +5981,7 @@ void sparseconvertto(const sparsematrix &s0, const ae_int_t fmt, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseconvertto(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), fmt, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6022,7 +6022,7 @@ void sparsecopytobuf(const sparsematrix &s0, const ae_int_t fmt, const sparsemat
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytobuf(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), fmt, const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6064,7 +6064,7 @@ void sparseconverttohash(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseconverttohash(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6107,7 +6107,7 @@ void sparsecopytohash(const sparsematrix &s0, sparsematrix &s1, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytohash(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6145,7 +6145,7 @@ void sparsecopytohashbuf(const sparsematrix &s0, const sparsematrix &s1, const x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytohashbuf(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6190,7 +6190,7 @@ void sparseconverttocrs(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseconverttocrs(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6233,7 +6233,7 @@ void sparsecopytocrs(const sparsematrix &s0, sparsematrix &s1, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytocrs(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6273,7 +6273,7 @@ void sparsecopytocrsbuf(const sparsematrix &s0, const sparsematrix &s1, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytocrsbuf(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6315,7 +6315,7 @@ void sparseconverttosks(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparseconverttosks(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6358,7 +6358,7 @@ void sparsecopytosks(const sparsematrix &s0, sparsematrix &s1, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytosks(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6396,7 +6396,7 @@ void sparsecopytosksbuf(const sparsematrix &s0, const sparsematrix &s1, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecopytosksbuf(const_cast<alglib_impl::sparsematrix*>(s0.c_ptr()), const_cast<alglib_impl::sparsematrix*>(s1.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6437,11 +6437,11 @@ ae_int_t sparsegetmatrixtype(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::sparsegetmatrixtype(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -6473,11 +6473,11 @@ bool sparseishash(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparseishash(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -6509,11 +6509,11 @@ bool sparseiscrs(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparseiscrs(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -6545,11 +6545,11 @@ bool sparseissks(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparseissks(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -6577,7 +6577,7 @@ void sparsefree(sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsefree(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6607,11 +6607,11 @@ ae_int_t sparsegetnrows(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::sparsegetnrows(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -6637,11 +6637,11 @@ ae_int_t sparsegetncols(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::sparsegetncols(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -6675,11 +6675,11 @@ ae_int_t sparsegetuppercount(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::sparsegetuppercount(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -6713,11 +6713,11 @@ ae_int_t sparsegetlowercount(const sparsematrix &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::sparsegetlowercount(const_cast<alglib_impl::sparsematrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 #endif
 
@@ -7048,7 +7048,7 @@ void eigsubspacecreate(const ae_int_t n, const ae_int_t k, eigsubspacestate &sta
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspacecreate(n, k, const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7077,7 +7077,7 @@ void eigsubspacecreatebuf(const ae_int_t n, const ae_int_t k, const eigsubspaces
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspacecreatebuf(n, k, const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7140,7 +7140,7 @@ void eigsubspacesetcond(const eigsubspacestate &state, const double eps, const a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspacesetcond(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), eps, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7174,7 +7174,7 @@ void eigsubspacesetwarmstart(const eigsubspacestate &state, const bool usewarmst
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspacesetwarmstart(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), usewarmstart, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7224,7 +7224,7 @@ void eigsubspaceoocstart(const eigsubspacestate &state, const ae_int_t mtype, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspaceoocstart(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), mtype, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7263,11 +7263,11 @@ bool eigsubspaceooccontinue(const eigsubspacestate &state, const xparams _xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::eigsubspaceooccontinue(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -7322,7 +7322,7 @@ void eigsubspaceoocgetrequestinfo(const eigsubspacestate &state, ae_int_t &reque
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspaceoocgetrequestinfo(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), &requesttype, &requestsize, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7377,7 +7377,7 @@ void eigsubspaceoocgetrequestdata(const eigsubspacestate &state, real_2d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspaceoocgetrequestdata(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7423,7 +7423,7 @@ void eigsubspaceoocsendresult(const eigsubspacestate &state, const real_2d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspaceoocsendresult(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), const_cast<alglib_impl::ae_matrix*>(ax.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7474,7 +7474,7 @@ void eigsubspaceoocstop(const eigsubspacestate &state, real_1d_array &w, real_2d
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspaceoocstop(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), const_cast<alglib_impl::eigsubspacereport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7546,7 +7546,7 @@ void eigsubspacesolvedenses(const eigsubspacestate &state, const real_2d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspacesolvedenses(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), const_cast<alglib_impl::eigsubspacereport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7589,7 +7589,7 @@ void eigsubspacesolvesparses(const eigsubspacestate &state, const sparsematrix &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::eigsubspacesolvesparses(const_cast<alglib_impl::eigsubspacestate*>(state.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), const_cast<alglib_impl::eigsubspacereport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7656,11 +7656,11 @@ bool smatrixevd(const real_2d_array &a, const ae_int_t n, const ae_int_t zneeded
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixevd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, zneeded, isupper, const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -7730,11 +7730,11 @@ bool smatrixevdr(const real_2d_array &a, const ae_int_t n, const ae_int_t zneede
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixevdr(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, zneeded, isupper, b1, b2, &m, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -7789,11 +7789,11 @@ bool smatrixevdi(const real_2d_array &a, const ae_int_t n, const ae_int_t zneede
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixevdi(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, zneeded, isupper, i1, i2, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -7860,11 +7860,11 @@ bool hmatrixevd(const complex_2d_array &a, const ae_int_t n, const ae_int_t znee
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::hmatrixevd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, zneeded, isupper, const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -7927,11 +7927,11 @@ bool hmatrixevdr(const complex_2d_array &a, const ae_int_t n, const ae_int_t zne
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::hmatrixevdr(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, zneeded, isupper, b1, b2, &m, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -7992,11 +7992,11 @@ bool hmatrixevdi(const complex_2d_array &a, const ae_int_t n, const ae_int_t zne
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::hmatrixevdi(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, zneeded, isupper, i1, i2, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -8075,11 +8075,11 @@ bool smatrixtdevd(real_1d_array &d, const real_1d_array &e, const ae_int_t n, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixtdevd(const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), n, zneeded, const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -8150,11 +8150,11 @@ bool smatrixtdevdr(real_1d_array &d, const real_1d_array &e, const ae_int_t n, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixtdevdr(const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), n, zneeded, a, b, &m, const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -8225,11 +8225,11 @@ bool smatrixtdevdi(real_1d_array &d, const real_1d_array &e, const ae_int_t n, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixtdevdi(const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), n, zneeded, i1, i2, const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -8326,11 +8326,11 @@ bool rmatrixevd(const real_2d_array &a, const ae_int_t n, const ae_int_t vneeded
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::rmatrixevd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, vneeded, const_cast<alglib_impl::ae_vector*>(wr.c_ptr()), const_cast<alglib_impl::ae_vector*>(wi.c_ptr()), const_cast<alglib_impl::ae_matrix*>(vl.c_ptr()), const_cast<alglib_impl::ae_matrix*>(vr.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 #endif
 
@@ -8545,7 +8545,7 @@ void rmatrixlu(real_2d_array &a, const ae_int_t m, const ae_int_t n, integer_1d_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixlu(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8617,7 +8617,7 @@ void cmatrixlu(complex_2d_array &a, const ae_int_t m, const ae_int_t n, integer_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixlu(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8692,11 +8692,11 @@ bool hpdmatrixcholesky(complex_2d_array &a, const ae_int_t n, const bool isupper
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::hpdmatrixcholesky(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -8767,11 +8767,11 @@ bool spdmatrixcholesky(real_2d_array &a, const ae_int_t n, const bool isupper, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::spdmatrixcholesky(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -8826,7 +8826,7 @@ void spdmatrixcholeskyupdateadd1(const real_2d_array &a, const ae_int_t n, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixcholeskyupdateadd1(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8906,7 +8906,7 @@ void spdmatrixcholeskyupdatefix(const real_2d_array &a, const ae_int_t n, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixcholeskyupdatefix(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(fix.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8957,7 +8957,7 @@ void spdmatrixcholeskyupdateadd1buf(const real_2d_array &a, const ae_int_t n, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixcholeskyupdateadd1buf(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), const_cast<alglib_impl::ae_vector*>(bufr.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9008,7 +9008,7 @@ void spdmatrixcholeskyupdatefixbuf(const real_2d_array &a, const ae_int_t n, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixcholeskyupdatefixbuf(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(fix.c_ptr()), const_cast<alglib_impl::ae_vector*>(bufr.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9074,11 +9074,11 @@ bool sparselu(const sparsematrix &a, const ae_int_t pivottype, integer_1d_array 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparselu(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), pivottype, const_cast<alglib_impl::ae_vector*>(p.c_ptr()), const_cast<alglib_impl::ae_vector*>(q.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -9139,11 +9139,11 @@ bool sparsecholeskyskyline(const sparsematrix &a, const ae_int_t n, const bool i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparsecholeskyskyline(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -9214,11 +9214,11 @@ bool sparsecholesky(const sparsematrix &a, const bool isupper, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparsecholesky(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -9286,11 +9286,11 @@ bool sparsecholeskyp(const sparsematrix &a, const bool isupper, integer_1d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparsecholeskyp(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(p.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -9374,11 +9374,11 @@ bool sparsecholeskyanalyze(const sparsematrix &a, const bool isupper, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparsecholeskyanalyze(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, facttype, permtype, const_cast<alglib_impl::sparsedecompositionanalysis*>(analysis.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -9459,11 +9459,11 @@ bool sparsecholeskyfactorize(const sparsedecompositionanalysis &analysis, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::sparsecholeskyfactorize(const_cast<alglib_impl::sparsedecompositionanalysis*>(analysis.c_ptr()), needupper, const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -9530,7 +9530,7 @@ void sparsecholeskyreload(const sparsedecompositionanalysis &analysis, const spa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::sparsecholeskyreload(const_cast<alglib_impl::sparsedecompositionanalysis*>(analysis.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9658,11 +9658,11 @@ bool rmatrixbdsvd(real_1d_array &d, const real_1d_array &e, const ae_int_t n, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::rmatrixbdsvd(const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_vector*>(e.c_ptr()), n, isupper, isfractionalaccuracyrequired, const_cast<alglib_impl::ae_matrix*>(u.c_ptr()), nru, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), ncc, const_cast<alglib_impl::ae_matrix*>(vt.c_ptr()), ncvt, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 #endif
 
@@ -9746,11 +9746,11 @@ bool rmatrixsvd(const real_2d_array &a, const ae_int_t m, const ae_int_t n, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::rmatrixsvd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), m, n, uneeded, vtneeded, additionalmemory, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), const_cast<alglib_impl::ae_matrix*>(u.c_ptr()), const_cast<alglib_impl::ae_matrix*>(vt.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 #endif
 
@@ -9787,11 +9787,11 @@ double rmatrixrcond1(const real_2d_array &a, const ae_int_t n, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixrcond1(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -9826,11 +9826,11 @@ double rmatrixrcondinf(const real_2d_array &a, const ae_int_t n, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixrcondinf(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -9875,11 +9875,11 @@ double spdmatrixrcond(const real_2d_array &a, const ae_int_t n, const bool isupp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::spdmatrixrcond(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -9916,11 +9916,11 @@ double rmatrixtrrcond1(const real_2d_array &a, const ae_int_t n, const bool isup
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixtrrcond1(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -9957,11 +9957,11 @@ double rmatrixtrrcondinf(const real_2d_array &a, const ae_int_t n, const bool is
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixtrrcondinf(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10006,11 +10006,11 @@ double hpdmatrixrcond(const complex_2d_array &a, const ae_int_t n, const bool is
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::hpdmatrixrcond(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10045,11 +10045,11 @@ double cmatrixrcond1(const complex_2d_array &a, const ae_int_t n, const xparams 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::cmatrixrcond1(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10084,11 +10084,11 @@ double cmatrixrcondinf(const complex_2d_array &a, const ae_int_t n, const xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::cmatrixrcondinf(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10124,11 +10124,11 @@ double rmatrixlurcond1(const real_2d_array &lua, const ae_int_t n, const xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixlurcond1(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10165,11 +10165,11 @@ double rmatrixlurcondinf(const real_2d_array &lua, const ae_int_t n, const xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixlurcondinf(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10210,11 +10210,11 @@ double spdmatrixcholeskyrcond(const real_2d_array &a, const ae_int_t n, const bo
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::spdmatrixcholeskyrcond(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10255,11 +10255,11 @@ double hpdmatrixcholeskyrcond(const complex_2d_array &a, const ae_int_t n, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::hpdmatrixcholeskyrcond(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10295,11 +10295,11 @@ double cmatrixlurcond1(const complex_2d_array &lua, const ae_int_t n, const xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::cmatrixlurcond1(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10336,11 +10336,11 @@ double cmatrixlurcondinf(const complex_2d_array &lua, const ae_int_t n, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::cmatrixlurcondinf(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10377,11 +10377,11 @@ double cmatrixtrrcond1(const complex_2d_array &a, const ae_int_t n, const bool i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::cmatrixtrrcond1(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -10418,11 +10418,11 @@ double cmatrixtrrcondinf(const complex_2d_array &a, const ae_int_t n, const bool
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::cmatrixtrrcondinf(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -10606,7 +10606,7 @@ void normestimatorcreate(const ae_int_t m, const ae_int_t n, const ae_int_t nsta
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::normestimatorcreate(m, n, nstart, nits, const_cast<alglib_impl::normestimatorstate*>(state.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10645,7 +10645,7 @@ void normestimatorsetseed(const normestimatorstate &state, const ae_int_t seedva
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::normestimatorsetseed(const_cast<alglib_impl::normestimatorstate*>(state.c_ptr()), seedval, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10682,7 +10682,7 @@ void normestimatorestimatesparse(const normestimatorstate &state, const sparsema
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::normestimatorestimatesparse(const_cast<alglib_impl::normestimatorstate*>(state.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10716,7 +10716,7 @@ void normestimatorresults(const normestimatorstate &state, double &nrm, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::normestimatorresults(const_cast<alglib_impl::normestimatorstate*>(state.c_ptr()), &nrm, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10927,7 +10927,7 @@ void rmatrixluinverse(real_2d_array &a, const integer_1d_array &pivots, const ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixluinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11005,7 +11005,7 @@ void rmatrixluinverse(real_2d_array &a, const integer_1d_array &pivots, ae_int_t
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixluinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -11076,7 +11076,7 @@ void rmatrixinverse(real_2d_array &a, const ae_int_t n, ae_int_t &info, matinvre
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11143,7 +11143,7 @@ void rmatrixinverse(real_2d_array &a, ae_int_t &info, matinvreport &rep, const x
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -11214,7 +11214,7 @@ void cmatrixluinverse(complex_2d_array &a, const integer_1d_array &pivots, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixluinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11281,7 +11281,7 @@ void cmatrixluinverse(complex_2d_array &a, const integer_1d_array &pivots, ae_in
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixluinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -11348,7 +11348,7 @@ void cmatrixinverse(complex_2d_array &a, const ae_int_t n, ae_int_t &info, matin
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11411,7 +11411,7 @@ void cmatrixinverse(complex_2d_array &a, ae_int_t &info, matinvreport &rep, cons
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -11490,7 +11490,7 @@ void spdmatrixcholeskyinverse(real_2d_array &a, const ae_int_t n, const bool isu
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixcholeskyinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11567,7 +11567,7 @@ void spdmatrixcholeskyinverse(real_2d_array &a, ae_int_t &info, matinvreport &re
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixcholeskyinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -11649,7 +11649,7 @@ void spdmatrixinverse(real_2d_array &a, const ae_int_t n, const bool isupper, ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11731,7 +11731,7 @@ void spdmatrixinverse(real_2d_array &a, ae_int_t &info, matinvreport &rep, const
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::spdmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
         if( !alglib_impl::ae_force_symmetric(const_cast<alglib_impl::ae_matrix*>(a.c_ptr())) )
@@ -11811,7 +11811,7 @@ void hpdmatrixcholeskyinverse(complex_2d_array &a, const ae_int_t n, const bool 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hpdmatrixcholeskyinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11888,7 +11888,7 @@ void hpdmatrixcholeskyinverse(complex_2d_array &a, ae_int_t &info, matinvreport 
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hpdmatrixcholeskyinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -11970,7 +11970,7 @@ void hpdmatrixinverse(complex_2d_array &a, const ae_int_t n, const bool isupper,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hpdmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12052,7 +12052,7 @@ void hpdmatrixinverse(complex_2d_array &a, ae_int_t &info, matinvreport &rep, co
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::hpdmatrixinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
         if( !alglib_impl::ae_force_hermitian(const_cast<alglib_impl::ae_matrix*>(a.c_ptr())) )
@@ -12139,7 +12139,7 @@ void rmatrixtrinverse(real_2d_array &a, const ae_int_t n, const bool isupper, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixtrinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12223,7 +12223,7 @@ void rmatrixtrinverse(real_2d_array &a, const bool isupper, ae_int_t &info, mati
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixtrinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -12309,7 +12309,7 @@ void cmatrixtrinverse(complex_2d_array &a, const ae_int_t n, const bool isupper,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixtrinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12393,7 +12393,7 @@ void cmatrixtrinverse(complex_2d_array &a, const bool isupper, ae_int_t &info, m
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::cmatrixtrinverse(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, isunit, &info, const_cast<alglib_impl::matinvreport*>(rep.c_ptr()), &_alglib_env_state);
 
@@ -12440,7 +12440,7 @@ void rmatrixinvupdatesimple(real_2d_array &inva, const ae_int_t n, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixinvupdatesimple(const_cast<alglib_impl::ae_matrix*>(inva.c_ptr()), n, updrow, updcolumn, updval, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12483,7 +12483,7 @@ void rmatrixinvupdaterow(real_2d_array &inva, const ae_int_t n, const ae_int_t u
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixinvupdaterow(const_cast<alglib_impl::ae_matrix*>(inva.c_ptr()), n, updrow, const_cast<alglib_impl::ae_vector*>(v.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12526,7 +12526,7 @@ void rmatrixinvupdatecolumn(real_2d_array &inva, const ae_int_t n, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixinvupdatecolumn(const_cast<alglib_impl::ae_matrix*>(inva.c_ptr()), n, updcolumn, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12569,7 +12569,7 @@ void rmatrixinvupdateuv(real_2d_array &inva, const ae_int_t n, const real_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::rmatrixinvupdateuv(const_cast<alglib_impl::ae_matrix*>(inva.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(u.c_ptr()), const_cast<alglib_impl::ae_vector*>(v.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12650,11 +12650,11 @@ bool rmatrixschur(real_2d_array &a, const ae_int_t n, real_2d_array &s, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::rmatrixschur(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 #endif
 
@@ -12724,11 +12724,11 @@ bool smatrixgevd(const real_2d_array &a, const ae_int_t n, const bool isuppera, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixgevd(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isuppera, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), isupperb, zneeded, problemtype, const_cast<alglib_impl::ae_vector*>(d.c_ptr()), const_cast<alglib_impl::ae_matrix*>(z.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -12798,11 +12798,11 @@ bool smatrixgevdreduce(real_2d_array &a, const ae_int_t n, const bool isuppera, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::smatrixgevdreduce(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isuppera, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), isupperb, problemtype, const_cast<alglib_impl::ae_matrix*>(r.c_ptr()), &isupperr, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 #endif
 
@@ -12842,11 +12842,11 @@ double rmatrixludet(const real_2d_array &a, const integer_1d_array &pivots, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixludet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -12882,7 +12882,7 @@ double rmatrixludet(const real_2d_array &a, const integer_1d_array &pivots, cons
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixludet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &_alglib_env_state);
 
@@ -12922,11 +12922,11 @@ double rmatrixdet(const real_2d_array &a, const ae_int_t n, const xparams _xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixdet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -12958,7 +12958,7 @@ double rmatrixdet(const real_2d_array &a, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::rmatrixdet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
 
@@ -13002,11 +13002,11 @@ alglib::complex cmatrixludet(const complex_2d_array &a, const integer_1d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_complex result = alglib_impl::cmatrixludet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<alglib::complex*>(&result));
+    return alglib::complex(result);
 }
 
 /*************************************************************************
@@ -13042,7 +13042,7 @@ alglib::complex cmatrixludet(const complex_2d_array &a, const integer_1d_array &
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_complex result = alglib_impl::cmatrixludet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(pivots.c_ptr()), n, &_alglib_env_state);
 
@@ -13082,11 +13082,11 @@ alglib::complex cmatrixdet(const complex_2d_array &a, const ae_int_t n, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_complex result = alglib_impl::cmatrixdet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<alglib::complex*>(&result));
+    return alglib::complex(result);
 }
 
 /*************************************************************************
@@ -13118,7 +13118,7 @@ alglib::complex cmatrixdet(const complex_2d_array &a, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_complex result = alglib_impl::cmatrixdet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
 
@@ -13164,11 +13164,11 @@ double spdmatrixcholeskydet(const real_2d_array &a, const ae_int_t n, const xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::spdmatrixcholeskydet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13206,7 +13206,7 @@ double spdmatrixcholeskydet(const real_2d_array &a, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::spdmatrixcholeskydet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, &_alglib_env_state);
 
@@ -13257,11 +13257,11 @@ double spdmatrixdet(const real_2d_array &a, const ae_int_t n, const bool isupper
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::spdmatrixdet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13308,7 +13308,7 @@ double spdmatrixdet(const real_2d_array &a, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::spdmatrixdet(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, &_alglib_env_state);
 
@@ -13811,42 +13811,21 @@ static void sptrf_sparsetrailupdate(sluv2sparsetrail* a,
 #if defined(AE_COMPILE_AMDORDERING) || !defined(AE_PARTIAL_BUILD)
 static ae_int_t amdordering_knsheadersize = 2;
 static ae_int_t amdordering_llmentrysize = 6;
-static void amdordering_nsinitemptyslow(ae_int_t n,
-     amdnset* sa,
-     ae_state *_state);
-static void amdordering_nscopy(amdnset* ssrc,
-     amdnset* sdst,
-     ae_state *_state);
-static void amdordering_nsaddelement(amdnset* sa,
-     ae_int_t k,
-     ae_state *_state);
-static void amdordering_nsaddkth(amdnset* sa,
+static void amdordering_nsaddkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state);
-static void amdordering_nssubtract1(amdnset* sa,
-     amdnset* src,
-     ae_state *_state);
-static void amdordering_nssubtractkth(amdnset* sa,
+static void amdordering_nssubtractkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state);
-static void amdordering_nsclear(amdnset* sa, ae_state *_state);
-static ae_int_t amdordering_nscount(amdnset* sa, ae_state *_state);
-static ae_int_t amdordering_nscountnotkth(amdnset* sa,
+static ae_int_t amdordering_nscountnotkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state);
-static ae_int_t amdordering_nscountandkth(amdnset* sa,
+static ae_int_t amdordering_nscountandkth(niset* sa,
      amdknset* src,
      ae_int_t k,
-     ae_state *_state);
-static ae_bool amdordering_nsequal(amdnset* s0,
-     amdnset* s1,
-     ae_state *_state);
-static void amdordering_nsstartenumeration(amdnset* sa, ae_state *_state);
-static ae_bool amdordering_nsenumerate(amdnset* sa,
-     ae_int_t* i,
      ae_state *_state);
 static void amdordering_knscompressstorage(amdknset* sa, ae_state *_state);
 static void amdordering_knsreallocate(amdknset* sa,
@@ -13879,7 +13858,7 @@ static void amdordering_knsaddnewelement(amdknset* sa,
      ae_state *_state);
 static void amdordering_knssubtract1(amdknset* sa,
      ae_int_t i,
-     amdnset* src,
+     niset* src,
      ae_state *_state);
 static void amdordering_knsaddkthdistinct(amdknset* sa,
      ae_int_t i,
@@ -13891,7 +13870,7 @@ static ae_int_t amdordering_knscountkth(amdknset* s0,
      ae_state *_state);
 static ae_int_t amdordering_knscountnot(amdknset* s0,
      ae_int_t i,
-     amdnset* s1,
+     niset* s1,
      ae_state *_state);
 static ae_int_t amdordering_knscountnotkth(amdknset* s0,
      ae_int_t i,
@@ -13917,7 +13896,7 @@ static void amdordering_mtxinit(ae_int_t n,
      ae_state *_state);
 static void amdordering_mtxaddcolumnto(amdllmatrix* a,
      ae_int_t j,
-     amdnset* s,
+     niset* s,
      ae_state *_state);
 static void amdordering_mtxinsertnewelement(amdllmatrix* a,
      ae_int_t i,
@@ -13925,7 +13904,7 @@ static void amdordering_mtxinsertnewelement(amdllmatrix* a,
      ae_state *_state);
 static ae_int_t amdordering_mtxcountcolumnnot(amdllmatrix* a,
      ae_int_t j,
-     amdnset* s,
+     niset* s,
      ae_state *_state);
 static ae_int_t amdordering_mtxcountcolumn(amdllmatrix* a,
      ae_int_t j,
@@ -13980,7 +13959,7 @@ static void amdordering_amdmasselimination(amdbuffer* buf,
 static void amdordering_amddetectsupernodes(amdbuffer* buf,
      ae_state *_state);
 static void amdordering_amdmovetoquasidense(amdbuffer* buf,
-     amdnset* cand,
+     niset* cand,
      ae_int_t p,
      ae_state *_state);
 
@@ -13992,9 +13971,44 @@ static double spchol_maxmergeinefficiency = 0.25;
 static ae_int_t spchol_smallfakestolerance = 2;
 static ae_int_t spchol_maxfastkernel = 4;
 static ae_bool spchol_relaxedsupernodes = ae_true;
+static ae_int_t spchol_updatesheadersize = 2;
+static ae_int_t spchol_groupheadersize = 2;
+static ae_int_t spchol_batchheadersize = 2;
+static ae_int_t spchol_sequenceentrysize = 3;
+static ae_int_t spchol_smallupdate = 128;
+static double spchol_raw2sthreshold = 0.01;
 #ifdef ALGLIB_NO_FAST_KERNELS
 static ae_int_t spchol_spsymmgetmaxsimd(ae_state *_state);
 #endif
+static void spchol_spsymmfactorizeblockrec(spcholanalysis* analysis,
+     /* Integer */ ae_vector* curladjrowbegin,
+     ae_int_t blkoffs,
+     ae_bool isrootcall,
+     sboolean* failureflag,
+     ae_state *_state);
+ae_bool _trypexec_spchol_spsymmfactorizeblockrec(spcholanalysis* analysis,
+    /* Integer */ ae_vector* curladjrowbegin,
+    ae_int_t blkoffs,
+    ae_bool isrootcall,
+    sboolean* failureflag, ae_state *_state);
+static void spchol_spsymmprocessupdatesgroup(spcholanalysis* analysis,
+     ae_int_t blkoffs,
+     sboolean* failureflag,
+     ae_state *_state);
+ae_bool _trypexec_spchol_spsymmprocessupdatesgroup(spcholanalysis* analysis,
+    ae_int_t blkoffs,
+    sboolean* failureflag, ae_state *_state);
+static void spchol_spsymmprocessupdatesbatch(spcholanalysis* analysis,
+     ae_int_t blkoffs,
+     sboolean* failureflag,
+     ae_state *_state);
+ae_bool _trypexec_spchol_spsymmprocessupdatesbatch(spcholanalysis* analysis,
+    ae_int_t blkoffs,
+    sboolean* failureflag, ae_state *_state);
+static void spchol_printblockedeliminationtreerec(spcholanalysis* analysis,
+     ae_int_t blkoffs,
+     ae_int_t depth,
+     ae_state *_state);
 #ifdef ALGLIB_NO_FAST_KERNELS
 static void spchol_propagatefwd(/* Real    */ ae_vector* x,
      ae_int_t cols0,
@@ -14055,6 +14069,30 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
      /* Integer */ ae_vector* ttmp1,
      /* Boolean */ ae_vector* tflagarray,
      ae_state *_state);
+static void spchol_createblockstructure(spcholanalysis* analysis,
+     ae_state *_state);
+static void spchol_processbatchofheadsrec(spcholanalysis* analysis,
+     /* Integer */ ae_vector* headsstack,
+     ae_int_t stackbase,
+     ae_int_t nheads,
+     /* Integer */ ae_vector* blkstruct,
+     ae_int_t* offs,
+     double* totalflops,
+     double* sequentialflops,
+     ae_state *_state);
+static void spchol_scheduleupdatesforablockrec(spcholanalysis* analysis,
+     /* Integer */ ae_vector* rowbegin,
+     /* Boolean */ ae_vector* isfactorized,
+     /* Real    */ ae_vector* nflop,
+     /* Integer */ ae_vector* blkstruct,
+     ae_int_t blockitemsoffs,
+     ae_int_t blocksize,
+     ae_int_t depth,
+     ae_int_t* offs,
+     ae_int_t* groupscreated,
+     double* totalflops,
+     double* sequentialflops,
+     ae_state *_state);
 static void spchol_loadmatrix(spcholanalysis* analysis,
      sparsematrix* at,
      ae_state *_state);
@@ -14099,16 +14137,24 @@ static ae_int_t spchol_computenonzeropattern(sparsematrix* wrkat,
      /* Boolean */ ae_vector* truearray,
      /* Integer */ ae_vector* tmp0,
      ae_state *_state);
-static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
+static void spchol_updatesupernode(spcholanalysis* analysis,
      ae_int_t sidx,
      ae_int_t cols0,
      ae_int_t cols1,
      ae_int_t offss,
      /* Integer */ ae_vector* raw2smap,
-     ae_int_t uidx,
-     ae_int_t wrkrow,
+     ae_int_t ladjidx0,
+     ae_int_t ladjidx1,
      /* Real    */ ae_vector* diagd,
-     ae_int_t offsd,
+     ae_state *_state);
+static void spchol_updatesupernodegeneric(spcholanalysis* analysis,
+     ae_int_t sidx,
+     ae_int_t cols0,
+     ae_int_t cols1,
+     ae_int_t offss,
+     /* Integer */ ae_vector* raw2smap,
+     ae_int_t ladjidx,
+     /* Real    */ ae_vector* diagd,
      ae_state *_state);
 static ae_bool spchol_factorizesupernode(spcholanalysis* analysis,
      ae_int_t sidx,
@@ -14629,7 +14675,7 @@ void generatereflection(/* Real    */ ae_vector* x,
     double mx;
     double s;
 
-    *tau = 0;
+    *tau = 0.0;
 
     if( n<=1 )
     {
@@ -14652,7 +14698,7 @@ void generatereflection(/* Real    */ ae_vector* x,
         if( ae_fp_less_eq(mx,ae_minrealnumber/ae_machineepsilon) )
         {
             s = ae_minrealnumber/ae_machineepsilon;
-            v = 1/s;
+            v = (double)1/s;
             ae_v_muld(&x->ptr.p_double[1], 1, ae_v_len(1,n), v);
             mx = mx*v;
         }
@@ -14661,7 +14707,7 @@ void generatereflection(/* Real    */ ae_vector* x,
             if( ae_fp_greater_eq(mx,ae_maxrealnumber*ae_machineepsilon) )
             {
                 s = ae_maxrealnumber*ae_machineepsilon;
-                v = 1/s;
+                v = (double)1/s;
                 ae_v_muld(&x->ptr.p_double[1], 1, ae_v_len(1,n), v);
                 mx = mx*v;
             }
@@ -14702,7 +14748,7 @@ void generatereflection(/* Real    */ ae_vector* x,
         beta = -beta;
     }
     *tau = (beta-alpha)/beta;
-    v = 1/(alpha-beta);
+    v = (double)1/(alpha-beta);
     ae_v_muld(&x->ptr.p_double[2], 1, ae_v_len(2,n), v);
     x->ptr.p_double[1] = beta;
     
@@ -16021,7 +16067,7 @@ void rmatrixtrsv(ae_int_t n,
                 v = v/a->ptr.pp_double[ia+i][ja+i];
             }
             x->ptr.p_double[ix+i] = v;
-            if( v==0 )
+            if( v==(double)0 )
             {
                 continue;
             }
@@ -16042,7 +16088,7 @@ void rmatrixtrsv(ae_int_t n,
                 v = v/a->ptr.pp_double[ia+i][ja+i];
             }
             x->ptr.p_double[ix+i] = v;
-            if( v==0 )
+            if( v==(double)0 )
             {
                 continue;
             }
@@ -16142,7 +16188,7 @@ void cmatrixrighttrsm(ae_int_t m,
      * * decide whether it is feasible to activate multithreading
      * * perform optionally parallelized splits on M
      */
-    if( m>=2*tsb&&ae_fp_greater_eq(4*rmul3((double)(m), (double)(n), (double)(n), _state),smpactivationlevel(_state)) )
+    if( m>=2*tsb&&ae_fp_greater_eq((double)4*rmul3((double)(m), (double)(n), (double)(n), _state),smpactivationlevel(_state)) )
     {
         if( _trypexec_cmatrixrighttrsm(m,n,a,i1,j1,isupper,isunit,optype,x,i2,j2, _state) )
         {
@@ -16360,7 +16406,7 @@ void cmatrixlefttrsm(ae_int_t m,
      * * decide whether it is feasible to activate multithreading
      * * perform optionally parallelized splits on N
      */
-    if( n>=2*tsb&&ae_fp_greater_eq(4*rmul3((double)(n), (double)(m), (double)(m), _state),smpactivationlevel(_state)) )
+    if( n>=2*tsb&&ae_fp_greater_eq((double)4*rmul3((double)(n), (double)(m), (double)(m), _state),smpactivationlevel(_state)) )
     {
         if( _trypexec_cmatrixlefttrsm(m,n,a,i1,j1,isupper,isunit,optype,x,i2,j2, _state) )
         {
@@ -16998,7 +17044,7 @@ void cmatrixherk(ae_int_t n,
     /*
      * Decide whether it is feasible to activate multithreading
      */
-    if( n>=2*tsb&&ae_fp_greater_eq(8*rmul3((double)(k), (double)(n), (double)(n), _state)/2,smpactivationlevel(_state)) )
+    if( n>=2*tsb&&ae_fp_greater_eq((double)8*rmul3((double)(k), (double)(n), (double)(n), _state)/(double)2,smpactivationlevel(_state)) )
     {
         if( _trypexec_cmatrixherk(n,k,alpha,a,ia,ja,optypea,beta,c,ic,jc,isupper, _state) )
         {
@@ -17188,7 +17234,7 @@ void rmatrixsyrk(ae_int_t n,
     /*
      * Decide whether it is feasible to activate multithreading
      */
-    if( n>=2*tsb&&ae_fp_greater_eq(2*rmul3((double)(k), (double)(n), (double)(n), _state)/2,smpactivationlevel(_state)) )
+    if( n>=2*tsb&&ae_fp_greater_eq((double)2*rmul3((double)(k), (double)(n), (double)(n), _state)/(double)2,smpactivationlevel(_state)) )
     {
         if( _trypexec_rmatrixsyrk(n,k,alpha,a,ia,ja,optypea,beta,c,ic,jc,isupper, _state) )
         {
@@ -17395,7 +17441,7 @@ void cmatrixgemm(ae_int_t m,
     /*
      * Decide whether it is feasible to activate multithreading
      */
-    if( (m>=2*ts||n>=2*ts)&&ae_fp_greater_eq(8*rmul3((double)(m), (double)(n), (double)(k), _state),smpactivationlevel(_state)) )
+    if( (m>=2*ts||n>=2*ts)&&ae_fp_greater_eq((double)8*rmul3((double)(m), (double)(n), (double)(k), _state),smpactivationlevel(_state)) )
     {
         if( _trypexec_cmatrixgemm(m,n,k,alpha,a,ia,ja,optypea,b,ib,jb,optypeb,beta,c,ic,jc, _state) )
         {
@@ -17539,7 +17585,7 @@ void rmatrixgemm(ae_int_t m,
     /*
      * Decide whether it is feasible to activate multithreading
      */
-    if( (m>=2*ts||n>=2*ts)&&ae_fp_greater_eq(2*rmul3((double)(m), (double)(n), (double)(k), _state),smpactivationlevel(_state)) )
+    if( (m>=2*ts||n>=2*ts)&&ae_fp_greater_eq((double)2*rmul3((double)(m), (double)(n), (double)(k), _state),smpactivationlevel(_state)) )
     {
         if( _trypexec_rmatrixgemm(m,n,k,alpha,a,ia,ja,optypea,b,ib,jb,optypeb,beta,c,ic,jc, _state) )
         {
@@ -18001,7 +18047,7 @@ static void ablas_cmatrixlefttrsm2(ae_int_t m,
                 }
                 if( !isunit )
                 {
-                    vd = ae_c_d_div(1,a->ptr.pp_complex[i1+i][j1+i]);
+                    vd = ae_c_d_div((double)(1),a->ptr.pp_complex[i1+i][j1+i]);
                     ae_v_cmulc(&x->ptr.pp_complex[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 }
             }
@@ -18021,7 +18067,7 @@ static void ablas_cmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = ae_c_d_div(1,a->ptr.pp_complex[i1+i][j1+i]);
+                    vd = ae_c_d_div((double)(1),a->ptr.pp_complex[i1+i][j1+i]);
                 }
                 ae_v_cmulc(&x->ptr.pp_complex[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 for(j=i+1; j<=m-1; j++)
@@ -18046,7 +18092,7 @@ static void ablas_cmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = ae_c_d_div(1,ae_c_conj(a->ptr.pp_complex[i1+i][j1+i], _state));
+                    vd = ae_c_d_div((double)(1),ae_c_conj(a->ptr.pp_complex[i1+i][j1+i], _state));
                 }
                 ae_v_cmulc(&x->ptr.pp_complex[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 for(j=i+1; j<=m-1; j++)
@@ -18083,7 +18129,7 @@ static void ablas_cmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = ae_c_d_div(1,a->ptr.pp_complex[i1+j][j1+j]);
+                    vd = ae_c_d_div((double)(1),a->ptr.pp_complex[i1+j][j1+j]);
                 }
                 ae_v_cmulc(&x->ptr.pp_complex[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
             }
@@ -18103,7 +18149,7 @@ static void ablas_cmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = ae_c_d_div(1,a->ptr.pp_complex[i1+i][j1+i]);
+                    vd = ae_c_d_div((double)(1),a->ptr.pp_complex[i1+i][j1+i]);
                 }
                 ae_v_cmulc(&x->ptr.pp_complex[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 for(j=i-1; j>=0; j--)
@@ -18128,7 +18174,7 @@ static void ablas_cmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = ae_c_d_div(1,ae_c_conj(a->ptr.pp_complex[i1+i][j1+i], _state));
+                    vd = ae_c_d_div((double)(1),ae_c_conj(a->ptr.pp_complex[i1+i][j1+i], _state));
                 }
                 ae_v_cmulc(&x->ptr.pp_complex[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 for(j=i-1; j>=0; j--)
@@ -18375,7 +18421,7 @@ static void ablas_rmatrixlefttrsm2(ae_int_t m,
                 }
                 if( !isunit )
                 {
-                    vd = 1/a->ptr.pp_double[i1+i][j1+i];
+                    vd = (double)1/a->ptr.pp_double[i1+i][j1+i];
                     ae_v_muld(&x->ptr.pp_double[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 }
             }
@@ -18395,7 +18441,7 @@ static void ablas_rmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = 1/a->ptr.pp_double[i1+i][j1+i];
+                    vd = (double)1/a->ptr.pp_double[i1+i][j1+i];
                 }
                 ae_v_muld(&x->ptr.pp_double[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 for(j=i+1; j<=m-1; j++)
@@ -18432,7 +18478,7 @@ static void ablas_rmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = 1/a->ptr.pp_double[i1+j][j1+j];
+                    vd = (double)1/a->ptr.pp_double[i1+j][j1+j];
                 }
                 ae_v_muld(&x->ptr.pp_double[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
             }
@@ -18452,7 +18498,7 @@ static void ablas_rmatrixlefttrsm2(ae_int_t m,
                 }
                 else
                 {
-                    vd = 1/a->ptr.pp_double[i1+i][j1+i];
+                    vd = (double)1/a->ptr.pp_double[i1+i][j1+i];
                 }
                 ae_v_muld(&x->ptr.pp_double[i2+i][j2], 1, ae_v_len(j2,j2+n-1), vd);
                 for(j=i-1; j>=0; j--)
@@ -23110,7 +23156,7 @@ void rmatrixrndcond(ae_int_t n,
     }
     hqrndrandomize(&rs, _state);
     l1 = (double)(0);
-    l2 = ae_log(1/c, _state);
+    l2 = ae_log((double)1/c, _state);
     for(i=0; i<=n-1; i++)
     {
         for(j=0; j<=n-1; j++)
@@ -23232,7 +23278,7 @@ void cmatrixrndcond(ae_int_t n,
     }
     hqrndrandomize(&state, _state);
     l1 = (double)(0);
-    l2 = ae_log(1/c, _state);
+    l2 = ae_log((double)1/c, _state);
     for(i=0; i<=n-1; i++)
     {
         for(j=0; j<=n-1; j++)
@@ -23302,7 +23348,7 @@ void smatrixrndcond(ae_int_t n,
      */
     hqrndrandomize(&rs, _state);
     l1 = (double)(0);
-    l2 = ae_log(1/c, _state);
+    l2 = ae_log((double)1/c, _state);
     for(i=0; i<=n-1; i++)
     {
         for(j=0; j<=n-1; j++)
@@ -23313,7 +23359,7 @@ void smatrixrndcond(ae_int_t n,
     a->ptr.pp_double[0][0] = ae_exp(l1, _state);
     for(i=1; i<=n-2; i++)
     {
-        a->ptr.pp_double[i][i] = (2*hqrnduniformi(&rs, 2, _state)-1)*ae_exp(hqrnduniformr(&rs, _state)*(l2-l1)+l1, _state);
+        a->ptr.pp_double[i][i] = (double)(2*hqrnduniformi(&rs, 2, _state)-1)*ae_exp(hqrnduniformr(&rs, _state)*(l2-l1)+l1, _state);
     }
     a->ptr.pp_double[n-1][n-1] = ae_exp(l2, _state);
     
@@ -23379,7 +23425,7 @@ void spdmatrixrndcond(ae_int_t n,
      */
     hqrndrandomize(&rs, _state);
     l1 = (double)(0);
-    l2 = ae_log(1/c, _state);
+    l2 = ae_log((double)1/c, _state);
     for(i=0; i<=n-1; i++)
     {
         for(j=0; j<=n-1; j++)
@@ -23452,7 +23498,7 @@ void hmatrixrndcond(ae_int_t n,
      */
     hqrndrandomize(&rs, _state);
     l1 = (double)(0);
-    l2 = ae_log(1/c, _state);
+    l2 = ae_log((double)1/c, _state);
     for(i=0; i<=n-1; i++)
     {
         for(j=0; j<=n-1; j++)
@@ -23463,7 +23509,7 @@ void hmatrixrndcond(ae_int_t n,
     a->ptr.pp_complex[0][0] = ae_complex_from_d(ae_exp(l1, _state));
     for(i=1; i<=n-2; i++)
     {
-        a->ptr.pp_complex[i][i] = ae_complex_from_d((2*hqrnduniformi(&rs, 2, _state)-1)*ae_exp(hqrnduniformr(&rs, _state)*(l2-l1)+l1, _state));
+        a->ptr.pp_complex[i][i] = ae_complex_from_d((double)(2*hqrnduniformi(&rs, 2, _state)-1)*ae_exp(hqrnduniformr(&rs, _state)*(l2-l1)+l1, _state));
     }
     a->ptr.pp_complex[n-1][n-1] = ae_complex_from_d(ae_exp(l2, _state));
     
@@ -23537,7 +23583,7 @@ void hpdmatrixrndcond(ae_int_t n,
      */
     hqrndrandomize(&rs, _state);
     l1 = (double)(0);
-    l2 = ae_log(1/c, _state);
+    l2 = ae_log((double)1/c, _state);
     for(i=0; i<=n-1; i++)
     {
         for(j=0; j<=n-1; j++)
@@ -24296,7 +24342,7 @@ void sparsecreatebuf(ae_int_t m,
      *       very beginning. Otherwise, the very idea of memory reuse
      *       will be compromised.
      */
-    s->tablesize = ae_round(k/sparse_desiredloadfactor+sparse_additional, _state);
+    s->tablesize = ae_round((double)k/sparse_desiredloadfactor+(double)sparse_additional, _state);
     rvectorsetlengthatleast(&s->vals, s->tablesize, _state);
     s->tablesize = s->vals.cnt;
     
@@ -24871,7 +24917,7 @@ void sparseadd(sparsematrix* s,
     }
     tcode = -1;
     k = s->tablesize;
-    if( ae_fp_greater_eq((1-sparse_maxloadfactor)*k,(double)(s->nfree)) )
+    if( ae_fp_greater_eq(((double)1-sparse_maxloadfactor)*(double)k,(double)(s->nfree)) )
     {
         sparseresizematrix(s, _state);
         k = s->tablesize;
@@ -24987,7 +25033,7 @@ void sparseset(sparsematrix* s,
     {
         tcode = -1;
         k = s->tablesize;
-        if( ae_fp_greater_eq((1-sparse_maxloadfactor)*k,(double)(s->nfree)) )
+        if( ae_fp_greater_eq(((double)1-sparse_maxloadfactor)*(double)k,(double)(s->nfree)) )
         {
             sparseresizematrix(s, _state);
             k = s->tablesize;
@@ -25506,12 +25552,7 @@ void sparsemv(sparsematrix* s,
             y->ptr.p_double[i] = v;
             if( u>0 )
             {
-                lt = ri1-u;
-                rt = ri1-1;
-                lt1 = i-u;
-                rt1 = i-1;
-                v = x->ptr.p_double[i];
-                ae_v_addd(&y->ptr.p_double[lt1], 1, &s->vals.ptr.p_double[lt], 1, ae_v_len(lt1,rt1), v);
+                raddvx(u, x->ptr.p_double[i], &s->vals, ri1-u, y, i-u, _state);
             }
         }
         return;
@@ -25622,11 +25663,9 @@ void sparsemtv(sparsematrix* s,
             if( d>0 )
             {
                 lt = ri;
-                rt = ri+d-1;
                 lt1 = i-d;
-                rt1 = i-1;
                 v = x->ptr.p_double[i];
-                ae_v_addd(&y->ptr.p_double[lt1], 1, &s->vals.ptr.p_double[lt], 1, ae_v_len(lt1,rt1), v);
+                raddvx(d, v, &s->vals, lt, y, lt1, _state);
             }
             v = s->vals.ptr.p_double[ri+d]*x->ptr.p_double[i];
             if( u>0 )
@@ -25837,12 +25876,7 @@ void sparsegemv(sparsematrix* s,
                 y->ptr.p_double[i+iy] = alpha*v+y->ptr.p_double[i+iy];
                 if( u>0 )
                 {
-                    lt = ri1-u;
-                    rt = ri1-1;
-                    lt1 = i-u+iy;
-                    rt1 = i-1+iy;
-                    v = alpha*x->ptr.p_double[i+ix];
-                    ae_v_addd(&y->ptr.p_double[lt1], 1, &s->vals.ptr.p_double[lt], 1, ae_v_len(lt1,rt1), v);
+                    raddvx(u, alpha*x->ptr.p_double[i+ix], &s->vals, ri1-u, y, i-u+iy, _state);
                 }
             }
             return;
@@ -25903,12 +25937,7 @@ void sparsegemv(sparsematrix* s,
                 u = s->uidx.ptr.p_int[i];
                 if( d>0 )
                 {
-                    lt = ri;
-                    rt = ri+d-1;
-                    lt1 = i-d+iy;
-                    rt1 = i-1+iy;
-                    v = alpha*x->ptr.p_double[i+ix];
-                    ae_v_addd(&y->ptr.p_double[lt1], 1, &s->vals.ptr.p_double[lt], 1, ae_v_len(lt1,rt1), v);
+                    raddvx(d, alpha*x->ptr.p_double[i+ix], &s->vals, ri, y, i-d+iy, _state);
                 }
                 v = alpha*s->vals.ptr.p_double[ri+d]*x->ptr.p_double[i+ix];
                 if( u>0 )
@@ -26304,7 +26333,7 @@ double sparsevsmv(sparsematrix* s,
                 id = s->idx.ptr.p_int[j];
                 v1 = x->ptr.p_double[id];
                 v = s->vals.ptr.p_double[j];
-                result = result+2*v0*v1*v;
+                result = result+(double)2*v0*v1*v;
             }
         }
         return result;
@@ -26326,7 +26355,6 @@ double sparsevsmv(sparsematrix* s,
             if( d>0&&!isupper )
             {
                 lt = ri;
-                rt = ri+d-1;
                 lt1 = i-d;
                 k = d-1;
                 v0 = x->ptr.p_double[i];
@@ -26335,12 +26363,11 @@ double sparsevsmv(sparsematrix* s,
                 {
                     v = v+x->ptr.p_double[lt1+j]*s->vals.ptr.p_double[lt+j];
                 }
-                result = result+2*v0*v;
+                result = result+2.0*v0*v;
             }
             if( u>0&&isupper )
             {
                 lt = ri1-u;
-                rt = ri1-1;
                 lt1 = i-u;
                 k = u-1;
                 v0 = x->ptr.p_double[i];
@@ -26349,7 +26376,7 @@ double sparsevsmv(sparsematrix* s,
                 {
                     v = v+x->ptr.p_double[lt1+j]*s->vals.ptr.p_double[lt+j];
                 }
-                result = result+2*v0*v;
+                result = result+2.0*v0*v;
             }
         }
         return result;
@@ -26478,7 +26505,6 @@ void sparsemm(sparsematrix* s,
             if( d>0 )
             {
                 lt = ri;
-                rt = ri+d-1;
                 lt1 = i-d;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -26508,7 +26534,6 @@ void sparsemm(sparsematrix* s,
             if( u>0 )
             {
                 lt = ri1-u;
-                rt = ri1-1;
                 lt1 = i-u;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -26661,7 +26686,6 @@ void sparsemtm(sparsematrix* s,
             if( d>0 )
             {
                 lt = ri;
-                rt = ri+d-1;
                 lt1 = i-d;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -26691,7 +26715,6 @@ void sparsemtm(sparsematrix* s,
             if( u>0 )
             {
                 lt = ri1-u;
-                rt = ri1-1;
                 lt1 = i-u;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -26857,7 +26880,6 @@ void sparsemm2(sparsematrix* s,
             if( d>0 )
             {
                 lt = ri;
-                rt = ri+d-1;
                 lt1 = i-d;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -26889,7 +26911,6 @@ void sparsemm2(sparsematrix* s,
             if( u>0 )
             {
                 lt = ri1-u;
-                rt = ri1-1;
                 lt1 = i-u;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -27102,7 +27123,6 @@ void sparsesmm(sparsematrix* s,
             if( d>0&&!isupper )
             {
                 lt = ri;
-                rt = ri+d-1;
                 lt1 = i-d;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -27134,7 +27154,6 @@ void sparsesmm(sparsematrix* s,
             if( u>0&&isupper )
             {
                 lt = ri1-u;
-                rt = ri1-1;
                 lt1 = i-u;
                 rt1 = i-1;
                 for(j=lt1; j<=rt1; j++)
@@ -28035,7 +28054,7 @@ void sparseresizematrix(sparsematrix* s, ae_state *_state)
     /*
      * Initialization value for free space
      */
-    s->tablesize = ae_round(k1/sparse_desiredloadfactor*sparse_growfactor+sparse_additional, _state);
+    s->tablesize = ae_round((double)k1/sparse_desiredloadfactor*sparse_growfactor+(double)sparse_additional, _state);
     s->nfree = s->tablesize-k1;
     ae_vector_set_length(&tvals, s->tablesize, _state);
     ae_vector_set_length(&tidx, 2*s->tablesize, _state);
@@ -28224,7 +28243,7 @@ ae_bool sparseenumerate(sparsematrix* s,
 
     *i = 0;
     *j = 0;
-    *v = 0;
+    *v = 0.0;
 
     result = ae_false;
     if( *t0<0||(s->matrixtype!=0&&*t1<0) )
@@ -30892,10 +30911,10 @@ void _sparsematrix_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sparsematrix_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sparsematrix_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sparsematrix *dst = (sparsematrix*)_dst;
-    sparsematrix *src = (sparsematrix*)_src;
+    sparsematrix       *dst = (sparsematrix*)_dst;
+    const sparsematrix *src = (const sparsematrix*)_src;
     ae_vector_init_copy(&dst->vals, &src->vals, _state, make_automatic);
     ae_vector_init_copy(&dst->idx, &src->idx, _state, make_automatic);
     ae_vector_init_copy(&dst->ridx, &src->ridx, _state, make_automatic);
@@ -30944,10 +30963,10 @@ void _sparsebuffers_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sparsebuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sparsebuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sparsebuffers *dst = (sparsebuffers*)_dst;
-    sparsebuffers *src = (sparsebuffers*)_src;
+    sparsebuffers       *dst = (sparsebuffers*)_dst;
+    const sparsebuffers *src = (const sparsebuffers*)_src;
     ae_vector_init_copy(&dst->d, &src->d, _state, make_automatic);
     ae_vector_init_copy(&dst->u, &src->u, _state, make_automatic);
     _sparsematrix_init_copy(&dst->s, &src->s, _state, make_automatic);
@@ -31353,8 +31372,8 @@ void internalschurdecomposition(/* Real    */ ae_matrix* h,
         return;
     }
     unfl = ae_minrealnumber;
-    ulp = 2*ae_machineepsilon;
-    smlnum = unfl*(n/ulp);
+    ulp = (double)2*ae_machineepsilon;
+    smlnum = unfl*((double)n/ulp);
     
     /*
      * I1 and I2 are the indices of the first row and last column of H
@@ -31543,9 +31562,9 @@ void internalschurdecomposition(/* Real    */ ae_matrix* h,
                              */
                             p1 = nv+1;
                             ae_v_move(&vv.ptr.p_double[1], 1, &v.ptr.p_double[1], 1, ae_v_len(1,p1));
-                            matrixvectormultiply(h, l, l+nv, l, l+nv-1, ae_false, &v, 1, nv, 1.0, &vv, 1, nv+1, -2*wr->ptr.p_double[j], _state);
+                            matrixvectormultiply(h, l, l+nv, l, l+nv-1, ae_false, &v, 1, nv, 1.0, &vv, 1, nv+1, -(double)2*wr->ptr.p_double[j], _state);
                             itemp = vectoridxabsmax(&vv, 1, nv+1, _state);
-                            temp = 1/ae_maxreal(ae_fabs(vv.ptr.p_double[itemp], _state), smlnum, _state);
+                            temp = (double)1/ae_maxreal(ae_fabs(vv.ptr.p_double[itemp], _state), smlnum, _state);
                             p1 = nv+1;
                             ae_v_muld(&vv.ptr.p_double[1], 1, ae_v_len(1,p1), temp);
                             absw = pythag2(wr->ptr.p_double[j], wi->ptr.p_double[j], _state);
@@ -31572,7 +31591,7 @@ void internalschurdecomposition(/* Real    */ ae_matrix* h,
                     else
                     {
                         temp = ae_maxreal(temp, smlnum, _state);
-                        vt = 1/temp;
+                        vt = (double)1/temp;
                         ae_v_muld(&v.ptr.p_double[1], 1, ae_v_len(1,nv), vt);
                     }
                 }
@@ -31795,7 +31814,7 @@ static void hsschur_internalauxschur(ae_bool wantt,
      */
     safmin = ae_minrealnumber;
     ulp = ae_machineepsilon;
-    smlnum = safmin*(nh/ulp);
+    smlnum = safmin*((double)nh/ulp);
     
     /*
      * I1 and I2 are the indices of the first row and last column of H
@@ -31971,7 +31990,7 @@ static void hsschur_internalauxschur(ae_bool wantt,
                 h21 = h21/s;
                 h12 = h12/s;
                 h22 = h22/s;
-                tr = (h11+h22)/2;
+                tr = (h11+h22)/(double)2;
                 det = (h11-tr)*(h22-tr)-h12*h21;
                 rtdisc = ae_sqrt(ae_fabs(det, _state), _state);
                 if( ae_fp_greater_eq(det,(double)(0)) )
@@ -32085,7 +32104,7 @@ static void hsschur_internalauxschur(ae_bool wantt,
                          * avoid a bug when v(2) and v(3)
                          * underflow. ====
                          */
-                        h->ptr.pp_double[k][k-1] = h->ptr.pp_double[k][k-1]*(1-t1);
+                        h->ptr.pp_double[k][k-1] = h->ptr.pp_double[k][k-1]*((double)1-t1);
                     }
                 }
                 v2 = workv3->ptr.p_double[2];
@@ -32290,12 +32309,12 @@ static void hsschur_aux2x2schur(double* a,
     double temp;
     double z;
 
-    *rt1r = 0;
-    *rt1i = 0;
-    *rt2r = 0;
-    *rt2i = 0;
-    *cs = 0;
-    *sn = 0;
+    *rt1r = 0.0;
+    *rt1i = 0.0;
+    *rt2r = 0.0;
+    *rt2i = 0.0;
+    *cs = 0.0;
+    *sn = 0.0;
 
     multpl = 4.0;
     eps = ae_machineepsilon;
@@ -32332,7 +32351,7 @@ static void hsschur_aux2x2schur(double* a,
                 temp = *a-(*d);
                 p = 0.5*temp;
                 bcmax = ae_maxreal(ae_fabs(*b, _state), ae_fabs(*c, _state), _state);
-                bcmis = ae_minreal(ae_fabs(*b, _state), ae_fabs(*c, _state), _state)*hsschur_extschursigntoone(*b, _state)*hsschur_extschursigntoone(*c, _state);
+                bcmis = ae_minreal(ae_fabs(*b, _state), ae_fabs(*c, _state), _state)*(double)hsschur_extschursigntoone(*b, _state)*(double)hsschur_extschursigntoone(*c, _state);
                 scl = ae_maxreal(ae_fabs(p, _state), bcmax, _state);
                 z = p/scl*p+bcmax/scl*bcmis;
                 
@@ -32368,7 +32387,7 @@ static void hsschur_aux2x2schur(double* a,
                      */
                     sigma = *b+(*c);
                     tau = pythag2(sigma, temp, _state);
-                    *cs = ae_sqrt(0.5*(1+ae_fabs(sigma, _state)/tau), _state);
+                    *cs = ae_sqrt(0.5*((double)1+ae_fabs(sigma, _state)/tau), _state);
                     *sn = -p/(tau*(*cs))*hsschur_extschursign((double)(1), sigma, _state);
                     
                     /*
@@ -32404,7 +32423,7 @@ static void hsschur_aux2x2schur(double* a,
                                 sab = ae_sqrt(ae_fabs(*b, _state), _state);
                                 sac = ae_sqrt(ae_fabs(*c, _state), _state);
                                 p = hsschur_extschursign(sab*sac, *c, _state);
-                                tau = 1/ae_sqrt(ae_fabs(*b+(*c), _state), _state);
+                                tau = (double)1/ae_sqrt(ae_fabs(*b+(*c), _state), _state);
                                 *a = temp+p;
                                 *d = temp-p;
                                 *b = *b-(*c);
@@ -33216,8 +33235,8 @@ ae_bool eigsubspaceiteration(eigsubspacestate* state, ae_state *_state)
         i1 = 255;
         j = 74;
         convcnt = -788;
-        vv = 809;
-        v = 205;
+        vv = 809.0;
+        v = 205.0;
     }
     if( state->rstate.stage==0 )
     {
@@ -34332,16 +34351,6 @@ ae_bool smatrixtdevd(/* Real    */ ae_vector* d,
             ae_frame_leave(_state);
             return result;
         }
-        if( zneeded==2 )
-        {
-            ae_matrix_set_length(z, n-1+1, n-1+1, _state);
-            for(i=1; i<=n; i++)
-            {
-                ae_v_move(&z->ptr.pp_double[i-1][0], 1, &z1.ptr.pp_double[i][1], 1, ae_v_len(0,n-1));
-            }
-            ae_frame_leave(_state);
-            return result;
-        }
         if( zneeded==3 )
         {
             ae_matrix_set_length(z, 0+1, n-1+1, _state);
@@ -35276,7 +35285,7 @@ static ae_bool evd_tridiagonalevd(/* Real    */ ae_vector* d,
     eps2 = ae_sqr(eps, _state);
     safmin = ae_minrealnumber;
     safmax = ae_maxrealnumber;
-    ssfmax = ae_sqrt(safmax, _state)/3;
+    ssfmax = ae_sqrt(safmax, _state)/(double)3;
     ssfmin = ae_sqrt(safmin, _state)/eps2;
     
     /*
@@ -35531,7 +35540,7 @@ static ae_bool evd_tridiagonalevd(/* Real    */ ae_vector* d,
                     /*
                      * Form shift.
                      */
-                    g = (d->ptr.p_double[l+1]-p)/(2*e->ptr.p_double[l]);
+                    g = (d->ptr.p_double[l+1]-p)/((double)2*e->ptr.p_double[l]);
                     r = evd_tdevdpythag(g, (double)(1), _state);
                     g = d->ptr.p_double[m]-p+e->ptr.p_double[l]/(g+evd_tdevdextsign(r, g, _state));
                     s = (double)(1);
@@ -35552,7 +35561,7 @@ static ae_bool evd_tridiagonalevd(/* Real    */ ae_vector* d,
                             e->ptr.p_double[i+1] = r;
                         }
                         g = d->ptr.p_double[i+1]-p;
-                        r = (d->ptr.p_double[i]-g)*s+2*c*b;
+                        r = (d->ptr.p_double[i]-g)*s+(double)2*c*b;
                         p = s*r;
                         d->ptr.p_double[i+1] = g+p;
                         g = c*r-b;
@@ -35684,7 +35693,7 @@ static ae_bool evd_tridiagonalevd(/* Real    */ ae_vector* d,
                     /*
                      * Form shift.
                      */
-                    g = (d->ptr.p_double[l-1]-p)/(2*e->ptr.p_double[l-1]);
+                    g = (d->ptr.p_double[l-1]-p)/((double)2*e->ptr.p_double[l-1]);
                     r = evd_tdevdpythag(g, (double)(1), _state);
                     g = d->ptr.p_double[m]-p+e->ptr.p_double[l-1]/(g+evd_tdevdextsign(r, g, _state));
                     s = (double)(1);
@@ -35705,7 +35714,7 @@ static ae_bool evd_tridiagonalevd(/* Real    */ ae_vector* d,
                             e->ptr.p_double[i-1] = r;
                         }
                         g = d->ptr.p_double[i]-p;
-                        r = (d->ptr.p_double[i+1]-g)*s+2*c*b;
+                        r = (d->ptr.p_double[i+1]-g)*s+(double)2*c*b;
                         p = s*r;
                         d->ptr.p_double[i] = g+p;
                         g = c*r-b;
@@ -35953,8 +35962,8 @@ static void evd_tdevde2(double a,
     double sm;
     double tb;
 
-    *rt1 = 0;
-    *rt2 = 0;
+    *rt1 = 0.0;
+    *rt2 = 0.0;
 
     sm = a+c;
     df = a-c;
@@ -35973,13 +35982,13 @@ static void evd_tdevde2(double a,
     }
     if( ae_fp_greater(adf,ab) )
     {
-        rt = adf*ae_sqrt(1+ae_sqr(ab/adf, _state), _state);
+        rt = adf*ae_sqrt((double)1+ae_sqr(ab/adf, _state), _state);
     }
     else
     {
         if( ae_fp_less(adf,ab) )
         {
-            rt = ab*ae_sqrt(1+ae_sqr(adf/ab, _state), _state);
+            rt = ab*ae_sqrt((double)1+ae_sqr(adf/ab, _state), _state);
         }
         else
         {
@@ -36070,10 +36079,10 @@ static void evd_tdevdev2(double a,
     double tb;
     double tn;
 
-    *rt1 = 0;
-    *rt2 = 0;
-    *cs1 = 0;
-    *sn1 = 0;
+    *rt1 = 0.0;
+    *rt2 = 0.0;
+    *cs1 = 0.0;
+    *sn1 = 0.0;
 
     
     /*
@@ -36096,13 +36105,13 @@ static void evd_tdevdev2(double a,
     }
     if( ae_fp_greater(adf,ab) )
     {
-        rt = adf*ae_sqrt(1+ae_sqr(ab/adf, _state), _state);
+        rt = adf*ae_sqrt((double)1+ae_sqr(ab/adf, _state), _state);
     }
     else
     {
         if( ae_fp_less(adf,ab) )
         {
-            rt = ab*ae_sqrt(1+ae_sqr(adf/ab, _state), _state);
+            rt = ab*ae_sqrt((double)1+ae_sqr(adf/ab, _state), _state);
         }
         else
         {
@@ -36168,7 +36177,7 @@ static void evd_tdevdev2(double a,
     if( ae_fp_greater(acs,ab) )
     {
         ct = -tb/cs;
-        *sn1 = 1/ae_sqrt(1+ct*ct, _state);
+        *sn1 = (double)1/ae_sqrt((double)1+ct*ct, _state);
         *cs1 = ct*(*sn1);
     }
     else
@@ -36181,7 +36190,7 @@ static void evd_tdevdev2(double a,
         else
         {
             tn = -cs/tb;
-            *cs1 = 1/ae_sqrt(1+tn*tn, _state);
+            *cs1 = (double)1/ae_sqrt((double)1+tn*tn, _state);
             *sn1 = tn*(*cs1);
         }
     }
@@ -36204,11 +36213,11 @@ static double evd_tdevdpythag(double a, double b, ae_state *_state)
 
     if( ae_fp_less(ae_fabs(a, _state),ae_fabs(b, _state)) )
     {
-        result = ae_fabs(b, _state)*ae_sqrt(1+ae_sqr(a/b, _state), _state);
+        result = ae_fabs(b, _state)*ae_sqrt((double)1+ae_sqr(a/b, _state), _state);
     }
     else
     {
-        result = ae_fabs(a, _state)*ae_sqrt(1+ae_sqr(b/a, _state), _state);
+        result = ae_fabs(a, _state)*ae_sqrt((double)1+ae_sqr(b/a, _state), _state);
     }
     return result;
 }
@@ -36380,7 +36389,7 @@ static ae_bool evd_internalbisectioneigenvalues(/* Real    */ ae_vector* d,
     fudge = (double)(2);
     relfac = (double)(2);
     safemn = ae_minrealnumber;
-    ulp = 2*ae_machineepsilon;
+    ulp = (double)2*ae_machineepsilon;
     rtoli = ulp*relfac;
     ae_vector_set_length(&idumma, 1+1, _state);
     ae_vector_set_length(&work, 4*n+1, _state);
@@ -36557,8 +36566,8 @@ static ae_bool evd_internalbisectioneigenvalues(/* Real    */ ae_vector* d,
         gu = ae_maxreal(gu, d->ptr.p_double[n]+tmp1, _state);
         gl = ae_minreal(gl, d->ptr.p_double[n]-tmp1, _state);
         tnorm = ae_maxreal(ae_fabs(gl, _state), ae_fabs(gu, _state), _state);
-        gl = gl-fudge*tnorm*ulp*n-fudge*2*pivmin;
-        gu = gu+fudge*tnorm*ulp*n+fudge*pivmin;
+        gl = gl-fudge*tnorm*ulp*(double)n-fudge*(double)2*pivmin;
+        gu = gu+fudge*tnorm*ulp*(double)n+fudge*pivmin;
         
         /*
          * Compute Iteration parameters
@@ -36733,8 +36742,8 @@ static ae_bool evd_internalbisectioneigenvalues(/* Real    */ ae_vector* d,
             gu = ae_maxreal(gu, d->ptr.p_double[iend]+tmp1, _state);
             gl = ae_minreal(gl, d->ptr.p_double[iend]-tmp1, _state);
             bnorm = ae_maxreal(ae_fabs(gl, _state), ae_fabs(gu, _state), _state);
-            gl = gl-fudge*bnorm*ulp*iin-fudge*pivmin;
-            gu = gu+fudge*bnorm*ulp*iin+fudge*pivmin;
+            gl = gl-fudge*bnorm*ulp*(double)iin-fudge*pivmin;
+            gu = gu+fudge*bnorm*ulp*(double)iin+fudge*pivmin;
             
             /*
              * Compute ATOLI for the current submatrix
@@ -37233,7 +37242,7 @@ static void evd_internaldstein(ae_int_t n,
                 onenrm = ae_maxreal(onenrm, ae_fabs(d->ptr.p_double[i], _state)+ae_fabs(e->ptr.p_double[i-1], _state)+ae_fabs(e->ptr.p_double[i], _state), _state);
             }
             ortol = 0.001*onenrm;
-            dtpcrt = ae_sqrt(0.1/blksiz, _state);
+            dtpcrt = ae_sqrt(0.1/(double)blksiz, _state);
         }
         
         /*
@@ -37267,7 +37276,7 @@ static void evd_internaldstein(ae_int_t n,
                 if( jblk>1 )
                 {
                     eps1 = ae_fabs(eps*xj, _state);
-                    pertol = 10*eps1;
+                    pertol = (double)10*eps1;
                     sep = xj-xjm;
                     if( ae_fp_less(sep,pertol) )
                     {
@@ -37282,7 +37291,7 @@ static void evd_internaldstein(ae_int_t n,
                  */
                 for(ti=1; ti<=blksiz; ti++)
                 {
-                    work1.ptr.p_double[ti] = 2*hqrnduniformr(&rs, _state)-1;
+                    work1.ptr.p_double[ti] = (double)2*hqrnduniformr(&rs, _state)-(double)1;
                 }
                 
                 /*
@@ -37328,7 +37337,7 @@ static void evd_internaldstein(ae_int_t n,
                     {
                         v = v+ae_fabs(work1.ptr.p_double[ti], _state);
                     }
-                    scl = blksiz*onenrm*ae_maxreal(eps, ae_fabs(work4.ptr.p_double[blksiz], _state), _state)/v;
+                    scl = (double)blksiz*onenrm*ae_maxreal(eps, ae_fabs(work4.ptr.p_double[blksiz], _state), _state)/v;
                     ae_v_muld(&work1.ptr.p_double[1], 1, ae_v_len(1,blksiz), scl);
                     
                     /*
@@ -37388,7 +37397,7 @@ static void evd_internaldstein(ae_int_t n,
                 /*
                  * Accept iterate as jth eigenvector.
                  */
-                scl = 1/vectornorm2(&work1, 1, blksiz, _state);
+                scl = (double)1/vectornorm2(&work1, 1, blksiz, _state);
                 jmax = vectoridxabsmax(&work1, 1, blksiz, _state);
                 if( ae_fp_less(work1.ptr.p_double[jmax],(double)(0)) )
                 {
@@ -37564,7 +37573,7 @@ static void evd_tdininternaldlagts(ae_int_t n,
     }
     eps = ae_machineepsilon;
     sfmin = ae_minrealnumber;
-    bignum = 1/sfmin;
+    bignum = (double)1/sfmin;
     if( ae_fp_less_eq(*tol,(double)(0)) )
     {
         *tol = ae_fabs(a->ptr.p_double[1], _state);
@@ -37628,7 +37637,7 @@ static void evd_tdininternaldlagts(ae_int_t n,
                     if( ae_fp_eq(absak,(double)(0))||ae_fp_greater(ae_fabs(temp, _state)*sfmin,absak) )
                     {
                         ak = ak+pert;
-                        pert = 2*pert;
+                        pert = (double)2*pert;
                         continue;
                     }
                     else
@@ -37642,7 +37651,7 @@ static void evd_tdininternaldlagts(ae_int_t n,
                     if( ae_fp_greater(ae_fabs(temp, _state),absak*bignum) )
                     {
                         ak = ak+pert;
-                        pert = 2*pert;
+                        pert = (double)2*pert;
                         continue;
                     }
                 }
@@ -38332,8 +38341,8 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
      */
     unfl = ae_minrealnumber;
     ulp = ae_machineepsilon;
-    smlnum = unfl*(n/ulp);
-    bignum = (1-ulp)/smlnum;
+    smlnum = unfl*((double)n/ulp);
+    bignum = ((double)1-ulp)/smlnum;
     
     /*
      * Compute 1-norm of each column of strictly upper triangular
@@ -38556,7 +38565,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                         k2 = ki+n;
                         ae_v_move(&vr->ptr.pp_double[1][iis], vr->stride, &work.ptr.p_double[k1], 1, ae_v_len(1,ki));
                         ii = columnidxabsmax(vr, 1, ki, iis, _state);
-                        remax = 1/ae_fabs(vr->ptr.pp_double[ii][iis], _state);
+                        remax = (double)1/ae_fabs(vr->ptr.pp_double[ii][iis], _state);
                         ae_v_muld(&vr->ptr.pp_double[1][iis], vr->stride, ae_v_len(1,ki), remax);
                         for(k=ki+1; k<=n; k++)
                         {
@@ -38572,7 +38581,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                             ae_v_move(&vr->ptr.pp_double[1][ki], vr->stride, &temp.ptr.p_double[1], 1, ae_v_len(1,n));
                         }
                         ii = columnidxabsmax(vr, 1, n, ki, _state);
-                        remax = 1/ae_fabs(vr->ptr.pp_double[ii][ki], _state);
+                        remax = (double)1/ae_fabs(vr->ptr.pp_double[ii][ki], _state);
                         ae_v_muld(&vr->ptr.pp_double[1][ki], vr->stride, ae_v_len(1,n), remax);
                     }
                 }
@@ -38711,7 +38720,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                                 beta = ae_maxreal(work.ptr.p_double[j-1], work.ptr.p_double[j], _state);
                                 if( ae_fp_greater(beta,bignum/xnorm) )
                                 {
-                                    rec = 1/xnorm;
+                                    rec = (double)1/xnorm;
                                     x.ptr.pp_double[1][1] = x.ptr.pp_double[1][1]*rec;
                                     x.ptr.pp_double[1][2] = x.ptr.pp_double[1][2]*rec;
                                     x.ptr.pp_double[2][1] = x.ptr.pp_double[2][1]*rec;
@@ -38759,7 +38768,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                         {
                             emax = ae_maxreal(emax, ae_fabs(vr->ptr.pp_double[k][iis-1], _state)+ae_fabs(vr->ptr.pp_double[k][iis], _state), _state);
                         }
-                        remax = 1/emax;
+                        remax = (double)1/emax;
                         ae_v_muld(&vr->ptr.pp_double[1][iis-1], vr->stride, ae_v_len(1,ki), remax);
                         ae_v_muld(&vr->ptr.pp_double[1][iis], vr->stride, ae_v_len(1,ki), remax);
                         for(k=ki+1; k<=n; k++)
@@ -38791,7 +38800,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                         {
                             emax = ae_maxreal(emax, ae_fabs(vr->ptr.pp_double[k][ki-1], _state)+ae_fabs(vr->ptr.pp_double[k][ki], _state), _state);
                         }
-                        remax = 1/emax;
+                        remax = (double)1/emax;
                         ae_v_muld(&vr->ptr.pp_double[1][ki-1], vr->stride, ae_v_len(1,n), remax);
                         ae_v_muld(&vr->ptr.pp_double[1][ki], vr->stride, ae_v_len(1,n), remax);
                     }
@@ -38908,7 +38917,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                              */
                             if( ae_fp_greater(work.ptr.p_double[j],vcrit) )
                             {
-                                rec = 1/vmax;
+                                rec = (double)1/vmax;
                                 ae_v_muld(&work.ptr.p_double[ki+n], 1, ae_v_len(ki+n,n+n), rec);
                                 vmax = (double)(1);
                                 vcrit = bignum;
@@ -38946,7 +38955,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                             beta = ae_maxreal(work.ptr.p_double[j], work.ptr.p_double[j+1], _state);
                             if( ae_fp_greater(beta,vcrit) )
                             {
-                                rec = 1/vmax;
+                                rec = (double)1/vmax;
                                 ae_v_muld(&work.ptr.p_double[ki+n], 1, ae_v_len(ki+n,n+n), rec);
                                 vmax = (double)(1);
                                 vcrit = bignum;
@@ -38990,7 +38999,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                     {
                         ae_v_move(&vl->ptr.pp_double[ki][iis], vl->stride, &work.ptr.p_double[ki+n], 1, ae_v_len(ki,n));
                         ii = columnidxabsmax(vl, ki, n, iis, _state);
-                        remax = 1/ae_fabs(vl->ptr.pp_double[ii][iis], _state);
+                        remax = (double)1/ae_fabs(vl->ptr.pp_double[ii][iis], _state);
                         ae_v_muld(&vl->ptr.pp_double[ki][iis], vl->stride, ae_v_len(ki,n), remax);
                         for(k=1; k<=ki-1; k++)
                         {
@@ -39006,7 +39015,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                             ae_v_move(&vl->ptr.pp_double[1][ki], vl->stride, &temp.ptr.p_double[1], 1, ae_v_len(1,n));
                         }
                         ii = columnidxabsmax(vl, 1, n, ki, _state);
-                        remax = 1/ae_fabs(vl->ptr.pp_double[ii][ki], _state);
+                        remax = (double)1/ae_fabs(vl->ptr.pp_double[ii][ki], _state);
                         ae_v_muld(&vl->ptr.pp_double[1][ki], vl->stride, ae_v_len(1,n), remax);
                     }
                 }
@@ -39077,7 +39086,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                              */
                             if( ae_fp_greater(work.ptr.p_double[j],vcrit) )
                             {
-                                rec = 1/vmax;
+                                rec = (double)1/vmax;
                                 ae_v_muld(&work.ptr.p_double[ki+n], 1, ae_v_len(ki+n,n+n), rec);
                                 ae_v_muld(&work.ptr.p_double[ki+n2], 1, ae_v_len(ki+n2,n+n2), rec);
                                 vmax = (double)(1);
@@ -39121,7 +39130,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                             beta = ae_maxreal(work.ptr.p_double[j], work.ptr.p_double[j+1], _state);
                             if( ae_fp_greater(beta,vcrit) )
                             {
-                                rec = 1/vmax;
+                                rec = (double)1/vmax;
                                 ae_v_muld(&work.ptr.p_double[ki+n], 1, ae_v_len(ki+n,n+n), rec);
                                 ae_v_muld(&work.ptr.p_double[ki+n2], 1, ae_v_len(ki+n2,n+n2), rec);
                                 vmax = (double)(1);
@@ -39183,7 +39192,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                         {
                             emax = ae_maxreal(emax, ae_fabs(vl->ptr.pp_double[k][iis], _state)+ae_fabs(vl->ptr.pp_double[k][iis+1], _state), _state);
                         }
-                        remax = 1/emax;
+                        remax = (double)1/emax;
                         ae_v_muld(&vl->ptr.pp_double[ki][iis], vl->stride, ae_v_len(ki,n), remax);
                         ae_v_muld(&vl->ptr.pp_double[ki][iis+1], vl->stride, ae_v_len(ki,n), remax);
                         for(k=1; k<=ki-1; k++)
@@ -39215,7 +39224,7 @@ static void evd_internaltrevc(/* Real    */ ae_matrix* t,
                         {
                             emax = ae_maxreal(emax, ae_fabs(vl->ptr.pp_double[k][ki], _state)+ae_fabs(vl->ptr.pp_double[k][ki+1], _state), _state);
                         }
-                        remax = 1/emax;
+                        remax = (double)1/emax;
                         ae_v_muld(&vl->ptr.pp_double[1][ki], vl->stride, ae_v_len(1,n), remax);
                         ae_v_muld(&vl->ptr.pp_double[1][ki+1], vl->stride, ae_v_len(1,n), remax);
                     }
@@ -39339,8 +39348,8 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
     double tmp1;
     double tmp2;
 
-    *scl = 0;
-    *xnorm = 0;
+    *scl = 0.0;
+    *xnorm = 0.0;
     *info = 0;
 
     zswap4->ptr.p_bool[1] = ae_false;
@@ -39367,8 +39376,8 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
     ipivot44->ptr.pp_int[2][4] = 3;
     ipivot44->ptr.pp_int[3][4] = 2;
     ipivot44->ptr.pp_int[4][4] = 1;
-    smlnum = 2*ae_minrealnumber;
-    bignum = 1/smlnum;
+    smlnum = (double)2*ae_minrealnumber;
+    bignum = (double)1/smlnum;
     smini = ae_maxreal(smin, smlnum, _state);
     
     /*
@@ -39415,7 +39424,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
             {
                 if( ae_fp_greater(bnorm,bignum*cnorm) )
                 {
-                    *scl = 1/bnorm;
+                    *scl = (double)1/bnorm;
                 }
             }
             
@@ -39456,7 +39465,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
             {
                 if( ae_fp_greater(bnorm,bignum*cnorm) )
                 {
-                    *scl = 1/bnorm;
+                    *scl = (double)1/bnorm;
                 }
             }
             
@@ -39518,7 +39527,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
                 {
                     if( ae_fp_greater(bnorm,bignum*smini) )
                     {
-                        *scl = 1/bnorm;
+                        *scl = (double)1/bnorm;
                     }
                 }
                 temp = *scl/smini;
@@ -39536,7 +39545,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
             cr21 = crv4->ptr.p_double[ipivot44->ptr.pp_int[2][icmax]];
             ur12 = crv4->ptr.p_double[ipivot44->ptr.pp_int[3][icmax]];
             cr22 = crv4->ptr.p_double[ipivot44->ptr.pp_int[4][icmax]];
-            ur11r = 1/ur11;
+            ur11r = (double)1/ur11;
             lr21 = ur11r*cr21;
             ur22 = cr22-ur12*lr21;
             
@@ -39564,7 +39573,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
             {
                 if( ae_fp_greater_eq(bbnd,bignum*ae_fabs(ur22, _state)) )
                 {
-                    *scl = 1/bbnd;
+                    *scl = (double)1/bbnd;
                 }
             }
             xr2 = br2*(*scl)/ur22;
@@ -39629,7 +39638,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
                 {
                     if( ae_fp_greater(bnorm,bignum*smini) )
                     {
-                        *scl = 1/bnorm;
+                        *scl = (double)1/bnorm;
                     }
                 }
                 temp = *scl/smini;
@@ -39662,13 +39671,13 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
                 if( ae_fp_greater(ae_fabs(ur11, _state),ae_fabs(ui11, _state)) )
                 {
                     temp = ui11/ur11;
-                    ur11r = 1/(ur11*(1+ae_sqr(temp, _state)));
+                    ur11r = (double)1/(ur11*((double)1+ae_sqr(temp, _state)));
                     ui11r = -temp*ur11r;
                 }
                 else
                 {
                     temp = ur11/ui11;
-                    ui11r = -1/(ui11*(1+ae_sqr(temp, _state)));
+                    ui11r = -(double)1/(ui11*((double)1+ae_sqr(temp, _state)));
                     ur11r = -temp*ui11r;
                 }
                 lr21 = cr21*ur11r;
@@ -39684,7 +39693,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
                 /*
                  * Code when diagonals of pivoted C are real
                  */
-                ur11r = 1/ur11;
+                ur11r = (double)1/ur11;
                 ui11r = (double)(0);
                 lr21 = cr21*ur11r;
                 li21 = ci21*ur11r;
@@ -39725,7 +39734,7 @@ static void evd_internalhsevdlaln2(ae_bool ltrans,
             {
                 if( ae_fp_greater_eq(bbnd,bignum*u22abs) )
                 {
-                    *scl = 1/bbnd;
+                    *scl = (double)1/bbnd;
                     br1 = *scl*br1;
                     bi1 = *scl*bi1;
                     br2 = *scl*br2;
@@ -39798,8 +39807,8 @@ static void evd_internalhsevdladiv(double a,
     double e;
     double f;
 
-    *p = 0;
-    *q = 0;
+    *p = 0.0;
+    *q = 0.0;
 
     if( ae_fp_less(ae_fabs(d, _state),ae_fabs(c, _state)) )
     {
@@ -39845,10 +39854,10 @@ void _eigsubspacestate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _eigsubspacestate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _eigsubspacestate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    eigsubspacestate *dst = (eigsubspacestate*)_dst;
-    eigsubspacestate *src = (eigsubspacestate*)_src;
+    eigsubspacestate       *dst = (eigsubspacestate*)_dst;
+    const eigsubspacestate *src = (const eigsubspacestate*)_src;
     dst->n = src->n;
     dst->k = src->k;
     dst->nwork = src->nwork;
@@ -39946,10 +39955,10 @@ void _eigsubspacereport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _eigsubspacereport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _eigsubspacereport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    eigsubspacereport *dst = (eigsubspacereport*)_dst;
-    eigsubspacereport *src = (eigsubspacereport*)_src;
+    eigsubspacereport       *dst = (eigsubspacereport*)_dst;
+    const eigsubspacereport *src = (const eigsubspacereport*)_src;
     dst->iterationscount = src->iterationscount;
 }
 
@@ -40318,7 +40327,7 @@ static void dlu_cmatrixlup2(/* Complex */ ae_matrix* a,
         }
         if( ae_c_neq_d(a->ptr.pp_complex[offs+j][offs+j],(double)(0))&&j+1<=n-1 )
         {
-            s = ae_c_d_div(1,a->ptr.pp_complex[offs+j][offs+j]);
+            s = ae_c_d_div((double)(1),a->ptr.pp_complex[offs+j][offs+j]);
             ae_v_cmulc(&a->ptr.pp_complex[offs+j][offs+j+1], 1, ae_v_len(offs+j+1,offs+n-1), s);
         }
         if( j<ae_minint(m-1, n-1, _state) )
@@ -40375,7 +40384,7 @@ static void dlu_rmatrixlup2(/* Real    */ ae_matrix* a,
         }
         if( ae_fp_neq(a->ptr.pp_double[offs+j][offs+j],(double)(0))&&j+1<=n-1 )
         {
-            s = 1/a->ptr.pp_double[offs+j][offs+j];
+            s = (double)1/a->ptr.pp_double[offs+j][offs+j];
             ae_v_muld(&a->ptr.pp_double[offs+j][offs+j+1], 1, ae_v_len(offs+j+1,offs+n-1), s);
         }
         if( j<ae_minint(m-1, n-1, _state) )
@@ -40438,7 +40447,7 @@ static void dlu_cmatrixplu2(/* Complex */ ae_matrix* a,
             }
             if( j+1<=m-1 )
             {
-                s = ae_c_d_div(1,a->ptr.pp_complex[offs+j][offs+j]);
+                s = ae_c_d_div((double)(1),a->ptr.pp_complex[offs+j][offs+j]);
                 ae_v_cmulc(&a->ptr.pp_complex[offs+j+1][offs+j], a->stride, ae_v_len(offs+j+1,offs+m-1), s);
             }
         }
@@ -40502,7 +40511,7 @@ static void dlu_rmatrixplu2(/* Real    */ ae_matrix* a,
             }
             if( j+1<=m-1 )
             {
-                s = 1/a->ptr.pp_double[offs+j][offs+j];
+                s = (double)1/a->ptr.pp_double[offs+j][offs+j];
                 ae_v_muld(&a->ptr.pp_double[offs+j+1][offs+j], a->stride, ae_v_len(offs+j+1,offs+m-1), s);
             }
         }
@@ -40651,7 +40660,7 @@ ae_bool sptrflu(sparsematrix* a,
      * Prepare dense trail, initial densification
      */
     sptrf_densetrailinit(&buf->dtrail, n, _state);
-    densifyabove = ae_round(sptrf_densebnd*n, _state)+1;
+    densifyabove = ae_round(sptrf_densebnd*(double)n, _state)+1;
     if( densificationsupported )
     {
         for(i=0; i<=n-1; i++)
@@ -40697,7 +40706,7 @@ ae_bool sptrflu(sparsematrix* a,
          * Apply pivoting to sparse trail, pivot out
          */
         sptrf_sparsetrailpivotout(&buf->strail, ibest, jbest, &uu, &buf->v0i, &buf->v0r, &nz0, &buf->v1i, &buf->v1r, &nz1, _state);
-        result = result&&uu!=0;
+        result = result&&uu!=(double)0;
         
         /*
          * Pivot dense trail
@@ -40830,7 +40839,7 @@ ae_bool sptrflu(sparsematrix* a,
             for(i=0; i<=k-1; i++)
             {
                 v = buf->dtrail.d.ptr.pp_double[i][j];
-                if( v!=0 )
+                if( v!=(double)0 )
                 {
                     buf->sparseut.idx.ptr.p_int[offs] = i;
                     buf->sparseut.vals.ptr.p_double[offs] = v;
@@ -40844,7 +40853,7 @@ ae_bool sptrflu(sparsematrix* a,
             for(i=0; i<=j-1; i++)
             {
                 v = buf->dbuf.ptr.pp_double[i][j];
-                if( v!=0 )
+                if( v!=(double)0 )
                 {
                     buf->sparseut.idx.ptr.p_int[offs] = i+(n-tmpndense);
                     buf->sparseut.vals.ptr.p_double[offs] = v;
@@ -40859,7 +40868,7 @@ ae_bool sptrflu(sparsematrix* a,
             buf->sparseut.idx.ptr.p_int[offs] = j+(n-tmpndense);
             buf->sparseut.vals.ptr.p_double[offs] = v;
             offs = offs+1;
-            result = result&&v!=0;
+            result = result&&v!=(double)0;
             
             /*
              * Column is done
@@ -40879,7 +40888,7 @@ ae_bool sptrflu(sparsematrix* a,
             for(j=0; j<=i-1; j++)
             {
                 v = buf->dbuf.ptr.pp_double[i][j];
-                if( v!=0 )
+                if( v!=(double)0 )
                 {
                     buf->sparsel.idx.ptr.p_int[offs] = j+(n-tmpndense);
                     buf->sparsel.vals.ptr.p_double[offs] = v;
@@ -41177,7 +41186,7 @@ static void sptrf_densetrailinit(sluv2densetrail* d,
      *       this buffer is used to solve successive problems with increasing
      *       sizes.
      */
-    excessivesize = ae_maxint(ae_round(1.333*n, _state), n, _state);
+    excessivesize = ae_maxint(ae_round(1.333*(double)n, _state), n, _state);
     d->n = n;
     d->ndense = 0;
     ivectorsetlengthatleast(&d->did, n, _state);
@@ -41277,7 +41286,7 @@ static void sptrf_sparsetrailinit(sparsematrix* s,
     /*
      * Working set of columns
      */
-    a->maxwrkcnt = iboundval(ae_round(1+(double)n/(double)3, _state), 1, ae_minint(n, 50, _state), _state);
+    a->maxwrkcnt = iboundval(ae_round((double)1+(double)n/(double)3, _state), 1, ae_minint(n, 50, _state), _state);
     a->wrkcnt = 0;
     ivectorsetlengthatleast(&a->wrkset, a->maxwrkcnt, _state);
     
@@ -41500,7 +41509,7 @@ static ae_bool sptrf_sparsetrailfindpivot(sluv2sparsetrail* a,
                 /*
                  * Advance scan range
                  */
-                jp = ae_round(1.41*(wrk1-wrk0), _state)+1;
+                jp = ae_round(1.41*(double)(wrk1-wrk0), _state)+1;
                 wrk0 = wrk1;
                 wrk1 = wrk0+jp;
             }
@@ -41575,7 +41584,7 @@ static void sptrf_sparsetrailpivotout(sluv2sparsetrail* a,
     ae_int_t pnext;
     ae_int_t pnextnext;
 
-    *uu = 0;
+    *uu = 0.0;
     *nz0 = 0;
     *nz1 = 0;
 
@@ -41676,9 +41685,9 @@ static void sptrf_sparsetrailpivotout(sluv2sparsetrail* a,
              * Obtain diagonal element
              */
             *uu = v0r->ptr.p_double[pos0piv];
-            if( *uu!=0 )
+            if( *uu!=(double)0 )
             {
-                s = 1/(*uu);
+                s = (double)1/(*uu);
             }
             else
             {
@@ -41731,9 +41740,9 @@ static void sptrf_sparsetrailpivotout(sluv2sparsetrail* a,
              * Get diagonal element
              */
             *uu = v0r->ptr.p_double[pos0piv];
-            if( *uu!=0 )
+            if( *uu!=(double)0 )
             {
-                s = 1/(*uu);
+                s = (double)1/(*uu);
             }
             else
             {
@@ -42045,7 +42054,7 @@ static void sptrf_sparsetrailupdate(sluv2sparsetrail* a,
     n = a->n;
     k = a->k;
     ae_assert(k<n, "SparseTrailPivotOut: integrity check failed", _state);
-    densifyabove = ae_round(sptrf_densebnd*(n-k), _state)+1;
+    densifyabove = ae_round(sptrf_densebnd*(double)(n-k), _state)+1;
     ae_assert(v0i->cnt>=nz0+1, "SparseTrailUpdate: integrity check failed", _state);
     ae_assert(v0r->cnt>=nz0+1, "SparseTrailUpdate: integrity check failed", _state);
     v0i->ptr.p_int[nz0] = -1;
@@ -42195,10 +42204,10 @@ void _sluv2list1matrix_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sluv2list1matrix_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sluv2list1matrix_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sluv2list1matrix *dst = (sluv2list1matrix*)_dst;
-    sluv2list1matrix *src = (sluv2list1matrix*)_src;
+    sluv2list1matrix       *dst = (sluv2list1matrix*)_dst;
+    const sluv2list1matrix *src = (const sluv2list1matrix*)_src;
     dst->nfixed = src->nfixed;
     dst->ndynamic = src->ndynamic;
     ae_vector_init_copy(&dst->idxfirst, &src->idxfirst, _state, make_automatic);
@@ -42245,10 +42254,10 @@ void _sluv2sparsetrail_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sluv2sparsetrail_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sluv2sparsetrail_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sluv2sparsetrail *dst = (sluv2sparsetrail*)_dst;
-    sluv2sparsetrail *src = (sluv2sparsetrail*)_src;
+    sluv2sparsetrail       *dst = (sluv2sparsetrail*)_dst;
+    const sluv2sparsetrail *src = (const sluv2sparsetrail*)_src;
     dst->n = src->n;
     dst->k = src->k;
     ae_vector_init_copy(&dst->nzc, &src->nzc, _state, make_automatic);
@@ -42308,10 +42317,10 @@ void _sluv2densetrail_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sluv2densetrail_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sluv2densetrail_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sluv2densetrail *dst = (sluv2densetrail*)_dst;
-    sluv2densetrail *src = (sluv2densetrail*)_src;
+    sluv2densetrail       *dst = (sluv2densetrail*)_dst;
+    const sluv2densetrail *src = (const sluv2densetrail*)_src;
     dst->n = src->n;
     dst->ndense = src->ndense;
     ae_matrix_init_copy(&dst->d, &src->d, _state, make_automatic);
@@ -42359,10 +42368,10 @@ void _sluv2buffer_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _sluv2buffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sluv2buffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sluv2buffer *dst = (sluv2buffer*)_dst;
-    sluv2buffer *src = (sluv2buffer*)_src;
+    sluv2buffer       *dst = (sluv2buffer*)_dst;
+    const sluv2buffer *src = (const sluv2buffer*)_src;
     dst->n = src->n;
     _sparsematrix_init_copy(&dst->sparsel, &src->sparsel, _state, make_automatic);
     _sparsematrix_init_copy(&dst->sparseut, &src->sparseut, _state, make_automatic);
@@ -42465,7 +42474,7 @@ void generateamdpermutation(sparsematrix* a,
     memset(&dummy, 0, sizeof(dummy));
     ae_vector_init(&dummy, 0, DT_BOOL, _state, ae_true);
 
-    r = generateamdpermutationx(a, &dummy, n, perm, invperm, 0, buf, _state);
+    r = generateamdpermutationx(a, &dummy, n, 0.0, perm, invperm, 0, buf, _state);
     ae_assert(r==n, "GenerateAMDPermutation: integrity check failed, the matrix is only partially processed", _state);
     ae_frame_leave(_state);
 }
@@ -42490,6 +42499,20 @@ INPUT PARAMETERS
                     algorithm. This array is ignored  (not  referenced  at
                     all) when AMDType=0.
     N           -   problem size
+    PromoteAbove-   columns with degrees higher than PromoteAbove*max(MEAN(Degree),1)
+                    may be postponed. Ignored for AMDType<>1.
+                    This parameter controls postponement of dense columns
+                    (and algorithm ability to efficiently handle them):
+                    * big PromoteAbove (N or more) effectively means that
+                      no eligible columns are postponed. Better to combine
+                      with your own heuristic to choose eligible columns,
+                      otherwise algorithm will have hard time on problems
+                      with dense columns in the eligible set.
+                    * values between 2 and 10 are usually  a  good  choice
+                      for manual control
+                    * zero  value  means   that   appropriate   value   is
+                      automatically chosen. Specific value may  change  in
+                      future ALGLIB versions. Recommended.
     AMDType     -   ordering type:
                     * 0 for the classic AMD
                     * 1 for the improved AMD
@@ -42514,6 +42537,7 @@ NOTE: defining 'DEBUG.SLOW' trace tag will  activate  extra-slow  (roughly
 ae_int_t generateamdpermutationx(sparsematrix* a,
      /* Boolean */ ae_vector* eligible,
      ae_int_t n,
+     double promoteabove,
      /* Integer */ ae_vector* perm,
      /* Integer */ ae_vector* invperm,
      ae_int_t amdtype,
@@ -42537,6 +42561,7 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
 
 
     ae_assert(amdtype==0||amdtype==1, "GenerateAMDPermutationX: unexpected ordering type", _state);
+    ae_assert(amdtype==0||(ae_isfinite(promoteabove, _state)&&ae_fp_greater_eq(promoteabove,(double)(0))), "GenerateAMDPermutationX: unexpected PromoteAbove - infinite or negative", _state);
     setprealloc = 3;
     inithashbucketsize = 16;
     extendeddebug = ae_is_trace_enabled("DEBUG.SLOW")&&n<=100;
@@ -42553,7 +42578,7 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
     }
     amdordering_knsinit(n, n, setprealloc, &buf->sete, _state);
     amdordering_knsinit(n, n, inithashbucketsize, &buf->hashbuckets, _state);
-    amdordering_nsinitemptyslow(n, &buf->nonemptybuckets, _state);
+    nisinitemptyslow(n, &buf->nonemptybuckets, _state);
     ivectorsetlengthatleast(&buf->perm, n, _state);
     ivectorsetlengthatleast(&buf->invperm, n, _state);
     ivectorsetlengthatleast(&buf->columnswaps, n, _state);
@@ -42568,15 +42593,15 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
     bsetallocv(n, ae_false, &buf->iseliminated, _state);
     isetallocv(n, -1, &buf->arrwe, _state);
     iallocv(n, &buf->ls, _state);
-    amdordering_nsinitemptyslow(n, &buf->setp, _state);
-    amdordering_nsinitemptyslow(n, &buf->lp, _state);
-    amdordering_nsinitemptyslow(n, &buf->setrp, _state);
-    amdordering_nsinitemptyslow(n, &buf->ep, _state);
-    amdordering_nsinitemptyslow(n, &buf->exactdegreetmp0, _state);
-    amdordering_nsinitemptyslow(n, &buf->adji, _state);
-    amdordering_nsinitemptyslow(n, &buf->adjj, _state);
-    amdordering_nsinitemptyslow(n, &buf->setq, _state);
-    amdordering_nsinitemptyslow(n, &buf->setqsupercand, _state);
+    nisinitemptyslow(n, &buf->setp, _state);
+    nisinitemptyslow(n, &buf->lp, _state);
+    nisinitemptyslow(n, &buf->setrp, _state);
+    nisinitemptyslow(n, &buf->ep, _state);
+    nisinitemptyslow(n, &buf->exactdegreetmp0, _state);
+    nisinitemptyslow(n, &buf->adji, _state);
+    nisinitemptyslow(n, &buf->adjj, _state);
+    nisinitemptyslow(n, &buf->setq, _state);
+    nisinitemptyslow(n, &buf->setqsupercand, _state);
     if( extendeddebug )
     {
         ae_matrix_set_length(&buf->dbga, n, n, _state);
@@ -42586,7 +42611,7 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
             {
                 if( (j<=i&&sparseexists(a, i, j, _state))||(j>=i&&sparseexists(a, j, i, _state)) )
                 {
-                    buf->dbga.ptr.pp_double[i][j] = 0.1/n*(ae_sin(i+0.17, _state)+ae_cos(ae_sqrt(j+0.65, _state), _state));
+                    buf->dbga.ptr.pp_double[i][j] = 0.1/(double)n*(ae_sin((double)i+0.17, _state)+ae_cos(ae_sqrt((double)j+0.65, _state), _state));
                 }
                 else
                 {
@@ -42607,21 +42632,22 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
         for(i=0; i<=n-1; i++)
         {
             d = amdordering_vtxgetapprox(&buf->vertexdegrees, i, _state);
-            meand = meand+d;
+            meand = meand+(double)d;
         }
-        meand = meand/n;
-        tau = ae_round(10*meand, _state)+2;
+        meand = meand/(double)n;
+        tau = ae_round(rcase2(ae_fp_greater(promoteabove,(double)(0)), promoteabove, (double)(10), _state)*ae_maxreal(meand, (double)(1), _state), _state);
+        tau = ae_maxint(tau, 1, _state);
         for(i=0; i<=n-1; i++)
         {
             if( !eligible->ptr.p_bool[i]||amdordering_vtxgetapprox(&buf->vertexdegrees, i, _state)>tau )
             {
-                amdordering_nsaddelement(&buf->setqsupercand, i, _state);
+                nisaddelement(&buf->setqsupercand, i, _state);
             }
         }
         amdordering_amdmovetoquasidense(buf, &buf->setqsupercand, -1, _state);
     }
     k = 0;
-    while(k<n-amdordering_nscount(&buf->setq, _state))
+    while(k<n-niscount(&buf->setq, _state))
     {
         amdordering_amdselectpivotelement(buf, k, &p, &nodesize, _state);
         amdordering_amdcomputelp(buf, p, _state);
@@ -42643,7 +42669,7 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
             {
                 rmatrixgemm(n-k-i, n-k-i, k+i, -1.0, &buf->dbga, k+i, 0, 0, &buf->dbga, 0, k+i, 0, 1.0, &buf->dbga, k+i, k+i, _state);
             }
-            cnt0 = amdordering_nscount(&buf->lp, _state);
+            cnt0 = niscount(&buf->lp, _state);
             cnt1 = 0;
             for(i=k+1; i<=n-1; i++)
             {
@@ -42656,8 +42682,8 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
             ae_assert(amdordering_vtxgetapprox(&buf->vertexdegrees, p, _state)>=amdordering_vtxgetexact(&buf->vertexdegrees, p, _state), "AMD: integrity check for ApproxD failed", _state);
             ae_assert(amdordering_vtxgetexact(&buf->vertexdegrees, p, _state)==cnt0, "AMD: integrity check for ExactD failed", _state);
         }
-        ae_assert(amdordering_vtxgetapprox(&buf->vertexdegrees, p, _state)>=amdordering_nscount(&buf->lp, _state), "AMD: integrity check 7956 failed", _state);
-        ae_assert((amdordering_knscountkth(&buf->sete, p, _state)>2||amdordering_nscount(&buf->setq, _state)>0)||amdordering_vtxgetapprox(&buf->vertexdegrees, p, _state)==amdordering_nscount(&buf->lp, _state), "AMD: integrity check 7295 failed", _state);
+        ae_assert(amdordering_vtxgetapprox(&buf->vertexdegrees, p, _state)>=niscount(&buf->lp, _state), "AMD: integrity check 7956 failed", _state);
+        ae_assert((amdordering_knscountkth(&buf->sete, p, _state)>2||niscount(&buf->setq, _state)>0)||amdordering_vtxgetapprox(&buf->vertexdegrees, p, _state)==niscount(&buf->lp, _state), "AMD: integrity check 7295 failed", _state);
         amdordering_knsstartenumeration(&buf->sete, p, _state);
         while(amdordering_knsenumerate(&buf->sete, &j, _state))
         {
@@ -42675,7 +42701,7 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
         amdordering_vtxremovevertex(&buf->vertexdegrees, p, _state);
         k = k+nodesize;
     }
-    ae_assert(k+amdordering_nscount(&buf->setq, _state)==n, "AMD: integrity check 6326 failed", _state);
+    ae_assert(k+niscount(&buf->setq, _state)==n, "AMD: integrity check 6326 failed", _state);
     ae_assert(k>0||amdtype==1, "AMD: integrity check 9463 failed", _state);
     result = k;
     ivectorsetlengthatleast(perm, n, _state);
@@ -42686,104 +42712,6 @@ ae_int_t generateamdpermutationx(sparsematrix* a,
         invperm->ptr.p_int[i] = buf->invperm.ptr.p_int[i];
     }
     return result;
-}
-
-
-/*************************************************************************
-Initializes n-set by empty structure.
-
-IMPORTANT: this function need O(N) time for initialization. It is recommended
-           to reduce its usage as much as possible, and use nsClear()
-           where possible.
-
-INPUT PARAMETERS
-    N           -   possible set size
-    
-OUTPUT PARAMETERS
-    SA          -   empty N-set
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static void amdordering_nsinitemptyslow(ae_int_t n,
-     amdnset* sa,
-     ae_state *_state)
-{
-
-
-    sa->n = n;
-    sa->nstored = 0;
-    isetallocv(n, -999999999, &sa->locationof, _state);
-    isetallocv(n, -999999999, &sa->items, _state);
-}
-
-
-/*************************************************************************
-Copies n-set to properly initialized target set. The target set has to  be
-properly initialized, and it can be non-empty. If  it  is  non-empty,  its
-contents is quickly erased before copying.
-
-The cost of this function is O(max(SrcSize,DstSize))
-
-INPUT PARAMETERS
-    SSrc        -   source N-set
-    SDst        -   destination N-set (has same size as SSrc)
-    
-OUTPUT PARAMETERS
-    SDst        -   copy of SSrc
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static void amdordering_nscopy(amdnset* ssrc,
-     amdnset* sdst,
-     ae_state *_state)
-{
-    ae_int_t ns;
-    ae_int_t i;
-    ae_int_t k;
-
-
-    amdordering_nsclear(sdst, _state);
-    ns = ssrc->nstored;
-    for(i=0; i<=ns-1; i++)
-    {
-        k = ssrc->items.ptr.p_int[i];
-        sdst->items.ptr.p_int[i] = k;
-        sdst->locationof.ptr.p_int[k] = i;
-    }
-    sdst->nstored = ns;
-}
-
-
-/*************************************************************************
-Add K-th element to the set. The element may already exist in the set.
-
-INPUT PARAMETERS
-    SA          -   set
-    K           -   element to add, 0<=K<N.
-    
-OUTPUT PARAMETERS
-    SA          -   modified SA
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static void amdordering_nsaddelement(amdnset* sa,
-     ae_int_t k,
-     ae_state *_state)
-{
-    ae_int_t ns;
-
-
-    if( sa->locationof.ptr.p_int[k]>=0 )
-    {
-        return;
-    }
-    ns = sa->nstored;
-    sa->locationof.ptr.p_int[k] = ns;
-    sa->items.ptr.p_int[ns] = k;
-    sa->nstored = ns+1;
 }
 
 
@@ -42800,7 +42728,7 @@ OUTPUT PARAMETERS
   -- ALGLIB PROJECT --
      Copyright 05.10.2020 by Bochkanov Sergey.
 *************************************************************************/
-static void amdordering_nsaddkth(amdnset* sa,
+static void amdordering_nsaddkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state)
@@ -42842,75 +42770,7 @@ OUTPUT PARAMETERS
   -- ALGLIB PROJECT --
      Copyright 05.10.2020 by Bochkanov Sergey.
 *************************************************************************/
-static void amdordering_nssubtract1(amdnset* sa,
-     amdnset* src,
-     ae_state *_state)
-{
-    ae_int_t i;
-    ae_int_t j;
-    ae_int_t loc;
-    ae_int_t item;
-    ae_int_t ns;
-    ae_int_t ss;
-
-
-    ns = sa->nstored;
-    ss = src->nstored;
-    if( ss<ns )
-    {
-        for(i=0; i<=ss-1; i++)
-        {
-            j = src->items.ptr.p_int[i];
-            loc = sa->locationof.ptr.p_int[j];
-            if( loc>=0 )
-            {
-                item = sa->items.ptr.p_int[ns-1];
-                sa->items.ptr.p_int[loc] = item;
-                sa->locationof.ptr.p_int[item] = loc;
-                sa->locationof.ptr.p_int[j] = -1;
-                ns = ns-1;
-            }
-        }
-    }
-    else
-    {
-        i = 0;
-        while(i<ns)
-        {
-            j = sa->items.ptr.p_int[i];
-            loc = src->locationof.ptr.p_int[j];
-            if( loc>=0 )
-            {
-                item = sa->items.ptr.p_int[ns-1];
-                sa->items.ptr.p_int[i] = item;
-                sa->locationof.ptr.p_int[item] = i;
-                sa->locationof.ptr.p_int[j] = -1;
-                ns = ns-1;
-            }
-            else
-            {
-                i = i+1;
-            }
-        }
-    }
-    sa->nstored = ns;
-}
-
-
-/*************************************************************************
-Subtracts K-th set from the source structure
-
-INPUT PARAMETERS
-    SA          -   set
-    Src, K      -   source kn-set and set index K
-    
-OUTPUT PARAMETERS
-    SA          -   modified SA
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static void amdordering_nssubtractkth(amdnset* sa,
+static void amdordering_nssubtractkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state)
@@ -42945,53 +42805,6 @@ static void amdordering_nssubtractkth(amdnset* sa,
 
 
 /*************************************************************************
-Clears set
-
-INPUT PARAMETERS
-    SA          -   set to be cleared
-    
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static void amdordering_nsclear(amdnset* sa, ae_state *_state)
-{
-    ae_int_t i;
-    ae_int_t ns;
-
-
-    ns = sa->nstored;
-    for(i=0; i<=ns-1; i++)
-    {
-        sa->locationof.ptr.p_int[sa->items.ptr.p_int[i]] = -1;
-    }
-    sa->nstored = 0;
-}
-
-
-/*************************************************************************
-Counts set elements
-
-INPUT PARAMETERS
-    SA          -   set
-    
-RESULT
-    number of elements in SA
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static ae_int_t amdordering_nscount(amdnset* sa, ae_state *_state)
-{
-    ae_int_t result;
-
-
-    result = sa->nstored;
-    return result;
-}
-
-
-/*************************************************************************
 Counts set elements not present in the K-th set of the source structure
 
 INPUT PARAMETERS
@@ -43004,7 +42817,7 @@ RESULT
   -- ALGLIB PROJECT --
      Copyright 05.10.2020 by Bochkanov Sergey.
 *************************************************************************/
-static ae_int_t amdordering_nscountnotkth(amdnset* sa,
+static ae_int_t amdordering_nscountnotkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state)
@@ -43044,7 +42857,7 @@ RESULT
   -- ALGLIB PROJECT --
      Copyright 05.10.2020 by Bochkanov Sergey.
 *************************************************************************/
-static ae_int_t amdordering_nscountandkth(amdnset* sa,
+static ae_int_t amdordering_nscountandkth(niset* sa,
      amdknset* src,
      ae_int_t k,
      ae_state *_state)
@@ -43065,117 +42878,6 @@ static ae_int_t amdordering_nscountandkth(amdnset* sa,
         }
         idxbegin = idxbegin+1;
     }
-    return result;
-}
-
-
-/*************************************************************************
-Compare two sets, returns True for equal sets
-
-INPUT PARAMETERS
-    S0          -   set 0
-    S1          -   set 1, must have same parameter N as set 0
-    
-RESULT
-    True, if sets are equal
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static ae_bool amdordering_nsequal(amdnset* s0,
-     amdnset* s1,
-     ae_state *_state)
-{
-    ae_int_t i;
-    ae_int_t ns0;
-    ae_int_t ns1;
-    ae_bool result;
-
-
-    result = ae_false;
-    if( s0->n!=s1->n )
-    {
-        return result;
-    }
-    if( s0->nstored!=s1->nstored )
-    {
-        return result;
-    }
-    ns0 = s0->nstored;
-    ns1 = s1->nstored;
-    for(i=0; i<=ns0-1; i++)
-    {
-        if( s1->locationof.ptr.p_int[s0->items.ptr.p_int[i]]<0 )
-        {
-            return result;
-        }
-    }
-    for(i=0; i<=ns1-1; i++)
-    {
-        if( s0->locationof.ptr.p_int[s1->items.ptr.p_int[i]]<0 )
-        {
-            return result;
-        }
-    }
-    result = ae_true;
-    return result;
-}
-
-
-/*************************************************************************
-Prepares iteration over set
-
-INPUT PARAMETERS
-    SA          -   set
-    
-OUTPUT PARAMETERS
-    SA          -   SA ready for repeated calls of nsEnumerate()
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static void amdordering_nsstartenumeration(amdnset* sa, ae_state *_state)
-{
-
-
-    sa->iteridx = 0;
-}
-
-
-/*************************************************************************
-Iterates over the set. Subsequent calls return True and set J to  new  set
-item until iteration stops and False is returned.
-
-INPUT PARAMETERS
-    SA          -   n-set
-    
-OUTPUT PARAMETERS
-    J           -   if:
-                    * Result=True - index of element in the set
-                    * Result=False - not set
-
-
-  -- ALGLIB PROJECT --
-     Copyright 05.10.2020 by Bochkanov Sergey.
-*************************************************************************/
-static ae_bool amdordering_nsenumerate(amdnset* sa,
-     ae_int_t* i,
-     ae_state *_state)
-{
-    ae_int_t k;
-    ae_bool result;
-
-    *i = 0;
-
-    k = sa->iteridx;
-    if( k>=sa->nstored )
-    {
-        result = ae_false;
-        return result;
-    }
-    *i = sa->items.ptr.p_int[k];
-    sa->iteridx = k+1;
-    result = ae_true;
     return result;
 }
 
@@ -43539,7 +43241,7 @@ OUTPUT PARAMETERS
 *************************************************************************/
 static void amdordering_knssubtract1(amdknset* sa,
      ae_int_t i,
-     amdnset* src,
+     niset* src,
      ae_state *_state)
 {
     ae_int_t j;
@@ -43657,7 +43359,7 @@ RESULT
 *************************************************************************/
 static ae_int_t amdordering_knscountnot(amdknset* s0,
      ae_int_t i,
-     amdnset* s1,
+     niset* s1,
      ae_state *_state)
 {
     ae_int_t idxbegin0;
@@ -43926,7 +43628,7 @@ OUTPUT PARAMETERS
 *************************************************************************/
 static void amdordering_mtxaddcolumnto(amdllmatrix* a,
      ae_int_t j,
-     amdnset* s,
+     niset* s,
      ae_state *_state)
 {
     ae_int_t n;
@@ -43937,7 +43639,7 @@ static void amdordering_mtxaddcolumnto(amdllmatrix* a,
     eidx = a->vbegin.ptr.p_int[n+j];
     while(eidx>=0)
     {
-        amdordering_nsaddelement(s, a->entries.ptr.p_int[eidx*amdordering_llmentrysize+4], _state);
+        nisaddelement(s, a->entries.ptr.p_int[eidx*amdordering_llmentrysize+4], _state);
         eidx = a->entries.ptr.p_int[eidx*amdordering_llmentrysize+3];
     }
 }
@@ -44024,7 +43726,7 @@ RESULT
 *************************************************************************/
 static ae_int_t amdordering_mtxcountcolumnnot(amdllmatrix* a,
      ae_int_t j,
-     amdnset* s,
+     niset* s,
      ae_state *_state)
 {
     ae_int_t n;
@@ -44600,9 +44302,9 @@ static void amdordering_amdcomputelp(amdbuffer* buf,
     ae_int_t i;
 
 
-    amdordering_nsclear(&buf->setp, _state);
+    nisclear(&buf->setp, _state);
     amdordering_nsaddkth(&buf->setp, &buf->setsuper, p, _state);
-    amdordering_nsclear(&buf->lp, _state);
+    nisclear(&buf->lp, _state);
     amdordering_nsaddkth(&buf->lp, &buf->seta, p, _state);
     amdordering_knsstartenumeration(&buf->sete, p, _state);
     while(amdordering_knsenumerate(&buf->sete, &i, _state))
@@ -44610,11 +44312,11 @@ static void amdordering_amdcomputelp(amdbuffer* buf,
         amdordering_mtxaddcolumnto(&buf->mtxl, i, &buf->lp, _state);
     }
     amdordering_nssubtractkth(&buf->lp, &buf->setsuper, p, _state);
-    amdordering_nscopy(&buf->lp, &buf->setrp, _state);
-    amdordering_nssubtract1(&buf->setrp, &buf->setq, _state);
+    niscopy(&buf->lp, &buf->setrp, _state);
+    nissubtract1(&buf->setrp, &buf->setq, _state);
     buf->lscnt = 0;
-    amdordering_nsstartenumeration(&buf->lp, _state);
-    while(amdordering_nsenumerate(&buf->lp, &i, _state))
+    nisstartenumeration(&buf->lp, _state);
+    while(nisenumerate(&buf->lp, &i, _state))
     {
         ae_assert(!buf->iseliminated.ptr.p_bool[i], "AMD: integrity check 0740 failed", _state);
         amdordering_mtxinsertnewelement(&buf->mtxl, i, p, _state);
@@ -44624,7 +44326,7 @@ static void amdordering_amdcomputelp(amdbuffer* buf,
             buf->lscnt = buf->lscnt+1;
         }
     }
-    amdordering_nsclear(&buf->ep, _state);
+    nisclear(&buf->ep, _state);
     amdordering_nsaddkth(&buf->ep, &buf->sete, p, _state);
 }
 
@@ -44702,7 +44404,7 @@ static void amdordering_amdmasselimination(amdbuffer* buf,
             }
         }
     }
-    amdordering_nsclear(&buf->setqsupercand, _state);
+    nisclear(&buf->setqsupercand, _state);
     for(lidx=0; lidx<=buf->lscnt-1; lidx++)
     {
         if( buf->setq.locationof.ptr.p_int[buf->ls.ptr.p_int[lidx]]<0 )
@@ -44718,7 +44420,7 @@ static void amdordering_amdmasselimination(amdbuffer* buf,
                 ae_assert(amdordering_knscountandkth(&buf->seta, lpi, &buf->setsuper, lpi, _state)==0, "AMD: integrity check kl5nv failed", _state);
                 ae_assert(amdordering_nscountandkth(&buf->lp, &buf->setsuper, lpi, _state)==amdordering_knscountkth(&buf->setsuper, lpi, _state), "AMD: integrity check 8463 failed", _state);
             }
-            cntq = amdordering_nscount(&buf->setq, _state);
+            cntq = niscount(&buf->setq, _state);
             cntsuperi = amdordering_knscountkth(&buf->setsuper, lpi, _state);
             cntainoti = amdordering_knscountkth(&buf->seta, lpi, _state);
             if( cntq>0 )
@@ -44729,8 +44431,8 @@ static void amdordering_amdmasselimination(amdbuffer* buf,
             {
                 cntainotqi = cntainoti;
             }
-            cntlpnoti = amdordering_nscount(&buf->lp, _state)-cntsuperi;
-            cntlpnotqi = amdordering_nscount(&buf->setrp, _state)-cntsuperi;
+            cntlpnoti = niscount(&buf->lp, _state)-cntsuperi;
+            cntlpnotqi = niscount(&buf->setrp, _state)-cntsuperi;
             cc = 0;
             amdordering_knsdirectaccess(&buf->sete, lpi, &idxbegin, &idxend, _state);
             for(jj=idxbegin; jj<=idxend-1; jj++)
@@ -44754,18 +44456,18 @@ static void amdordering_amdmasselimination(amdbuffer* buf,
                 }
                 cc = cc+e;
             }
-            bnd0 = n-k-amdordering_nscount(&buf->setp, _state);
+            bnd0 = n-k-niscount(&buf->setp, _state);
             bnd1 = amdordering_vtxgetapprox(&buf->vertexdegrees, lpi, _state)+cntlpnoti;
             bnd2 = cntq+cntainotqi+cntlpnotqi+cc;
             d = imin3(bnd0, bnd1, bnd2, _state);
             amdordering_vtxupdateapproximatedegree(&buf->vertexdegrees, lpi, d, _state);
             if( tau>0&&d+cntsuperi>tau )
             {
-                amdordering_nsaddelement(&buf->setqsupercand, lpi, _state);
+                nisaddelement(&buf->setqsupercand, lpi, _state);
             }
             if( buf->checkexactdegrees )
             {
-                amdordering_nsclear(&buf->exactdegreetmp0, _state);
+                nisclear(&buf->exactdegreetmp0, _state);
                 amdordering_knsstartenumeration(&buf->sete, lpi, _state);
                 while(amdordering_knsenumerate(&buf->sete, &j, _state))
                 {
@@ -44828,12 +44530,12 @@ static void amdordering_amddetectsupernodes(amdbuffer* buf,
         {
             lpi = buf->ls.ptr.p_int[i];
             hashi = (amdordering_knssumkth(&buf->seta, lpi, _state)+amdordering_knssumkth(&buf->sete, lpi, _state))%n;
-            amdordering_nsaddelement(&buf->nonemptybuckets, hashi, _state);
+            nisaddelement(&buf->nonemptybuckets, hashi, _state);
             amdordering_knsaddnewelement(&buf->hashbuckets, hashi, lpi, _state);
         }
     }
-    amdordering_nsstartenumeration(&buf->nonemptybuckets, _state);
-    while(amdordering_nsenumerate(&buf->nonemptybuckets, &hashi, _state))
+    nisstartenumeration(&buf->nonemptybuckets, _state);
+    while(nisenumerate(&buf->nonemptybuckets, &hashi, _state))
     {
         if( amdordering_knscountkth(&buf->hashbuckets, hashi, _state)>=2 )
         {
@@ -44852,17 +44554,17 @@ static void amdordering_amddetectsupernodes(amdbuffer* buf,
                     {
                         lpi = buf->sncandidates.ptr.p_int[i];
                         lpj = buf->sncandidates.ptr.p_int[j];
-                        amdordering_nsclear(&buf->adji, _state);
-                        amdordering_nsclear(&buf->adjj, _state);
+                        nisclear(&buf->adji, _state);
+                        nisclear(&buf->adjj, _state);
                         amdordering_nsaddkth(&buf->adji, &buf->seta, lpi, _state);
                         amdordering_nsaddkth(&buf->adjj, &buf->seta, lpj, _state);
                         amdordering_nsaddkth(&buf->adji, &buf->sete, lpi, _state);
                         amdordering_nsaddkth(&buf->adjj, &buf->sete, lpj, _state);
-                        amdordering_nsaddelement(&buf->adji, lpi, _state);
-                        amdordering_nsaddelement(&buf->adji, lpj, _state);
-                        amdordering_nsaddelement(&buf->adjj, lpi, _state);
-                        amdordering_nsaddelement(&buf->adjj, lpj, _state);
-                        if( !amdordering_nsequal(&buf->adji, &buf->adjj, _state) )
+                        nisaddelement(&buf->adji, lpi, _state);
+                        nisaddelement(&buf->adji, lpj, _state);
+                        nisaddelement(&buf->adjj, lpi, _state);
+                        nisaddelement(&buf->adjj, lpj, _state);
+                        if( !nisequal(&buf->adji, &buf->adjj, _state) )
                         {
                             continue;
                         }
@@ -44890,7 +44592,7 @@ static void amdordering_amddetectsupernodes(amdbuffer* buf,
         }
         amdordering_knsclearkthnoreclaim(&buf->hashbuckets, hashi, _state);
     }
-    amdordering_nsclear(&buf->nonemptybuckets, _state);
+    nisclear(&buf->nonemptybuckets, _state);
 }
 
 
@@ -44913,7 +44615,7 @@ OUTPUT PARAMETERS
      Copyright 15.11.2021 by Bochkanov Sergey.
 *************************************************************************/
 static void amdordering_amdmovetoquasidense(amdbuffer* buf,
-     amdnset* cand,
+     niset* cand,
      ae_int_t p,
      ae_state *_state)
 {
@@ -44921,8 +44623,8 @@ static void amdordering_amdmovetoquasidense(amdbuffer* buf,
     ae_int_t j;
 
 
-    amdordering_nsstartenumeration(cand, _state);
-    while(amdordering_nsenumerate(cand, &j, _state))
+    nisstartenumeration(cand, _state);
+    while(nisenumerate(cand, &j, _state))
     {
         ae_assert(j!=p, "AMD: integrity check 9464 failed", _state);
         ae_assert(buf->issupernode.ptr.p_bool[j], "AMD: integrity check 6284 failed", _state);
@@ -44930,52 +44632,13 @@ static void amdordering_amdmovetoquasidense(amdbuffer* buf,
         amdordering_knsstartenumeration(&buf->setsuper, j, _state);
         while(amdordering_knsenumerate(&buf->setsuper, &i, _state))
         {
-            amdordering_nsaddelement(&buf->setq, i, _state);
+            nisaddelement(&buf->setq, i, _state);
         }
         amdordering_knsclearkthreclaim(&buf->seta, j, _state);
         amdordering_knsclearkthreclaim(&buf->sete, j, _state);
         buf->issupernode.ptr.p_bool[j] = ae_false;
         amdordering_vtxremovevertex(&buf->vertexdegrees, j, _state);
     }
-}
-
-
-void _amdnset_init(void* _p, ae_state *_state, ae_bool make_automatic)
-{
-    amdnset *p = (amdnset*)_p;
-    ae_touch_ptr((void*)p);
-    ae_vector_init(&p->items, 0, DT_INT, _state, make_automatic);
-    ae_vector_init(&p->locationof, 0, DT_INT, _state, make_automatic);
-}
-
-
-void _amdnset_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
-{
-    amdnset *dst = (amdnset*)_dst;
-    amdnset *src = (amdnset*)_src;
-    dst->n = src->n;
-    dst->nstored = src->nstored;
-    ae_vector_init_copy(&dst->items, &src->items, _state, make_automatic);
-    ae_vector_init_copy(&dst->locationof, &src->locationof, _state, make_automatic);
-    dst->iteridx = src->iteridx;
-}
-
-
-void _amdnset_clear(void* _p)
-{
-    amdnset *p = (amdnset*)_p;
-    ae_touch_ptr((void*)p);
-    ae_vector_clear(&p->items);
-    ae_vector_clear(&p->locationof);
-}
-
-
-void _amdnset_destroy(void* _p)
-{
-    amdnset *p = (amdnset*)_p;
-    ae_touch_ptr((void*)p);
-    ae_vector_destroy(&p->items);
-    ae_vector_destroy(&p->locationof);
 }
 
 
@@ -44991,10 +44654,10 @@ void _amdknset_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _amdknset_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _amdknset_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    amdknset *dst = (amdknset*)_dst;
-    amdknset *src = (amdknset*)_src;
+    amdknset       *dst = (amdknset*)_dst;
+    const amdknset *src = (const amdknset*)_src;
     dst->k = src->k;
     dst->n = src->n;
     ae_vector_init_copy(&dst->flagarray, &src->flagarray, _state, make_automatic);
@@ -45045,10 +44708,10 @@ void _amdvertexset_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _amdvertexset_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _amdvertexset_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    amdvertexset *dst = (amdvertexset*)_dst;
-    amdvertexset *src = (amdvertexset*)_src;
+    amdvertexset       *dst = (amdvertexset*)_dst;
+    const amdvertexset *src = (const amdvertexset*)_src;
     dst->n = src->n;
     dst->checkexactdegrees = src->checkexactdegrees;
     dst->smallestdegree = src->smallestdegree;
@@ -45097,10 +44760,10 @@ void _amdllmatrix_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _amdllmatrix_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _amdllmatrix_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    amdllmatrix *dst = (amdllmatrix*)_dst;
-    amdllmatrix *src = (amdllmatrix*)_src;
+    amdllmatrix       *dst = (amdllmatrix*)_dst;
+    const amdllmatrix *src = (const amdllmatrix*)_src;
     dst->n = src->n;
     ae_vector_init_copy(&dst->vbegin, &src->vbegin, _state, make_automatic);
     ae_vector_init_copy(&dst->vcolcnt, &src->vcolcnt, _state, make_automatic);
@@ -45140,21 +44803,21 @@ void _amdbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic)
     _amdknset_init(&p->sete, _state, make_automatic);
     _amdllmatrix_init(&p->mtxl, _state, make_automatic);
     _amdvertexset_init(&p->vertexdegrees, _state, make_automatic);
-    _amdnset_init(&p->setq, _state, make_automatic);
+    _niset_init(&p->setq, _state, make_automatic);
     ae_vector_init(&p->perm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->invperm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->columnswaps, 0, DT_INT, _state, make_automatic);
-    _amdnset_init(&p->setp, _state, make_automatic);
-    _amdnset_init(&p->lp, _state, make_automatic);
-    _amdnset_init(&p->setrp, _state, make_automatic);
-    _amdnset_init(&p->ep, _state, make_automatic);
-    _amdnset_init(&p->adji, _state, make_automatic);
-    _amdnset_init(&p->adjj, _state, make_automatic);
+    _niset_init(&p->setp, _state, make_automatic);
+    _niset_init(&p->lp, _state, make_automatic);
+    _niset_init(&p->setrp, _state, make_automatic);
+    _niset_init(&p->ep, _state, make_automatic);
+    _niset_init(&p->adji, _state, make_automatic);
+    _niset_init(&p->adjj, _state, make_automatic);
     ae_vector_init(&p->ls, 0, DT_INT, _state, make_automatic);
-    _amdnset_init(&p->setqsupercand, _state, make_automatic);
-    _amdnset_init(&p->exactdegreetmp0, _state, make_automatic);
+    _niset_init(&p->setqsupercand, _state, make_automatic);
+    _niset_init(&p->exactdegreetmp0, _state, make_automatic);
     _amdknset_init(&p->hashbuckets, _state, make_automatic);
-    _amdnset_init(&p->nonemptybuckets, _state, make_automatic);
+    _niset_init(&p->nonemptybuckets, _state, make_automatic);
     ae_vector_init(&p->sncandidates, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->tmp0, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->arrwe, 0, DT_INT, _state, make_automatic);
@@ -45162,10 +44825,10 @@ void _amdbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _amdbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _amdbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    amdbuffer *dst = (amdbuffer*)_dst;
-    amdbuffer *src = (amdbuffer*)_src;
+    amdbuffer       *dst = (amdbuffer*)_dst;
+    const amdbuffer *src = (const amdbuffer*)_src;
     dst->n = src->n;
     dst->extendeddebug = src->extendeddebug;
     dst->checkexactdegrees = src->checkexactdegrees;
@@ -45176,22 +44839,22 @@ void _amdbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make
     _amdknset_init_copy(&dst->sete, &src->sete, _state, make_automatic);
     _amdllmatrix_init_copy(&dst->mtxl, &src->mtxl, _state, make_automatic);
     _amdvertexset_init_copy(&dst->vertexdegrees, &src->vertexdegrees, _state, make_automatic);
-    _amdnset_init_copy(&dst->setq, &src->setq, _state, make_automatic);
+    _niset_init_copy(&dst->setq, &src->setq, _state, make_automatic);
     ae_vector_init_copy(&dst->perm, &src->perm, _state, make_automatic);
     ae_vector_init_copy(&dst->invperm, &src->invperm, _state, make_automatic);
     ae_vector_init_copy(&dst->columnswaps, &src->columnswaps, _state, make_automatic);
-    _amdnset_init_copy(&dst->setp, &src->setp, _state, make_automatic);
-    _amdnset_init_copy(&dst->lp, &src->lp, _state, make_automatic);
-    _amdnset_init_copy(&dst->setrp, &src->setrp, _state, make_automatic);
-    _amdnset_init_copy(&dst->ep, &src->ep, _state, make_automatic);
-    _amdnset_init_copy(&dst->adji, &src->adji, _state, make_automatic);
-    _amdnset_init_copy(&dst->adjj, &src->adjj, _state, make_automatic);
+    _niset_init_copy(&dst->setp, &src->setp, _state, make_automatic);
+    _niset_init_copy(&dst->lp, &src->lp, _state, make_automatic);
+    _niset_init_copy(&dst->setrp, &src->setrp, _state, make_automatic);
+    _niset_init_copy(&dst->ep, &src->ep, _state, make_automatic);
+    _niset_init_copy(&dst->adji, &src->adji, _state, make_automatic);
+    _niset_init_copy(&dst->adjj, &src->adjj, _state, make_automatic);
     ae_vector_init_copy(&dst->ls, &src->ls, _state, make_automatic);
     dst->lscnt = src->lscnt;
-    _amdnset_init_copy(&dst->setqsupercand, &src->setqsupercand, _state, make_automatic);
-    _amdnset_init_copy(&dst->exactdegreetmp0, &src->exactdegreetmp0, _state, make_automatic);
+    _niset_init_copy(&dst->setqsupercand, &src->setqsupercand, _state, make_automatic);
+    _niset_init_copy(&dst->exactdegreetmp0, &src->exactdegreetmp0, _state, make_automatic);
     _amdknset_init_copy(&dst->hashbuckets, &src->hashbuckets, _state, make_automatic);
-    _amdnset_init_copy(&dst->nonemptybuckets, &src->nonemptybuckets, _state, make_automatic);
+    _niset_init_copy(&dst->nonemptybuckets, &src->nonemptybuckets, _state, make_automatic);
     ae_vector_init_copy(&dst->sncandidates, &src->sncandidates, _state, make_automatic);
     ae_vector_init_copy(&dst->tmp0, &src->tmp0, _state, make_automatic);
     ae_vector_init_copy(&dst->arrwe, &src->arrwe, _state, make_automatic);
@@ -45210,21 +44873,21 @@ void _amdbuffer_clear(void* _p)
     _amdknset_clear(&p->sete);
     _amdllmatrix_clear(&p->mtxl);
     _amdvertexset_clear(&p->vertexdegrees);
-    _amdnset_clear(&p->setq);
+    _niset_clear(&p->setq);
     ae_vector_clear(&p->perm);
     ae_vector_clear(&p->invperm);
     ae_vector_clear(&p->columnswaps);
-    _amdnset_clear(&p->setp);
-    _amdnset_clear(&p->lp);
-    _amdnset_clear(&p->setrp);
-    _amdnset_clear(&p->ep);
-    _amdnset_clear(&p->adji);
-    _amdnset_clear(&p->adjj);
+    _niset_clear(&p->setp);
+    _niset_clear(&p->lp);
+    _niset_clear(&p->setrp);
+    _niset_clear(&p->ep);
+    _niset_clear(&p->adji);
+    _niset_clear(&p->adjj);
     ae_vector_clear(&p->ls);
-    _amdnset_clear(&p->setqsupercand);
-    _amdnset_clear(&p->exactdegreetmp0);
+    _niset_clear(&p->setqsupercand);
+    _niset_clear(&p->exactdegreetmp0);
     _amdknset_clear(&p->hashbuckets);
-    _amdnset_clear(&p->nonemptybuckets);
+    _niset_clear(&p->nonemptybuckets);
     ae_vector_clear(&p->sncandidates);
     ae_vector_clear(&p->tmp0);
     ae_vector_clear(&p->arrwe);
@@ -45243,21 +44906,21 @@ void _amdbuffer_destroy(void* _p)
     _amdknset_destroy(&p->sete);
     _amdllmatrix_destroy(&p->mtxl);
     _amdvertexset_destroy(&p->vertexdegrees);
-    _amdnset_destroy(&p->setq);
+    _niset_destroy(&p->setq);
     ae_vector_destroy(&p->perm);
     ae_vector_destroy(&p->invperm);
     ae_vector_destroy(&p->columnswaps);
-    _amdnset_destroy(&p->setp);
-    _amdnset_destroy(&p->lp);
-    _amdnset_destroy(&p->setrp);
-    _amdnset_destroy(&p->ep);
-    _amdnset_destroy(&p->adji);
-    _amdnset_destroy(&p->adjj);
+    _niset_destroy(&p->setp);
+    _niset_destroy(&p->lp);
+    _niset_destroy(&p->setrp);
+    _niset_destroy(&p->ep);
+    _niset_destroy(&p->adji);
+    _niset_destroy(&p->adjj);
     ae_vector_destroy(&p->ls);
-    _amdnset_destroy(&p->setqsupercand);
-    _amdnset_destroy(&p->exactdegreetmp0);
+    _niset_destroy(&p->setqsupercand);
+    _niset_destroy(&p->exactdegreetmp0);
     _amdknset_destroy(&p->hashbuckets);
-    _amdnset_destroy(&p->nonemptybuckets);
+    _niset_destroy(&p->nonemptybuckets);
     ae_vector_destroy(&p->sncandidates);
     ae_vector_destroy(&p->tmp0);
     ae_vector_destroy(&p->arrwe);
@@ -45314,15 +44977,33 @@ INPUT PARAMETERS:
                       max(Priorities[])+1  internal  AMD  rounds   will   be
                       performed, so avoid specifying too large values here.
                       Ideally, 0<=Priorities[I]<5.
+    PromoteAbove-   columns with degrees higher than PromoteAbove*max(MEAN(Degree),1)
+                    may be promoted to the next priority group. Ignored  for
+                    PermType<>3 and PermType<>-3.
+                    This parameter can be used to make priorities  a  hard
+                    requirement, a non-binding  suggestion,  or  something
+                    in-between:
+                    * big PromoteAbove (N or more) effectively means that
+                      priorities are hard
+                    * values between 2 and 10 are usually a good choice  for
+                      soft priorities
+                    * zero value means that appropriate  value  for  a  soft
+                      priority (between 2 and 5) is automatically chosen.
+                      Specific value may change in future ALGLIB versions.
     FactType    -   factorization type:
                     * 0 for traditional Cholesky
                     * 1 for LDLT decomposition with strictly diagonal D
     PermType    -   permutation type:
-                    *-3 for debug improved AMD (a sequence of decreasing
-                        tail sizes is generated, ~logN in total, even if
-                        ordering can be done with just one round of AMD).
-                        This ordering is used to test correctness of
-                        multiple AMD rounds.
+                    *-3 for debug improved AMD which debugs AMD itself and
+                        parallel block supernodal code:
+                        * AMD is debugged by generating a sequence of decreasing
+                          tail sizes, ~logN in total, even if ordering can be
+                          done with just one round of AMD. This ordering is
+                          used to test correctness of multiple AMD rounds.
+                        * parallel block supernodal code is debugged by
+                          partitioning problems into smallest possible chunks,
+                          ignoring thresholds set by SMPActivationLevel()
+                          and SpawnLevel().
                     *-2 for column count ordering (NOT RECOMMENDED!)
                     *-1 for absence of permutation
                     * 0 for best permutation available
@@ -45367,6 +45048,7 @@ NOTE: defining 'DEBUG.SLOW' trace tag will  activate  extra-slow  (roughly
 *************************************************************************/
 ae_bool spsymmanalyze(sparsematrix* a,
      /* Integer */ ae_vector* priorities,
+     double promoteabove,
      ae_int_t facttype,
      ae_int_t permtype,
      spcholanalysis* analysis,
@@ -45392,6 +45074,7 @@ ae_bool spsymmanalyze(sparsematrix* a,
     ae_assert(sparsegetnrows(a, _state)==sparsegetncols(a, _state), "SPSymmAnalyze: non-square A", _state);
     ae_assert(facttype==0||facttype==1, "SPSymmAnalyze: unexpected FactType", _state);
     ae_assert((((((permtype==0||permtype==1)||permtype==2)||permtype==3)||permtype==-1)||permtype==-2)||permtype==-3, "SPSymmAnalyze: unexpected PermType", _state);
+    ae_assert((permtype!=3&&permtype!=-3)||(ae_isfinite(promoteabove, _state)&&ae_fp_greater_eq(promoteabove,(double)(0))), "SPSymmAnalyze: unexpected PromoteAbove - infinite or negative", _state);
     result = ae_true;
     n = sparsegetnrows(a, _state);
     if( permtype==-3||permtype==3 )
@@ -45403,13 +45086,16 @@ ae_bool spsymmanalyze(sparsematrix* a,
     {
         isetallocv(n, 0, &analysis->curpriorities, _state);
         permtype = 3;
+        promoteabove = 0.0;
     }
     analysis->tasktype = 0;
     analysis->n = n;
     analysis->unitd = facttype==0;
     analysis->permtype = permtype;
+    analysis->debugblocksupernodal = permtype==-3;
     analysis->extendeddebug = ae_is_trace_enabled("DEBUG.SLOW")&&n<=100;
     analysis->dotrace = ae_is_trace_enabled("SCHOLESKY");
+    analysis->dotracescheduler = analysis->dotrace&&ae_is_trace_enabled("SCHOLESKY.SCHEDULER");
     analysis->dotracesupernodalstructure = analysis->dotrace&&ae_is_trace_enabled("SCHOLESKY.SS");
     analysis->istopologicalordering = permtype==-1||permtype==1;
     analysis->applypermutationtooutput = permtype==-1;
@@ -45418,6 +45104,7 @@ ae_bool spsymmanalyze(sparsematrix* a,
     analysis->modparam1 = 0.0;
     analysis->modparam2 = 0.0;
     analysis->modparam3 = 0.0;
+    analysis->useparallelism = ae_false;
     
     /*
      * Allocate temporaries
@@ -45429,6 +45116,9 @@ ae_bool spsymmanalyze(sparsematrix* a,
     ivectorsetlengthatleast(&analysis->tmp3, n+1, _state);
     ivectorsetlengthatleast(&analysis->tmp4, n+1, _state);
     bvectorsetlengthatleast(&analysis->flagarray, n+1, _state);
+    nbpoolinit(&analysis->nbooleanpool, n, _state);
+    nipoolinit(&analysis->nintegerpool, n, _state);
+    nrpoolinit(&analysis->nrealpool, n, _state);
     
     /*
      * Initial trace message
@@ -45613,7 +45303,7 @@ ae_bool spsymmanalyze(sparsematrix* a,
                         (int)(n),
                         (double)((double)(100*eligiblecnt)/(double)m));
                 }
-                newrange0 = range0+generateamdpermutationx(&analysis->tmpa, &analysis->eligible, range1-range0, &analysis->tmpperm, &analysis->invtmpperm, 1, &analysis->amdtmp, _state);
+                newrange0 = range0+generateamdpermutationx(&analysis->tmpa, &analysis->eligible, range1-range0, promoteabove, &analysis->tmpperm, &analysis->invtmpperm, 1, &analysis->amdtmp, _state);
                 if( permtype==-3 )
                 {
                     
@@ -45776,6 +45466,11 @@ ae_bool spsymmanalyze(sparsematrix* a,
          */
         spchol_analyzesupernodaldependencies(analysis, &analysis->tmpa, &analysis->node2supernode, n, &analysis->tmp0, &analysis->tmp1, &analysis->flagarray, _state);
     }
+    
+    /*
+     * Prepare block structure
+     */
+    spchol_createblockstructure(analysis, _state);
     
     /*
      * Save information for integrity checks
@@ -46000,81 +45695,33 @@ the diagonal.
 *************************************************************************/
 ae_bool spsymmfactorize(spcholanalysis* analysis, ae_state *_state)
 {
-    ae_int_t i;
-    ae_int_t k;
-    ae_int_t ii;
+    ae_frame _frame_block;
     ae_int_t n;
-    ae_int_t cols0;
-    ae_int_t cols1;
-    ae_int_t offss;
-    ae_int_t blocksize;
-    ae_int_t sidx;
-    ae_int_t uidx;
+    sboolean b;
     ae_bool result;
 
+    ae_frame_make(_state, &_frame_block);
+    memset(&b, 0, sizeof(b));
+    _sboolean_init(&b, _state, ae_true);
 
     ae_assert(analysis->tasktype==0, "SPCholFactorize: Analysis type does not match current task", _state);
-    result = ae_true;
     n = analysis->n;
     
     /*
-     * Prepare structures:
-     * * WrkRows[] store pointers to beginnings of the offdiagonal supernode row ranges;
-     *   at the beginning of the work WrkRows[]=0, but as we advance from the column
-     *   range [0,A) to [A,B), to [B,C) and so on, we advance WrkRows[] in order to
-     *   quickly skip parts that are less than A, less than B, less than C and so on.
+     * Allocate temporaries
      */
-    ivectorsetlengthatleast(&analysis->raw2smap, n, _state);
     ivectorsetlengthatleast(&analysis->tmp0, n+1, _state);
-    bsetallocv(n, ae_false, &analysis->flagarray, _state);
-    isetallocv(analysis->nsuper, 0, &analysis->wrkrows, _state);
     rsetallocv(n, 0.0, &analysis->diagd, _state);
     rcopyallocv(analysis->rowoffsets.ptr.p_int[analysis->nsuper], &analysis->inputstorage, &analysis->outputstorage, _state);
+    icopyallocv(analysis->nsuper, &analysis->ladj.rowbegin, &analysis->currowbegin, _state);
     
     /*
-     * Now we can run actual supernodal Cholesky
+     * Perform recursive processing
      */
-    for(sidx=0; sidx<=analysis->nsuper-1; sidx++)
-    {
-        cols0 = analysis->supercolrange.ptr.p_int[sidx];
-        cols1 = analysis->supercolrange.ptr.p_int[sidx+1];
-        blocksize = cols1-cols0;
-        offss = analysis->rowoffsets.ptr.p_int[sidx];
-        
-        /*
-         * Prepare mapping of raw (range 0...N-1) indexes into internal (range 0...BlockSize+OffdiagSize-1) ones
-         */
-        if( analysis->extendeddebug )
-        {
-            isetv(n, -1, &analysis->raw2smap, _state);
-        }
-        for(i=cols0; i<=cols1-1; i++)
-        {
-            analysis->raw2smap.ptr.p_int[i] = i-cols0;
-        }
-        for(k=analysis->superrowridx.ptr.p_int[sidx]; k<=analysis->superrowridx.ptr.p_int[sidx+1]-1; k++)
-        {
-            analysis->raw2smap.ptr.p_int[analysis->superrowidx.ptr.p_int[k]] = blocksize+(k-analysis->superrowridx.ptr.p_int[sidx]);
-        }
-        
-        /*
-         * Update current supernode with nonzeros from the current row
-         */
-        for(ii=analysis->ladjplusr.ptr.p_int[sidx]; ii<=analysis->ladjplusr.ptr.p_int[sidx+1]-1; ii++)
-        {
-            uidx = analysis->ladjplus.ptr.p_int[ii];
-            analysis->wrkrows.ptr.p_int[uidx] = spchol_updatesupernode(analysis, sidx, cols0, cols1, offss, &analysis->raw2smap, uidx, analysis->wrkrows.ptr.p_int[uidx], &analysis->diagd, analysis->supercolrange.ptr.p_int[uidx], _state);
-        }
-        
-        /*
-         * Factorize current supernode
-         */
-        if( !spchol_factorizesupernode(analysis, sidx, _state) )
-        {
-            result = ae_false;
-            return result;
-        }
-    }
+    b.val = ae_false;
+    spchol_spsymmfactorizeblockrec(analysis, &analysis->currowbegin, 0, ae_true, &b, _state);
+    result = !b.val;
+    ae_frame_leave(_state);
     return result;
 }
 
@@ -46146,7 +45793,6 @@ void spsymmsolve(spcholanalysis* analysis,
     ae_int_t j;
     ae_int_t k;
     double v;
-    ae_int_t simdwidth;
     ae_int_t baseoffs;
     ae_int_t cols0;
     ae_int_t cols1;
@@ -46156,27 +45802,25 @@ void spsymmsolve(spcholanalysis* analysis,
     ae_int_t blocksize;
     ae_int_t rbase;
     ae_int_t offdiagsize;
+    double x0;
+    double x1;
+    double x2;
+    double x3;
 
 
     n = analysis->n;
-    simdwidth = spchol_spsymmgetmaxsimd(_state);
     rsetallocv(n, 0.0, &analysis->tmpx, _state);
     
     /*
      * Handle left-hand side permutation, convert data to internal SIMD-friendly format
      */
-    rsetallocv(n*simdwidth, 0.0, &analysis->simdbuf, _state);
     for(i=0; i<=n-1; i++)
     {
-        analysis->simdbuf.ptr.p_double[i*simdwidth] = b->ptr.p_double[analysis->inveffectiveperm.ptr.p_int[i]];
+        analysis->tmpx.ptr.p_double[i] = b->ptr.p_double[analysis->inveffectiveperm.ptr.p_int[i]];
     }
     
     /*
      * Solve for L*tmp_x=rhs.
-     *
-     * The RHS (original and temporary updates) is stored in the SIMD-friendly SIMDBuf which
-     * stores RHS as unevaluated sum of SIMDWidth numbers (this format allows easy updates
-     * with SIMD intrinsics), the result is written into TmpX (traditional contiguous storage).
      */
     for(sidx=0; sidx<=analysis->nsuper-1; sidx++)
     {
@@ -46189,36 +45833,195 @@ void spsymmsolve(spcholanalysis* analysis,
         offdiagsize = analysis->superrowridx.ptr.p_int[sidx+1]-rbase;
         
         /*
-         * Solve for variables in the supernode
+         * Solve for variables in the supernode,
+         * fetch vars to locals (when supernode is small enough)
          */
-        for(i=cols0; i<=cols1-1; i++)
+        ae_assert(blocksize<=4, "SPSymm: integrity check 4228 failed", _state);
+        if( blocksize==1 )
         {
-            baseoffs = offss+(i-cols0)*sstride+(-cols0);
-            v = (double)(0);
-            for(j=0; j<=simdwidth-1; j++)
+            
+            /*
+             * One column, fetch to X0
+             */
+            ae_assert(sstride==1, "SPSymm: integrity check 4620 failed", _state);
+            x0 = analysis->tmpx.ptr.p_double[cols0]/analysis->outputstorage.ptr.p_double[offss];
+            analysis->tmpx.ptr.p_double[cols0] = x0;
+        }
+        else
+        {
+            if( blocksize==2 )
             {
-                v = v+analysis->simdbuf.ptr.p_double[i*simdwidth+j];
+                
+                /*
+                 * Two columns, fetch to X0 and X1
+                 */
+                ae_assert(sstride==2, "SPSymm: integrity check 5730 failed", _state);
+                for(i=cols0; i<=cols1-1; i++)
+                {
+                    baseoffs = offss+(i-cols0)*sstride+(-cols0);
+                    v = analysis->tmpx.ptr.p_double[i];
+                    for(j=cols0; j<=i-1; j++)
+                    {
+                        v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[j];
+                    }
+                    analysis->tmpx.ptr.p_double[i] = v/analysis->outputstorage.ptr.p_double[baseoffs+i];
+                }
+                x0 = analysis->tmpx.ptr.p_double[cols0];
+                x1 = analysis->tmpx.ptr.p_double[cols0+1];
             }
-            for(j=cols0; j<=i-1; j++)
+            else
             {
-                v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[j];
+                if( blocksize==3 )
+                {
+                    
+                    /*
+                     * Three columns, fetch to X0, X1 and X2
+                     */
+                    ae_assert(sstride==4, "SPSymm: integrity check 7446 failed", _state);
+                    for(i=cols0; i<=cols1-1; i++)
+                    {
+                        baseoffs = offss+(i-cols0)*sstride+(-cols0);
+                        v = analysis->tmpx.ptr.p_double[i];
+                        for(j=cols0; j<=i-1; j++)
+                        {
+                            v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[j];
+                        }
+                        analysis->tmpx.ptr.p_double[i] = v/analysis->outputstorage.ptr.p_double[baseoffs+i];
+                    }
+                    x0 = analysis->tmpx.ptr.p_double[cols0];
+                    x1 = analysis->tmpx.ptr.p_double[cols0+1];
+                    x2 = analysis->tmpx.ptr.p_double[cols0+2];
+                }
+                else
+                {
+                    if( blocksize==4 )
+                    {
+                        
+                        /*
+                         * Four columns, fetch to X0, X1, X2, X3
+                         */
+                        ae_assert(sstride==4, "SPSymm: integrity check 9252 failed", _state);
+                        for(i=cols0; i<=cols1-1; i++)
+                        {
+                            baseoffs = offss+(i-cols0)*sstride+(-cols0);
+                            v = analysis->tmpx.ptr.p_double[i];
+                            for(j=cols0; j<=i-1; j++)
+                            {
+                                v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[j];
+                            }
+                            analysis->tmpx.ptr.p_double[i] = v/analysis->outputstorage.ptr.p_double[baseoffs+i];
+                        }
+                        x0 = analysis->tmpx.ptr.p_double[cols0];
+                        x1 = analysis->tmpx.ptr.p_double[cols0+1];
+                        x2 = analysis->tmpx.ptr.p_double[cols0+2];
+                        x3 = analysis->tmpx.ptr.p_double[cols0+3];
+                    }
+                    else
+                    {
+                        
+                        /*
+                         * Generic case
+                         */
+                        for(i=cols0; i<=cols1-1; i++)
+                        {
+                            baseoffs = offss+(i-cols0)*sstride+(-cols0);
+                            v = analysis->tmpx.ptr.p_double[i];
+                            for(j=cols0; j<=i-1; j++)
+                            {
+                                v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[j];
+                            }
+                            analysis->tmpx.ptr.p_double[i] = v/analysis->outputstorage.ptr.p_double[baseoffs+i];
+                        }
+                    }
+                }
             }
-            analysis->tmpx.ptr.p_double[i] = v/analysis->outputstorage.ptr.p_double[baseoffs+i];
         }
         
         /*
          * Propagate update to other variables
          */
-        for(k=0; k<=offdiagsize-1; k++)
+        if( blocksize==1 )
         {
-            i = analysis->superrowidx.ptr.p_int[rbase+k];
-            baseoffs = offss+(k+blocksize)*sstride;
-            v = analysis->simdbuf.ptr.p_double[i*simdwidth];
-            for(j=0; j<=blocksize-1; j++)
+            
+            /*
+             * Special case: single column
+             */
+            baseoffs = offss+1;
+            for(k=0; k<=offdiagsize-1; k++)
             {
-                v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[cols0+j];
+                i = analysis->superrowidx.ptr.p_int[rbase+k];
+                analysis->tmpx.ptr.p_double[i] = analysis->tmpx.ptr.p_double[i]-analysis->outputstorage.ptr.p_double[baseoffs]*x0;
+                baseoffs = baseoffs+1;
             }
-            analysis->simdbuf.ptr.p_double[i*simdwidth] = v;
+        }
+        else
+        {
+            if( blocksize==2 )
+            {
+                
+                /*
+                 * Two columns
+                 */
+                baseoffs = offss+4;
+                for(k=0; k<=offdiagsize-1; k++)
+                {
+                    i = analysis->superrowidx.ptr.p_int[rbase+k];
+                    analysis->tmpx.ptr.p_double[i] = analysis->tmpx.ptr.p_double[i]-analysis->outputstorage.ptr.p_double[baseoffs]*x0-analysis->outputstorage.ptr.p_double[baseoffs+1]*x1;
+                    baseoffs = baseoffs+2;
+                }
+            }
+            else
+            {
+                if( blocksize==3 )
+                {
+                    
+                    /*
+                     * Three columns
+                     */
+                    baseoffs = offss+12;
+                    for(k=0; k<=offdiagsize-1; k++)
+                    {
+                        i = analysis->superrowidx.ptr.p_int[rbase+k];
+                        analysis->tmpx.ptr.p_double[i] = analysis->tmpx.ptr.p_double[i]-analysis->outputstorage.ptr.p_double[baseoffs]*x0-analysis->outputstorage.ptr.p_double[baseoffs+1]*x1-analysis->outputstorage.ptr.p_double[baseoffs+2]*x2;
+                        baseoffs = baseoffs+4;
+                    }
+                }
+                else
+                {
+                    if( blocksize==4 )
+                    {
+                        
+                        /*
+                         * Four columns
+                         */
+                        baseoffs = offss+16;
+                        for(k=0; k<=offdiagsize-1; k++)
+                        {
+                            i = analysis->superrowidx.ptr.p_int[rbase+k];
+                            analysis->tmpx.ptr.p_double[i] = analysis->tmpx.ptr.p_double[i]-analysis->outputstorage.ptr.p_double[baseoffs]*x0-analysis->outputstorage.ptr.p_double[baseoffs+1]*x1-analysis->outputstorage.ptr.p_double[baseoffs+2]*x2-analysis->outputstorage.ptr.p_double[baseoffs+3]*x3;
+                            baseoffs = baseoffs+4;
+                        }
+                    }
+                    else
+                    {
+                        
+                        /*
+                         * Generic propagate
+                         */
+                        for(k=0; k<=offdiagsize-1; k++)
+                        {
+                            i = analysis->superrowidx.ptr.p_int[rbase+k];
+                            baseoffs = offss+(k+blocksize)*sstride;
+                            v = analysis->tmpx.ptr.p_double[i];
+                            for(j=0; j<=blocksize-1; j++)
+                            {
+                                v = v-analysis->outputstorage.ptr.p_double[baseoffs+j]*analysis->tmpx.ptr.p_double[cols0+j];
+                            }
+                            analysis->tmpx.ptr.p_double[i] = v;
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -46254,13 +46057,110 @@ void spsymmsolve(spcholanalysis* analysis,
         /*
          * Subtract already computed variables
          */
-        for(k=0; k<=offdiagsize-1; k++)
+        if( blocksize==1 )
         {
-            baseoffs = offss+(k+blocksize)*sstride;
-            v = analysis->tmpx.ptr.p_double[analysis->superrowidx.ptr.p_int[rbase+k]];
-            for(j=0; j<=blocksize-1; j++)
+            
+            /*
+             * Single column, use value fetched in X0
+             */
+            x0 = analysis->tmpx.ptr.p_double[cols0];
+            baseoffs = offss+1;
+            for(k=0; k<=offdiagsize-1; k++)
             {
-                analysis->tmpx.ptr.p_double[cols0+j] = analysis->tmpx.ptr.p_double[cols0+j]-analysis->outputstorage.ptr.p_double[baseoffs+j]*v;
+                x0 = x0-analysis->outputstorage.ptr.p_double[baseoffs]*analysis->tmpx.ptr.p_double[analysis->superrowidx.ptr.p_int[rbase+k]];
+                baseoffs = baseoffs+1;
+            }
+            analysis->tmpx.ptr.p_double[cols0] = x0;
+        }
+        else
+        {
+            if( blocksize==2 )
+            {
+                
+                /*
+                 * Two columns, use values fetched in X0, X1
+                 */
+                x0 = analysis->tmpx.ptr.p_double[cols0];
+                x1 = analysis->tmpx.ptr.p_double[cols0+1];
+                baseoffs = offss+4;
+                for(k=0; k<=offdiagsize-1; k++)
+                {
+                    v = analysis->tmpx.ptr.p_double[analysis->superrowidx.ptr.p_int[rbase+k]];
+                    x0 = x0-analysis->outputstorage.ptr.p_double[baseoffs]*v;
+                    x1 = x1-analysis->outputstorage.ptr.p_double[baseoffs+1]*v;
+                    baseoffs = baseoffs+2;
+                }
+                analysis->tmpx.ptr.p_double[cols0] = x0;
+                analysis->tmpx.ptr.p_double[cols0+1] = x1;
+            }
+            else
+            {
+                if( blocksize==3 )
+                {
+                    
+                    /*
+                     * Three columns, use values fetched in X0, X1, X2
+                     */
+                    x0 = analysis->tmpx.ptr.p_double[cols0];
+                    x1 = analysis->tmpx.ptr.p_double[cols0+1];
+                    x2 = analysis->tmpx.ptr.p_double[cols0+2];
+                    baseoffs = offss+12;
+                    for(k=0; k<=offdiagsize-1; k++)
+                    {
+                        v = analysis->tmpx.ptr.p_double[analysis->superrowidx.ptr.p_int[rbase+k]];
+                        x0 = x0-analysis->outputstorage.ptr.p_double[baseoffs]*v;
+                        x1 = x1-analysis->outputstorage.ptr.p_double[baseoffs+1]*v;
+                        x2 = x2-analysis->outputstorage.ptr.p_double[baseoffs+2]*v;
+                        baseoffs = baseoffs+4;
+                    }
+                    analysis->tmpx.ptr.p_double[cols0] = x0;
+                    analysis->tmpx.ptr.p_double[cols0+1] = x1;
+                    analysis->tmpx.ptr.p_double[cols0+2] = x2;
+                }
+                else
+                {
+                    if( blocksize==4 )
+                    {
+                        
+                        /*
+                         * Four columns, use values fetched in X0, X1, X2, X3
+                         */
+                        x0 = analysis->tmpx.ptr.p_double[cols0];
+                        x1 = analysis->tmpx.ptr.p_double[cols0+1];
+                        x2 = analysis->tmpx.ptr.p_double[cols0+2];
+                        x3 = analysis->tmpx.ptr.p_double[cols0+3];
+                        baseoffs = offss+16;
+                        for(k=0; k<=offdiagsize-1; k++)
+                        {
+                            v = analysis->tmpx.ptr.p_double[analysis->superrowidx.ptr.p_int[rbase+k]];
+                            x0 = x0-analysis->outputstorage.ptr.p_double[baseoffs]*v;
+                            x1 = x1-analysis->outputstorage.ptr.p_double[baseoffs+1]*v;
+                            x2 = x2-analysis->outputstorage.ptr.p_double[baseoffs+2]*v;
+                            x3 = x3-analysis->outputstorage.ptr.p_double[baseoffs+3]*v;
+                            baseoffs = baseoffs+4;
+                        }
+                        analysis->tmpx.ptr.p_double[cols0] = x0;
+                        analysis->tmpx.ptr.p_double[cols0+1] = x1;
+                        analysis->tmpx.ptr.p_double[cols0+2] = x2;
+                        analysis->tmpx.ptr.p_double[cols0+3] = x3;
+                    }
+                    else
+                    {
+                        
+                        /*
+                         * Generic case
+                         */
+                        for(k=0; k<=offdiagsize-1; k++)
+                        {
+                            baseoffs = offss+(k+blocksize)*sstride;
+                            v = analysis->tmpx.ptr.p_double[analysis->superrowidx.ptr.p_int[rbase+k]];
+                            for(j=0; j<=blocksize-1; j++)
+                            {
+                                analysis->tmpx.ptr.p_double[cols0+j] = analysis->tmpx.ptr.p_double[cols0+j]-analysis->outputstorage.ptr.p_double[baseoffs+j]*v;
+                            }
+                        }
+                    }
+                }
             }
         }
         
@@ -46328,8 +46228,8 @@ void spsymmdiagerr(spcholanalysis* analysis,
     ae_int_t j;
     ae_int_t k;
 
-    *sumsq = 0;
-    *errsq = 0;
+    *sumsq = 0.0;
+    *errsq = 0.0;
 
     n = analysis->n;
     simdwidth = 1;
@@ -46400,6 +46300,361 @@ static ae_int_t spchol_spsymmgetmaxsimd(ae_state *_state)
     return result;
 }
 #endif
+
+
+/*************************************************************************
+Recursive factorization of the supernodal  block  (a set of interdependent
+supernodes) stored at BlkStruct[] at offset BlkOffs.
+
+Due to interdependencies, block supernodes can NOT be  factorized  in  the
+parallel manner. However, it is still possible to perform  parallel column
+updates (this part is handled by parallel DC  tree  associated  with  each
+block).
+
+INPUT PARAMETERS:
+    Analysis    -   prior  analysis  performed on some sparse matrix, with
+                    matrix being stored in Analysis.
+    CurLAdjRowBegin-array[NSuper], pointers to unprocessed column  updates
+                    stored in LAdj structure. Initially it is  a  copy  of
+                    LAdj.RowBegin[], but every time  we  apply  update  to
+                    a column, we advance its CurLAdjRowBegin[] entry.
+                    This array is shared between all concurrently  running
+                    worker threads.
+    BlkOffs     -   block offset relative to the beginning of BlkStruct[]
+
+OUTPUT PARAMETERS:
+    Analysis    -   contains factorization results
+    FailureFlag -   on the failure is set to True, ignored on success.
+                    Such design is thread-safe.
+
+The function returns True  when  factorization  resulted  in nondegenerate
+matrix. False is returned when factorization fails (Cholesky factorization
+of indefinite matrix) or LDLT factorization has exactly zero  elements  at
+the diagonal.
+
+  -- ALGLIB routine --
+     09.07.2022
+     Bochkanov Sergey
+*************************************************************************/
+static void spchol_spsymmfactorizeblockrec(spcholanalysis* analysis,
+     /* Integer */ ae_vector* curladjrowbegin,
+     ae_int_t blkoffs,
+     ae_bool isrootcall,
+     sboolean* failureflag,
+     ae_state *_state)
+{
+    ae_int_t bs;
+    ae_int_t cc;
+    ae_int_t curoffs;
+    ae_int_t childrenlistoffs;
+    ae_int_t gidx;
+    ae_int_t groupscnt;
+    ae_int_t i;
+
+
+    ae_assert(analysis->tasktype==0, "SPCholFactorize: Analysis type does not match current task", _state);
+    
+    /*
+     * Try parallel execution
+     */
+    if( isrootcall&&analysis->useparallelism )
+    {
+        if( _trypexec_spchol_spsymmfactorizeblockrec(analysis,curladjrowbegin,blkoffs,isrootcall,failureflag, _state) )
+        {
+            return;
+        }
+    }
+    
+    /*
+     * Analyze block information
+     */
+    curoffs = blkoffs;
+    bs = analysis->blkstruct.ptr.p_int[curoffs];
+    curoffs = curoffs+1+bs;
+    cc = analysis->blkstruct.ptr.p_int[curoffs];
+    childrenlistoffs = curoffs+2;
+    curoffs = curoffs+2+cc;
+    
+    /*
+     * Process children.
+     * The very fact that we created more than one children node means that parallel processing is needed.
+     */
+    if( cc>0 )
+    {
+        for(i=0; i<=cc-1; i++)
+        {
+            spchol_spsymmfactorizeblockrec(analysis, curladjrowbegin, analysis->blkstruct.ptr.p_int[childrenlistoffs+i], ae_false, failureflag, _state);
+        }
+    }
+    
+    /*
+     * Apply precomputed update-and-factorize sequence stored in the UPDATES section of the block
+     */
+    groupscnt = analysis->blkstruct.ptr.p_int[curoffs+1];
+    curoffs = curoffs+spchol_updatesheadersize;
+    for(gidx=0; gidx<=groupscnt-1; gidx++)
+    {
+        spchol_spsymmprocessupdatesgroup(analysis, curoffs, failureflag, _state);
+        curoffs = curoffs+analysis->blkstruct.ptr.p_int[curoffs+0];
+    }
+}
+
+
+/*************************************************************************
+Serial stub for GPL edition.
+*************************************************************************/
+ae_bool _trypexec_spchol_spsymmfactorizeblockrec(spcholanalysis* analysis,
+    /* Integer */ ae_vector* curladjrowbegin,
+    ae_int_t blkoffs,
+    ae_bool isrootcall,
+    sboolean* failureflag,
+    ae_state *_state)
+{
+    return ae_false;
+}
+
+
+/*************************************************************************
+This function processes updates group (a set of precomputed update batches
+that can be applied concurrently) stored in Analysis.BlkStruct
+
+INPUT PARAMETERS:
+    Analysis    -   prior  analysis  performed on some sparse matrix, with
+                    matrix being stored in Analysis.
+    BlkOffs     -   block offset relative to the beginning of BlkStruct[],
+                    beginning of the group data
+
+OUTPUT PARAMETERS:
+    Analysis    -   partial supernode update is applied
+    FailureFlag -   on the failure is set to True, ignored on success.
+                    Such design is thread-safe.
+
+  -- ALGLIB routine --
+     09.07.2022
+     Bochkanov Sergey
+*************************************************************************/
+static void spchol_spsymmprocessupdatesgroup(spcholanalysis* analysis,
+     ae_int_t blkoffs,
+     sboolean* failureflag,
+     ae_state *_state)
+{
+    ae_int_t bidx;
+    ae_int_t batchescnt;
+
+
+    batchescnt = analysis->blkstruct.ptr.p_int[blkoffs+1];
+    blkoffs = blkoffs+spchol_groupheadersize;
+    
+    /*
+     * One batch, sequential processing
+     */
+    if( batchescnt==1 )
+    {
+        spchol_spsymmprocessupdatesbatch(analysis, blkoffs, failureflag, _state);
+        return;
+    }
+    
+    /*
+     * Parallel processing (more than one batch in the group means that we decided
+     * to parallelize computations during the scheduling stage)
+     */
+    for(bidx=0; bidx<=batchescnt-1; bidx++)
+    {
+        spchol_spsymmprocessupdatesbatch(analysis, blkoffs, failureflag, _state);
+        blkoffs = blkoffs+analysis->blkstruct.ptr.p_int[blkoffs+0];
+    }
+}
+
+
+/*************************************************************************
+Serial stub for GPL edition.
+*************************************************************************/
+ae_bool _trypexec_spchol_spsymmprocessupdatesgroup(spcholanalysis* analysis,
+    ae_int_t blkoffs,
+    sboolean* failureflag,
+    ae_state *_state)
+{
+    return ae_false;
+}
+
+
+/*************************************************************************
+This function processes updates batch (a set of precomputed update
+sequences that has to be applied sequentially) stored in Analysis.BlkStruct
+
+INPUT PARAMETERS:
+    Analysis    -   prior  analysis  performed on some sparse matrix, with
+                    matrix being stored in Analysis.
+    BlkOffs     -   block offset relative to the beginning of BlkStruct[],
+                    beginning of the batch data
+
+OUTPUT PARAMETERS:
+    Analysis    -   partial supernode update is applied
+    FailureFlag -   on the failure is set to True, ignored on success.
+                    Such design is thread-safe.
+
+  -- ALGLIB routine --
+     09.07.2022
+     Bochkanov Sergey
+*************************************************************************/
+static void spchol_spsymmprocessupdatesbatch(spcholanalysis* analysis,
+     ae_int_t blkoffs,
+     sboolean* failureflag,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t seqidx;
+    ae_int_t sequencescnt;
+    ae_int_t sidx;
+    ae_int_t cols0;
+    ae_int_t cols1;
+    ae_int_t supernodesize;
+    ae_int_t offss;
+    ae_int_t i;
+    ae_int_t k;
+    ae_int_t k0;
+    ae_int_t k1;
+    ae_int_t i0;
+    ae_int_t i1;
+    ae_vector raw2smap;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&raw2smap, 0, sizeof(raw2smap));
+    ae_vector_init(&raw2smap, 0, DT_INT, _state, ae_true);
+
+    nipoolretrieve(&analysis->nintegerpool, &raw2smap, _state);
+    sequencescnt = analysis->blkstruct.ptr.p_int[blkoffs+1];
+    blkoffs = blkoffs+spchol_batchheadersize;
+    for(seqidx=0; seqidx<=sequencescnt-1; seqidx++)
+    {
+        sidx = analysis->blkstruct.ptr.p_int[blkoffs+0];
+        i0 = analysis->blkstruct.ptr.p_int[blkoffs+1];
+        i1 = analysis->blkstruct.ptr.p_int[blkoffs+2];
+        cols0 = analysis->supercolrange.ptr.p_int[sidx];
+        cols1 = analysis->supercolrange.ptr.p_int[sidx+1];
+        supernodesize = cols1-cols0;
+        offss = analysis->rowoffsets.ptr.p_int[sidx];
+        
+        /*
+         * Prepare mapping of raw (range 0...N-1) indexes into internal (range 0...SupernodeSize+OffdiagSize-1) ones
+         */
+        for(i=cols0; i<=cols1-1; i++)
+        {
+            raw2smap.ptr.p_int[i] = i-cols0;
+        }
+        k0 = analysis->superrowridx.ptr.p_int[sidx];
+        k1 = analysis->superrowridx.ptr.p_int[sidx+1]-1;
+        for(k=k0; k<=k1; k++)
+        {
+            raw2smap.ptr.p_int[analysis->superrowidx.ptr.p_int[k]] = supernodesize+(k-k0);
+        }
+        
+        /*
+         * Update current supernode with remaining updates.
+         */
+        spchol_updatesupernode(analysis, sidx, cols0, cols1, offss, &raw2smap, i0, i1, &analysis->diagd, _state);
+        
+        /*
+         * Factorize current supernode if last update was applied
+         */
+        if( i1==analysis->ladj.rowend.ptr.p_int[sidx]&&!spchol_factorizesupernode(analysis, sidx, _state) )
+        {
+            nipoolrecycle(&analysis->nintegerpool, &raw2smap, _state);
+            failureflag->val = ae_true;
+            ae_frame_leave(_state);
+            return;
+        }
+        
+        /*
+         * Next sequence
+         */
+        blkoffs = blkoffs+spchol_sequenceentrysize;
+    }
+    nipoolrecycle(&analysis->nintegerpool, &raw2smap, _state);
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Serial stub for GPL edition.
+*************************************************************************/
+ae_bool _trypexec_spchol_spsymmprocessupdatesbatch(spcholanalysis* analysis,
+    ae_int_t blkoffs,
+    sboolean* failureflag,
+    ae_state *_state)
+{
+    return ae_false;
+}
+
+
+/*************************************************************************
+Print blocked elimination tree to trace log.
+
+  -- ALGLIB routine --
+     09.07.2022
+     Bochkanov Sergey
+*************************************************************************/
+static void spchol_printblockedeliminationtreerec(spcholanalysis* analysis,
+     ae_int_t blkoffs,
+     ae_int_t depth,
+     ae_state *_state)
+{
+    ae_int_t curoffs;
+    ae_int_t bs;
+    ae_int_t cc;
+    ae_int_t i;
+    ae_int_t supernodeslistoffs;
+    ae_int_t childrenlistoffs;
+    double selfcost;
+    double avgsnode;
+    ae_int_t bidx;
+    ae_int_t sidx;
+    ae_int_t cols0;
+    ae_int_t cols1;
+
+
+    curoffs = blkoffs;
+    bs = analysis->blkstruct.ptr.p_int[curoffs];
+    supernodeslistoffs = curoffs+1;
+    curoffs = curoffs+1+bs;
+    cc = analysis->blkstruct.ptr.p_int[curoffs];
+    childrenlistoffs = curoffs+2;
+    curoffs = curoffs+2+cc;
+    
+    /*
+     * Print blocked elimination tree node
+     */
+    selfcost = (double)(0);
+    avgsnode = (double)(0);
+    for(bidx=0; bidx<=bs-1; bidx++)
+    {
+        sidx = analysis->blkstruct.ptr.p_int[supernodeslistoffs+bidx];
+        cols0 = analysis->supercolrange.ptr.p_int[sidx];
+        cols1 = analysis->supercolrange.ptr.p_int[sidx+1];
+        avgsnode = avgsnode+(double)(cols1-cols0)/(double)bs;
+        selfcost = selfcost+analysis->ladj.nflop.ptr.p_double[sidx];
+    }
+    tracespaces(depth, _state);
+    ae_trace("* block of %0d supernodes (avg.size=%0.1f)",
+        (int)(bs),
+        (double)(avgsnode));
+    if( cc>0 )
+    {
+        ae_trace(", %0d children",
+            (int)(cc));
+    }
+    ae_trace(", update-and-factorize = %0.1f MFLOP",
+        (double)(1.0E-6*selfcost));
+    ae_trace("\n");
+    
+    /*
+     * Print children.
+     */
+    for(i=0; i<=cc-1; i++)
+    {
+        spchol_printblockedeliminationtreerec(analysis, analysis->blkstruct.ptr.p_int[childrenlistoffs+i], depth+1, _state);
+    }
+}
 
 
 #ifdef ALGLIB_NO_FAST_KERNELS
@@ -46503,7 +46758,7 @@ static void spchol_generatedbgpermutation(sparsematrix* a,
         for(jj=j0; jj<=j1; jj++)
         {
             j = a->idx.ptr.p_int[jj];
-            d.ptr.p_double[j] = d.ptr.p_double[j]+1;
+            d.ptr.p_double[j] = d.ptr.p_double[j]+(double)1;
         }
     }
     
@@ -46820,6 +47075,7 @@ OUTPUT PARAMETERS
                     * Analysis.SuperRowRIdx
                     * Analysis.SuperRowIdx
                     * Analysis.ParentSupernode
+                    * Analysis.ChildSupernodesRIdx, Analysis.ChildSupernodesIdx
                     * Analysis.OutRowCounts
                     other fields are ignored and not changed.
     Node2Supernode- array[N] that maps node indexes to supernode indexes
@@ -47001,7 +47257,7 @@ static void spchol_createsupernodalstructure(sparsematrix* at,
                 if( ae_fp_neq(mergeinefficiency,(double)(0)) )
                 {
                     ae_trace(" (%2.0f%% inefficiency)",
-                        (double)(mergeinefficiency*100));
+                        (double)(mergeinefficiency*(double)100));
                 }
                 ae_trace("\n*\n");
             }
@@ -47033,6 +47289,21 @@ static void spchol_createsupernodalstructure(sparsematrix* at,
             analysis->parentsupernode.ptr.p_int[sidx] = nodeidx;
         }
     }
+    iallocv(nsuper+2, &analysis->childsupernodesridx, _state);
+    iallocv(nsuper+1, &analysis->childsupernodesidx, _state);
+    spchol_fromparenttochildren(&analysis->parentsupernode, nsuper, &analysis->childsupernodesridx, &analysis->childsupernodesidx, ttmp0, _state);
+    i = analysis->childsupernodesridx.ptr.p_int[nsuper];
+    for(sidx=0; sidx<=nsuper-1; sidx++)
+    {
+        j = analysis->parentsupernode.ptr.p_int[sidx];
+        if( j<0 )
+        {
+            analysis->childsupernodesidx.ptr.p_int[i] = sidx;
+            i = i+1;
+        }
+    }
+    ae_assert(i==nsuper, "SPSymmAnalyze: integrity check 4dr5 failed", _state);
+    analysis->childsupernodesridx.ptr.p_int[nsuper+1] = i;
     
     /*
      * Allocate supernodal storage
@@ -47091,9 +47362,7 @@ INPUT PARAMETERS
                     preallocated place.
     
 OUTPUT PARAMETERS
-    Analysis    -   following fields are initialized:
-                    * Analysis.LAdjPlus
-                    * Analysis.LAdjPlusR
+    Analysis    -   Analysis.LAdj is initialized
     Node2Supernode- array[N] that maps node indexes to supernode indexes
                     
   -- ALGLIB PROJECT --
@@ -47108,6 +47377,7 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
      /* Boolean */ ae_vector* tflagarray,
      ae_state *_state)
 {
+    ae_frame _frame_block;
     ae_int_t i;
     ae_int_t j;
     ae_int_t rowidx;
@@ -47118,6 +47388,7 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
     ae_int_t rlast;
     ae_int_t sidx;
     ae_int_t uidx;
+    ae_int_t ladjcnt;
     ae_int_t dbgnzl;
     ae_int_t dbgrank1nodes;
     ae_int_t dbgrank2nodes;
@@ -47135,6 +47406,7 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
     double dbg444flop;
     double dbgxx4flop;
     double uflop;
+    double sflop;
     ae_int_t wrkrow;
     ae_int_t offdiagrow;
     ae_int_t lastrow;
@@ -47143,7 +47415,11 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
     ae_int_t urank;
     ae_int_t theight;
     ae_int_t twidth;
+    ae_vector dbgfastestpath;
 
+    ae_frame_make(_state, &_frame_block);
+    memset(&dbgfastestpath, 0, sizeof(dbgfastestpath));
+    ae_vector_init(&dbgfastestpath, 0, DT_REAL, _state, ae_true);
 
     ae_assert(ttmp0->cnt>=n+1, "AnalyzeSupernodalDependencies: input buffer tTmp0 is too short", _state);
     ae_assert(ttmp1->cnt>=n+1, "AnalyzeSupernodalDependencies: input buffer tTmp1 is too short", _state);
@@ -47151,7 +47427,7 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
     ae_assert(sparseiscrs(rawa, _state), "AnalyzeSupernodalDependencies: RawA must be CRS matrix", _state);
     
     /*
-     * Determine LAdjPlus - supernodes feeding updates to the SIdx-th one.
+     * Determine LAdj - supernodes feeding updates to the SIdx-th one.
      *
      * Without supernodes we have: K-th row of L (also denoted as ladj+(K))
      * includes original nonzeros from A (also denoted as ladj(K)) as well
@@ -47159,18 +47435,29 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
      *
      * With supernodes: same principle applied.
      */
-    isetallocv(analysis->nsuper+1, 0, &analysis->ladjplusr, _state);
+    isetallocv(analysis->nsuper, 0, &analysis->ladj.rowbegin, _state);
+    isetallocv(analysis->nsuper, 0, &analysis->ladj.rowend, _state);
+    rsetallocv(analysis->nsuper, (double)(0), &analysis->ladj.nflop, _state);
+    if( analysis->dotrace )
+    {
+        rsetallocv(analysis->nsuper, (double)(0), &dbgfastestpath, _state);
+    }
     bsetv(n, ae_true, tflagarray, _state);
-    analysis->ladjplusr.ptr.p_int[0] = 0;
+    icopyv(analysis->nsuper, &analysis->superrowridx, ttmp0, _state);
+    ladjcnt = 0;
     for(sidx=0; sidx<=analysis->nsuper-1; sidx++)
     {
         
         /*
-         * Generate list of nodes feeding updates to SIdx-th one
+         * Generate ordered list of nodes feeding updates to SIdx-th one
          */
-        ivectorgrowto(&analysis->ladjplus, analysis->ladjplusr.ptr.p_int[sidx]+analysis->nsuper, _state);
-        rfirst = analysis->ladjplusr.ptr.p_int[sidx];
+        igrowv(ladjcnt+analysis->nsuper, &analysis->ladj.idx, _state);
+        igrowv(ladjcnt+analysis->nsuper, &analysis->ladj.urow0, _state);
+        igrowv(ladjcnt+analysis->nsuper, &analysis->ladj.uwidth, _state);
+        rgrowv(ladjcnt+analysis->nsuper, &analysis->ladj.uflop, _state);
+        rfirst = ladjcnt;
         rlast = rfirst;
+        analysis->ladj.rowbegin.ptr.p_int[sidx] = rfirst;
         for(rowidx=analysis->supercolrange.ptr.p_int[sidx]; rowidx<=analysis->supercolrange.ptr.p_int[sidx+1]-1; rowidx++)
         {
             i = analysis->invsuperperm.ptr.p_int[rowidx];
@@ -47179,27 +47466,80 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
             for(jj=j0; jj<=j1; jj++)
             {
                 j = node2supernode->ptr.p_int[analysis->superperm.ptr.p_int[rawa->idx.ptr.p_int[jj]]];
-                if( j<sidx&&tflagarray->ptr.p_bool[j] )
+                
+                /*
+                 * add supernode and its parents up the chain
+                 */
+                while((j>=0&&j<sidx)&&tflagarray->ptr.p_bool[j])
                 {
-                    analysis->ladjplus.ptr.p_int[rlast] = j;
+                    analysis->ladj.idx.ptr.p_int[rlast] = j;
                     tflagarray->ptr.p_bool[j] = ae_false;
                     rlast = rlast+1;
                     j = analysis->parentsupernode.ptr.p_int[j];
-                    while((j>=0&&j<sidx)&&tflagarray->ptr.p_bool[j])
-                    {
-                        analysis->ladjplus.ptr.p_int[rlast] = j;
-                        tflagarray->ptr.p_bool[j] = ae_false;
-                        rlast = rlast+1;
-                        j = analysis->parentsupernode.ptr.p_int[j];
-                    }
                 }
             }
         }
+        sortmiddlei(&analysis->ladj.idx, rfirst, rlast-rfirst, _state);
+        
+        /*
+         * Compute update-related information
+         */
+        sflop = (double)(0);
+        twidth = analysis->supercolrange.ptr.p_int[sidx+1]-analysis->supercolrange.ptr.p_int[sidx];
+        theight = twidth+(analysis->superrowridx.ptr.p_int[sidx+1]-analysis->superrowridx.ptr.p_int[sidx]);
         for(i=rfirst; i<=rlast-1; i++)
         {
-            tflagarray->ptr.p_bool[analysis->ladjplus.ptr.p_int[i]] = ae_true;
+            j = analysis->ladj.idx.ptr.p_int[i];
+            wrkrow = ttmp0->ptr.p_int[j];
+            offdiagrow = wrkrow;
+            lastrow = analysis->superrowridx.ptr.p_int[j+1];
+            while(offdiagrow<lastrow&&analysis->superrowidx.ptr.p_int[offdiagrow]<analysis->supercolrange.ptr.p_int[sidx+1])
+            {
+                offdiagrow = offdiagrow+1;
+            }
+            uflop = (double)((offdiagrow-wrkrow)*(lastrow-wrkrow)*(analysis->supercolrange.ptr.p_int[j+1]-analysis->supercolrange.ptr.p_int[j]));
+            analysis->ladj.urow0.ptr.p_int[i] = wrkrow;
+            analysis->ladj.uwidth.ptr.p_int[i] = offdiagrow-wrkrow;
+            analysis->ladj.uflop.ptr.p_double[i] = uflop;
+            sflop = sflop+uflop;
+            ttmp0->ptr.p_int[j] = offdiagrow;
         }
-        analysis->ladjplusr.ptr.p_int[sidx+1] = rlast;
+        for(i=0; i<=twidth-1; i++)
+        {
+            sflop = sflop+(double)((theight-i)*(twidth-i));
+        }
+        analysis->ladj.nflop.ptr.p_double[sidx] = sflop;
+        j = analysis->parentsupernode.ptr.p_int[sidx];
+        if( analysis->dotrace&&j>=0 )
+        {
+            dbgfastestpath.ptr.p_double[j] = ae_maxreal(dbgfastestpath.ptr.p_double[j], sflop+dbgfastestpath.ptr.p_double[sidx], _state);
+        }
+        
+        /*
+         * Finalize
+         */
+        for(i=rfirst; i<=rlast-1; i++)
+        {
+            tflagarray->ptr.p_bool[analysis->ladj.idx.ptr.p_int[i]] = ae_true;
+        }
+        analysis->ladj.rowend.ptr.p_int[sidx] = rlast;
+        ladjcnt = rlast;
+    }
+    rcopyallocv(analysis->nsuper, &analysis->ladj.nflop, &analysis->ladj.sflop, _state);
+    for(sidx=0; sidx<=analysis->nsuper-1; sidx++)
+    {
+        j = analysis->parentsupernode.ptr.p_int[sidx];
+        if( j>=0 )
+        {
+            analysis->ladj.sflop.ptr.p_double[j] = analysis->ladj.sflop.ptr.p_double[j]+analysis->ladj.sflop.ptr.p_double[sidx];
+        }
+    }
+    if( analysis->dotrace )
+    {
+        for(sidx=0; sidx<=analysis->nsuper-1; sidx++)
+        {
+            dbgfastestpath.ptr.p_double[sidx] = dbgfastestpath.ptr.p_double[sidx]+analysis->ladj.nflop.ptr.p_double[sidx];
+        }
     }
     
     /*
@@ -47258,29 +47598,21 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
             twidth = analysis->supercolrange.ptr.p_int[sidx+1]-analysis->supercolrange.ptr.p_int[sidx];
             theight = twidth+(analysis->superrowridx.ptr.p_int[sidx+1]-analysis->superrowridx.ptr.p_int[sidx]);
             dbgnzl = dbgnzl+theight*twidth-twidth*(twidth-1)/2;
-            for(i=analysis->ladjplusr.ptr.p_int[sidx]; i<=analysis->ladjplusr.ptr.p_int[sidx+1]-1; i++)
+            for(i=analysis->ladj.rowbegin.ptr.p_int[sidx]; i<=analysis->ladj.rowend.ptr.p_int[sidx]-1; i++)
             {
-                uidx = analysis->ladjplus.ptr.p_int[i];
                 
                 /*
                  * Determine update width, height, rank
                  */
-                wrkrow = ttmp0->ptr.p_int[uidx];
-                offdiagrow = wrkrow;
-                lastrow = analysis->superrowridx.ptr.p_int[uidx+1]-analysis->superrowridx.ptr.p_int[uidx];
-                while(offdiagrow<lastrow&&analysis->superrowidx.ptr.p_int[analysis->superrowridx.ptr.p_int[uidx]+offdiagrow]<analysis->supercolrange.ptr.p_int[sidx+1])
-                {
-                    offdiagrow = offdiagrow+1;
-                }
-                uwidth = offdiagrow-wrkrow;
-                uheight = lastrow-wrkrow;
+                uidx = analysis->ladj.idx.ptr.p_int[i];
+                uwidth = analysis->ladj.uwidth.ptr.p_int[i];
+                uheight = analysis->superrowridx.ptr.p_int[uidx+1]-analysis->ladj.urow0.ptr.p_int[i];
                 urank = analysis->supercolrange.ptr.p_int[uidx+1]-analysis->supercolrange.ptr.p_int[uidx];
-                ttmp0->ptr.p_int[uidx] = offdiagrow;
                 
                 /*
                  * Compute update FLOP cost
                  */
-                uflop = rmul3((double)(uwidth), (double)(uheight), (double)(urank), _state);
+                uflop = analysis->ladj.uflop.ptr.p_double[i];
                 dbgtotalflop = dbgtotalflop+uflop;
                 if( uheight==theight&&uwidth==twidth )
                 {
@@ -47314,7 +47646,7 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
             uflop = (double)(0);
             for(i=0; i<=twidth-1; i++)
             {
-                uflop = uflop+(theight-i)*i+(theight-i);
+                uflop = uflop+(double)((theight-i)*i)+(double)(theight-i);
             }
             dbgtotalflop = dbgtotalflop+uflop;
             dbgcholeskyflop = dbgcholeskyflop+uflop;
@@ -47342,29 +47674,758 @@ static void spchol_analyzesupernodaldependencies(spcholanalysis* analysis,
         ae_trace("big nodes    = %6d\n",
             (int)(dbgbignodes));
         ae_trace("> Total FLOP count (fused multiply-adds):\n");
-        ae_trace("total        = %8.2f MFLOP\n",
+        ae_trace("total        = %9.1f MFLOP\n",
             (double)(1.0E-6*dbgtotalflop));
+        ae_trace("> Analyzing potential parallelism speed-up (assuming infinite parallel resources):\n");
+        ae_trace("etree        = %4.1fx (elimination tree parallelism, no internal parallelism)\n",
+            (double)(dbgtotalflop/rmaxv(analysis->nsuper, &dbgfastestpath, _state)));
         ae_trace("> FLOP counts for updates:\n");
-        ae_trace("no-sctr      = %8.2f MFLOP    (no row scatter, no col scatter, best case)\n",
+        ae_trace("no-sctr      = %9.1f MFLOP    (no row scatter, no col scatter, best case)\n",
             (double)(1.0E-6*dbgnoscatterflop));
-        ae_trace("M4*44->N4    = %8.2f MFLOP    (no col scatter, big blocks, good case)\n",
+        ae_trace("M4*44->N4    = %9.1f MFLOP    (no col scatter, big blocks, good case)\n",
             (double)(1.0E-6*dbg444flop));
-        ae_trace("no-row-sctr  = %8.2f MFLOP    (no row scatter, good case for col-wise storage)\n",
+        ae_trace("no-row-sctr  = %9.1f MFLOP    (no row scatter, good case for col-wise storage)\n",
             (double)(1.0E-6*dbgnorowscatterflop));
-        ae_trace("no-col-sctr  = %8.2f MFLOP    (no col scatter, good case for row-wise storage)\n",
+        ae_trace("no-col-sctr  = %9.1f MFLOP    (no col scatter, good case for row-wise storage)\n",
             (double)(1.0E-6*dbgnocolscatterflop));
-        ae_trace("XX*XX->N4    = %8.2f MFLOP\n",
+        ae_trace("XX*XX->N4    = %9.1f MFLOP\n",
             (double)(1.0E-6*dbgxx4flop));
-        ae_trace("rank1        = %8.2f MFLOP\n",
+        ae_trace("rank1        = %9.1f MFLOP\n",
             (double)(1.0E-6*dbgrank1flop));
-        ae_trace("rank4+       = %8.2f MFLOP\n",
+        ae_trace("rank4+       = %9.1f MFLOP\n",
             (double)(1.0E-6*dbgrank4plusflop));
         ae_trace("> FLOP counts for Cholesky:\n");
-        ae_trace("cholesky     = %8.2f MFLOP\n",
+        ae_trace("cholesky     = %9.1f MFLOP\n",
             (double)(1.0E-6*dbgcholeskyflop));
-        ae_trace("cholesky4    = %8.2f MFLOP\n",
+        ae_trace("cholesky4    = %9.1f MFLOP\n",
             (double)(1.0E-6*dbgcholesky4flop));
     }
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+This function creates block-tree structure from the supernodal elimination
+tree.
+
+INPUT PARAMETERS
+    Analysis    -   analysis object with completely initialized supernodal
+                    structure, including LAdj
+    
+OUTPUT PARAMETERS
+    Analysis    -   Analysis.BlkStruct is initialized
+                    Analysis.UseParallelism is set
+                    
+  -- ALGLIB PROJECT --
+     Copyright 05.07.2022 by Bochkanov Sergey.
+*************************************************************************/
+static void spchol_createblockstructure(spcholanalysis* analysis,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t i;
+    ae_int_t nheads;
+    ae_int_t nrootbatches;
+    ae_int_t nunprocessedheads;
+    ae_int_t offs;
+    ae_int_t childrenoffs;
+    ae_vector heads;
+    ae_vector rootbatchsizes;
+    ae_vector costs;
+    double minrootbatchcost;
+    double smallcasecost;
+    double curcost;
+    double totalflops;
+    double sequentialflops;
+    double tmpsequentialflops;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&heads, 0, sizeof(heads));
+    memset(&rootbatchsizes, 0, sizeof(rootbatchsizes));
+    memset(&costs, 0, sizeof(costs));
+    ae_vector_init(&heads, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&rootbatchsizes, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&costs, 0, DT_REAL, _state, ae_true);
+
+    offs = 0;
+    
+    /*
+     * Retrieve temporary arrays from the pool
+     */
+    nipoolretrieve(&analysis->nintegerpool, &heads, _state);
+    nipoolretrieve(&analysis->nintegerpool, &rootbatchsizes, _state);
+    nrpoolretrieve(&analysis->nrealpool, &costs, _state);
+    
+    /*
+     * Generate list of elimination forest heads, sort them by cost decrease
+     */
+    nheads = 0;
+    for(i=analysis->childsupernodesridx.ptr.p_int[analysis->nsuper]; i<=analysis->childsupernodesridx.ptr.p_int[analysis->nsuper+1]-1; i++)
+    {
+        heads.ptr.p_int[nheads] = analysis->childsupernodesidx.ptr.p_int[i];
+        costs.ptr.p_double[nheads] = analysis->ladj.sflop.ptr.p_double[heads.ptr.p_int[nheads]];
+        nheads = nheads+1;
+    }
+    ae_assert(nheads>=1, "SPChol: integrity check 4t6d failed", _state);
+    rmulv(nheads, (double)(-1), &costs, _state);
+    tagsortmiddleir(&heads, &costs, 0, nheads, _state);
+    rmulv(nheads, (double)(-1), &costs, _state);
+    
+    /*
+     * Determine root batches count and their sizes.
+     */
+    minrootbatchcost = spawnlevel(_state);
+    smallcasecost = (double)(16*16*16);
+    nrootbatches = 0;
+    i = nheads-1;
+    curcost = (double)(0);
+    isetv(analysis->nsuper, 0, &rootbatchsizes, _state);
+    while(i>=0)
+    {
+        while(i>=0)
+        {
+            
+            /*
+             * Aggregate heads until we aggregate all small heads AND total cost is greater than the spawn theshold.
+             * When the debug mode is active, we randomly stop aggregating.
+             */
+            if( rootbatchsizes.ptr.p_int[nrootbatches]!=0 )
+            {
+                if( (!analysis->debugblocksupernodal&&ae_fp_greater(curcost,minrootbatchcost))&&ae_fp_greater(costs.ptr.p_double[i],smallcasecost) )
+                {
+                    break;
+                }
+                if( analysis->debugblocksupernodal&&ae_fp_greater(ae_randomreal(_state),0.5) )
+                {
+                    break;
+                }
+            }
+            rootbatchsizes.ptr.p_int[nrootbatches] = rootbatchsizes.ptr.p_int[nrootbatches]+1;
+            curcost = curcost+costs.ptr.p_double[i];
+            i = i-1;
+        }
+        nrootbatches = nrootbatches+1;
+        curcost = (double)(0);
+    }
+    
+    /*
+     * Output empty supernodes list
+     */
+    igrowv(offs+1, &analysis->blkstruct, _state);
+    analysis->blkstruct.ptr.p_int[offs+0] = 0;
+    offs = offs+1;
+    
+    /*
+     * Allocate place for CHILDREN
+     */
+    igrowv(offs+2+nrootbatches, &analysis->blkstruct, _state);
+    analysis->blkstruct.ptr.p_int[offs+0] = nrootbatches;
+    analysis->blkstruct.ptr.p_int[offs+1] = 0;
+    childrenoffs = offs+2;
+    offs = childrenoffs+nrootbatches;
+    
+    /*
+     * Output empty UPDATES
+     */
+    igrowv(offs+spchol_updatesheadersize, &analysis->blkstruct, _state);
+    analysis->blkstruct.ptr.p_int[offs+0] = 2;
+    analysis->blkstruct.ptr.p_int[offs+1] = 0;
+    offs = offs+spchol_updatesheadersize;
+    
+    /*
+     * For each batch of heads generate its child block
+     */
+    if( analysis->dotracescheduler )
+    {
+        ae_trace("--- printing blocked scheduler log -----------------------------------------------------------------\n");
+    }
+    totalflops = (double)(0);
+    sequentialflops = (double)(0);
+    nunprocessedheads = nheads;
+    for(i=0; i<=nrootbatches-1; i++)
+    {
+        if( analysis->dotracescheduler )
+        {
+            ae_trace("> processing independent submatrix component (%0d of %0d)\n",
+                (int)(i),
+                (int)(nrootbatches));
+        }
+        tmpsequentialflops = (double)(0);
+        analysis->blkstruct.ptr.p_int[childrenoffs+i] = offs;
+        spchol_processbatchofheadsrec(analysis, &heads, nunprocessedheads-rootbatchsizes.ptr.p_int[i], rootbatchsizes.ptr.p_int[i], &analysis->blkstruct, &offs, &totalflops, &tmpsequentialflops, _state);
+        sequentialflops = ae_maxreal(sequentialflops, tmpsequentialflops, _state);
+        nunprocessedheads = nunprocessedheads-rootbatchsizes.ptr.p_int[i];
+    }
+    ae_assert(nunprocessedheads==0, "SPSymm: integrity check 2ff5 failed", _state);
+    
+    /*
+     * Decide on parallelism support
+     */
+    analysis->useparallelism = ae_fp_greater(totalflops,smpactivationlevel(_state))&&ae_fp_greater(totalflops/(sequentialflops+(double)1),minspeedup(_state));
+    
+    /*
+     * Trace
+     */
+    if( analysis->dotrace )
+    {
+        if( analysis->dotracescheduler )
+        {
+            ae_trace("--- printing blocked elimination tree --------------------------------------------------------------\n");
+            spchol_printblockedeliminationtreerec(analysis, 0, 0, _state);
+        }
+        ae_trace("> printing scheduler report\n");
+        ae_trace("FLOP count   = %9.1f MFLOP\n",
+            (double)(1.0E-6*totalflops));
+        ae_trace("CPUs count   = %0d\n",
+            (int)(maxconcurrency(_state)));
+        ae_trace("best speedup = %0.1fx (assuming infinite and fine grained parallelism resources)\n",
+            (double)(totalflops/(sequentialflops+(double)1)));
+        if( analysis->useparallelism )
+        {
+            ae_trace("parallelism  = RECOMMENDED\n");
+        }
+        else
+        {
+            ae_trace("parallelism  = NOT RECOMMENDED\n");
+        }
+    }
+    
+    /*
+     * Recycle temporary arrays
+     */
+    nipoolrecycle(&analysis->nintegerpool, &heads, _state);
+    nipoolrecycle(&analysis->nintegerpool, &rootbatchsizes, _state);
+    nrpoolrecycle(&analysis->nrealpool, &costs, _state);
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+This function appends batch of supernodes (heads)  and  their  descendants
+to the BlkStruct[] array.
+
+INPUT PARAMETERS
+    Analysis    -   analysis object with completely initialized supernodal
+                    structure, including LAdj
+    HeadsStack  -   array[NSuper] which is used as a stack. NHeads elements
+                    starting from position StackBase store supernode indexes,
+                    elements above them can be used and overwritten by this
+                    function
+    BlkStruct   -   array[Offs] or larger, elements up to Offs contain
+                    previous blocks
+    Offs        -   points to the end of BlkStruct[]
+    TotalFLOPs  -   contains already accumulated FLOP count
+    SequentialFLOPs-contains already accumulated FLOP count
+    
+OUTPUT PARAMETERS
+    BlkStruct   -   elements from the former Offs (including) to the new
+                    Offs (not including) contain supernodal blocks. The
+                    array can be reallocated to store new data.
+    Offs        -   positioned past the end of the block structure
+    TotalFLOPs  -   updated with total FLOP count
+    SequentialFLOPs-updated with sequential FLOP count - ones that can't
+                    be parallelized; the rest can be and will be parallelized.
+                    
+  -- ALGLIB PROJECT --
+     Copyright 05.07.2022 by Bochkanov Sergey.
+*************************************************************************/
+static void spchol_processbatchofheadsrec(spcholanalysis* analysis,
+     /* Integer */ ae_vector* headsstack,
+     ae_int_t stackbase,
+     ae_int_t nheads,
+     /* Integer */ ae_vector* blkstruct,
+     ae_int_t* offs,
+     double* totalflops,
+     double* sequentialflops,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t i;
+    ae_int_t j;
+    ae_int_t blocksize;
+    ae_int_t childrenbase;
+    ae_int_t cidx;
+    ae_int_t j0;
+    ae_int_t j1;
+    ae_int_t groupscreated;
+    ae_int_t cndbigsubproblems;
+    double bigsubproblemsize;
+    ae_int_t blockitemslistoffs;
+    ae_int_t childrenlistoffs;
+    ae_int_t nchildren;
+    ae_int_t updatesheaderoffs;
+    double tmpsequentialflops;
+    double sequentialblockflops;
+    double sequentialchildrenflops;
+    ae_vector isfactorized;
+    ae_vector rowbegin;
+    ae_vector nflop;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&isfactorized, 0, sizeof(isfactorized));
+    memset(&rowbegin, 0, sizeof(rowbegin));
+    memset(&nflop, 0, sizeof(nflop));
+    ae_vector_init(&isfactorized, 0, DT_BOOL, _state, ae_true);
+    ae_vector_init(&rowbegin, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&nflop, 0, DT_REAL, _state, ae_true);
+
+    igrowv(*offs+1+analysis->nsuper+2, blkstruct, _state);
+    
+    /*
+     * Perform breadth-first traversal of children of supernodes stored in HeadsStack[],
+     * extending the list by the newly traversed nodes. When we decide that it is feasible
+     * to spawn parallel subproblems we add them to HeadsStack[] starting from offset ChildrenBase.
+     */
+    blocksize = nheads;
+    childrenbase = analysis->nsuper;
+    i = stackbase;
+    while(i<stackbase+blocksize)
+    {
+        j0 = analysis->childsupernodesridx.ptr.p_int[headsstack->ptr.p_int[i]];
+        j1 = analysis->childsupernodesridx.ptr.p_int[headsstack->ptr.p_int[i]+1]-1;
+        
+        /*
+         * Quick processing for a supernode with only one child: add to the block
+         */
+        if( j0==j1 )
+        {
+            headsstack->ptr.p_int[stackbase+blocksize] = analysis->childsupernodesidx.ptr.p_int[j0];
+            blocksize = blocksize+1;
+            i = i+1;
+            continue;
+        }
+        
+        /*
+         * More than one child.
+         * Count big subproblems.
+         * When debug mode is activated, we randomly decide on subproblem size
+         */
+        cndbigsubproblems = 0;
+        bigsubproblemsize = spawnlevel(_state);
+        if( analysis->debugblocksupernodal&&ae_fp_greater(ae_randomreal(_state),0.5) )
+        {
+            bigsubproblemsize = (double)(-1);
+        }
+        for(j=analysis->childsupernodesridx.ptr.p_int[headsstack->ptr.p_int[i]]; j<=analysis->childsupernodesridx.ptr.p_int[headsstack->ptr.p_int[i]+1]-1; j++)
+        {
+            if( ae_fp_greater_eq(analysis->ladj.sflop.ptr.p_double[analysis->childsupernodesidx.ptr.p_int[j]],bigsubproblemsize) )
+            {
+                cndbigsubproblems = cndbigsubproblems+1;
+            }
+        }
+        
+        /*
+         * Analyze child nodes
+         */
+        for(j=j0; j<=j1; j++)
+        {
+            if( cndbigsubproblems>=2&&ae_fp_greater_eq(analysis->ladj.sflop.ptr.p_double[analysis->childsupernodesidx.ptr.p_int[j]],bigsubproblemsize) )
+            {
+                
+                /*
+                 * Supernode has more than one child that is big enough to parallelize computations.
+                 * Move big childs to a separate list.
+                 */
+                childrenbase = childrenbase-1;
+                headsstack->ptr.p_int[childrenbase] = analysis->childsupernodesidx.ptr.p_int[j];
+            }
+            else
+            {
+                
+                /*
+                 * Either child is too small or we have only one big child (i.e. we follow elimination tree trunk).
+                 * Sequential processing, add supernode to the block.
+                 */
+                headsstack->ptr.p_int[stackbase+blocksize] = analysis->childsupernodesidx.ptr.p_int[j];
+                blocksize = blocksize+1;
+            }
+        }
+        i = i+1;
+    }
+    ae_assert(stackbase+blocksize<=childrenbase, "SPSymm: integrity check 4fb6 failed", _state);
+    ae_assert(childrenbase<=analysis->nsuper, "SPSymm: integrity check 4fb7 failed", _state);
+    
+    /*
+     * Output SUPERNODES list.
+     */
+    blkstruct->ptr.p_int[*offs+0] = blocksize;
+    blockitemslistoffs = *offs+1;
+    for(i=0; i<=blocksize-1; i++)
+    {
+        blkstruct->ptr.p_int[blockitemslistoffs+i] = headsstack->ptr.p_int[stackbase+i];
+    }
+    sortmiddlei(blkstruct, blockitemslistoffs, blocksize, _state);
+    *offs = blockitemslistoffs+blocksize;
+    
+    /*
+     * Output CHILDREN list, temporarily store children supernode indexes instead of their offsets in BlkStruct[]
+     */
+    nchildren = analysis->nsuper-childrenbase;
+    childrenlistoffs = *offs+2;
+    blkstruct->ptr.p_int[*offs+0] = nchildren;
+    blkstruct->ptr.p_int[*offs+1] = 0;
+    for(i=0; i<=nchildren-1; i++)
+    {
+        blkstruct->ptr.p_int[childrenlistoffs+i] = headsstack->ptr.p_int[childrenbase+i];
+    }
+    *offs = *offs+2+nchildren;
+    
+    /*
+     * Output UPDATES part
+     */
+    if( analysis->dotracescheduler )
+    {
+        ae_trace(">> running scheduler for a block of %0d supernodes\n",
+            (int)(blocksize));
+    }
+    nbpoolretrieve(&analysis->nbooleanpool, &isfactorized, _state);
+    nipoolretrieve(&analysis->nintegerpool, &rowbegin, _state);
+    nrpoolretrieve(&analysis->nrealpool, &nflop, _state);
+    bsetv(analysis->nsuper, ae_false, &isfactorized, _state);
+    icopyv(analysis->nsuper, &analysis->ladj.rowbegin, &rowbegin, _state);
+    rcopyv(analysis->nsuper, &analysis->ladj.nflop, &nflop, _state);
+    groupscreated = 0;
+    updatesheaderoffs = *offs;
+    igrowv(updatesheaderoffs+spchol_updatesheadersize, blkstruct, _state);
+    *offs = updatesheaderoffs+spchol_updatesheadersize;
+    sequentialblockflops = (double)(0);
+    spchol_scheduleupdatesforablockrec(analysis, &rowbegin, &isfactorized, &nflop, blkstruct, blockitemslistoffs, blocksize, 0, offs, &groupscreated, totalflops, &sequentialblockflops, _state);
+    blkstruct->ptr.p_int[updatesheaderoffs+0] = *offs-updatesheaderoffs;
+    blkstruct->ptr.p_int[updatesheaderoffs+1] = groupscreated;
+    nbpoolrecycle(&analysis->nbooleanpool, &isfactorized, _state);
+    nipoolrecycle(&analysis->nintegerpool, &rowbegin, _state);
+    nrpoolrecycle(&analysis->nrealpool, &nflop, _state);
+    
+    /*
+     * Recursively process children, replace supernode indexes by their offsets in BlkStruct[]
+     */
+    sequentialchildrenflops = (double)(0);
+    for(i=0; i<=nchildren-1; i++)
+    {
+        cidx = blkstruct->ptr.p_int[childrenlistoffs+i];
+        blkstruct->ptr.p_int[childrenlistoffs+i] = *offs;
+        headsstack->ptr.p_int[stackbase+blocksize] = cidx;
+        tmpsequentialflops = (double)(0);
+        spchol_processbatchofheadsrec(analysis, headsstack, stackbase+blocksize, 1, blkstruct, offs, totalflops, &tmpsequentialflops, _state);
+        sequentialchildrenflops = ae_maxreal(sequentialchildrenflops, tmpsequentialflops, _state);
+    }
+    
+    /*
+     * Compute final sequential FLOPs
+     */
+    *sequentialflops = sequentialblockflops+sequentialchildrenflops;
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+This function appends a set of updates for a block of supernodes stored in
+the BlkStruct[] array.
+
+INPUT PARAMETERS
+    Analysis    -   analysis object with completely initialized supernodal
+                    structure, including LAdj
+    RowBegin    -   on entry contains A COPY of LAdj.RowBegin[] array.
+                    Modified during scheduling, so it is important to
+                    provide a copy.
+    IsFactorized-   array[NSuper], on entry must be set to False.
+    NFLOP       -   on entry contains A COPY of LAdj.NFLOP[] array.
+                    Modified during scheduling, so it is important to
+                    provide a copy.
+    BlkStruct   -   array[Offs] or larger, elements up to Offs contain
+                    previous blocks
+    BlockItemsOffs- offset in BlkStruct[] where block items are stored
+                    (items must be sorted by ascending)
+    BlockSize   -   number of supernodes in the block
+    Depth       -   zero on the topmost call
+    Offs        -   points to the end of BlkStruct[]
+    GroupsCreated-  must be set to zero on entry
+    TotalFLOPs  -   contains already accumulated FLOP count
+    SequentialFLOPs-contains already accumulated FLOP count
+    
+OUTPUT PARAMETERS
+    BlkStruct   -   elements from the former Offs (including) to the new
+                    Offs (not including) contain update information. The
+                    array can be reallocated to store new data.
+    Offs        -   positioned past the end of the block structure
+    GroupsCreated-  increased by count of newly created update groups
+    TotalFLOPs  -   updated with total FLOP count
+    SequentialFLOPs-updated with sequential FLOP count - ones that can't
+                    be parallelized; the rest can be and will be parallelized.
+                    
+  -- ALGLIB PROJECT --
+     Copyright 05.07.2022 by Bochkanov Sergey.
+*************************************************************************/
+static void spchol_scheduleupdatesforablockrec(spcholanalysis* analysis,
+     /* Integer */ ae_vector* rowbegin,
+     /* Boolean */ ae_vector* isfactorized,
+     /* Real    */ ae_vector* nflop,
+     /* Integer */ ae_vector* blkstruct,
+     ae_int_t blockitemsoffs,
+     ae_int_t blocksize,
+     ae_int_t depth,
+     ae_int_t* offs,
+     ae_int_t* groupscreated,
+     double* totalflops,
+     double* sequentialflops,
+     ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t k;
+    ae_int_t kmid;
+    ae_int_t sidx;
+    ae_int_t batchesheaderoffs;
+    ae_int_t groupsheaderoffs;
+    ae_int_t updatesissued;
+    ae_int_t batchesissued;
+    ae_bool isbasecase;
+    double residualcost;
+    double leftcost;
+    double updcost;
+    double raw2scost;
+    double batchcost;
+    double minbatchcost;
+    ae_int_t repsupernodesupdated;
+
+
+    
+    /*
+     * Initial evaluation of the block - should we divide it into two
+     * smaller subblocks A and B and schedule parallel update A-to-B
+     * or process it as single factorization?
+     */
+    residualcost = (double)(0);
+    for(k=0; k<=blocksize-1; k++)
+    {
+        sidx = blkstruct->ptr.p_int[blockitemsoffs+k];
+        residualcost = residualcost+nflop->ptr.p_double[sidx];
+    }
+    kmid = blocksize/2;
+    leftcost = (double)(0);
+    for(k=0; k<=kmid-1; k++)
+    {
+        sidx = blkstruct->ptr.p_int[blockitemsoffs+k];
+        leftcost = leftcost+nflop->ptr.p_double[sidx];
+    }
+    while(kmid<blocksize&&ae_fp_less(leftcost,0.05*residualcost))
+    {
+        sidx = blkstruct->ptr.p_int[blockitemsoffs+kmid];
+        leftcost = leftcost+nflop->ptr.p_double[sidx];
+        kmid = kmid+1;
+    }
+    raw2scost = (double)(0);
+    for(k=kmid; k<=blocksize-1; k++)
+    {
+        sidx = blkstruct->ptr.p_int[blockitemsoffs+k];
+        raw2scost = raw2scost+(double)(analysis->superrowridx.ptr.p_int[sidx+1]-analysis->superrowridx.ptr.p_int[sidx]);
+    }
+    repsupernodesupdated = 0;
+    updcost = (double)(0);
+    for(k=kmid; k<=blocksize-1; k++)
+    {
+        sidx = blkstruct->ptr.p_int[blockitemsoffs+k];
+        i = rowbegin->ptr.p_int[sidx];
+        for(;;)
+        {
+            if( i==analysis->ladj.rowend.ptr.p_int[sidx]||analysis->ladj.idx.ptr.p_int[i]>=blkstruct->ptr.p_int[blockitemsoffs+kmid] )
+            {
+                break;
+            }
+            updcost = updcost+analysis->ladj.uflop.ptr.p_double[i];
+            i = i+1;
+        }
+        if( i!=rowbegin->ptr.p_int[sidx] )
+        {
+            repsupernodesupdated = repsupernodesupdated+1;
+        }
+    }
+    
+    /*
+     * Basecase
+     */
+    isbasecase = ae_false;
+    if( !analysis->debugblocksupernodal )
+    {
+        if( !isbasecase&&blocksize<spchol_smallupdate )
+        {
+            if( analysis->dotracescheduler )
+            {
+                tracespaces(depth+2, _state);
+                ae_trace("* sequential block, %0d supernodes (small size)\n",
+                    (int)(blocksize));
+            }
+            isbasecase = ae_true;
+        }
+        if( !isbasecase&&kmid==blocksize )
+        {
+            if( analysis->dotracescheduler )
+            {
+                tracespaces(depth+2, _state);
+                ae_trace("* sequential block, %0d supernodes (unbalanced block)\n",
+                    (int)(blocksize));
+            }
+            isbasecase = ae_true;
+        }
+        if( !isbasecase&&ae_fp_less(residualcost,spawnlevel(_state)) )
+        {
+            if( analysis->dotracescheduler )
+            {
+                tracespaces(depth+2, _state);
+                ae_trace("* sequential block, %0d supernodes (lightweight block, %0.1f MFLOP)\n",
+                    (int)(blocksize),
+                    (double)(1.0E-6*residualcost));
+            }
+            isbasecase = ae_true;
+        }
+        if( !isbasecase&&ae_fp_less(updcost,spawnlevel(_state)) )
+        {
+            if( analysis->dotracescheduler )
+            {
+                tracespaces(depth+2, _state);
+                ae_trace("* sequential block, %0d supernodes (lightweight update, %0.1f MFLOP; block cost is %0.1f MFLOP)\n",
+                    (int)(blocksize),
+                    (double)(1.0E-6*updcost),
+                    (double)(1.0E-6*residualcost));
+            }
+            isbasecase = ae_true;
+        }
+        if( !isbasecase&&ae_fp_greater(raw2scost,spchol_raw2sthreshold*updcost) )
+        {
+            if( analysis->dotracescheduler )
+            {
+                tracespaces(depth+2, _state);
+                ae_trace("* sequential block, %0d supernodes (splitting overhead too high, %0.1fM vs %0.1fM for an update)\n",
+                    (int)(blocksize),
+                    (double)(1.0E-6*raw2scost),
+                    (double)(1.0E-6*updcost));
+            }
+            isbasecase = ae_true;
+        }
+    }
+    if( analysis->debugblocksupernodal )
+    {
+        isbasecase = isbasecase||((blocksize<=1||kmid==blocksize)||ae_fp_less(ae_randomreal(_state),0.5));
+    }
+    if( isbasecase )
+    {
+        
+        /*
+         * Schedule sequential updates for the entire block
+         */
+        groupsheaderoffs = *offs;
+        igrowv(groupsheaderoffs+spchol_groupheadersize, blkstruct, _state);
+        blkstruct->ptr.p_int[groupsheaderoffs+0] = -1;
+        blkstruct->ptr.p_int[groupsheaderoffs+1] = 1;
+        *offs = groupsheaderoffs+spchol_groupheadersize;
+        batchesheaderoffs = *offs;
+        igrowv(batchesheaderoffs+spchol_batchheadersize+blocksize*spchol_sequenceentrysize, blkstruct, _state);
+        blkstruct->ptr.p_int[batchesheaderoffs+0] = -1;
+        blkstruct->ptr.p_int[batchesheaderoffs+1] = -1;
+        *offs = batchesheaderoffs+spchol_batchheadersize;
+        updatesissued = 0;
+        for(k=0; k<=blocksize-1; k++)
+        {
+            sidx = blkstruct->ptr.p_int[blockitemsoffs+k];
+            if( isfactorized->ptr.p_bool[sidx] )
+            {
+                continue;
+            }
+            blkstruct->ptr.p_int[*offs+0] = sidx;
+            blkstruct->ptr.p_int[*offs+1] = rowbegin->ptr.p_int[sidx];
+            blkstruct->ptr.p_int[*offs+2] = analysis->ladj.rowend.ptr.p_int[sidx];
+            rowbegin->ptr.p_int[sidx] = analysis->ladj.rowend.ptr.p_int[sidx];
+            nflop->ptr.p_double[sidx] = (double)(0);
+            isfactorized->ptr.p_bool[sidx] = ae_true;
+            updatesissued = updatesissued+1;
+            *offs = *offs+spchol_sequenceentrysize;
+        }
+        blkstruct->ptr.p_int[batchesheaderoffs+0] = *offs-batchesheaderoffs;
+        blkstruct->ptr.p_int[batchesheaderoffs+1] = updatesissued;
+        blkstruct->ptr.p_int[groupsheaderoffs+0] = *offs-groupsheaderoffs;
+        *groupscreated = *groupscreated+1;
+        *totalflops = *totalflops+residualcost;
+        *sequentialflops = *sequentialflops+residualcost;
+        return;
+    }
+    
+    /*
+     * Separate
+     */
+    if( analysis->dotracescheduler )
+    {
+        tracespaces(depth+2, _state);
+        ae_trace("* splitting %0d supernodes into %0d and %0d, update cost: %0.1f MFLOP (%0d supernodes)\n",
+            (int)(blocksize),
+            (int)(kmid),
+            (int)(blocksize-kmid),
+            (double)(updcost*1.0E-6),
+            (int)(repsupernodesupdated));
+    }
+    spchol_scheduleupdatesforablockrec(analysis, rowbegin, isfactorized, nflop, blkstruct, blockitemsoffs, kmid, depth+1, offs, groupscreated, totalflops, sequentialflops, _state);
+    groupsheaderoffs = *offs;
+    igrowv(groupsheaderoffs+spchol_groupheadersize, blkstruct, _state);
+    blkstruct->ptr.p_int[groupsheaderoffs+0] = -1;
+    blkstruct->ptr.p_int[groupsheaderoffs+1] = -1;
+    *offs = groupsheaderoffs+spchol_groupheadersize;
+    batchesissued = 0;
+    minbatchcost = ae_maxreal(1.01*updcost/(double)maxconcurrency(_state), spawnlevel(_state), _state);
+    if( analysis->debugblocksupernodal )
+    {
+        minbatchcost = ae_randomreal(_state)*updcost;
+    }
+    k = kmid;
+    while(k<blocksize)
+    {
+        batchcost = (double)(0);
+        updatesissued = 0;
+        batchesheaderoffs = *offs;
+        igrowv(*offs+spchol_batchheadersize+(blocksize-kmid)*spchol_sequenceentrysize, blkstruct, _state);
+        blkstruct->ptr.p_int[batchesheaderoffs+0] = -1;
+        blkstruct->ptr.p_int[batchesheaderoffs+1] = -1;
+        *offs = batchesheaderoffs+spchol_batchheadersize;
+        while(k<blocksize&&(updatesissued==0||ae_fp_less(batchcost,minbatchcost)))
+        {
+            sidx = blkstruct->ptr.p_int[blockitemsoffs+k];
+            if( isfactorized->ptr.p_bool[sidx] )
+            {
+                k = k+1;
+                continue;
+            }
+            i = rowbegin->ptr.p_int[sidx];
+            blkstruct->ptr.p_int[*offs+0] = sidx;
+            blkstruct->ptr.p_int[*offs+1] = i;
+            for(;;)
+            {
+                if( i==analysis->ladj.rowend.ptr.p_int[sidx]||analysis->ladj.idx.ptr.p_int[i]>=blkstruct->ptr.p_int[blockitemsoffs+kmid] )
+                {
+                    break;
+                }
+                nflop->ptr.p_double[sidx] = nflop->ptr.p_double[sidx]-analysis->ladj.uflop.ptr.p_double[i];
+                *totalflops = *totalflops+analysis->ladj.uflop.ptr.p_double[i];
+                batchcost = batchcost+analysis->ladj.uflop.ptr.p_double[i];
+                i = i+1;
+            }
+            rowbegin->ptr.p_int[sidx] = i;
+            blkstruct->ptr.p_int[*offs+2] = i;
+            isfactorized->ptr.p_bool[sidx] = rowbegin->ptr.p_int[sidx]==analysis->ladj.rowend.ptr.p_int[sidx];
+            if( isfactorized->ptr.p_bool[sidx] )
+            {
+                *totalflops = *totalflops+nflop->ptr.p_double[sidx];
+                batchcost = batchcost+nflop->ptr.p_double[sidx];
+                nflop->ptr.p_double[sidx] = (double)(0);
+            }
+            *offs = *offs+spchol_sequenceentrysize;
+            updatesissued = updatesissued+1;
+            k = k+1;
+        }
+        blkstruct->ptr.p_int[batchesheaderoffs+0] = *offs-batchesheaderoffs;
+        blkstruct->ptr.p_int[batchesheaderoffs+1] = updatesissued;
+        batchesissued = batchesissued+1;
+    }
+    blkstruct->ptr.p_int[groupsheaderoffs+0] = *offs-groupsheaderoffs;
+    blkstruct->ptr.p_int[groupsheaderoffs+1] = batchesissued;
+    *groupscreated = *groupscreated+1;
+    spchol_scheduleupdatesforablockrec(analysis, rowbegin, isfactorized, nflop, blkstruct, blockitemsoffs+kmid, blocksize-kmid, depth+1, offs, groupscreated, totalflops, sequentialflops, _state);
 }
 
 
@@ -48357,11 +49418,12 @@ static ae_int_t spchol_computenonzeropattern(sparsematrix* wrkat,
 
 
 /*************************************************************************
-Update target supernode with data from one of its children. This operation
-is a supernodal equivalent  of  the  column  update  in  the  left-looking
-Cholesky.
+Update target supernode with data from its children. This operation  is  a
+supernodal equivalent of the column update by  all  preceding  cols  in  a
+left-looking Cholesky.
 
-The generic update has following form:
+This function applies LAdjIdx1-LAdjIdx0 updates, from LAdjidx0 to LAdjIdx1-1
+from child columns. Each update has following form:
 
     S := S - scatter(U*D*Uc')
 
@@ -48393,21 +49455,19 @@ where
      20.09.2020
      Bochkanov Sergey
 *************************************************************************/
-static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
+static void spchol_updatesupernode(spcholanalysis* analysis,
      ae_int_t sidx,
      ae_int_t cols0,
      ae_int_t cols1,
      ae_int_t offss,
      /* Integer */ ae_vector* raw2smap,
-     ae_int_t uidx,
-     ae_int_t wrkrow,
+     ae_int_t ladjidx0,
+     ae_int_t ladjidx1,
      /* Real    */ ae_vector* diagd,
-     ae_int_t offsd,
      ae_state *_state)
 {
     ae_int_t i;
-    ae_int_t j;
-    ae_int_t k;
+    ae_int_t uidx;
     ae_int_t colu0;
     ae_int_t colu1;
     ae_int_t urbase;
@@ -48419,20 +49479,139 @@ static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
     ae_int_t twidth;
     ae_int_t theight;
     ae_int_t trowstride;
-    ae_int_t targetrow;
-    ae_int_t targetcol;
     ae_int_t offsu;
-    ae_int_t offdiagrow;
-    ae_int_t lastrow;
-    ae_int_t offs0;
-    ae_int_t offsj;
-    ae_int_t offsk;
-    double v;
-    ae_int_t result;
+    ae_int_t wrkrow;
+    ae_int_t ladjidx;
 
 
     twidth = cols1-cols0;
     theight = twidth+(analysis->superrowridx.ptr.p_int[sidx+1]-analysis->superrowridx.ptr.p_int[sidx]);
+    trowstride = analysis->rowstrides.ptr.p_int[sidx];
+    for(ladjidx=ladjidx0; ladjidx<=ladjidx1-1; ladjidx++)
+    {
+        uidx = analysis->ladj.idx.ptr.p_int[ladjidx];
+        offsu = analysis->rowoffsets.ptr.p_int[uidx];
+        colu0 = analysis->supercolrange.ptr.p_int[uidx];
+        colu1 = analysis->supercolrange.ptr.p_int[uidx+1];
+        urbase = analysis->superrowridx.ptr.p_int[uidx];
+        urlast = analysis->superrowridx.ptr.p_int[uidx+1];
+        urank = colu1-colu0;
+        urowstride = analysis->rowstrides.ptr.p_int[uidx];
+        wrkrow = analysis->ladj.urow0.ptr.p_int[ladjidx];
+        uwidth = analysis->ladj.uwidth.ptr.p_int[ladjidx];
+        uheight = urlast-wrkrow;
+        if( analysis->extendeddebug )
+        {
+            
+            /*
+             * Extended integrity check (if requested)
+             */
+            ae_assert(uwidth>0, "SPCholFactorize: integrity check failed (44trg1)", _state);
+            ae_assert(analysis->superrowidx.ptr.p_int[wrkrow]>=cols0, "SPCholFactorize: integrity check 6378 failed", _state);
+            ae_assert(analysis->superrowidx.ptr.p_int[wrkrow]<cols1, "SPCholFactorize: integrity check 6729 failed", _state);
+            for(i=wrkrow; i<=urlast-1; i++)
+            {
+                ae_assert(raw2smap->ptr.p_int[analysis->superrowidx.ptr.p_int[i]]>=0, "SPCholFactorize: integrity check failed (43t63)", _state);
+            }
+        }
+        
+        /*
+         * Skip leading uRank+WrkRow rows of U because they are not used.
+         */
+        offsu = offsu+(urank+(wrkrow-urbase))*urowstride;
+        
+        /*
+         * Handle special cases
+         */
+        if( trowstride==4 )
+        {
+            
+            /*
+             * Target is stride-4 column, try several kernels that may work with tWidth=3 and tWidth=4
+             */
+            if( ((uwidth==4&&twidth==4)&&urank==4)&&urowstride==4 )
+            {
+                if( spchol_updatekernel4444(&analysis->outputstorage, offss, theight, offsu, uheight, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, wrkrow, _state) )
+                {
+                    continue;
+                }
+            }
+            if( spchol_updatekernelabc4(&analysis->outputstorage, offss, twidth, offsu, uheight, urank, urowstride, uwidth, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, wrkrow, _state) )
+            {
+                continue;
+            }
+        }
+        if( urank==1&&urowstride==1 )
+        {
+            if( spchol_updatekernelrank1(&analysis->outputstorage, offss, twidth, trowstride, offsu, uheight, uwidth, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, wrkrow, _state) )
+            {
+                continue;
+            }
+        }
+        if( urank==2&&urowstride==2 )
+        {
+            if( spchol_updatekernelrank2(&analysis->outputstorage, offss, twidth, trowstride, offsu, uheight, uwidth, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, wrkrow, _state) )
+            {
+                continue;
+            }
+        }
+        
+        /*
+         * Handle general update with no specialized kernel
+         */
+        spchol_updatesupernodegeneric(analysis, sidx, cols0, cols1, offss, raw2smap, ladjidx, diagd, _state);
+    }
+}
+
+
+/*************************************************************************
+Generic supernode update kernel
+
+  -- ALGLIB routine --
+     20.09.2020
+     Bochkanov Sergey
+*************************************************************************/
+static void spchol_updatesupernodegeneric(spcholanalysis* analysis,
+     ae_int_t sidx,
+     ae_int_t cols0,
+     ae_int_t cols1,
+     ae_int_t offss,
+     /* Integer */ ae_vector* raw2smap,
+     ae_int_t ladjidx,
+     /* Real    */ ae_vector* diagd,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t i;
+    ae_int_t j;
+    ae_int_t k;
+    ae_int_t uidx;
+    ae_int_t colu0;
+    ae_int_t colu1;
+    ae_int_t urbase;
+    ae_int_t urlast;
+    ae_int_t urank;
+    ae_int_t uwidth;
+    ae_int_t uheight;
+    ae_int_t urowstride;
+    ae_int_t trowstride;
+    ae_int_t targetrow;
+    ae_int_t targetcol;
+    ae_int_t offsu;
+    ae_int_t offsd;
+    ae_int_t offs0;
+    ae_int_t offsj;
+    ae_int_t offsk;
+    double v;
+    ae_int_t wrkrow;
+    ae_vector u2smap;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&u2smap, 0, sizeof(u2smap));
+    ae_vector_init(&u2smap, 0, DT_INT, _state, ae_true);
+
+    uidx = analysis->ladj.idx.ptr.p_int[ladjidx];
+    offsd = analysis->supercolrange.ptr.p_int[uidx];
     offsu = analysis->rowoffsets.ptr.p_int[uidx];
     colu0 = analysis->supercolrange.ptr.p_int[uidx];
     colu1 = analysis->supercolrange.ptr.p_int[uidx+1];
@@ -48441,91 +49620,23 @@ static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
     urank = colu1-colu0;
     trowstride = analysis->rowstrides.ptr.p_int[sidx];
     urowstride = analysis->rowstrides.ptr.p_int[uidx];
+    wrkrow = analysis->ladj.urow0.ptr.p_int[ladjidx];
+    uwidth = analysis->ladj.uwidth.ptr.p_int[ladjidx];
+    uheight = urlast-wrkrow;
     
     /*
      * Skip leading uRank+WrkRow rows of U because they are not used.
      */
-    offsu = offsu+(colu1-colu0+wrkrow)*urowstride;
-    
-    /*
-     * Analyze range of rows in supernode LAdjPlus[II] and determine two subranges:
-     * * one with indexes stored at SuperRowIdx[WrkRow:OffdiagRow);
-     *   these indexes are the ones that intersect with range of rows/columns [ColS0,ColS1)
-     *   occupied by diagonal block of the supernode SIdx
-     * * one with indexes stored at SuperRowIdx[OffdiagRow:LastRow);
-     *   these indexes are ones that intersect with range of rows occupied by
-     *   offdiagonal block of the supernode SIdx
-     */
-    if( analysis->extendeddebug )
-    {
-        ae_assert(analysis->superrowidx.ptr.p_int[urbase+wrkrow]>=cols0, "SPCholFactorize: integrity check 6378 failed", _state);
-        ae_assert(analysis->superrowidx.ptr.p_int[urbase+wrkrow]<cols1, "SPCholFactorize: integrity check 6729 failed", _state);
-    }
-    offdiagrow = wrkrow;
-    lastrow = urlast-urbase;
-    while(offdiagrow<lastrow&&analysis->superrowidx.ptr.p_int[offdiagrow+urbase]<cols1)
-    {
-        offdiagrow = offdiagrow+1;
-    }
-    uwidth = offdiagrow-wrkrow;
-    uheight = lastrow-wrkrow;
-    result = offdiagrow;
-    if( analysis->extendeddebug )
-    {
-        
-        /*
-         * Extended integrity check (if requested)
-         */
-        ae_assert(wrkrow<offdiagrow&&analysis->superrowidx.ptr.p_int[wrkrow+urbase]>=cols0, "SPCholFactorize: integrity check failed (44trg6)", _state);
-        for(i=wrkrow; i<=lastrow-1; i++)
-        {
-            ae_assert(raw2smap->ptr.p_int[analysis->superrowidx.ptr.p_int[i+urbase]]>=0, "SPCholFactorize: integrity check failed (43t63)", _state);
-        }
-    }
-    
-    /*
-     * Handle special cases
-     */
-    if( trowstride==4 )
-    {
-        
-        /*
-         * Target is stride-4 column, try several kernels that may work with tWidth=3 and tWidth=4
-         */
-        if( ((uwidth==4&&twidth==4)&&urank==4)&&urowstride==4 )
-        {
-            if( spchol_updatekernel4444(&analysis->outputstorage, offss, theight, offsu, uheight, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, urbase+wrkrow, _state) )
-            {
-                return result;
-            }
-        }
-        if( spchol_updatekernelabc4(&analysis->outputstorage, offss, twidth, offsu, uheight, urank, urowstride, uwidth, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, urbase+wrkrow, _state) )
-        {
-            return result;
-        }
-    }
-    if( urank==1&&urowstride==1 )
-    {
-        if( spchol_updatekernelrank1(&analysis->outputstorage, offss, twidth, trowstride, offsu, uheight, uwidth, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, urbase+wrkrow, _state) )
-        {
-            return result;
-        }
-    }
-    if( urank==2&&urowstride==2 )
-    {
-        if( spchol_updatekernelrank2(&analysis->outputstorage, offss, twidth, trowstride, offsu, uheight, uwidth, &analysis->diagd, colu0, raw2smap, &analysis->superrowidx, urbase+wrkrow, _state) )
-        {
-            return result;
-        }
-    }
+    offsu = offsu+(colu1-colu0+(wrkrow-urbase))*urowstride;
     
     /*
      * Handle general update, rerefence code
      */
-    ivectorsetlengthatleast(&analysis->u2smap, uheight, _state);
+    nipoolretrieve(&analysis->nintegerpool, &u2smap, _state);
+    ivectorsetlengthatleast(&u2smap, uheight, _state);
     for(i=0; i<=uheight-1; i++)
     {
-        analysis->u2smap.ptr.p_int[i] = raw2smap->ptr.p_int[analysis->superrowidx.ptr.p_int[urbase+wrkrow+i]];
+        u2smap.ptr.p_int[i] = raw2smap->ptr.p_int[analysis->superrowidx.ptr.p_int[wrkrow+i]];
     }
     if( analysis->unitd )
     {
@@ -48535,10 +49646,10 @@ static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
          */
         for(k=0; k<=uheight-1; k++)
         {
-            targetrow = offss+analysis->u2smap.ptr.p_int[k]*trowstride;
+            targetrow = offss+u2smap.ptr.p_int[k]*trowstride;
             for(j=0; j<=uwidth-1; j++)
             {
-                targetcol = analysis->u2smap.ptr.p_int[j];
+                targetcol = u2smap.ptr.p_int[j];
                 offsj = offsu+j*urowstride;
                 offsk = offsu+k*urowstride;
                 offs0 = targetrow+targetcol;
@@ -48559,10 +49670,10 @@ static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
          */
         for(k=0; k<=uheight-1; k++)
         {
-            targetrow = offss+analysis->u2smap.ptr.p_int[k]*trowstride;
+            targetrow = offss+u2smap.ptr.p_int[k]*trowstride;
             for(j=0; j<=uwidth-1; j++)
             {
-                targetcol = analysis->u2smap.ptr.p_int[j];
+                targetcol = u2smap.ptr.p_int[j];
                 offsj = offsu+j*urowstride;
                 offsk = offsu+k*urowstride;
                 offs0 = targetrow+targetcol;
@@ -48575,7 +49686,8 @@ static ae_int_t spchol_updatesupernode(spcholanalysis* analysis,
             }
         }
     }
-    return result;
+    nipoolrecycle(&analysis->nintegerpool, &u2smap, _state);
+    ae_frame_leave(_state);
 }
 
 
@@ -48661,7 +49773,7 @@ static ae_bool spchol_factorizesupernode(spcholanalysis* analysis,
                 v = ae_sqrt(analysis->modparam0, _state);
                 analysis->diagd.ptr.p_double[cols0+j] = 1.0;
                 analysis->outputstorage.ptr.p_double[offss+j*sstride+j] = v;
-                v = 1/v;
+                v = (double)1/v;
                 for(k=j+1; k<=blocksize+offdiagsize-1; k++)
                 {
                     analysis->outputstorage.ptr.p_double[offss+k*sstride+j] = v*analysis->outputstorage.ptr.p_double[offss+k*sstride+j];
@@ -48673,13 +49785,13 @@ static ae_bool spchol_factorizesupernode(spcholanalysis* analysis,
                 /*
                  * Default case
                  */
-                if( v<=0 )
+                if( v<=(double)0 )
                 {
                     result = ae_false;
                     return result;
                 }
                 analysis->diagd.ptr.p_double[cols0+j] = 1.0;
-                v = 1/ae_sqrt(v, _state);
+                v = (double)1/ae_sqrt(v, _state);
                 for(k=j; k<=blocksize+offdiagsize-1; k++)
                 {
                     analysis->outputstorage.ptr.p_double[offss+k*sstride+j] = v*analysis->outputstorage.ptr.p_double[offss+k*sstride+j];
@@ -48734,7 +49846,7 @@ static ae_bool spchol_factorizesupernode(spcholanalysis* analysis,
                 v = possignvraw*analysis->modparam0;
                 analysis->diagd.ptr.p_double[cols0+j] = v;
                 analysis->outputstorage.ptr.p_double[offss+j*sstride+j] = 1.0;
-                v = 1/v;
+                v = (double)1/v;
                 for(k=j+1; k<=blocksize+offdiagsize-1; k++)
                 {
                     analysis->outputstorage.ptr.p_double[offss+k*sstride+j] = v*analysis->outputstorage.ptr.p_double[offss+k*sstride+j];
@@ -48746,13 +49858,13 @@ static ae_bool spchol_factorizesupernode(spcholanalysis* analysis,
                 /*
                  * Unmodified LDLT
                  */
-                if( v==0 )
+                if( v==(double)0 )
                 {
                     result = ae_false;
                     return result;
                 }
                 analysis->diagd.ptr.p_double[cols0+j] = v;
-                v = 1/v;
+                v = (double)1/v;
                 for(k=j; k<=blocksize+offdiagsize-1; k++)
                 {
                     analysis->outputstorage.ptr.p_double[offss+k*sstride+j] = v*analysis->outputstorage.ptr.p_double[offss+k*sstride+j];
@@ -49592,7 +50704,7 @@ static void spchol_slowdebugchecks(sparsematrix* a,
             }
             else
             {
-                densea.ptr.pp_double[i][j] = 0.01*(ae_cos((double)(i+1), _state)+1.23*ae_sin((double)(j+1), _state))/n;
+                densea.ptr.pp_double[i][j] = 0.01*(ae_cos((double)(i+1), _state)+1.23*ae_sin((double)(j+1), _state))/(double)n;
             }
         }
     }
@@ -49689,7 +50801,7 @@ static ae_bool spchol_dbgmatrixcholesky2(/* Real    */ ae_matrix* aaa,
                     rmatrixmv(n-j-1, j, aaa, offs, offs+j+1, 1, &tmp, 0, &tmp, n, _state);
                     ae_v_add(&aaa->ptr.pp_double[offs+j][offs+j+1], 1, &tmp.ptr.p_double[n], 1, ae_v_len(offs+j+1,offs+n-1));
                 }
-                r = 1/ajj;
+                r = (double)1/ajj;
                 ae_v_muld(&aaa->ptr.pp_double[offs+j][offs+j+1], 1, ae_v_len(offs+j+1,offs+n-1), r);
             }
         }
@@ -49723,7 +50835,7 @@ static ae_bool spchol_dbgmatrixcholesky2(/* Real    */ ae_matrix* aaa,
              */
             if( j<n-1 )
             {
-                r = 1/ajj;
+                r = (double)1/ajj;
                 if( j>0 )
                 {
                     ae_v_move(&tmp.ptr.p_double[0], 1, &aaa->ptr.pp_double[offs+j][offs], 1, ae_v_len(0,j-1));
@@ -49748,43 +50860,107 @@ static ae_bool spchol_dbgmatrixcholesky2(/* Real    */ ae_matrix* aaa,
 }
 
 
+void _spcholadj_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    spcholadj *p = (spcholadj*)_p;
+    ae_touch_ptr((void*)p);
+    ae_vector_init(&p->rowbegin, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->rowend, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->idx, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->urow0, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->uwidth, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->uflop, 0, DT_REAL, _state, make_automatic);
+    ae_vector_init(&p->nflop, 0, DT_REAL, _state, make_automatic);
+    ae_vector_init(&p->sflop, 0, DT_REAL, _state, make_automatic);
+}
+
+
+void _spcholadj_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    spcholadj       *dst = (spcholadj*)_dst;
+    const spcholadj *src = (const spcholadj*)_src;
+    ae_vector_init_copy(&dst->rowbegin, &src->rowbegin, _state, make_automatic);
+    ae_vector_init_copy(&dst->rowend, &src->rowend, _state, make_automatic);
+    ae_vector_init_copy(&dst->idx, &src->idx, _state, make_automatic);
+    ae_vector_init_copy(&dst->urow0, &src->urow0, _state, make_automatic);
+    ae_vector_init_copy(&dst->uwidth, &src->uwidth, _state, make_automatic);
+    ae_vector_init_copy(&dst->uflop, &src->uflop, _state, make_automatic);
+    ae_vector_init_copy(&dst->nflop, &src->nflop, _state, make_automatic);
+    ae_vector_init_copy(&dst->sflop, &src->sflop, _state, make_automatic);
+}
+
+
+void _spcholadj_clear(void* _p)
+{
+    spcholadj *p = (spcholadj*)_p;
+    ae_touch_ptr((void*)p);
+    ae_vector_clear(&p->rowbegin);
+    ae_vector_clear(&p->rowend);
+    ae_vector_clear(&p->idx);
+    ae_vector_clear(&p->urow0);
+    ae_vector_clear(&p->uwidth);
+    ae_vector_clear(&p->uflop);
+    ae_vector_clear(&p->nflop);
+    ae_vector_clear(&p->sflop);
+}
+
+
+void _spcholadj_destroy(void* _p)
+{
+    spcholadj *p = (spcholadj*)_p;
+    ae_touch_ptr((void*)p);
+    ae_vector_destroy(&p->rowbegin);
+    ae_vector_destroy(&p->rowend);
+    ae_vector_destroy(&p->idx);
+    ae_vector_destroy(&p->urow0);
+    ae_vector_destroy(&p->uwidth);
+    ae_vector_destroy(&p->uflop);
+    ae_vector_destroy(&p->nflop);
+    ae_vector_destroy(&p->sflop);
+}
+
+
 void _spcholanalysis_init(void* _p, ae_state *_state, ae_bool make_automatic)
 {
     spcholanalysis *p = (spcholanalysis*)_p;
     ae_touch_ptr((void*)p);
     ae_vector_init(&p->referenceridx, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->parentsupernode, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->childsupernodesridx, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->childsupernodesidx, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->supercolrange, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->superrowridx, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->superrowidx, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->blkstruct, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->fillinperm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->invfillinperm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->superperm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->invsuperperm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->effectiveperm, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->inveffectiveperm, 0, DT_INT, _state, make_automatic);
-    ae_vector_init(&p->ladjplusr, 0, DT_INT, _state, make_automatic);
-    ae_vector_init(&p->ladjplus, 0, DT_INT, _state, make_automatic);
+    _spcholadj_init(&p->ladj, _state, make_automatic);
     ae_vector_init(&p->outrowcounts, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->inputstorage, 0, DT_REAL, _state, make_automatic);
     ae_vector_init(&p->outputstorage, 0, DT_REAL, _state, make_automatic);
     ae_vector_init(&p->rowstrides, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->rowoffsets, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->diagd, 0, DT_REAL, _state, make_automatic);
-    ae_vector_init(&p->wrkrows, 0, DT_INT, _state, make_automatic);
+    _nbpool_init(&p->nbooleanpool, _state, make_automatic);
+    _nipool_init(&p->nintegerpool, _state, make_automatic);
+    _nrpool_init(&p->nrealpool, _state, make_automatic);
+    ae_vector_init(&p->currowbegin, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->flagarray, 0, DT_BOOL, _state, make_automatic);
     ae_vector_init(&p->eligible, 0, DT_BOOL, _state, make_automatic);
     ae_vector_init(&p->curpriorities, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->tmpparent, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->node2supernode, 0, DT_INT, _state, make_automatic);
-    ae_vector_init(&p->u2smap, 0, DT_INT, _state, make_automatic);
-    ae_vector_init(&p->raw2smap, 0, DT_INT, _state, make_automatic);
     _amdbuffer_init(&p->amdtmp, _state, make_automatic);
     ae_vector_init(&p->tmp0, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->tmp1, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->tmp2, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->tmp3, 0, DT_INT, _state, make_automatic);
     ae_vector_init(&p->tmp4, 0, DT_INT, _state, make_automatic);
+    ae_vector_init(&p->raw2smap, 0, DT_INT, _state, make_automatic);
     _sparsematrix_init(&p->tmpa, _state, make_automatic);
     _sparsematrix_init(&p->tmpat, _state, make_automatic);
     _sparsematrix_init(&p->tmpa2, _state, make_automatic);
@@ -49799,10 +50975,10 @@ void _spcholanalysis_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _spcholanalysis_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _spcholanalysis_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    spcholanalysis *dst = (spcholanalysis*)_dst;
-    spcholanalysis *src = (spcholanalysis*)_src;
+    spcholanalysis       *dst = (spcholanalysis*)_dst;
+    const spcholanalysis *src = (const spcholanalysis*)_src;
     dst->tasktype = src->tasktype;
     dst->n = src->n;
     dst->permtype = src->permtype;
@@ -49812,15 +50988,21 @@ void _spcholanalysis_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool
     dst->modparam1 = src->modparam1;
     dst->modparam2 = src->modparam2;
     dst->modparam3 = src->modparam3;
+    dst->debugblocksupernodal = src->debugblocksupernodal;
     dst->extendeddebug = src->extendeddebug;
     dst->dotrace = src->dotrace;
+    dst->dotracescheduler = src->dotracescheduler;
     dst->dotracesupernodalstructure = src->dotracesupernodalstructure;
     ae_vector_init_copy(&dst->referenceridx, &src->referenceridx, _state, make_automatic);
     dst->nsuper = src->nsuper;
     ae_vector_init_copy(&dst->parentsupernode, &src->parentsupernode, _state, make_automatic);
+    ae_vector_init_copy(&dst->childsupernodesridx, &src->childsupernodesridx, _state, make_automatic);
+    ae_vector_init_copy(&dst->childsupernodesidx, &src->childsupernodesidx, _state, make_automatic);
     ae_vector_init_copy(&dst->supercolrange, &src->supercolrange, _state, make_automatic);
     ae_vector_init_copy(&dst->superrowridx, &src->superrowridx, _state, make_automatic);
     ae_vector_init_copy(&dst->superrowidx, &src->superrowidx, _state, make_automatic);
+    ae_vector_init_copy(&dst->blkstruct, &src->blkstruct, _state, make_automatic);
+    dst->useparallelism = src->useparallelism;
     ae_vector_init_copy(&dst->fillinperm, &src->fillinperm, _state, make_automatic);
     ae_vector_init_copy(&dst->invfillinperm, &src->invfillinperm, _state, make_automatic);
     ae_vector_init_copy(&dst->superperm, &src->superperm, _state, make_automatic);
@@ -49829,28 +51011,29 @@ void _spcholanalysis_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool
     ae_vector_init_copy(&dst->inveffectiveperm, &src->inveffectiveperm, _state, make_automatic);
     dst->istopologicalordering = src->istopologicalordering;
     dst->applypermutationtooutput = src->applypermutationtooutput;
-    ae_vector_init_copy(&dst->ladjplusr, &src->ladjplusr, _state, make_automatic);
-    ae_vector_init_copy(&dst->ladjplus, &src->ladjplus, _state, make_automatic);
+    _spcholadj_init_copy(&dst->ladj, &src->ladj, _state, make_automatic);
     ae_vector_init_copy(&dst->outrowcounts, &src->outrowcounts, _state, make_automatic);
     ae_vector_init_copy(&dst->inputstorage, &src->inputstorage, _state, make_automatic);
     ae_vector_init_copy(&dst->outputstorage, &src->outputstorage, _state, make_automatic);
     ae_vector_init_copy(&dst->rowstrides, &src->rowstrides, _state, make_automatic);
     ae_vector_init_copy(&dst->rowoffsets, &src->rowoffsets, _state, make_automatic);
     ae_vector_init_copy(&dst->diagd, &src->diagd, _state, make_automatic);
-    ae_vector_init_copy(&dst->wrkrows, &src->wrkrows, _state, make_automatic);
+    _nbpool_init_copy(&dst->nbooleanpool, &src->nbooleanpool, _state, make_automatic);
+    _nipool_init_copy(&dst->nintegerpool, &src->nintegerpool, _state, make_automatic);
+    _nrpool_init_copy(&dst->nrealpool, &src->nrealpool, _state, make_automatic);
+    ae_vector_init_copy(&dst->currowbegin, &src->currowbegin, _state, make_automatic);
     ae_vector_init_copy(&dst->flagarray, &src->flagarray, _state, make_automatic);
     ae_vector_init_copy(&dst->eligible, &src->eligible, _state, make_automatic);
     ae_vector_init_copy(&dst->curpriorities, &src->curpriorities, _state, make_automatic);
     ae_vector_init_copy(&dst->tmpparent, &src->tmpparent, _state, make_automatic);
     ae_vector_init_copy(&dst->node2supernode, &src->node2supernode, _state, make_automatic);
-    ae_vector_init_copy(&dst->u2smap, &src->u2smap, _state, make_automatic);
-    ae_vector_init_copy(&dst->raw2smap, &src->raw2smap, _state, make_automatic);
     _amdbuffer_init_copy(&dst->amdtmp, &src->amdtmp, _state, make_automatic);
     ae_vector_init_copy(&dst->tmp0, &src->tmp0, _state, make_automatic);
     ae_vector_init_copy(&dst->tmp1, &src->tmp1, _state, make_automatic);
     ae_vector_init_copy(&dst->tmp2, &src->tmp2, _state, make_automatic);
     ae_vector_init_copy(&dst->tmp3, &src->tmp3, _state, make_automatic);
     ae_vector_init_copy(&dst->tmp4, &src->tmp4, _state, make_automatic);
+    ae_vector_init_copy(&dst->raw2smap, &src->raw2smap, _state, make_automatic);
     _sparsematrix_init_copy(&dst->tmpa, &src->tmpa, _state, make_automatic);
     _sparsematrix_init_copy(&dst->tmpat, &src->tmpat, _state, make_automatic);
     _sparsematrix_init_copy(&dst->tmpa2, &src->tmpa2, _state, make_automatic);
@@ -49871,37 +51054,41 @@ void _spcholanalysis_clear(void* _p)
     ae_touch_ptr((void*)p);
     ae_vector_clear(&p->referenceridx);
     ae_vector_clear(&p->parentsupernode);
+    ae_vector_clear(&p->childsupernodesridx);
+    ae_vector_clear(&p->childsupernodesidx);
     ae_vector_clear(&p->supercolrange);
     ae_vector_clear(&p->superrowridx);
     ae_vector_clear(&p->superrowidx);
+    ae_vector_clear(&p->blkstruct);
     ae_vector_clear(&p->fillinperm);
     ae_vector_clear(&p->invfillinperm);
     ae_vector_clear(&p->superperm);
     ae_vector_clear(&p->invsuperperm);
     ae_vector_clear(&p->effectiveperm);
     ae_vector_clear(&p->inveffectiveperm);
-    ae_vector_clear(&p->ladjplusr);
-    ae_vector_clear(&p->ladjplus);
+    _spcholadj_clear(&p->ladj);
     ae_vector_clear(&p->outrowcounts);
     ae_vector_clear(&p->inputstorage);
     ae_vector_clear(&p->outputstorage);
     ae_vector_clear(&p->rowstrides);
     ae_vector_clear(&p->rowoffsets);
     ae_vector_clear(&p->diagd);
-    ae_vector_clear(&p->wrkrows);
+    _nbpool_clear(&p->nbooleanpool);
+    _nipool_clear(&p->nintegerpool);
+    _nrpool_clear(&p->nrealpool);
+    ae_vector_clear(&p->currowbegin);
     ae_vector_clear(&p->flagarray);
     ae_vector_clear(&p->eligible);
     ae_vector_clear(&p->curpriorities);
     ae_vector_clear(&p->tmpparent);
     ae_vector_clear(&p->node2supernode);
-    ae_vector_clear(&p->u2smap);
-    ae_vector_clear(&p->raw2smap);
     _amdbuffer_clear(&p->amdtmp);
     ae_vector_clear(&p->tmp0);
     ae_vector_clear(&p->tmp1);
     ae_vector_clear(&p->tmp2);
     ae_vector_clear(&p->tmp3);
     ae_vector_clear(&p->tmp4);
+    ae_vector_clear(&p->raw2smap);
     _sparsematrix_clear(&p->tmpa);
     _sparsematrix_clear(&p->tmpat);
     _sparsematrix_clear(&p->tmpa2);
@@ -49922,37 +51109,41 @@ void _spcholanalysis_destroy(void* _p)
     ae_touch_ptr((void*)p);
     ae_vector_destroy(&p->referenceridx);
     ae_vector_destroy(&p->parentsupernode);
+    ae_vector_destroy(&p->childsupernodesridx);
+    ae_vector_destroy(&p->childsupernodesidx);
     ae_vector_destroy(&p->supercolrange);
     ae_vector_destroy(&p->superrowridx);
     ae_vector_destroy(&p->superrowidx);
+    ae_vector_destroy(&p->blkstruct);
     ae_vector_destroy(&p->fillinperm);
     ae_vector_destroy(&p->invfillinperm);
     ae_vector_destroy(&p->superperm);
     ae_vector_destroy(&p->invsuperperm);
     ae_vector_destroy(&p->effectiveperm);
     ae_vector_destroy(&p->inveffectiveperm);
-    ae_vector_destroy(&p->ladjplusr);
-    ae_vector_destroy(&p->ladjplus);
+    _spcholadj_destroy(&p->ladj);
     ae_vector_destroy(&p->outrowcounts);
     ae_vector_destroy(&p->inputstorage);
     ae_vector_destroy(&p->outputstorage);
     ae_vector_destroy(&p->rowstrides);
     ae_vector_destroy(&p->rowoffsets);
     ae_vector_destroy(&p->diagd);
-    ae_vector_destroy(&p->wrkrows);
+    _nbpool_destroy(&p->nbooleanpool);
+    _nipool_destroy(&p->nintegerpool);
+    _nrpool_destroy(&p->nrealpool);
+    ae_vector_destroy(&p->currowbegin);
     ae_vector_destroy(&p->flagarray);
     ae_vector_destroy(&p->eligible);
     ae_vector_destroy(&p->curpriorities);
     ae_vector_destroy(&p->tmpparent);
     ae_vector_destroy(&p->node2supernode);
-    ae_vector_destroy(&p->u2smap);
-    ae_vector_destroy(&p->raw2smap);
     _amdbuffer_destroy(&p->amdtmp);
     ae_vector_destroy(&p->tmp0);
     ae_vector_destroy(&p->tmp1);
     ae_vector_destroy(&p->tmp2);
     ae_vector_destroy(&p->tmp3);
     ae_vector_destroy(&p->tmp4);
+    ae_vector_destroy(&p->raw2smap);
     _sparsematrix_destroy(&p->tmpa);
     _sparsematrix_destroy(&p->tmpat);
     _sparsematrix_destroy(&p->tmpa2);
@@ -51182,7 +52373,7 @@ ae_bool sparsecholesky(sparsematrix* a, ae_bool isupper, ae_state *_state)
      */
     if( sparseiscrs(a, _state)&&!isupper )
     {
-        result = spsymmanalyze(a, &priorities, facttype, permtype, &analysis.analysis, _state);
+        result = spsymmanalyze(a, &priorities, 0.0, facttype, permtype, &analysis.analysis, _state);
         if( !result )
         {
             ae_frame_leave(_state);
@@ -51211,7 +52402,7 @@ ae_bool sparsecholesky(sparsematrix* a, ae_bool isupper, ae_state *_state)
     {
         sparsecopytocrsbuf(a, &analysis.wrka, _state);
     }
-    result = spsymmanalyze(&analysis.wrka, &priorities, facttype, permtype, &analysis.analysis, _state);
+    result = spsymmanalyze(&analysis.wrka, &priorities, 0.0, facttype, permtype, &analysis.analysis, _state);
     if( !result )
     {
         ae_frame_leave(_state);
@@ -51333,7 +52524,7 @@ ae_bool sparsecholeskyp(sparsematrix* a,
      */
     if( sparseiscrs(a, _state)&&!isupper )
     {
-        result = spsymmanalyze(a, &priorities, facttype, permtype, &analysis.analysis, _state);
+        result = spsymmanalyze(a, &priorities, 0.0, facttype, permtype, &analysis.analysis, _state);
         if( !result )
         {
             ae_frame_leave(_state);
@@ -51362,7 +52553,7 @@ ae_bool sparsecholeskyp(sparsematrix* a,
     {
         sparsecopytocrsbuf(a, &analysis.wrka, _state);
     }
-    result = spsymmanalyze(&analysis.wrka, &priorities, facttype, permtype, &analysis.analysis, _state);
+    result = spsymmanalyze(&analysis.wrka, &priorities, 0.0, facttype, permtype, &analysis.analysis, _state);
     if( !result )
     {
         ae_frame_leave(_state);
@@ -51504,11 +52695,11 @@ ae_bool sparsecholeskyanalyze(sparsematrix* a,
         if( isupper )
         {
             sparsecopytransposecrsbuf(&analysis->crsa, &analysis->crsat, _state);
-            result = spsymmanalyze(&analysis->crsat, &priorities, facttype, permtype, &analysis->analysis, _state);
+            result = spsymmanalyze(&analysis->crsat, &priorities, 0.0, facttype, permtype, &analysis->analysis, _state);
         }
         else
         {
-            result = spsymmanalyze(&analysis->crsa, &priorities, facttype, permtype, &analysis->analysis, _state);
+            result = spsymmanalyze(&analysis->crsa, &priorities, 0.0, facttype, permtype, &analysis->analysis, _state);
         }
     }
     else
@@ -51522,11 +52713,11 @@ ae_bool sparsecholeskyanalyze(sparsematrix* a,
         if( isupper )
         {
             sparsecopytransposecrsbuf(a, &analysis->crsat, _state);
-            result = spsymmanalyze(&analysis->crsat, &priorities, facttype, permtype, &analysis->analysis, _state);
+            result = spsymmanalyze(&analysis->crsat, &priorities, 0.0, facttype, permtype, &analysis->analysis, _state);
         }
         else
         {
-            result = spsymmanalyze(a, &priorities, facttype, permtype, &analysis->analysis, _state);
+            result = spsymmanalyze(a, &priorities, 0.0, facttype, permtype, &analysis->analysis, _state);
         }
     }
     ae_frame_leave(_state);
@@ -51828,7 +53019,7 @@ void rmatrixlup(/* Real    */ ae_matrix* a,
     }
     if( ae_fp_neq(mx,(double)(0)) )
     {
-        v = 1/mx;
+        v = (double)1/mx;
         for(i=0; i<=m-1; i++)
         {
             ae_v_muld(&a->ptr.pp_double[i][0], 1, ae_v_len(0,n-1), v);
@@ -51889,7 +53080,7 @@ void cmatrixlup(/* Complex */ ae_matrix* a,
     }
     if( ae_fp_neq(mx,(double)(0)) )
     {
-        v = 1/mx;
+        v = (double)1/mx;
         for(i=0; i<=m-1; i++)
         {
             ae_v_cmuld(&a->ptr.pp_complex[i][0], 1, ae_v_len(0,n-1), v);
@@ -51952,7 +53143,7 @@ void rmatrixplu(/* Real    */ ae_matrix* a,
     }
     if( ae_fp_neq(mx,(double)(0)) )
     {
-        v = 1/mx;
+        v = (double)1/mx;
         for(i=0; i<=m-1; i++)
         {
             ae_v_muld(&a->ptr.pp_double[i][0], 1, ae_v_len(0,n-1), v);
@@ -52013,7 +53204,7 @@ void cmatrixplu(/* Complex */ ae_matrix* a,
     }
     if( ae_fp_neq(mx,(double)(0)) )
     {
-        v = ae_complex_from_d(1/mx);
+        v = ae_complex_from_d((double)1/mx);
         for(i=0; i<=m-1; i++)
         {
             ae_v_cmulc(&a->ptr.pp_complex[i][0], 1, ae_v_len(0,n-1), v);
@@ -52344,7 +53535,7 @@ static ae_bool trfac_hpdmatrixcholesky2(/* Complex */ ae_matrix* aaa,
                     cmatrixmv(n-j-1, j, aaa, offs, offs+j+1, 1, tmp, 0, tmp, n, _state);
                     ae_v_cadd(&aaa->ptr.pp_complex[offs+j][offs+j+1], 1, &tmp->ptr.p_complex[n], 1, "N", ae_v_len(offs+j+1,offs+n-1));
                 }
-                r = 1/ajj;
+                r = (double)1/ajj;
                 ae_v_cmuld(&aaa->ptr.pp_complex[offs+j][offs+j+1], 1, ae_v_len(offs+j+1,offs+n-1), r);
             }
         }
@@ -52377,7 +53568,7 @@ static ae_bool trfac_hpdmatrixcholesky2(/* Complex */ ae_matrix* aaa,
              */
             if( j<n-1 )
             {
-                r = 1/ajj;
+                r = (double)1/ajj;
                 if( j>0 )
                 {
                     ae_v_cmove(&tmp->ptr.p_complex[0], 1, &aaa->ptr.pp_complex[offs+j][offs], 1, "Conj", ae_v_len(0,j-1));
@@ -52472,7 +53663,7 @@ static ae_bool trfac_spdmatrixcholesky2(/* Real    */ ae_matrix* aaa,
                     rmatrixmv(n-j-1, j, aaa, offs, offs+j+1, 1, tmp, 0, tmp, n, _state);
                     ae_v_add(&aaa->ptr.pp_double[offs+j][offs+j+1], 1, &tmp->ptr.p_double[n], 1, ae_v_len(offs+j+1,offs+n-1));
                 }
-                r = 1/ajj;
+                r = (double)1/ajj;
                 ae_v_muld(&aaa->ptr.pp_double[offs+j][offs+j+1], 1, ae_v_len(offs+j+1,offs+n-1), r);
             }
         }
@@ -52505,7 +53696,7 @@ static ae_bool trfac_spdmatrixcholesky2(/* Real    */ ae_matrix* aaa,
              */
             if( j<n-1 )
             {
-                r = 1/ajj;
+                r = (double)1/ajj;
                 if( j>0 )
                 {
                     ae_v_move(&tmp->ptr.p_double[0], 1, &aaa->ptr.pp_double[offs+j][offs], 1, ae_v_len(0,j-1));
@@ -52541,10 +53732,10 @@ void _sparsedecompositionanalysis_init(void* _p, ae_state *_state, ae_bool make_
 }
 
 
-void _sparsedecompositionanalysis_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _sparsedecompositionanalysis_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    sparsedecompositionanalysis *dst = (sparsedecompositionanalysis*)_dst;
-    sparsedecompositionanalysis *src = (sparsedecompositionanalysis*)_src;
+    sparsedecompositionanalysis       *dst = (sparsedecompositionanalysis*)_dst;
+    const sparsedecompositionanalysis *src = (const sparsedecompositionanalysis*)_src;
     dst->n = src->n;
     dst->facttype = src->facttype;
     dst->permtype = src->permtype;
@@ -52900,7 +54091,7 @@ static ae_bool bdsvd_bidiagonalsvddecompositioninternal(/* Real    */ ae_vector*
             d->ptr.p_double[1] = -d->ptr.p_double[1];
             if( ncvt>0 )
             {
-                ae_v_muld(&vt->ptr.pp_double[vstart][vstart], 1, ae_v_len(vstart,vstart+ncvt-1), -1);
+                ae_v_muld(&vt->ptr.pp_double[vstart][vstart], 1, ae_v_len(vstart,vstart+ncvt-1), -1.0);
             }
         }
         ae_frame_leave(_state);
@@ -53028,7 +54219,7 @@ static ae_bool bdsvd_bidiagonalsvddecompositioninternal(/* Real    */ ae_vector*
             }
         }
         sminoa = sminoa/ae_sqrt((double)(n), _state);
-        thresh = ae_maxreal(tol*sminoa, maxitr*n*n*unfl, _state);
+        thresh = ae_maxreal(tol*sminoa, (double)(maxitr*n*n)*unfl, _state);
     }
     else
     {
@@ -53036,7 +54227,7 @@ static ae_bool bdsvd_bidiagonalsvddecompositioninternal(/* Real    */ ae_vector*
         /*
          * Absolute accuracy desired
          */
-        thresh = ae_maxreal(ae_fabs(tol, _state)*smax, maxitr*n*n*unfl, _state);
+        thresh = ae_maxreal(ae_fabs(tol, _state)*smax, (double)(maxitr*n*n)*unfl, _state);
     }
     
     /*
@@ -53301,7 +54492,7 @@ static ae_bool bdsvd_bidiagonalsvddecompositioninternal(/* Real    */ ae_vector*
          * Compute shift.  First, test if shifting would ruin relative
          * accuracy, and if so set the shift to zero.
          */
-        if( ae_fp_greater_eq(tol,(double)(0))&&ae_fp_less_eq(n*tol*(sminl/smax),ae_maxreal(eps, 0.01*tol, _state)) )
+        if( ae_fp_greater_eq(tol,(double)(0))&&ae_fp_less_eq((double)n*tol*(sminl/smax),ae_maxreal(eps, 0.01*tol, _state)) )
         {
             
             /*
@@ -53599,7 +54790,7 @@ static ae_bool bdsvd_bidiagonalsvddecompositioninternal(/* Real    */ ae_vector*
              */
             if( ncvt>0 )
             {
-                ae_v_muld(&vt->ptr.pp_double[i+vstart-1][vstart], 1, ae_v_len(vstart,vend), -1);
+                ae_v_muld(&vt->ptr.pp_double[i+vstart-1][vstart], 1, ae_v_len(vstart,vend), -1.0);
             }
         }
     }
@@ -53702,8 +54893,8 @@ static void bdsvd_svd2x2(double f,
     double ga;
     double ha;
 
-    *ssmin = 0;
-    *ssmax = 0;
+    *ssmin = 0.0;
+    *ssmax = 0.0;
 
     fa = ae_fabs(f, _state);
     ga = ae_fabs(g, _state);
@@ -53719,17 +54910,17 @@ static void bdsvd_svd2x2(double f,
         }
         else
         {
-            *ssmax = ae_maxreal(fhmx, ga, _state)*ae_sqrt(1+ae_sqr(ae_minreal(fhmx, ga, _state)/ae_maxreal(fhmx, ga, _state), _state), _state);
+            *ssmax = ae_maxreal(fhmx, ga, _state)*ae_sqrt((double)1+ae_sqr(ae_minreal(fhmx, ga, _state)/ae_maxreal(fhmx, ga, _state), _state), _state);
         }
     }
     else
     {
         if( ae_fp_less(ga,fhmx) )
         {
-            aas = 1+fhmn/fhmx;
+            aas = (double)1+fhmn/fhmx;
             at = (fhmx-fhmn)/fhmx;
             au = ae_sqr(ga/fhmx, _state);
-            c = 2/(ae_sqrt(aas*aas+au, _state)+ae_sqrt(at*at+au, _state));
+            c = (double)2/(ae_sqrt(aas*aas+au, _state)+ae_sqrt(at*at+au, _state));
             *ssmin = fhmn*c;
             *ssmax = fhmx/c;
         }
@@ -53749,9 +54940,9 @@ static void bdsvd_svd2x2(double f,
             }
             else
             {
-                aas = 1+fhmn/fhmx;
+                aas = (double)1+fhmn/fhmx;
                 at = (fhmx-fhmn)/fhmx;
-                c = 1/(ae_sqrt(1+ae_sqr(aas*au, _state), _state)+ae_sqrt(1+ae_sqr(at*au, _state), _state));
+                c = (double)1/(ae_sqrt((double)1+ae_sqr(aas*au, _state), _state)+ae_sqrt((double)1+ae_sqr(at*au, _state), _state));
                 *ssmin = fhmn*c*au;
                 *ssmin = *ssmin+(*ssmin);
                 *ssmax = ga/(c+c);
@@ -53798,12 +54989,12 @@ static void bdsvd_svdv2x2(double f,
     double tt;
     double v;
 
-    *ssmin = 0;
-    *ssmax = 0;
-    *snr = 0;
-    *csr = 0;
-    *snl = 0;
-    *csl = 0;
+    *ssmin = 0.0;
+    *ssmax = 0.0;
+    *snr = 0.0;
+    *csr = 0.0;
+    *snl = 0.0;
+    *csl = 0.0;
 
     ft = f;
     fa = ae_fabs(ft, _state);
@@ -53903,7 +55094,7 @@ static void bdsvd_svdv2x2(double f,
                 l = d/fa;
             }
             m = gt/ft;
-            t = 2-l;
+            t = (double)2-l;
             mm = m*m;
             tt = t*t;
             s = ae_sqrt(tt+mm, _state);
@@ -53935,10 +55126,10 @@ static void bdsvd_svdv2x2(double f,
             }
             else
             {
-                t = (m/(s+t)+m/(r+l))*(1+a);
+                t = (m/(s+t)+m/(r+l))*((double)1+a);
             }
-            l = ae_sqrt(t*t+4, _state);
-            crt = 2/l;
+            l = ae_sqrt(t*t+(double)4, _state);
+            crt = (double)2/l;
             srt = t/l;
             clt = (crt+srt*m)/a;
             v = ht/ft;
@@ -54145,7 +55336,7 @@ ae_bool rmatrixsvd(/* Real    */ ae_matrix* a,
      * M much larger than N
      * Use bidiagonal reduction with QR-decomposition
      */
-    if( ae_fp_greater((double)(m),1.6*n) )
+    if( ae_fp_greater((double)(m),1.6*(double)n) )
     {
         if( uneeded==0 )
         {
@@ -54217,7 +55408,7 @@ ae_bool rmatrixsvd(/* Real    */ ae_matrix* a,
      * N much larger than M
      * Use bidiagonal reduction with LQ-decomposition
      */
-    if( ae_fp_greater((double)(n),1.6*m) )
+    if( ae_fp_greater((double)(n),1.6*(double)m) )
     {
         if( vtneeded==0 )
         {
@@ -54629,7 +55820,7 @@ double rmatrixtrrcond1(/* Real    */ ae_matrix* a,
         }
         if( isunit )
         {
-            t.ptr.p_double[i] = t.ptr.p_double[i]+1;
+            t.ptr.p_double[i] = t.ptr.p_double[i]+(double)1;
         }
         else
         {
@@ -54708,7 +55899,7 @@ double rmatrixtrrcondinf(/* Real    */ ae_matrix* a,
         }
         if( isunit )
         {
-            v = v+1;
+            v = v+(double)1;
         }
         else
         {
@@ -55218,7 +56409,7 @@ double cmatrixtrrcond1(/* Complex */ ae_matrix* a,
         }
         if( isunit )
         {
-            t.ptr.p_double[i] = t.ptr.p_double[i]+1;
+            t.ptr.p_double[i] = t.ptr.p_double[i]+(double)1;
         }
         else
         {
@@ -55297,7 +56488,7 @@ double cmatrixtrrcondinf(/* Complex */ ae_matrix* a,
         }
         if( isunit )
         {
-            v = v+1;
+            v = v+(double)1;
         }
         else
         {
@@ -55366,7 +56557,7 @@ static void rcond_rmatrixrcondtrinternal(/* Real    */ ae_matrix* a,
     memset(&ev, 0, sizeof(ev));
     memset(&iwork, 0, sizeof(iwork));
     memset(&tmp, 0, sizeof(tmp));
-    *rc = 0;
+    *rc = 0.0;
     ae_vector_init(&ex, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&ev, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&iwork, 0, DT_INT, _state, ae_true);
@@ -55395,7 +56586,7 @@ static void rcond_rmatrixrcondtrinternal(/* Real    */ ae_matrix* a,
     /*
      * prepare parameters for triangular solver
      */
-    maxgrowth = 1/rcondthreshold(_state);
+    maxgrowth = (double)1/rcondthreshold(_state);
     s = (double)(0);
     for(i=0; i<=n-1; i++)
     {
@@ -55426,7 +56617,7 @@ static void rcond_rmatrixrcondtrinternal(/* Real    */ ae_matrix* a,
     {
         s = (double)(1);
     }
-    s = 1/s;
+    s = (double)1/s;
     
     /*
      * Scale according to S
@@ -55512,7 +56703,7 @@ static void rcond_rmatrixrcondtrinternal(/* Real    */ ae_matrix* a,
      */
     if( ae_fp_neq(ainvnm,(double)(0)) )
     {
-        *rc = 1/ainvnm;
+        *rc = (double)1/ainvnm;
         *rc = *rc/anorm;
         if( ae_fp_less(*rc,rcondthreshold(_state)) )
         {
@@ -55564,7 +56755,7 @@ static void rcond_cmatrixrcondtrinternal(/* Complex */ ae_matrix* a,
     memset(&cwork4, 0, sizeof(cwork4));
     memset(&isave, 0, sizeof(isave));
     memset(&rsave, 0, sizeof(rsave));
-    *rc = 0;
+    *rc = 0.0;
     ae_vector_init(&ex, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&cwork2, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&cwork3, 0, DT_COMPLEX, _state, ae_true);
@@ -55581,7 +56772,7 @@ static void rcond_cmatrixrcondtrinternal(/* Complex */ ae_matrix* a,
     /*
      * init
      */
-    if( n<=0 )
+    if( n<0 )
     {
         ae_frame_leave(_state);
         return;
@@ -55597,7 +56788,7 @@ static void rcond_cmatrixrcondtrinternal(/* Complex */ ae_matrix* a,
     /*
      * prepare parameters for triangular solver
      */
-    maxgrowth = 1/rcondthreshold(_state);
+    maxgrowth = (double)1/rcondthreshold(_state);
     s = (double)(0);
     for(i=0; i<=n-1; i++)
     {
@@ -55628,7 +56819,7 @@ static void rcond_cmatrixrcondtrinternal(/* Complex */ ae_matrix* a,
     {
         s = (double)(1);
     }
-    s = 1/s;
+    s = (double)1/s;
     
     /*
      * Scale according to S
@@ -55715,7 +56906,7 @@ static void rcond_cmatrixrcondtrinternal(/* Complex */ ae_matrix* a,
      */
     if( ae_fp_neq(ainvnm,(double)(0)) )
     {
-        *rc = 1/ainvnm;
+        *rc = (double)1/ainvnm;
         *rc = *rc/anorm;
         if( ae_fp_less(*rc,rcondthreshold(_state)) )
         {
@@ -55760,7 +56951,7 @@ static void rcond_spdmatrixrcondcholeskyinternal(/* Real    */ ae_matrix* cha,
     memset(&ev, 0, sizeof(ev));
     memset(&tmp, 0, sizeof(tmp));
     memset(&iwork, 0, sizeof(iwork));
-    *rc = 0;
+    *rc = 0.0;
     ae_vector_init(&ex, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&ev, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&tmp, 0, DT_REAL, _state, ae_true);
@@ -55777,7 +56968,7 @@ static void rcond_spdmatrixrcondcholeskyinternal(/* Real    */ ae_matrix* cha,
     /*
      * prepare parameters for triangular solver
      */
-    maxgrowth = 1/rcondthreshold(_state);
+    maxgrowth = (double)1/rcondthreshold(_state);
     sa = (double)(0);
     if( isupper )
     {
@@ -55803,7 +56994,7 @@ static void rcond_spdmatrixrcondcholeskyinternal(/* Real    */ ae_matrix* cha,
     {
         sa = (double)(1);
     }
-    sa = 1/sa;
+    sa = (double)1/sa;
     
     /*
      * Estimate the norm of A.
@@ -55961,7 +57152,7 @@ static void rcond_spdmatrixrcondcholeskyinternal(/* Real    */ ae_matrix* cha,
      */
     if( ae_fp_neq(ainvnm,(double)(0)) )
     {
-        v = 1/ainvnm;
+        v = (double)1/ainvnm;
         *rc = v/anorm;
         if( ae_fp_less(*rc,rcondthreshold(_state)) )
         {
@@ -56008,7 +57199,7 @@ static void rcond_hpdmatrixrcondcholeskyinternal(/* Complex */ ae_matrix* cha,
     memset(&ex, 0, sizeof(ex));
     memset(&ev, 0, sizeof(ev));
     memset(&tmp, 0, sizeof(tmp));
-    *rc = 0;
+    *rc = 0.0;
     ae_vector_init(&isave, 0, DT_INT, _state, ae_true);
     ae_vector_init(&rsave, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&ex, 0, DT_COMPLEX, _state, ae_true);
@@ -56026,7 +57217,7 @@ static void rcond_hpdmatrixrcondcholeskyinternal(/* Complex */ ae_matrix* cha,
     /*
      * prepare parameters for triangular solver
      */
-    maxgrowth = 1/rcondthreshold(_state);
+    maxgrowth = (double)1/rcondthreshold(_state);
     sa = (double)(0);
     if( isupper )
     {
@@ -56052,7 +57243,7 @@ static void rcond_hpdmatrixrcondcholeskyinternal(/* Complex */ ae_matrix* cha,
     {
         sa = (double)(1);
     }
-    sa = 1/sa;
+    sa = (double)1/sa;
     
     /*
      * Estimate the norm of A
@@ -56212,7 +57403,7 @@ static void rcond_hpdmatrixrcondcholeskyinternal(/* Complex */ ae_matrix* cha,
      */
     if( ae_fp_neq(ainvnm,(double)(0)) )
     {
-        *rc = 1/ainvnm;
+        *rc = (double)1/ainvnm;
         *rc = *rc/anorm;
         if( ae_fp_less(*rc,rcondthreshold(_state)) )
         {
@@ -56261,7 +57452,7 @@ static void rcond_rmatrixrcondluinternal(/* Real    */ ae_matrix* lua,
     memset(&ev, 0, sizeof(ev));
     memset(&iwork, 0, sizeof(iwork));
     memset(&tmp, 0, sizeof(tmp));
-    *rc = 0;
+    *rc = 0.0;
     ae_vector_init(&ex, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&ev, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&iwork, 0, DT_INT, _state, ae_true);
@@ -56292,7 +57483,7 @@ static void rcond_rmatrixrcondluinternal(/* Real    */ ae_matrix* lua,
     /*
      * prepare parameters for triangular solver
      */
-    maxgrowth = 1/rcondthreshold(_state);
+    maxgrowth = (double)1/rcondthreshold(_state);
     su = (double)(0);
     sl = (double)(1);
     for(i=0; i<=n-1; i++)
@@ -56310,8 +57501,8 @@ static void rcond_rmatrixrcondluinternal(/* Real    */ ae_matrix* lua,
     {
         su = (double)(1);
     }
-    su = 1/su;
-    sl = 1/sl;
+    su = (double)1/su;
+    sl = (double)1/sl;
     
     /*
      * Estimate the norm of A.
@@ -56495,7 +57686,7 @@ static void rcond_rmatrixrcondluinternal(/* Real    */ ae_matrix* lua,
      */
     if( ae_fp_neq(ainvnm,(double)(0)) )
     {
-        *rc = 1/ainvnm;
+        *rc = (double)1/ainvnm;
         *rc = *rc/anorm;
         if( ae_fp_less(*rc,rcondthreshold(_state)) )
         {
@@ -56546,7 +57737,7 @@ static void rcond_cmatrixrcondluinternal(/* Complex */ ae_matrix* lua,
     memset(&cwork4, 0, sizeof(cwork4));
     memset(&isave, 0, sizeof(isave));
     memset(&rsave, 0, sizeof(rsave));
-    *rc = 0;
+    *rc = 0.0;
     ae_vector_init(&ex, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&cwork2, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&cwork3, 0, DT_COMPLEX, _state, ae_true);
@@ -56554,24 +57745,24 @@ static void rcond_cmatrixrcondluinternal(/* Complex */ ae_matrix* lua,
     ae_vector_init(&isave, 0, DT_INT, _state, ae_true);
     ae_vector_init(&rsave, 0, DT_REAL, _state, ae_true);
 
-    if( n<=0 )
+    *rc = (double)(0);
+    if( n<0 )
     {
         ae_frame_leave(_state);
         return;
     }
-    ae_vector_set_length(&cwork2, n+1, _state);
-    *rc = (double)(0);
     if( n==0 )
     {
         *rc = (double)(1);
         ae_frame_leave(_state);
         return;
     }
+    ae_vector_set_length(&cwork2, n+1, _state);
     
     /*
      * prepare parameters for triangular solver
      */
-    maxgrowth = 1/rcondthreshold(_state);
+    maxgrowth = (double)1/rcondthreshold(_state);
     su = (double)(0);
     sl = (double)(1);
     for(i=0; i<=n-1; i++)
@@ -56589,8 +57780,8 @@ static void rcond_cmatrixrcondluinternal(/* Complex */ ae_matrix* lua,
     {
         su = (double)(1);
     }
-    su = 1/su;
-    sl = 1/sl;
+    su = (double)1/su;
+    sl = (double)1/sl;
     
     /*
      * Estimate the norm of SU*SL*A.
@@ -56782,7 +57973,7 @@ static void rcond_cmatrixrcondluinternal(/* Complex */ ae_matrix* lua,
      */
     if( ae_fp_neq(ainvnm,(double)(0)) )
     {
-        *rc = 1/ainvnm;
+        *rc = (double)1/ainvnm;
         *rc = *rc/anorm;
         if( ae_fp_less(*rc,rcondthreshold(_state)) )
         {
@@ -56940,7 +58131,7 @@ static void rcond_rmatrixestimatenorm(ae_int_t n,
             v->ptr.p_double[posaltsgn] = (double)(1);
             for(i=1; i<=n; i++)
             {
-                x->ptr.p_double[i] = v->ptr.p_double[posaltsgn]*(1+(double)(i-1)/(double)(n-1));
+                x->ptr.p_double[i] = v->ptr.p_double[posaltsgn]*((double)1+(double)(i-1)/(double)(n-1));
                 v->ptr.p_double[posaltsgn] = -v->ptr.p_double[posaltsgn];
             }
             *kase = 1;
@@ -56999,7 +58190,7 @@ static void rcond_rmatrixestimatenorm(ae_int_t n,
         v->ptr.p_double[posaltsgn] = (double)(1);
         for(i=1; i<=n; i++)
         {
-            x->ptr.p_double[i] = v->ptr.p_double[posaltsgn]*(1+(double)(i-1)/(double)(n-1));
+            x->ptr.p_double[i] = v->ptr.p_double[posaltsgn]*((double)1+(double)(i-1)/(double)(n-1));
             v->ptr.p_double[posaltsgn] = -v->ptr.p_double[posaltsgn];
         }
         *kase = 1;
@@ -57018,7 +58209,7 @@ static void rcond_rmatrixestimatenorm(ae_int_t n,
         {
             v->ptr.p_double[postemp] = v->ptr.p_double[postemp]+ae_fabs(x->ptr.p_double[i], _state);
         }
-        v->ptr.p_double[postemp] = 2*v->ptr.p_double[postemp]/(3*n);
+        v->ptr.p_double[postemp] = (double)2*v->ptr.p_double[postemp]/(double)(3*n);
         if( ae_fp_greater(v->ptr.p_double[postemp],*est) )
         {
             ae_v_move(&v->ptr.p_double[1], 1, &x->ptr.p_double[1], 1, ae_v_len(1,n));
@@ -57070,6 +58261,13 @@ static void rcond_cmatrixestimatenorm(ae_int_t n,
         }
         *kase = 1;
         jump = 1;
+        iter = -999999;
+        j = -999999;
+        jlast = -999999;
+        absxi = -888888.0;
+        altsgn = -888888.0;
+        estold = -888888.0;
+        temp = -888888.0;
         rcond_internalcomplexrcondsaveall(isave, rsave, &i, &iter, &j, &jlast, &jump, &absxi, &altsgn, &estold, &temp, _state);
         return;
     }
@@ -57153,7 +58351,7 @@ static void rcond_cmatrixestimatenorm(ae_int_t n,
             altsgn = (double)(1);
             for(i=1; i<=n; i++)
             {
-                x->ptr.p_complex[i] = ae_complex_from_d(altsgn*(1+(double)(i-1)/(double)(n-1)));
+                x->ptr.p_complex[i] = ae_complex_from_d(altsgn*((double)1+(double)(i-1)/(double)(n-1)));
                 altsgn = -altsgn;
             }
             *kase = 1;
@@ -57211,7 +58409,7 @@ static void rcond_cmatrixestimatenorm(ae_int_t n,
         altsgn = (double)(1);
         for(i=1; i<=n; i++)
         {
-            x->ptr.p_complex[i] = ae_complex_from_d(altsgn*(1+(double)(i-1)/(double)(n-1)));
+            x->ptr.p_complex[i] = ae_complex_from_d(altsgn*((double)1+(double)(i-1)/(double)(n-1)));
             altsgn = -altsgn;
         }
         *kase = 1;
@@ -57226,7 +58424,7 @@ static void rcond_cmatrixestimatenorm(ae_int_t n,
      */
     if( jump==5 )
     {
-        temp = 2*(rcond_internalcomplexrcondscsum1(x, n, _state)/(3*n));
+        temp = (double)2*(rcond_internalcomplexrcondscsum1(x, n, _state)/(double)(3*n));
         if( ae_fp_greater(temp,*est) )
         {
             ae_v_cmove(&v->ptr.p_complex[1], 1, &x->ptr.p_complex[1], 1, "N", ae_v_len(1,n));
@@ -57386,7 +58584,7 @@ void fblscholeskysolve(/* Real    */ ae_matrix* cha,
     /*
      * Scale right part
      */
-    v = 1/ae_sqr(sqrtscalea, _state);
+    v = (double)1/ae_sqr(sqrtscalea, _state);
     ae_v_muld(&xb->ptr.p_double[0], 1, ae_v_len(0,n-1), v);
     
     /*
@@ -57582,7 +58780,7 @@ void fblssolvecgx(/* Real    */ ae_matrix* a,
         ae_v_move(&buf->ptr.p_double[offsrk1], 1, &buf->ptr.p_double[offsrk], 1, ae_v_len(offsrk1,offsrk1+n-1));
         ae_v_subd(&buf->ptr.p_double[offsrk1], 1, &buf->ptr.p_double[offstmp2], 1, ae_v_len(offsrk1,offsrk1+n-1), s);
         rk12 = ae_v_dotproduct(&buf->ptr.p_double[offsrk1], 1, &buf->ptr.p_double[offsrk1], 1, ae_v_len(offsrk1,offsrk1+n-1));
-        if( ae_fp_less_eq(ae_sqrt(rk12, _state),100*ae_machineepsilon*ae_sqrt(rk2, _state)) )
+        if( ae_fp_less_eq(ae_sqrt(rk12, _state),(double)100*ae_machineepsilon*ae_sqrt(rk2, _state)) )
         {
             
             /*
@@ -57763,13 +58961,13 @@ ae_bool fblscgiteration(fblslincgstate* state, ae_state *_state)
     {
         n = 359;
         k = -58;
-        rk2 = -919;
-        rk12 = -909;
-        pap = 81;
-        s = 255;
-        betak = 74;
-        v1 = -788;
-        v2 = 809;
+        rk2 = -919.0;
+        rk12 = -909.0;
+        pap = 81.0;
+        s = 255.0;
+        betak = 74.0;
+        v1 = -788.0;
+        v2 = 809.0;
     }
     if( state->rstate.stage==0 )
     {
@@ -57872,7 +59070,7 @@ lbl_1:
     ae_v_move(&state->rk1.ptr.p_double[0], 1, &state->rk.ptr.p_double[0], 1, ae_v_len(0,n-1));
     ae_v_subd(&state->rk1.ptr.p_double[0], 1, &state->tmp2.ptr.p_double[0], 1, ae_v_len(0,n-1), s);
     rk12 = ae_v_dotproduct(&state->rk1.ptr.p_double[0], 1, &state->rk1.ptr.p_double[0], 1, ae_v_len(0,n-1));
-    if( ae_fp_less_eq(ae_sqrt(rk12, _state),100*ae_machineepsilon*state->e1) )
+    if( ae_fp_less_eq(ae_sqrt(rk12, _state),(double)100*ae_machineepsilon*state->e1) )
     {
         
         /*
@@ -57979,10 +59177,10 @@ void fblsgmrescreate(/* Real    */ ae_vector* b,
     ae_assert((n>0&&k>0)&&k<=n, "FBLSGMRESCreate: incorrect params", _state);
     state->n = n;
     state->itscnt = k;
-    state->epsort = (1000+ae_sqrt((double)(n), _state))*ae_machineepsilon;
-    state->epsres = (1000+ae_sqrt((double)(n), _state))*ae_machineepsilon;
+    state->epsort = ((double)1000+ae_sqrt((double)(n), _state))*ae_machineepsilon;
+    state->epsres = ((double)1000+ae_sqrt((double)(n), _state))*ae_machineepsilon;
     state->epsred = 1.0;
-    state->epsdiag = (10000+n)*ae_machineepsilon;
+    state->epsdiag = (double)(10000+n)*ae_machineepsilon;
     state->itsperformed = 0;
     state->retcode = 0;
     rcopyallocv(n, b, &state->b, _state);
@@ -58061,17 +59259,17 @@ ae_bool fblsgmresiteration(fblsgmresstate* state, ae_state *_state)
         kdim = 939;
         i = -526;
         j = 763;
-        rmax = -541;
-        rmindiag = -698;
-        cs = -900;
-        sn = -318;
-        v = -940;
-        vv = 1016;
-        anrm = -229;
-        qnrm = -536;
-        bnrm = 487;
-        resnrm = -115;
-        prevresnrm = 886;
+        rmax = -541.0;
+        rmindiag = -698.0;
+        cs = -900.0;
+        sn = -318.0;
+        v = -940.0;
+        vv = 1016.0;
+        anrm = -229.0;
+        qnrm = -536.0;
+        bnrm = 487.0;
+        resnrm = -115.0;
+        prevresnrm = 886.0;
     }
     if( state->rstate.stage==0 )
     {
@@ -58097,7 +59295,7 @@ ae_bool fblsgmresiteration(fblsgmresstate* state, ae_state *_state)
     }
     rallocm(state->itscnt+1, n, &state->qi, _state);
     rallocm(state->itscnt, n, &state->aqi, _state);
-    rcopymulvr(n, 1/bnrm, &state->b, &state->qi, 0, _state);
+    rcopymulvr(n, (double)1/bnrm, &state->b, &state->qi, 0, _state);
     rsetallocm(state->itscnt+1, state->itscnt, 0.0, &state->h, _state);
     rsetallocm(state->itscnt+1, state->itscnt, 0.0, &state->hr, _state);
     rsetallocm(state->itscnt+1, state->itscnt+1, 0.0, &state->hq, _state);
@@ -58147,7 +59345,7 @@ lbl_0:
     raddvc(itidx+1, 1.0, &state->tmp1, &state->h, itidx, _state);
     qnrm = ae_sqrt(rdotv2(n, &state->ax, _state), _state);
     state->h.ptr.pp_double[itidx+1][itidx] = qnrm;
-    rmulv(n, 1/coalesce(qnrm, (double)(1), _state), &state->ax, _state);
+    rmulv(n, (double)1/coalesce(qnrm, (double)(1), _state), &state->ax, _state);
     rcopyvr(n, &state->ax, &state->qi, itidx+1, _state);
     
     /*
@@ -58366,10 +59564,10 @@ void _fblslincgstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _fblslincgstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _fblslincgstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    fblslincgstate *dst = (fblslincgstate*)_dst;
-    fblslincgstate *src = (fblslincgstate*)_src;
+    fblslincgstate       *dst = (fblslincgstate*)_dst;
+    const fblslincgstate *src = (const fblslincgstate*)_src;
     dst->e1 = src->e1;
     dst->e2 = src->e2;
     ae_vector_init_copy(&dst->x, &src->x, _state, make_automatic);
@@ -58445,10 +59643,10 @@ void _fblsgmresstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _fblsgmresstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _fblsgmresstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    fblsgmresstate *dst = (fblsgmresstate*)_dst;
-    fblsgmresstate *src = (fblsgmresstate*)_src;
+    fblsgmresstate       *dst = (fblsgmresstate*)_dst;
+    const fblsgmresstate *src = (const fblsgmresstate*)_src;
     ae_vector_init_copy(&dst->b, &src->b, _state, make_automatic);
     ae_vector_init_copy(&dst->x, &src->x, _state, make_automatic);
     ae_vector_init_copy(&dst->ax, &src->ax, _state, make_automatic);
@@ -58658,9 +59856,9 @@ ae_bool normestimatoriteration(normestimatorstate* state,
         m = -58;
         i = -919;
         itcnt = -909;
-        v = 81;
-        growth = 255;
-        bestgrowth = 74;
+        v = 81.0;
+        growth = 255.0;
+        bestgrowth = 74.0;
     }
     if( state->rstate.stage==0 )
     {
@@ -58710,7 +59908,7 @@ lbl_4:
         }
     }
     while(ae_fp_eq(v,(double)(0)));
-    v = 1/ae_sqrt(v, _state);
+    v = (double)1/ae_sqrt(v, _state);
     ae_v_muld(&state->x0.ptr.p_double[0], 1, ae_v_len(0,n-1), v);
     ae_v_move(&state->x.ptr.p_double[0], 1, &state->x0.ptr.p_double[0], 1, ae_v_len(0,n-1));
     state->needmv = ae_true;
@@ -58733,7 +59931,7 @@ lbl_1:
     growth = ae_sqrt(ae_sqrt(v, _state), _state);
     if( ae_fp_greater(growth,bestgrowth) )
     {
-        v = 1/ae_sqrt(v, _state);
+        v = (double)1/ae_sqrt(v, _state);
         ae_v_moved(&state->xbest.ptr.p_double[0], 1, &state->x1.ptr.p_double[0], 1, ae_v_len(0,n-1), v);
         bestgrowth = growth;
     }
@@ -58768,7 +59966,7 @@ lbl_3:
     state->repnorm = ae_sqrt(ae_sqrt(v, _state), _state);
     if( ae_fp_neq(v,(double)(0)) )
     {
-        v = 1/ae_sqrt(v, _state);
+        v = (double)1/ae_sqrt(v, _state);
         ae_v_moved(&state->x0.ptr.p_double[0], 1, &state->x1.ptr.p_double[0], 1, ae_v_len(0,n-1), v);
     }
     itcnt = itcnt+1;
@@ -58848,7 +60046,7 @@ void normestimatorresults(normestimatorstate* state,
      ae_state *_state)
 {
 
-    *nrm = 0;
+    *nrm = 0.0;
 
     *nrm = state->repnorm;
 }
@@ -58889,10 +60087,10 @@ void _normestimatorstate_init(void* _p, ae_state *_state, ae_bool make_automatic
 }
 
 
-void _normestimatorstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _normestimatorstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    normestimatorstate *dst = (normestimatorstate*)_dst;
-    normestimatorstate *src = (normestimatorstate*)_src;
+    normestimatorstate       *dst = (normestimatorstate*)_dst;
+    const normestimatorstate *src = (const normestimatorstate*)_src;
     dst->n = src->n;
     dst->m = src->m;
     dst->nstart = src->nstart;
@@ -60187,7 +61385,7 @@ void spdmatrixcholeskyinverserec(/* Real    */ ae_matrix* a,
     {
         for(i=0; i<=n1-1; i++)
         {
-            ae_v_muld(&a->ptr.pp_double[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1);
+            ae_v_muld(&a->ptr.pp_double[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1.0);
         }
         rmatrixlefttrsm(n1, n2, a, offs, offs, isupper, ae_false, 0, a, offs, offs+n1, _state);
         rmatrixrighttrsm(n1, n2, a, offs+n1, offs+n1, isupper, ae_false, 0, a, offs, offs+n1, _state);
@@ -60196,7 +61394,7 @@ void spdmatrixcholeskyinverserec(/* Real    */ ae_matrix* a,
     {
         for(i=0; i<=n2-1; i++)
         {
-            ae_v_muld(&a->ptr.pp_double[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1);
+            ae_v_muld(&a->ptr.pp_double[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1.0);
         }
         rmatrixrighttrsm(n2, n1, a, offs, offs, isupper, ae_false, 0, a, offs+n1, offs, _state);
         rmatrixlefttrsm(n2, n1, a, offs+n1, offs+n1, isupper, ae_false, 0, a, offs+n1, offs, _state);
@@ -60322,7 +61520,7 @@ static void matinv_rmatrixtrinverserec(/* Real    */ ae_matrix* a,
                         info->val = -3;
                         return;
                     }
-                    a->ptr.pp_double[offs+j][offs+j] = 1/a->ptr.pp_double[offs+j][offs+j];
+                    a->ptr.pp_double[offs+j][offs+j] = (double)1/a->ptr.pp_double[offs+j][offs+j];
                     ajj = -a->ptr.pp_double[offs+j][offs+j];
                 }
                 else
@@ -60374,7 +61572,7 @@ static void matinv_rmatrixtrinverserec(/* Real    */ ae_matrix* a,
                         info->val = -3;
                         return;
                     }
-                    a->ptr.pp_double[offs+j][offs+j] = 1/a->ptr.pp_double[offs+j][offs+j];
+                    a->ptr.pp_double[offs+j][offs+j] = (double)1/a->ptr.pp_double[offs+j][offs+j];
                     ajj = -a->ptr.pp_double[offs+j][offs+j];
                 }
                 else
@@ -60426,7 +61624,7 @@ static void matinv_rmatrixtrinverserec(/* Real    */ ae_matrix* a,
         {
             for(i=0; i<=n1-1; i++)
             {
-                ae_v_muld(&a->ptr.pp_double[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1);
+                ae_v_muld(&a->ptr.pp_double[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1.0);
             }
             rmatrixrighttrsm(n1, n2, a, offs+n1, offs+n1, isupper, isunit, 0, a, offs, offs+n1, _state);
             matinv_rmatrixtrinverserec(a, offs+n1, n2, isupper, isunit, tmp, info, _state);
@@ -60436,7 +61634,7 @@ static void matinv_rmatrixtrinverserec(/* Real    */ ae_matrix* a,
         {
             for(i=0; i<=n2-1; i++)
             {
-                ae_v_muld(&a->ptr.pp_double[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1);
+                ae_v_muld(&a->ptr.pp_double[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1.0);
             }
             rmatrixlefttrsm(n2, n1, a, offs+n1, offs+n1, isupper, isunit, 0, a, offs+n1, offs, _state);
             matinv_rmatrixtrinverserec(a, offs+n1, n2, isupper, isunit, tmp, info, _state);
@@ -60539,7 +61737,7 @@ static void matinv_cmatrixtrinverserec(/* Complex */ ae_matrix* a,
                         info->val = -3;
                         return;
                     }
-                    a->ptr.pp_complex[offs+j][offs+j] = ae_c_d_div(1,a->ptr.pp_complex[offs+j][offs+j]);
+                    a->ptr.pp_complex[offs+j][offs+j] = ae_c_d_div((double)(1),a->ptr.pp_complex[offs+j][offs+j]);
                     ajj = ae_c_neg(a->ptr.pp_complex[offs+j][offs+j]);
                 }
                 else
@@ -60591,7 +61789,7 @@ static void matinv_cmatrixtrinverserec(/* Complex */ ae_matrix* a,
                         info->val = -3;
                         return;
                     }
-                    a->ptr.pp_complex[offs+j][offs+j] = ae_c_d_div(1,a->ptr.pp_complex[offs+j][offs+j]);
+                    a->ptr.pp_complex[offs+j][offs+j] = ae_c_d_div((double)(1),a->ptr.pp_complex[offs+j][offs+j]);
                     ajj = ae_c_neg(a->ptr.pp_complex[offs+j][offs+j]);
                 }
                 else
@@ -60643,7 +61841,7 @@ static void matinv_cmatrixtrinverserec(/* Complex */ ae_matrix* a,
         {
             for(i=0; i<=n1-1; i++)
             {
-                ae_v_cmuld(&a->ptr.pp_complex[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1);
+                ae_v_cmuld(&a->ptr.pp_complex[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1.0);
             }
             cmatrixrighttrsm(n1, n2, a, offs+n1, offs+n1, isupper, isunit, 0, a, offs, offs+n1, _state);
             matinv_cmatrixtrinverserec(a, offs+n1, n2, isupper, isunit, tmp, info, _state);
@@ -60653,7 +61851,7 @@ static void matinv_cmatrixtrinverserec(/* Complex */ ae_matrix* a,
         {
             for(i=0; i<=n2-1; i++)
             {
-                ae_v_cmuld(&a->ptr.pp_complex[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1);
+                ae_v_cmuld(&a->ptr.pp_complex[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1.0);
             }
             cmatrixlefttrsm(n2, n1, a, offs+n1, offs+n1, isupper, isunit, 0, a, offs+n1, offs, _state);
             matinv_cmatrixtrinverserec(a, offs+n1, n2, isupper, isunit, tmp, info, _state);
@@ -60841,11 +62039,11 @@ static void matinv_rmatrixluinverserec(/* Real    */ ae_matrix* a,
     rmatrixlefttrsm(n2, n1, a, offs+n1, offs+n1, ae_true, ae_false, 0, a, offs+n1, offs, _state);
     for(i=0; i<=n1-1; i++)
     {
-        ae_v_muld(&a->ptr.pp_double[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1);
+        ae_v_muld(&a->ptr.pp_double[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1.0);
     }
     for(i=0; i<=n2-1; i++)
     {
-        ae_v_muld(&a->ptr.pp_double[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1);
+        ae_v_muld(&a->ptr.pp_double[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1.0);
     }
     
     /*
@@ -61031,11 +62229,11 @@ static void matinv_cmatrixluinverserec(/* Complex */ ae_matrix* a,
     cmatrixlefttrsm(n2, n1, a, offs+n1, offs+n1, ae_true, ae_false, 0, a, offs+n1, offs, _state);
     for(i=0; i<=n1-1; i++)
     {
-        ae_v_cmuld(&a->ptr.pp_complex[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1);
+        ae_v_cmuld(&a->ptr.pp_complex[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1.0);
     }
     for(i=0; i<=n2-1; i++)
     {
-        ae_v_cmuld(&a->ptr.pp_complex[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1);
+        ae_v_cmuld(&a->ptr.pp_complex[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1.0);
     }
     
     /*
@@ -61209,7 +62407,7 @@ static void matinv_hpdmatrixcholeskyinverserec(/* Complex */ ae_matrix* a,
     {
         for(i=0; i<=n1-1; i++)
         {
-            ae_v_cmuld(&a->ptr.pp_complex[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1);
+            ae_v_cmuld(&a->ptr.pp_complex[offs+i][offs+n1], 1, ae_v_len(offs+n1,offs+n-1), -1.0);
         }
         cmatrixlefttrsm(n1, n2, a, offs, offs, isupper, ae_false, 0, a, offs, offs+n1, _state);
         cmatrixrighttrsm(n1, n2, a, offs+n1, offs+n1, isupper, ae_false, 0, a, offs, offs+n1, _state);
@@ -61218,7 +62416,7 @@ static void matinv_hpdmatrixcholeskyinverserec(/* Complex */ ae_matrix* a,
     {
         for(i=0; i<=n2-1; i++)
         {
-            ae_v_cmuld(&a->ptr.pp_complex[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1);
+            ae_v_cmuld(&a->ptr.pp_complex[offs+n1+i][offs], 1, ae_v_len(offs,offs+n1-1), -1.0);
         }
         cmatrixrighttrsm(n2, n1, a, offs, offs, isupper, ae_false, 0, a, offs+n1, offs, _state);
         cmatrixlefttrsm(n2, n1, a, offs+n1, offs+n1, isupper, ae_false, 0, a, offs+n1, offs, _state);
@@ -61259,10 +62457,10 @@ void _matinvreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _matinvreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _matinvreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    matinvreport *dst = (matinvreport*)_dst;
-    matinvreport *src = (matinvreport*)_src;
+    matinvreport       *dst = (matinvreport*)_dst;
+    const matinvreport *src = (const matinvreport*)_src;
     dst->r1 = src->r1;
     dst->rinf = src->rinf;
 }
@@ -61353,7 +62551,7 @@ void rmatrixinvupdatesimple(/* Real    */ ae_matrix* inva,
     for(i=0; i<=n-1; i++)
     {
         vt = updval*t1.ptr.p_double[i];
-        vt = vt/(1+lambdav);
+        vt = vt/((double)1+lambdav);
         ae_v_subd(&inva->ptr.pp_double[i][0], 1, &t2.ptr.p_double[0], 1, ae_v_len(0,n-1), vt);
     }
     ae_frame_leave(_state);
@@ -61425,7 +62623,7 @@ void rmatrixinvupdaterow(/* Real    */ ae_matrix* inva,
      */
     for(i=0; i<=n-1; i++)
     {
-        vt = t1.ptr.p_double[i]/(1+lambdav);
+        vt = t1.ptr.p_double[i]/((double)1+lambdav);
         ae_v_subd(&inva->ptr.pp_double[i][0], 1, &t2.ptr.p_double[0], 1, ae_v_len(0,n-1), vt);
     }
     ae_frame_leave(_state);
@@ -61496,7 +62694,7 @@ void rmatrixinvupdatecolumn(/* Real    */ ae_matrix* inva,
      */
     for(i=0; i<=n-1; i++)
     {
-        vt = t1.ptr.p_double[i]/(1+lambdav);
+        vt = t1.ptr.p_double[i]/((double)1+lambdav);
         ae_v_subd(&inva->ptr.pp_double[i][0], 1, &t2.ptr.p_double[0], 1, ae_v_len(0,n-1), vt);
     }
     ae_frame_leave(_state);
@@ -61572,7 +62770,7 @@ void rmatrixinvupdateuv(/* Real    */ ae_matrix* inva,
      */
     for(i=0; i<=n-1; i++)
     {
-        vt = t1.ptr.p_double[i]/(1+lambdav);
+        vt = t1.ptr.p_double[i]/((double)1+lambdav);
         ae_v_subd(&inva->ptr.pp_double[i][0], 1, &t2.ptr.p_double[0], 1, ae_v_len(0,n-1), vt);
     }
     ae_frame_leave(_state);
@@ -62225,7 +63423,7 @@ double rmatrixludet(/* Real    */ ae_matrix* a,
             s = -s;
         }
     }
-    result = result*s;
+    result = result*(double)s;
     return result;
 }
 

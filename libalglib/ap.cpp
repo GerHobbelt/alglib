@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -89,6 +89,13 @@ namespace alglib_impl
 #include <sched.h>
 #include <sys/time.h>
 #endif
+
+/* Entropy source */
+#if ALGLIB_ENTROPY_SRC==ALGLIB_ENTROPY_SRC_OPENSSL
+#include <openssl/rand.h>
+#define ALGLIB_OPENSSL_RAND_MAX             0x7FFFFFFF
+#endif
+
 /* Debugging helpers for Windows */
 #ifdef AE_DEBUG4WINDOWS
 #include <windows.h>
@@ -312,6 +319,42 @@ void ae_never_call_it()
     ae_touch_ptr((void*)_ae_int_t_must_be_pointer_sized);
 }
 
+
+/*************************************************************************
+RNG wrappers
+*************************************************************************/
+ae_int_t ae_rand()
+{
+#if (defined(ALGLIB_ENTROPY_SRC) && ALGLIB_ENTROPY_SRC==ALGLIB_ENTROPY_SRC_STDRAND) || !defined(ALGLIB_ENTROPY_SRC)
+    return (ae_int_t)rand();
+#elif ALGLIB_ENTROPY_SRC==ALGLIB_ENTROPY_SRC_OPENSSL
+    ae_int32_t random_number;
+    unsigned char buf[sizeof(random_number)];
+    if( !RAND_bytes(buf,sizeof(random_number)) )
+    {
+        /* openSSL random number generator failed, default to standard random generator */
+        return (ae_int_t)rand();
+    }
+    memcpy(&random_number, buf, sizeof(random_number));
+    if( random_number<0 )
+            random_number = -(random_number+1);
+    return (ae_int_t)random_number;
+#else
+#error ALGLIB_ENTROPY_SRC is defined, but its value is not recognized
+#endif
+}
+
+ae_int_t ae_rand_max()
+{
+#if (defined(ALGLIB_ENTROPY_SRC) && ALGLIB_ENTROPY_SRC==ALGLIB_ENTROPY_SRC_STDRAND) || !defined(ALGLIB_ENTROPY_SRC)
+    return (ae_int_t)RAND_MAX;
+#elif ALGLIB_ENTROPY_SRC==ALGLIB_ENTROPY_SRC_OPENSSL
+    return (ae_int_t)ALGLIB_OPENSSL_RAND_MAX;
+#else
+#error ALGLIB_ENTROPY_SRC is defined, but its value is not recognized
+#endif
+}
+
 /*************************************************************************
 Standard function wrappers for better GLIBC portability
 *************************************************************************/
@@ -373,38 +416,38 @@ void ae_set_dbg_flag(ae_int64_t flag_id, ae_int64_t flag_val)
 ae_int64_t ae_get_dbg_value(ae_int64_t id)
 {
     if( id==_ALGLIB_GET_ALLOC_COUNTER )
-        return _alloc_counter;
+        return (ae_int64_t)_alloc_counter;
     if( id==_ALGLIB_GET_CUMULATIVE_ALLOC_SIZE )
-        return _dbg_alloc_total;
+        return (ae_int64_t)_dbg_alloc_total;
     if( id==_ALGLIB_GET_CUMULATIVE_ALLOC_COUNT )
-        return _alloc_counter_total;
+        return (ae_int64_t)_alloc_counter_total;
     
     if( id==_ALGLIB_VENDOR_MEMSTAT )
     {
 #if defined(AE_MKL)
-        return ae_mkl_memstat();
+        return (ae_int64_t)ae_mkl_memstat();
 #else
-        return 0;
+        return (ae_int64_t)0;
 #endif
     }
     
     /* workstealing counters */
     if( id==_ALGLIB_WSDBG_NCORES )
 #if defined(AE_SMP)
-        return ae_cores_count();
+        return (ae_int64_t)ae_cores_count();
 #else
-        return 0;
+        return (ae_int64_t)0;
 #endif
     if( id==_ALGLIB_WSDBG_PUSHROOT_OK )
-        return dbgws_pushroot_ok;
+        return (ae_int64_t)dbgws_pushroot_ok;
     if( id==_ALGLIB_WSDBG_PUSHROOT_FAILED )
-        return dbgws_pushroot_failed;
+        return (ae_int64_t)dbgws_pushroot_failed;
     
     if( id==_ALGLIB_GET_CORES_COUNT )
 #if defined(AE_SMP)
-        return ae_cores_count();
+        return (ae_int64_t)ae_cores_count();
 #else
-        return 0;
+        return (ae_int64_t)0;
 #endif
     if( id==_ALGLIB_GET_GLOBAL_THREADING )
         return (ae_int64_t)ae_get_global_threading();
@@ -412,7 +455,7 @@ ae_int64_t ae_get_dbg_value(ae_int64_t id)
         return (ae_int64_t)_alglib_cores_to_use;
     
     /* unknown value */
-    return 0;
+    return (ae_int64_t)0;
 }
 
 /************************************************************************
@@ -493,14 +536,14 @@ ae_int_t ae_misalignment(const void *ptr, size_t alignment)
         ae_int_t iptr;
     } u;
     u.ptr = ptr;
-    return (ae_int_t)(u.iptr%alignment);
+    return u.iptr%(ae_int_t)alignment;
 }
 
 void* ae_align(void *ptr, size_t alignment)
 {
     char *result = (char*)ptr;
-    if( (result-(char*)0)%alignment!=0 )
-        result += alignment - (result-(char*)0)%alignment;
+    if( ((size_t)(result-(char*)0))%alignment!=0 )
+        result += alignment - ((size_t)(result-(char*)0))%alignment;
     return result;
 }
 
@@ -631,6 +674,19 @@ void  ae_optional_atomic_sub_i(ae_int_t *p, ae_int_t v)
 
 
 /*************************************************************************
+This function implements portable full memory fence.
+
+Current implementation issues fence by acquiring and releasing lock; future
+implementations may add specialized code supported by current compiler
+and/or OS.
+*************************************************************************/
+void ae_mfence(ae_lock *lock)
+{
+    ae_acquire_lock(lock);
+    ae_release_lock(lock);
+}
+
+/*************************************************************************
 This function cleans up automatically managed memory before caller terminates
 ALGLIB executing by ae_break() or by simply stopping calling callback.
 
@@ -722,7 +778,7 @@ void* ae_static_malloc(size_t size, size_t alignment)
     AE_CRITICAL_ASSERT(sm_page_tbl!=NULL);
     AE_CRITICAL_ASSERT(sm_mem!=NULL);
     
-    if( size==0 )
+    if( size==(size_t)0 )
         return NULL;
     if( _force_malloc_failure )
         return NULL;
@@ -838,7 +894,7 @@ void* aligned_malloc(size_t size, size_t alignment)
     char *redzone1;
 #endif
     
-    if( size==0 )
+    if( size==(size_t)0 )
         return NULL;
     if( _force_malloc_failure )
         return NULL;
@@ -950,7 +1006,7 @@ void aligned_free(void *block)
 
 void* eternal_malloc(size_t size)
 {
-    if( size==0 )
+    if( size==(size_t)0 )
         return NULL;
     if( _force_malloc_failure )
         return NULL;
@@ -969,11 +1025,28 @@ Error handling:
 void* ae_malloc(size_t size, ae_state *state)
 {
     void *result;
-    if( size==0 )
+    if( size==(size_t)0 )
         return NULL;
     result = aligned_malloc(size,AE_DATA_ALIGN);
     if( result==NULL && state!=NULL)
         ae_break(state, ERR_OUT_OF_MEMORY, "ae_malloc(): out of memory");
+    return result;
+}
+
+/************************************************************************
+Allocate memory with automatic alignment and zero-fill. 
+
+Returns NULL when zero size is specified.
+
+Error handling:
+* if state is NULL, returns NULL on allocation error
+* if state is not NULL, calls ae_break() on allocation error
+************************************************************************/
+void* ae_malloc_zero(size_t size, ae_state *state)
+{
+    void *result = ae_malloc(size, state);
+    if( result!=NULL )
+        memset(result, 0, size);
     return result;
 }
 
@@ -1034,13 +1107,13 @@ on entry are correctly initialized by zeros.
 ae_bool ae_check_zeros(const void *ptr, ae_int_t n)
 {
     ae_int_t nu, nr, i;
-    unsigned long long c = 0x0;
+    unsigned long long c = (unsigned long long)0x0;
     
     /*
      * determine leading and trailing lengths
      */
-    nu = n/sizeof(unsigned long long);
-    nr = n%sizeof(unsigned long long);
+    nu = n/(ae_int_t)sizeof(unsigned long long);
+    nr = n%(ae_int_t)sizeof(unsigned long long);
     
     /*
      * handle leading nu long long elements
@@ -1059,7 +1132,7 @@ ae_bool ae_check_zeros(const void *ptr, ae_int_t n)
     if( nr>0 )
     {
         const unsigned char *p_uc;
-        p_uc  = ((const unsigned char *)ptr)+nu*sizeof(unsigned long long);
+        p_uc  = ((const unsigned char *)ptr)+nu*(ae_int_t)sizeof(unsigned long long);
         for(i=0; i<nr; i++)
             c |= p_uc[i];
     }
@@ -1101,7 +1174,7 @@ void ae_state_init(ae_state *state)
     /*
      * Set flags
      */
-    state->flags = 0x0;
+    state->flags = (ae_uint64_t)0x0;
 
     /*
      * p_next points to itself because:
@@ -1217,7 +1290,7 @@ void ae_frame_leave(ae_state *state)
     while( state->p_top_block->ptr!=DYN_FRAME && state->p_top_block->ptr!=DYN_BOTTOM)
     {
         if( state->p_top_block->ptr!=NULL && state->p_top_block->deallocator!=NULL)
-            ((ae_deallocator)(state->p_top_block->deallocator))(state->p_top_block->ptr);
+            (state->p_top_block->deallocator)(state->p_top_block->ptr);
         state->p_top_block = state->p_top_block->p_next;
     }
     state->p_top_block = state->p_top_block->p_next;
@@ -1266,7 +1339,7 @@ NOTE: no memory allocation is performed for initialization with size=0
 void ae_db_init(ae_dyn_block *block, ae_int_t size, ae_state *state, ae_bool make_automatic)
 {
     AE_CRITICAL_ASSERT(state!=NULL);
-    AE_CRITICAL_ASSERT(ae_check_zeros(block,sizeof(*block)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(block,(ae_int_t)sizeof(*block)));
     
     /*
      * NOTE: these strange dances around block->ptr are necessary
@@ -1322,7 +1395,7 @@ void ae_db_realloc(ae_dyn_block *block, ae_int_t size, ae_state *state)
     ae_assert(size>=0, "ae_db_realloc(): negative size", state);
     if( block->ptr!=NULL )
     {
-        ((ae_deallocator)block->deallocator)(block->ptr);
+        ((ae_destructor)block->deallocator)(block->ptr);
         block->ptr = NULL;
         block->valgrind_hint = NULL;
     }
@@ -1345,7 +1418,7 @@ NOTES:
 void ae_db_free(ae_dyn_block *block)
 {
     if( block->ptr!=NULL )
-        ((ae_deallocator)block->deallocator)(block->ptr);
+        ((ae_destructor)block->deallocator)(block->ptr);
     block->ptr = NULL;
     block->valgrind_hint = NULL;
     block->deallocator = ae_free;
@@ -1402,7 +1475,7 @@ void ae_vector_init(ae_vector *dst, ae_int_t size, ae_datatype datatype, ae_stat
      * Integrity checks
      */
     AE_CRITICAL_ASSERT(state!=NULL);
-    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,(ae_int_t)sizeof(*dst)));
     ae_assert(size>=0, "ae_vector_init(): negative size", state);
     
     /* prepare for possible errors during allocation */
@@ -1435,7 +1508,7 @@ make_automatic      if true, vector will be registered in the current frame
 
 dst is assumed to be uninitialized, its fields are ignored.
 ************************************************************************/
-void ae_vector_init_copy(ae_vector *dst, ae_vector *src, ae_state *state, ae_bool make_automatic)
+void ae_vector_init_copy(ae_vector *dst, const ae_vector *src, ae_state *state, ae_bool make_automatic)
 {
     AE_CRITICAL_ASSERT(state!=NULL);
     
@@ -1501,7 +1574,7 @@ void ae_vector_init_attach_to_x(ae_vector *dst, x_vector *src, ae_state *state, 
     volatile ae_int_t cnt;
     
     AE_CRITICAL_ASSERT(state!=NULL);
-    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,(ae_int_t)sizeof(*dst)));
     
     cnt = (ae_int_t)src->cnt;
     
@@ -1575,7 +1648,7 @@ void ae_vector_resize(ae_vector *dst, ae_int_t newsize, ae_state *state)
     ae_vector_init(&tmp, newsize, dst->datatype, state, ae_false);
     bytes_total = (dst->cnt<newsize ? dst->cnt : newsize)*ae_sizeof(dst->datatype);
     if( bytes_total>0 )
-        memmove(tmp.ptr.p_ptr, dst->ptr.p_ptr, bytes_total);
+        memmove(tmp.ptr.p_ptr, dst->ptr.p_ptr, (size_t)bytes_total);
     ae_swap_vectors(dst, &tmp);
     ae_vector_clear(&tmp);
 }
@@ -1666,7 +1739,7 @@ NOTE: no memory allocation is performed for initialization with rows=cols=0
 void ae_matrix_init(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_datatype datatype, ae_state *state, ae_bool make_automatic)
 {
     AE_CRITICAL_ASSERT(state!=NULL);
-    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,(ae_int_t)sizeof(*dst)));
     
     ae_assert(rows>=0 && cols>=0, "ae_matrix_init(): negative length", state);
 
@@ -1695,7 +1768,7 @@ void ae_matrix_init(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_datatype da
     ae_db_init(&dst->data, rows*((ae_int_t)sizeof(void*)+dst->stride*ae_sizeof(datatype))+AE_DATA_ALIGN-1, state, make_automatic);
     dst->rows = rows;
     dst->cols = cols;
-    ae_matrix_update_row_pointers(dst, ae_align((char*)dst->data.ptr+rows*sizeof(void*),AE_DATA_ALIGN));
+    ae_matrix_update_row_pointers(dst, ae_align((char*)dst->data.ptr+rows*(ae_int_t)sizeof(void*),AE_DATA_ALIGN));
 }
 
 
@@ -1712,7 +1785,7 @@ make_automatic      if true, matrix will be registered in the current frame
 
 dst is assumed to be uninitialized, its fields are ignored.
 ************************************************************************/
-void ae_matrix_init_copy(ae_matrix *dst, ae_matrix *src, ae_state *state, ae_bool make_automatic)
+void ae_matrix_init_copy(ae_matrix *dst, const ae_matrix *src, ae_state *state, ae_bool make_automatic)
 {
     ae_int_t i;
     ae_matrix_init(dst, src->rows, src->cols, src->datatype, state, make_automatic);
@@ -1788,7 +1861,7 @@ void ae_matrix_init_attach_to_x(ae_matrix *dst, x_matrix *src, ae_state *state, 
     ae_int_t rows, cols;
     
     AE_CRITICAL_ASSERT(state!=NULL);
-    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,(ae_int_t)sizeof(*dst)));
     
     rows = (ae_int_t)src->rows;
     cols = (ae_int_t)src->cols;
@@ -1873,7 +1946,7 @@ void ae_matrix_set_length(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_state
     dst->cols = cols;
     
     /* update pointers to rows */
-    ae_matrix_update_row_pointers(dst, ae_align((char*)dst->data.ptr+dst->rows*sizeof(void*),AE_DATA_ALIGN));
+    ae_matrix_update_row_pointers(dst, ae_align((char*)dst->data.ptr+dst->rows*(ae_int_t)sizeof(void*),AE_DATA_ALIGN));
 }
 
 
@@ -1975,13 +2048,16 @@ After initialization, smart pointer stores NULL pointer.
 void ae_smart_ptr_init(ae_smart_ptr *dst, void **subscriber, ae_state *state, ae_bool make_automatic)
 {
     AE_CRITICAL_ASSERT(state!=NULL);
-    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,(ae_int_t)sizeof(*dst)));
     dst->subscriber = subscriber;
     dst->ptr = NULL;
     if( dst->subscriber!=NULL )
         *(dst->subscriber) = dst->ptr;
     dst->is_owner = ae_false;
     dst->is_dynamic = ae_false;
+    dst->size_of_object = 0;
+    dst->copy_constructor = NULL;
+    dst->destructor = NULL;
     dst->frame_entry.deallocator = ae_smart_ptr_destroy;
     dst->frame_entry.ptr = dst;
     if( make_automatic )
@@ -2003,14 +2079,16 @@ void ae_smart_ptr_clear(void *_dst)
     ae_smart_ptr *dst = (ae_smart_ptr*)_dst;
     if( dst->is_owner && dst->ptr!=NULL )
     {
-        dst->destroy(dst->ptr);
+        dst->destructor(dst->ptr);
         if( dst->is_dynamic )
             ae_free(dst->ptr);
     }
     dst->is_owner = ae_false;
     dst->is_dynamic = ae_false;
     dst->ptr = NULL;
-    dst->destroy = NULL;
+    dst->size_of_object = 0;
+    dst->copy_constructor = NULL;
+    dst->destructor = NULL;
     if( dst->subscriber!=NULL )
         *(dst->subscriber) = NULL;
 }
@@ -2036,7 +2114,9 @@ is_owner            whether smart pointer owns new_ptr
 is_dynamic          whether object is dynamic - clearing such object
                     requires BOTH calling destructor function AND calling
                     ae_free() for memory occupied by object.
-destroy             destructor function
+obj_size            in-memory size of the object. Ignored for is_owner==false.
+cc                  copy constructor, can not be NULL for new_ptr!=NULL
+dd                  destructor function; can be NULL for is_owner==ae_false.
 
 In case smart pointer already contains non-NULL value and owns this value,
 it is freed before assigning new pointer.
@@ -2046,11 +2126,15 @@ subscriber was specified during pointer creation).
 
 You can specify NULL new_ptr, in which case is_owner/destroy are ignored.
 ************************************************************************/
-void ae_smart_ptr_assign(ae_smart_ptr *dst, void *new_ptr, ae_bool is_owner, ae_bool is_dynamic, void (*destroy)(void*))
+void ae_smart_ptr_assign(ae_smart_ptr *dst, void *new_ptr, ae_bool is_owner, ae_bool is_dynamic, ae_int_t obj_size, ae_copy_constructor cc, ae_destructor dd)
 {
+    ae_assert(new_ptr==NULL || !is_owner || cc!=NULL, "ae_smart_ptr_assign: new_ptr!=NULL, is_owner, but copy constructor is NULL", NULL);
+    ae_assert(new_ptr==NULL || !is_owner || dd!=NULL, "ae_smart_ptr_assign: new_ptr!=NULL, is_owner, but destructor is NULL", NULL);
+    ae_assert(new_ptr==NULL || !is_owner || obj_size>0, "ae_smart_ptr_assign: new_ptr!=NULL, is_owner, but object size is zero", NULL);
+    
     if( dst->is_owner && dst->ptr!=NULL )
     {
-        dst->destroy(dst->ptr);
+        dst->destructor(dst->ptr);
         if( dst->is_dynamic )
             ae_free(dst->ptr);
     }
@@ -2059,14 +2143,18 @@ void ae_smart_ptr_assign(ae_smart_ptr *dst, void *new_ptr, ae_bool is_owner, ae_
         dst->ptr = new_ptr;
         dst->is_owner = is_owner;
         dst->is_dynamic = is_dynamic;
-        dst->destroy = destroy;
+        dst->size_of_object = is_owner ? obj_size : 0;
+        dst->copy_constructor = cc;
+        dst->destructor = dd;
     }
     else
     {
         dst->ptr = NULL;
         dst->is_owner = ae_false;
         dst->is_dynamic = ae_false;
-        dst->destroy = NULL;
+        dst->size_of_object = 0;
+        dst->copy_constructor = NULL;
+        dst->destructor = NULL;
     }
     if( dst->subscriber!=NULL )
         *(dst->subscriber) = dst->ptr;
@@ -2089,9 +2177,420 @@ void ae_smart_ptr_release(ae_smart_ptr *dst)
     dst->is_owner = ae_false;
     dst->is_dynamic = ae_false;
     dst->ptr = NULL;
-    dst->destroy = NULL;
+    dst->size_of_object = 0;
+    dst->copy_constructor = NULL;
+    dst->destructor = NULL;
     if( dst->subscriber!=NULL )
         *(dst->subscriber) = NULL;
+}
+
+/************************************************************************
+This function creates array of objects.
+
+dst                 preallocated destination, must be zero-filled
+state               pointer to current state structure. Can not be NULL.
+                    used for exception handling (say, allocation error results
+                    in longjmp call).
+make_automatic      if true, pointer will be registered in the current frame
+                    of the state structure;
+                      
+Error handling:
+* on failure calls ae_break() with NULL state pointer. Usually it  results
+  in abort() call.
+
+After initialization, smart pointer stores NULL pointer.
+************************************************************************/
+void ae_obj_array_init(ae_obj_array *dst, ae_state *state, ae_bool make_automatic)
+{
+    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    
+    /* first, attach to frame, just to be sure that we will clean everything if we generate exception during init */
+    dst->frame_entry.deallocator = (ae_destructor)ae_obj_array_destroy;
+    dst->frame_entry.ptr = dst;
+    if( make_automatic )
+        ae_db_attach(&dst->frame_entry, state);
+    
+    /* initialize */
+    dst->cnt = 0;
+    dst->capacity = 0;
+    dst->fixed_capacity = ae_false;
+    dst->pp_obj_ptr = NULL;
+    dst->pp_obj_sizes = NULL;
+    dst->pp_copy = NULL;
+    dst->pp_destroy = NULL;
+    ae_init_lock(&dst->array_lock, state, ae_false);
+    ae_init_lock(&dst->barrier_lock, state, ae_false);
+}
+
+
+/************************************************************************
+This function creates a deep copy of ae_obj_array, with independent copies
+of all objects owned by the array being created.
+
+dst                 destination array, must be zero-filled
+src                 source array
+state               pointer to current state structure. Can not be NULL.
+                    used for exception handling (say, allocation error results
+                    in longjmp call).
+make_automatic      if true, array will be registered in the current frame
+                    of the state structure;
+
+NOTE: this function is NOT thread-safe. It does not acquire array lock, so
+      you should NOT call it when array can be used by another thread.
+************************************************************************/
+void ae_obj_array_init_copy(ae_obj_array *dst, const ae_obj_array *src, ae_state *state, ae_bool make_automatic)
+{
+    ae_int_t i;
+    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    
+    /* initialize array; we know that empty array has NULL internal pointers */
+    ae_obj_array_init(dst, state, make_automatic);
+    AE_CRITICAL_ASSERT(dst->capacity==0);
+    AE_CRITICAL_ASSERT(dst->pp_obj_ptr==NULL);
+    AE_CRITICAL_ASSERT(dst->pp_obj_sizes==NULL);
+    AE_CRITICAL_ASSERT(dst->pp_copy==NULL);
+    AE_CRITICAL_ASSERT(dst->pp_destroy==NULL);
+    
+    /* copy fields */
+    dst->cnt = src->cnt;
+    dst->capacity = src->capacity;
+    dst->fixed_capacity = src->fixed_capacity;
+    AE_CRITICAL_ASSERT(src->cnt <= src->capacity);
+    
+    /* copy data */
+    if( dst->capacity>0 )
+    {
+        dst->pp_obj_ptr   =               (void**)ae_malloc_zero((size_t)dst->capacity*sizeof(void*), state);
+        dst->pp_obj_sizes =            (ae_int_t*)ae_malloc_zero((size_t)dst->capacity*sizeof(ae_int_t), state);
+        dst->pp_copy      = (ae_copy_constructor*)ae_malloc_zero((size_t)dst->capacity*sizeof(ae_copy_constructor), state);
+        dst->pp_destroy   =       (ae_destructor*)ae_malloc_zero((size_t)dst->capacity*sizeof(ae_destructor), state);
+        for(i=0; i<dst->cnt; i++)
+        {
+            dst->pp_destroy[i]   = src->pp_destroy[i];
+            dst->pp_copy[i]      = src->pp_copy[i];
+            dst->pp_obj_sizes[i] = src->pp_obj_sizes[i];
+            dst->pp_obj_ptr[i]   = ae_malloc_zero((size_t)dst->pp_obj_sizes[i], state);
+            (dst->pp_copy[i])(dst->pp_obj_ptr[i], src->pp_obj_ptr[i], state, ae_false);
+        }
+    }
+}
+
+
+/************************************************************************
+This function clears dynamic objects array.
+
+dst                 destination array.
+
+After call to this function all objects managed by array are destroyed and
+their memory is freed. Array capacity does not change.
+
+NOTE: this function is thread-unsafe.
+
+************************************************************************/
+void ae_obj_array_clear(ae_obj_array *dst)
+{
+    ae_int_t i;
+    for(i=0; i<dst->cnt; i++)
+        if( dst->pp_obj_ptr[i]!=NULL )
+        {
+            (dst->pp_destroy[i])(dst->pp_obj_ptr[i]);
+            ae_free(dst->pp_obj_ptr[i]);
+            dst->pp_obj_ptr[i] = NULL;
+            dst->pp_obj_sizes[i] = 0;
+            dst->pp_copy[i] = NULL;
+            dst->pp_destroy[i] = NULL;
+        }
+    dst->cnt = 0;
+}
+
+/************************************************************************
+This function destroys dynamic objects array by clearing it  first,  then
+deallocating internal dynamically allocated structures.
+
+dst                 destination instance.
+************************************************************************/
+void ae_obj_array_destroy(ae_obj_array *dst)
+{
+    ae_obj_array_clear(dst);
+    if( dst->pp_obj_ptr!=NULL )
+        ae_free(dst->pp_obj_ptr);
+    if( dst->pp_obj_sizes!=NULL )
+        ae_free(dst->pp_obj_sizes);
+    if( dst->pp_copy!=NULL )
+        ae_free(dst->pp_copy);
+    if( dst->pp_destroy!=NULL )
+        ae_free(dst->pp_destroy);
+    ae_free_lock(&dst->array_lock);
+    ae_free_lock(&dst->barrier_lock);
+}
+
+/************************************************************************
+This function returns array length.
+
+It is thread-safe, i.e. it can be combined with functions adding elements
+to the array. If this function is called  when  another  thread  adds  an
+element to the array, this function will either:
+* return old array size
+* return new array size, but ONLY after new element is added to the array
+
+dst                 destination instance.
+
+Result:
+    array length
+************************************************************************/
+ae_int_t ae_obj_array_get_length(ae_obj_array *dst)
+{
+    return dst->cnt;
+}
+
+/************************************************************************
+Internal function which modifies array capacity, ignoring fixed_capacity
+flag.
+
+Returns ae_false on memory reallocation failure, ae_true otherwise.
+************************************************************************/
+static ae_bool _ae_obj_array_set_capacity(ae_obj_array *arr, ae_int_t new_capacity, ae_state *state)
+{
+    void **new_pp_obj_ptr;
+    ae_int_t *new_pp_obj_sizes;
+    ae_copy_constructor *new_pp_copy;
+    ae_destructor *new_pp_destroy;
+    
+    /* integrity checks */
+    ae_assert(arr->cnt<=new_capacity, "_ae_obj_array_set_capacity: new capacity is less than present size", state);
+    
+    /* quick exit */
+    if( arr->cnt==new_capacity )
+        return ae_true;
+     
+    /* increase capacity */
+    arr->capacity = new_capacity;
+         
+    /* allocate new memory, check correctness */
+    new_pp_obj_ptr   =               (void**)ae_malloc((size_t)arr->capacity*sizeof(void*), NULL);
+    new_pp_obj_sizes =            (ae_int_t*)ae_malloc((size_t)arr->capacity*sizeof(ae_int_t), NULL);
+    new_pp_copy      = (ae_copy_constructor*)ae_malloc((size_t)arr->capacity*sizeof(ae_copy_constructor), NULL);
+    new_pp_destroy   =       (ae_destructor*)ae_malloc((size_t)arr->capacity*sizeof(ae_destructor), NULL);
+    if( new_pp_obj_ptr==NULL || new_pp_obj_sizes==NULL || new_pp_copy==NULL || new_pp_destroy==NULL )
+    {
+        /* malloc error: free all newly allocated memory, return */
+        ae_free(new_pp_obj_ptr);
+        ae_free(new_pp_obj_sizes);
+        ae_free(new_pp_copy);
+        ae_free(new_pp_destroy);
+        return ae_false;
+    }
+        
+    /* move data */
+    memmove(new_pp_obj_ptr,   arr->pp_obj_ptr,   (size_t)arr->cnt*sizeof(void*));
+    memmove(new_pp_obj_sizes, arr->pp_obj_sizes, (size_t)arr->cnt*sizeof(ae_int_t));
+    memmove(new_pp_copy,      arr->pp_copy,      (size_t)arr->cnt*sizeof(ae_copy_constructor));
+    memmove(new_pp_destroy,   arr->pp_destroy,   (size_t)arr->cnt*sizeof(ae_destructor));
+        
+    /* free old memory, swap pointers */
+    ae_free(arr->pp_obj_ptr);
+    ae_free(arr->pp_obj_sizes);
+    ae_free(arr->pp_copy);
+    ae_free(arr->pp_destroy);
+    arr->pp_obj_ptr = new_pp_obj_ptr;
+    arr->pp_obj_sizes = new_pp_obj_sizes;
+    arr->pp_copy = new_pp_copy;
+    arr->pp_destroy = new_pp_destroy;
+    
+    /* done */
+    return ae_true;
+}
+
+/************************************************************************
+This function sets array into special fixed capacity  mode  which  allows
+concurrent appends, writes and reads to be performed.
+
+arr                 array, can be in any mode - dynamic or fixed capacity
+new_capacity        new capacity, must be at least equal to current length.
+
+On output:
+* array capacity increased to new_capacity exactly
+* all present elements are retained
+* if array size already exceeds new_capacity, an exception is generated
+************************************************************************/
+void ae_obj_array_fixed_capacity(ae_obj_array *arr, ae_int_t new_capacity, ae_state *state)
+{
+    ae_assert(arr->cnt<=new_capacity, "ae_obj_array_fixed_capacity: new capacity is less than present size", state);
+    
+    if( !_ae_obj_array_set_capacity(arr, new_capacity, state) )
+        ae_assert(ae_false, "ae_obj_array_fixed_capacity: memory error during reallocation", state);
+    arr->fixed_capacity = ae_true;
+}
+
+/************************************************************************
+This function retrieves element from the array and assigns it to the smart
+pointer PTR.
+
+arr                 array.
+idx                 element index
+ptr                 smart pointer structure
+
+On output:
+* pointer with index idx is assigned to PTR
+* PTR does NOT own new pointer
+* if, prior to calling this function, PTR owns some pointer, it  will  be
+  properly deallocated
+* out-of-bounds access will result in exception being generated
+************************************************************************/
+void ae_obj_array_get(ae_obj_array *arr, ae_int_t idx, ae_smart_ptr *ptr, ae_state *state)
+{
+    if( idx<0 || idx>=arr->cnt )
+        ae_assert(ae_false, "ObjArray: out of bounds read access was performed", state);
+    ae_smart_ptr_assign(ptr, arr->pp_obj_ptr[idx], ae_false, ae_false, 0, NULL, NULL);
+}
+
+/************************************************************************
+This function sets idx-th element of arr to the pointer contained in ptr.
+
+Notes:
+* array size must be  at  least  idx+1,  an  exception will be generated
+  otherwise
+* ptr can be NULL
+* non-NULL ptr MUST own its value prior to calling this function, and it
+  will transfer ownership to arr after the call (although it will  still
+  point to the object)
+* non-NULL ptr must point  to  dynamically  allocated  object  (on-stack
+  objects are not supported)
+* out-of-bounds access will result in exception being generated
+* this function does NOT change array size and capacity
+
+This function is partially thread-safe: it is  safe  as  long  as  array
+capacity is not changed by concurrently called functions.
+
+arr                 array.
+idx                 element index
+ptr                 smart pointer structure
+
+************************************************************************/
+void ae_obj_array_set_transfer(ae_obj_array *arr, ae_int_t idx, ae_smart_ptr *ptr, ae_state *state)
+{
+    /* initial integrity checks */
+    if( idx<0 || idx>=arr->cnt )
+        ae_assert(ae_false, "ae_obj_array_set_transfer: out of bounds idx", state);
+    ae_assert(ptr->ptr==NULL || ptr->is_owner, "ae_obj_array_set_transfer: ptr does not own its pointer", state);
+    ae_assert(ptr->ptr==NULL || ptr->is_dynamic, "ae_obj_array_set_transfer: ptr does not point to dynamic object", state);
+    
+    /* clean up existing pointer at location idx, if needed */
+    if( arr->pp_obj_ptr[idx]!=NULL )
+    {
+        (arr->pp_destroy[idx])(arr->pp_obj_ptr[idx]);
+        ae_free(arr->pp_obj_ptr[idx]);
+        arr->pp_obj_ptr[idx] = NULL;
+        arr->pp_obj_sizes[idx] = 0;
+        arr->pp_copy[idx] = NULL;
+        arr->pp_destroy[idx] = NULL;
+    }
+    
+    /* if ptr is non-NULL, transfer it to array */
+    if( ptr->ptr!=NULL )
+    {
+        /* move to array */
+        arr->pp_obj_ptr[idx] = ptr->ptr;
+        arr->pp_obj_sizes[idx] = ptr->size_of_object;
+        arr->pp_copy[idx] = ptr->copy_constructor;
+        arr->pp_destroy[idx] = ptr->destructor;
+        
+        /* release ownership */
+        ptr->is_owner = ae_false;
+        ptr->is_dynamic = ae_false;
+        ptr->size_of_object = 0;
+        ptr->copy_constructor = NULL;
+        ptr->destructor = NULL;
+    }
+}
+
+
+/************************************************************************
+This function atomically appends pointer to arr, increasing array  length
+by 1 and returns index of the element being added.
+
+arr                 array.
+ptr                 smart pointer structure
+
+Notes:
+* if array has fixed capacity and its size is already at  its  limit,  an
+  exception will be generated
+* ptr can be NULL
+* non-NULL ptr MUST own its value prior to calling this function, and  it
+  will transfer ownership to arr after the call (although it will   still
+  point to the object)
+* non-NULL ptr must point  to the dynamically  allocated object (on-stack
+  objects are not supported)
+
+This function is partially thread-safe:
+* parallel threads can concurrently append elements using this function
+* for fixed-capacity arrays it is possible to combine appends with reads,
+  e.g. to use ae_obj_array_get()
+************************************************************************/
+ae_int_t ae_obj_array_append_transfer(ae_obj_array *arr, ae_smart_ptr *ptr, ae_state *state)
+{
+    ae_int_t result;
+    
+    /* initial integrity checks */
+    ae_assert(ptr->ptr==NULL || ptr->is_owner, "ae_obj_array_append_transfer: ptr does not own its pointer", state);
+    ae_assert(ptr->ptr==NULL || ptr->is_dynamic, "ae_obj_array_append_transfer: ptr does not point to dynamic object", state);
+    ae_assert(!arr->fixed_capacity || arr->cnt<arr->capacity, "ae_obj_array_append_transfer: unable to append, all capacity is used up", state);
+    
+    /* get primary lock */
+    ae_acquire_lock(&arr->array_lock);
+    
+    /* reallocate if needed */
+    if( arr->cnt==arr->capacity )
+    {
+        /* one more integrity check */
+        AE_CRITICAL_ASSERT(!arr->fixed_capacity);
+        
+        /* increase capacity */
+        if( !_ae_obj_array_set_capacity(arr, 2*arr->capacity+8, state) )
+        {
+            /* malloc error: release lock and throw exception */
+            ae_release_lock(&arr->array_lock);
+            ae_assert(ae_false, "ae_obj_array_append_transfer: malloc error", state);
+        }
+    }
+    
+    /* append ptr */
+    if( ptr->ptr!=NULL )
+    {
+        /* move to array */
+        arr->pp_obj_ptr[arr->cnt] = ptr->ptr;
+        arr->pp_obj_sizes[arr->cnt] = ptr->size_of_object;
+        arr->pp_copy[arr->cnt] = ptr->copy_constructor;
+        arr->pp_destroy[arr->cnt] = ptr->destructor;
+        
+        /* release ownership */
+        ptr->is_owner = ae_false;
+        ptr->is_dynamic = ae_false;
+        ptr->size_of_object = 0;
+        ptr->copy_constructor = NULL;
+        ptr->destructor = NULL;
+    }
+    else
+    {
+        /* set to NULL */
+        arr->pp_obj_ptr[arr->cnt] = NULL;
+        arr->pp_obj_sizes[arr->cnt] = 0;
+        arr->pp_copy[arr->cnt] = NULL;
+        arr->pp_destroy[arr->cnt] = NULL;
+    }
+    
+    /* issue memory fence (necessary for correct ae_obj_array_get_length) and increase array size */
+    ae_mfence(&arr->barrier_lock);
+    result = arr->cnt;
+    arr->cnt = result+1;
+    
+    /* release primary lock */
+    ae_release_lock(&arr->array_lock);
+    
+    /* done */
+    return result;
 }
 
 /************************************************************************
@@ -2505,7 +3004,7 @@ void ae_trace_file(const char *tags, const char *filename)
     strncat(alglib_trace_tags, tags, ALGLIB_TRACE_TAGS_LEN);
     strcat(alglib_trace_tags, ",");
     for(int i=0; alglib_trace_tags[i]!=0; i++)
-        alglib_trace_tags[i] = (char)tolower(alglib_trace_tags[i]);
+        alglib_trace_tags[i] = (char)tolower((int)alglib_trace_tags[i]);
     
     /*
      * set up trace
@@ -2544,7 +3043,7 @@ ae_bool ae_is_trace_enabled(const char *tag)
     strncat(buf, tag, ALGLIB_TRACE_TAGS_LEN);
     strcat(buf, "?");
     for(int i=0; buf[i]!=0; i++)
-        buf[i] = (char)tolower(buf[i]);
+        buf[i] = (char)tolower((int)buf[i]);
             
     /* contains tag (followed by comma, which means exact match) */
     buf[strlen(buf)-1] = ',';
@@ -2577,7 +3076,7 @@ void ae_trace(const char * printf_fmt, ...)
     }
 }
 
-int ae_tickcount()
+ae_int_t ae_tickcount()
 {
 #if AE_OS==AE_WINDOWS || defined(AE_DEBUG4WINDOWS)
     return (int)GetTickCount();
@@ -2585,17 +3084,17 @@ int ae_tickcount()
     struct timeval now;
     ae_int64_t r, v;
     gettimeofday(&now, NULL);
-    v = now.tv_sec;
+    v = (ae_int64_t)now.tv_sec;
     r = v*1000;
-    v = now.tv_usec/1000;
+    v = (ae_int64_t)(now.tv_usec/(suseconds_t)1000);
     r = r+v;
-    return r;
+    return (ae_int_t)r;
     /*struct timespec now;
     if (clock_gettime(CLOCK_MONOTONIC, &now) )
         return 0;
     return now.tv_sec * 1000.0 + now.tv_nsec / 1000000.0;*/
 #else
-    return 0;
+    return (ae_int_t)0;
 #endif
 }
 
@@ -2832,8 +3331,8 @@ double ae_sqrt(double x, ae_state *state)
 
 ae_int_t ae_sign(double x, ae_state *state)
 {
-    if( x>0 ) return  1;
-    if( x<0 ) return -1;
+    if( x>0.0 ) return  1;
+    if( x<0.0 ) return -1;
     return 0;
 }
 
@@ -2844,7 +3343,7 @@ ae_int_t ae_round(double x, ae_state *state)
 
 ae_int_t ae_trunc(double x, ae_state *state)
 {
-    return (ae_int_t)(x>0 ? ae_ifloor(x,state) : ae_iceil(x,state));
+    return (ae_int_t)(x>0.0 ? ae_ifloor(x,state) : ae_iceil(x,state));
 }
 
 ae_int_t ae_ifloor(double x, ae_state *state)
@@ -2879,9 +3378,9 @@ double ae_minreal(double m1, double m2, ae_state *state)
 
 double ae_randomreal(ae_state *state)
 {
-    int i1 = rand();
-    int i2 = rand();
-    double mx = (double)(RAND_MAX)+1.0;
+    double i1 = (double)ae_rand();
+    double i2 = (double)ae_rand();
+    double mx = (double)ae_rand_max()+1.0;
     volatile double tmp0 = i2/mx;
     volatile double tmp1 = i1+tmp0;
     return tmp1/mx;
@@ -2889,7 +3388,7 @@ double ae_randomreal(ae_state *state)
 
 ae_int_t ae_randominteger(ae_int_t maxv, ae_state *state)
 {
-    return rand()%maxv;
+    return ae_rand()%maxv;
 }
 
 double   ae_sin(double x, ae_state *state)
@@ -2998,13 +3497,13 @@ static double x_safepythag2(double x, double y)
     yabs = fabs(y);
     w = xabs>yabs ? xabs : yabs;
     z = xabs<yabs ? xabs : yabs;
-    if( z==0 )
+    if( z==0.0 )
         return w;
     else
     {
         double t;
         t = z/w;
-        return w*sqrt(1+t*t);
+        return w*sqrt(1.0+t*t);
     }
 }
 /*
@@ -3455,13 +3954,13 @@ ae_bool x_is_symmetric(x_matrix *a)
     if( a->cols==0 || a->rows==0 )
         return ae_true;
     ae_state_init(&_alglib_env_state);
-    mx = 0;
-    err = 0;
+    mx = 0.0;
+    err = 0.0;
     nonfinite = ae_false;
     is_symmetric_rec_diag_stat(a, 0, (ae_int_t)a->rows, &nonfinite, &mx, &err, &_alglib_env_state);
     if( nonfinite )
         return ae_false;
-    if( mx==0 )
+    if( mx==0.0 )
         return ae_true;
     return err/mx<=1.0E-14;
 }
@@ -3477,13 +3976,13 @@ ae_bool x_is_hermitian(x_matrix *a)
     if( a->cols==0 || a->rows==0 )
         return ae_true;
     ae_state_init(&_alglib_env_state);
-    mx = 0;
-    err = 0;
+    mx = 0.0;
+    err = 0.0;
     nonfinite = ae_false;
     is_hermitian_rec_diag_stat(a, 0, (ae_int_t)a->rows, &nonfinite, &mx, &err, &_alglib_env_state);
     if( nonfinite )
         return ae_false;
-    if( mx==0 )
+    if( mx==0.0 )
         return ae_true;
     return err/mx<=1.0E-14;
 }
@@ -3729,17 +4228,17 @@ void ae_int2str(ae_int_t v, char *buf, ae_state *state)
      */
     c = v<0 ? (unsigned char)0xFF : (unsigned char)0x00;
     u.ival = v;
-    for(i=sizeof(ae_int_t); i<=8; i++) /* <=8 is preferred because it avoids unnecessary compiler warnings*/
+    for(i=(ae_int_t)sizeof(ae_int_t); i<=8; i++) /* <=8 is preferred because it avoids unnecessary compiler warnings*/
         u.bytes[i] = c;
-    u.bytes[8] = 0;
+    u.bytes[8] = (unsigned char)0;
     if( state->endianness==AE_BIG_ENDIAN )
     {
         for(i=0; i<(ae_int_t)(sizeof(ae_int_t)/2); i++)
         {
             unsigned char tc;
             tc = u.bytes[i];
-            u.bytes[i] = u.bytes[sizeof(ae_int_t)-1-i];
-            u.bytes[sizeof(ae_int_t)-1-i] = tc;
+            u.bytes[i] = u.bytes[(ae_int_t)sizeof(ae_int_t)-1-i];
+            u.bytes[(ae_int_t)sizeof(ae_int_t)-1-i] = tc;
         }
     }
     
@@ -3753,7 +4252,7 @@ void ae_int2str(ae_int_t v, char *buf, ae_state *state)
     ae_threebytes2foursixbits(u.bytes+6, sixbits+8);        
     for(i=0; i<AE_SER_ENTRY_LENGTH; i++)
         buf[i] = ae_sixbits2char(sixbits[i]);
-    buf[AE_SER_ENTRY_LENGTH] = 0x00;
+    buf[AE_SER_ENTRY_LENGTH] = (char)0x00;
 }
 
 /************************************************************************
@@ -3785,15 +4284,15 @@ void ae_int642str(ae_int64_t v, char *buf, ae_state *state)
      */
     memset(bytes, v<0 ? 0xFF : 0x00, 8);
     memmove(bytes, &v, 8);
-    bytes[8] = 0;
+    bytes[8] = (unsigned char)0;
     if( state->endianness==AE_BIG_ENDIAN )
     {
         for(i=0; i<(ae_int_t)(sizeof(ae_int_t)/2); i++)
         {
             unsigned char tc;
             tc = bytes[i];
-            bytes[i] = bytes[sizeof(ae_int_t)-1-i];
-            bytes[sizeof(ae_int_t)-1-i] = tc;
+            bytes[i] = bytes[(ae_int_t)sizeof(ae_int_t)-1-i];
+            bytes[(ae_int_t)sizeof(ae_int_t)-1-i] = tc;
         }
     }
     
@@ -3807,7 +4306,7 @@ void ae_int642str(ae_int64_t v, char *buf, ae_state *state)
     ae_threebytes2foursixbits(bytes+6, sixbits+8);        
     for(i=0; i<AE_SER_ENTRY_LENGTH; i++)
         buf[i] = ae_sixbits2char(sixbits[i]);
-    buf[AE_SER_ENTRY_LENGTH] = 0x00;
+    buf[AE_SER_ENTRY_LENGTH] = (char)0x00;
 }
 
 /************************************************************************
@@ -3982,7 +4481,7 @@ void ae_double2str(double v, char *buf, ae_state *state)
      *    (last 12th element of sixbits is always zero, we do not output it)
      */
     u.dval = v;
-    u.bytes[8] = 0;
+    u.bytes[8] = (unsigned char)0;
     if( state->endianness==AE_BIG_ENDIAN )
     {
         for(i=0; i<(ae_int_t)(sizeof(double)/2); i++)
@@ -4087,8 +4586,8 @@ double ae_str2double(const char *buf, ae_state *state, const char **pasttheend)
         {
             unsigned char tc;
             tc = u.bytes[i];
-            u.bytes[i] = u.bytes[sizeof(double)-1-i];
-            u.bytes[sizeof(double)-1-i] = tc;
+            u.bytes[i] = u.bytes[(ae_int_t)sizeof(double)-1-i];
+            u.bytes[(ae_int_t)sizeof(double)-1-i] = tc;
         }
     }
     return u.dval;
@@ -4251,7 +4750,7 @@ NOTE: as a special exception, this function allows you  to  specify  NULL
 void ae_init_lock(ae_lock *lock, ae_state *state, ae_bool make_automatic)
 {
     _lock *p;
-    AE_CRITICAL_ASSERT(ae_check_zeros(lock,sizeof(*lock)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(lock,(ae_int_t)sizeof(*lock)));
     if(state==NULL)
     {
         ae_state _tmp_state;
@@ -4262,7 +4761,7 @@ void ae_init_lock(ae_lock *lock, ae_state *state, ae_bool make_automatic)
         return;
     }
     lock->eternal = ae_false;
-    ae_db_init(&lock->db, sizeof(_lock), state, make_automatic);
+    ae_db_init(&lock->db, (ae_int_t)sizeof(_lock), state, make_automatic);
     lock->lock_ptr = lock->db.ptr;
     p = (_lock*)lock->lock_ptr;
     _ae_init_lock_raw(p);
@@ -4286,7 +4785,7 @@ INPUT PARAMETERS:
 void ae_init_lock_eternal(ae_lock *lock)
 {
     _lock *p;
-    AE_CRITICAL_ASSERT(ae_check_zeros(lock,sizeof(*lock)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(lock,(ae_int_t)sizeof(*lock)));
     lock->eternal = ae_true;
     lock->lock_ptr = eternal_malloc(sizeof(_lock));
     p = (_lock*)lock->lock_ptr;
@@ -4354,7 +4853,13 @@ void ae_shared_pool_init(void *_dst, ae_state *state, ae_bool make_automatic)
     
     AE_CRITICAL_ASSERT(state!=NULL);
     dst = (ae_shared_pool*)_dst;
-    AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
+    AE_CRITICAL_ASSERT(ae_check_zeros(dst,(ae_int_t)sizeof(*dst)));
+    
+    /* attach to frame first, just to be sure that if we fail within malloc, we will be able to clean up the object */
+    dst->frame_entry.deallocator = ae_shared_pool_destroy;
+    dst->frame_entry.ptr = dst;
+    if( make_automatic )
+        ae_db_attach(&dst->frame_entry, state);
     
     /* init */
     dst->seed_object = NULL;
@@ -4365,10 +4870,6 @@ void ae_shared_pool_init(void *_dst, ae_state *state, ae_bool make_automatic)
     dst->init = NULL;
     dst->init_copy = NULL;
     dst->destroy = NULL;
-    dst->frame_entry.deallocator = ae_shared_pool_destroy;
-    dst->frame_entry.ptr = dst;
-    if( make_automatic )
-        ae_db_attach(&dst->frame_entry, state);
     ae_init_lock(&dst->pool_lock, state, ae_false);
 }
 
@@ -4429,16 +4930,17 @@ dst is assumed to be uninitialized, its fields are ignored.
 NOTE: this function is NOT thread-safe. It does not acquire pool lock, so
       you should NOT call it when lock can be used by another thread.
 ************************************************************************/
-void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool make_automatic)
+void ae_shared_pool_init_copy(void *_dst, const void *_src, ae_state *state, ae_bool make_automatic)
 {
-    ae_shared_pool *dst, *src;
+    ae_shared_pool *dst;
+    const ae_shared_pool *src;
     ae_shared_pool_entry *ptr;
     
     /* state!=NULL, allocation errors result in exception */
     /* AE_CRITICAL_ASSERT(state!=NULL); */
     
     dst = (ae_shared_pool*)_dst;
-    src = (ae_shared_pool*)_src;
+    src = (const ae_shared_pool*)_src;
     ae_shared_pool_init(dst, state, make_automatic);
     
     /* copy non-pointer fields */
@@ -4450,8 +4952,8 @@ void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool m
     /* copy seed object */
     if( src->seed_object!=NULL )
     {
-        dst->seed_object = ae_malloc(dst->size_of_object, state);
-        memset(dst->seed_object, 0, dst->size_of_object);
+        dst->seed_object = ae_malloc((size_t)dst->size_of_object, state);
+        memset(dst->seed_object, 0, (size_t)dst->size_of_object);
         dst->init_copy(dst->seed_object, src->seed_object, state, ae_false);
     }
     
@@ -4469,8 +4971,8 @@ void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool m
         dst->recycled_objects = tmp;
         
         /* prepare place for object, init_copy() it */
-        tmp->obj =  ae_malloc(dst->size_of_object, state);
-        memset(tmp->obj, 0, dst->size_of_object);
+        tmp->obj =  ae_malloc((size_t)dst->size_of_object, state);
+        memset(tmp->obj, 0, (size_t)dst->size_of_object);
         dst->init_copy(tmp->obj, ptr->obj, state, ae_false);
     }
     
@@ -4541,9 +5043,9 @@ This function sets internal seed object. All objects owned by the pool
 dst                 destination pool (initialized by constructor function)
 seed_object         new seed object
 size_of_object      sizeof(), used to allocate memory
-init                constructor function
-init_copy           copy constructor
-clear               destructor function
+constructor         constructor function
+copy_constructor    copy constructor
+destructor          destructor function
 state               ALGLIB environment state
 
 NOTE: this function is NOT thread-safe. It does not acquire pool lock, so
@@ -4553,9 +5055,9 @@ void ae_shared_pool_set_seed(
     ae_shared_pool  *dst,
     void            *seed_object,
     ae_int_t        size_of_object,
-    void            (*init)(void* dst, ae_state* state, ae_bool make_automatic),
-    void            (*init_copy)(void* dst, void* src, ae_state* state, ae_bool make_automatic),
-    void            (*destroy)(void* ptr),
+    ae_constructor  constructor,
+    ae_copy_constructor copy_constructor,
+    ae_destructor   destructor,
     ae_state        *state)
 {
     /* state!=NULL, allocation errors result in exception */
@@ -4566,14 +5068,14 @@ void ae_shared_pool_set_seed(
     
     /* set non-pointer fields */
     dst->size_of_object = size_of_object;
-    dst->init = init;
-    dst->init_copy = init_copy;
-    dst->destroy = destroy;
+    dst->init = constructor;
+    dst->init_copy = copy_constructor;
+    dst->destroy = destructor;
     
     /* set seed object */
-    dst->seed_object = ae_malloc(size_of_object, state);
-    memset(dst->seed_object, 0, size_of_object);
-    init_copy(dst->seed_object, seed_object, state, ae_false);
+    dst->seed_object = ae_malloc((size_t)size_of_object, state);
+    memset(dst->seed_object, 0, (size_t)size_of_object);
+    copy_constructor(dst->seed_object, seed_object, state, ae_false);
 }
 
 
@@ -4630,7 +5132,7 @@ void ae_shared_pool_retrieve(
         ae_release_lock(&pool->pool_lock);
         
         /* assign object to smart pointer */
-        ae_smart_ptr_assign(pptr, new_obj, ae_true, ae_true, pool->destroy);
+        ae_smart_ptr_assign(pptr, new_obj, ae_true, ae_true, pool->size_of_object, pool->init_copy, pool->destroy);
         return;
     }
         
@@ -4639,9 +5141,9 @@ void ae_shared_pool_retrieve(
     
     /* create new object from seed, immediately assign object to smart pointer
       (do not want to lose it in case of future failures) */
-    new_obj = ae_malloc(pool->size_of_object, state);
-    memset(new_obj, 0, pool->size_of_object);
-    ae_smart_ptr_assign(pptr, new_obj, ae_true, ae_true, pool->destroy);
+    new_obj = ae_malloc((size_t)pool->size_of_object, state);
+    memset(new_obj, 0, (size_t)pool->size_of_object);
+    ae_smart_ptr_assign(pptr, new_obj, ae_true, ae_true, pool->size_of_object, pool->init_copy, pool->destroy);
     
     /* perform actual copying; before this line smartptr points to zero-filled instance */
     pool->init_copy(new_obj, pool->seed_object, state, ae_false);
@@ -4734,8 +5236,18 @@ void ae_shared_pool_clear_recycled(
 {
     ae_shared_pool_entry *ptr, *tmp;
     
+    /*
+     * acquire pool lock, extract list of recycled objects and immediately release lock
+     * it is unlikely to happen, but if we crash during memory deallocation, it is better
+     * to have pool lock released at this moment.
+     */
+    ae_acquire_lock(&pool->pool_lock);
+    ptr=pool->recycled_objects;
+    pool->recycled_objects = NULL;
+    ae_release_lock(&pool->pool_lock);
+    
     /* clear recycled objects */
-    for(ptr=pool->recycled_objects; ptr!=NULL;)
+    while( ptr!=NULL )
     {
         tmp = (ae_shared_pool_entry*)ptr->next_entry;
         pool->destroy(ptr->obj);
@@ -4743,7 +5255,6 @@ void ae_shared_pool_clear_recycled(
         ae_free(ptr);
         ptr = tmp;
     }
-    pool->recycled_objects = NULL;
 }
 
 
@@ -4777,12 +5288,12 @@ void ae_shared_pool_first_recycled(
     /* exit on empty list */
     if( pool->enumeration_counter==NULL )
     {
-        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, NULL);
+        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, 0, NULL, NULL);
         return;
     }
     
     /* assign object to smart pointer */
-    ae_smart_ptr_assign(pptr, pool->enumeration_counter->obj, ae_false, ae_false, pool->destroy);
+    ae_smart_ptr_assign(pptr, pool->enumeration_counter->obj, ae_false, ae_false, 0, NULL, NULL);
 }
 
 
@@ -4813,7 +5324,7 @@ void ae_shared_pool_next_recycled(
     /* exit on end of list */
     if( pool->enumeration_counter==NULL )
     {
-        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, NULL);
+        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, 0, NULL, NULL);
         return;
     }
     
@@ -4823,12 +5334,12 @@ void ae_shared_pool_next_recycled(
     /* exit on empty list */
     if( pool->enumeration_counter==NULL )
     {
-        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, NULL);
+        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, 0, NULL, NULL);
         return;
     }
     
     /* assign object to smart pointer */
-    ae_smart_ptr_assign(pptr, pool->enumeration_counter->obj, ae_false, ae_false, pool->destroy);
+    ae_smart_ptr_assign(pptr, pool->enumeration_counter->obj, ae_false, ae_false, 0, NULL, NULL);
 }
 
 
@@ -4951,7 +5462,7 @@ void ae_serializer_ustart_str(ae_serializer *serializer, const std::string *buf)
 static char cpp_writer(const char *p_string, ae_int_t aux)
 {
     std::ostream *stream = reinterpret_cast<std::ostream*>(aux);
-    stream->write(p_string, strlen(p_string));
+    stream->write(p_string, (std::streamsize)strlen(p_string));
     return stream->bad() ? 1 : 0;
 }
 
@@ -5203,7 +5714,7 @@ void ae_serializer_serialize_byte_array(ae_serializer *serializer, ae_vector *by
         elen = bytes->cnt - eidx*chunk_size;
         elen = elen>chunk_size ? chunk_size : elen;
         memset(&tmpi, 0, sizeof(tmpi));
-        memmove(&tmpi, bytes->ptr.p_ubyte + eidx*chunk_size, elen);
+        memmove(&tmpi, bytes->ptr.p_ubyte + eidx*chunk_size, (size_t)elen);
         ae_serializer_serialize_int64(serializer, tmpi, state);
     }
 }
@@ -5300,7 +5811,7 @@ void ae_serializer_unserialize_byte_array(ae_serializer *serializer, ae_vector *
         elen = n-eidx*chunk_size;
         elen = elen>chunk_size ? chunk_size : elen;
         ae_serializer_unserialize_int64(serializer, &tmp64, state);
-        memmove(bytes->ptr.p_ubyte+eidx*chunk_size, &tmp64, elen);
+        memmove(bytes->ptr.p_ubyte+eidx*chunk_size, &tmp64, (size_t)elen);
     }
 }
 
@@ -5393,7 +5904,7 @@ ae_complex ae_c_sqr(ae_complex lhs, ae_state *state)
 {
     ae_complex result;
     result.x = lhs.x*lhs.x-lhs.y*lhs.y;
-    result.y = 2*lhs.x*lhs.y;
+    result.y = 2.0*lhs.x*lhs.y;
     return result;
 }
 
@@ -5408,12 +5919,12 @@ double ae_c_abs(ae_complex z, ae_state *state)
     yabs = fabs(z.y);
     w = xabs>yabs ? xabs : yabs;
     v = xabs<yabs ? xabs : yabs;
-    if( v==0 )
+    if( v==0.0 )
         return w;
     else
     {
         double t = v/w;
-        return w*sqrt(1+t*t);
+        return w*sqrt(1.0+t*t);
     }
 }
 
@@ -5567,7 +6078,7 @@ Complex BLAS operations
 ************************************************************************/
 ae_complex ae_v_cdotproduct(const ae_complex *v0, ae_int_t stride0, const char *conj0, const ae_complex *v1, ae_int_t stride1, const char *conj1, ae_int_t n)
 {
-    double rx = 0, ry = 0; 
+    double rx = 0.0, ry = 0.0;
     ae_int_t i;
     ae_bool bconj0 = !((conj0[0]=='N') || (conj0[0]=='n'));
     ae_bool bconj1 = !((conj1[0]=='N') || (conj1[0]=='n'));
@@ -6104,7 +6615,7 @@ Real BLAS operations
 ************************************************************************/
 double ae_v_dotproduct(const double *v0, ae_int_t stride0, const double *v1, ae_int_t stride1, ae_int_t n)
 {
-    double result = 0;
+    double result = 0.0;
     ae_int_t i;
     if( stride0!=1 || stride1!=1 )
     {
@@ -6343,7 +6854,7 @@ void _rcommstate_init(rcommstate* p, ae_state *_state, ae_bool make_automatic)
     ae_vector_init(&p->ca, 0, DT_COMPLEX, _state, make_automatic);
 }
 
-void _rcommstate_init_copy(rcommstate* dst, rcommstate* src, ae_state *_state, ae_bool make_automatic)
+void _rcommstate_init_copy(rcommstate* dst, const rcommstate* src, ae_state *_state, ae_bool make_automatic)
 {
     /* initial zero-filling */
     memset(&dst->ba, 0, sizeof(dst->ba));
@@ -6371,6 +6882,25 @@ void _rcommstate_destroy(rcommstate* p)
 {
     _rcommstate_clear(p);
 }
+
+#if !defined(ALGLIB_NO_FAST_KERNELS)
+/*************************************************************************
+Maximum concurrency on given system, with given compilation settings
+*************************************************************************/
+ae_int_t maxconcurrency(ae_state *_state)
+{
+#if AE_OS==AE_WINDOWS
+    SYSTEM_INFO sysInfo;
+    GetSystemInfo(&sysInfo);
+    return sysInfo.dwNumberOfProcessors;
+#elif AE_OS==AE_POSIX
+    long r = sysconf(_SC_NPROCESSORS_ONLN);
+    return r<0 ? 1 : r;
+#else
+    return 1;
+#endif
+}
+#endif
 
 
 }
@@ -6619,11 +7149,11 @@ std::string alglib::complex::tostring(int _dps) const
 
     // different zero/nonzero patterns
     if( strcmp(buf_x,buf_zero)!=0 && strcmp(buf_y,buf_zero)!=0 )
-        return std::string(x>0 ? "" : "-")+buf_x+(y>0 ? "+" : "-")+buf_y+"i";
+        return std::string(x>0.0 ? "" : "-")+buf_x+(y>0.0 ? "+" : "-")+buf_y+"i";
     if( strcmp(buf_x,buf_zero)!=0 && strcmp(buf_y,buf_zero)==0 )
-        return std::string(x>0 ? "" : "-")+buf_x;
+        return std::string(x>0.0 ? "" : "-")+buf_x;
     if( strcmp(buf_x,buf_zero)==0 && strcmp(buf_y,buf_zero)!=0 )
-        return std::string(y>0 ? "" : "-")+buf_y+"i";
+        return std::string(y>0.0 ? "" : "-")+buf_y+"i";
     return std::string("0");
 }
 #endif
@@ -6731,12 +7261,12 @@ double alglib::abscomplex(const alglib::complex &z)
     yabs = fabs(z.y);
     w = xabs>yabs ? xabs : yabs;
     v = xabs<yabs ? xabs : yabs; 
-    if( v==0 )
+    if( v==0.0 )
         return w;
     else
     {
         double t = v/w;
-        return w*sqrt(1+t*t);
+        return w*sqrt(1.0+t*t);
     }
 }
 
@@ -6744,7 +7274,7 @@ alglib::complex alglib::conj(const alglib::complex &z)
 { return alglib::complex(z.x, -z.y); }
 
 alglib::complex alglib::csqr(const alglib::complex &z)
-{ return alglib::complex(z.x*z.x-z.y*z.y, 2*z.x*z.y); }
+{ return alglib::complex(z.x*z.x-z.y*z.y, 2.0*z.x*z.y); }
 
 void alglib::setnworkers(alglib::ae_int_t nworkers)
 {
@@ -6800,7 +7330,7 @@ Level 1 BLAS functions
 ********************************************************************/
 double alglib::vdotproduct(const double *v0, ae_int_t stride0, const double *v1, ae_int_t stride1, ae_int_t n)
 {
-    double result = 0;
+    double result = 0.0;
     ae_int_t i;
     if( stride0!=1 || stride1!=1 )
     {
@@ -6832,7 +7362,7 @@ double alglib::vdotproduct(const double *v1, const double *v2, ae_int_t N)
 
 alglib::complex alglib::vdotproduct(const alglib::complex *v0, ae_int_t stride0, const char *conj0, const alglib::complex *v1, ae_int_t stride1, const char *conj1, ae_int_t n)
 {
-    double rx = 0, ry = 0;
+    double rx = 0.0, ry = 0.0;
     ae_int_t i;
     bool bconj0 = !((conj0[0]=='N') || (conj0[0]=='n'));
     bool bconj1 = !((conj1[0]=='N') || (conj1[0]=='n'));
@@ -7798,7 +8328,7 @@ const alglib::ae_vector_wrapper& alglib::ae_vector_wrapper::assign(const alglib:
         ae_assert(rhs.ptr->cnt==ptr->cnt, "ALGLIB: incorrect assignment to proxy array (sizes do not match)", &_state);
     if( rhs.ptr->cnt!=ptr->cnt )
         ae_vector_set_length(ptr, rhs.ptr->cnt, &_state);
-    memcpy(ptr->ptr.p_ptr, rhs.ptr->ptr.p_ptr, ptr->cnt*alglib_impl::ae_sizeof(ptr->datatype));
+    memcpy(ptr->ptr.p_ptr, rhs.ptr->ptr.p_ptr, (size_t)(ptr->cnt*alglib_impl::ae_sizeof(ptr->datatype)));
     alglib_impl::ae_state_clear(&_state);
     return *this;
 }
@@ -7837,7 +8367,7 @@ alglib::ae_vector_wrapper::ae_vector_wrapper(const char *s, alglib_impl::ae_data
             ae_vector_init(ptr, (ae_int_t)(svec.size()), datatype, &_state, ae_false);
             ae_state_clear(&_state);
         }
-        for(i=0; i<svec.size(); i++)
+        for(i=(size_t)0; i<svec.size(); i++)
         {
             if( datatype==alglib_impl::DT_BOOL )
                 ptr->ptr.p_bool[i]    = parse_bool_delim(svec[i],",]");
@@ -7876,7 +8406,8 @@ alglib::boolean_1d_array::boolean_1d_array(alglib_impl::ae_vector *p):ae_vector_
 
 const alglib::boolean_1d_array& alglib::boolean_1d_array::operator=(const alglib::boolean_1d_array &rhs)
 {
-    return static_cast<const alglib::boolean_1d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 alglib::boolean_1d_array::~boolean_1d_array() 
@@ -7954,7 +8485,8 @@ alglib::integer_1d_array::integer_1d_array(const alglib::integer_1d_array &rhs):
 
 const alglib::integer_1d_array& alglib::integer_1d_array::operator=(const alglib::integer_1d_array &rhs)
 {
-    return static_cast<const alglib::integer_1d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 alglib::integer_1d_array::~integer_1d_array() 
@@ -8032,7 +8564,8 @@ alglib::real_1d_array::real_1d_array(const alglib::real_1d_array &rhs):ae_vector
 
 const alglib::real_1d_array& alglib::real_1d_array::operator=(const alglib::real_1d_array &rhs)
 {
-    return static_cast<const alglib::real_1d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 alglib::real_1d_array::~real_1d_array() 
@@ -8140,7 +8673,8 @@ alglib::complex_1d_array::complex_1d_array(const alglib::complex_1d_array &rhs):
 
 const alglib::complex_1d_array& alglib::complex_1d_array::operator=(const alglib::complex_1d_array &rhs)
 {
-    return static_cast<const alglib::complex_1d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 alglib::complex_1d_array::~complex_1d_array() 
@@ -8271,9 +8805,9 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(const ae_matrix_wrapper &rhs, algli
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
     is_frozen_proxy = false;
     ptr = NULL;
-    alglib_impl::ae_assert(rhs.ptr->datatype==datatype, "ALGLIB: ae_matrix_wrapper datatype check failed", &_state);
     if( rhs.ptr!=NULL )
     {
+        alglib_impl::ae_assert(rhs.ptr->datatype==datatype, "ALGLIB: ae_matrix_wrapper datatype check failed", &_state);
         ptr = &inner_mat;
         memset(ptr, 0, sizeof(*ptr));
         ae_matrix_init_copy(ptr, rhs.ptr, &_state, ae_false);
@@ -8426,7 +8960,7 @@ const alglib::ae_matrix_wrapper& alglib::ae_matrix_wrapper::assign(const alglib:
     if( (rhs.ptr->rows!=ptr->rows) || (rhs.ptr->cols!=ptr->cols) )
         ae_matrix_set_length(ptr, rhs.ptr->rows, rhs.ptr->cols, &_state);
     for(i=0; i<ptr->rows; i++)
-        memcpy(ptr->ptr.pp_void[i], rhs.ptr->ptr.pp_void[i], ptr->cols*alglib_impl::ae_sizeof(ptr->datatype));
+        memcpy(ptr->ptr.pp_void[i], rhs.ptr->ptr.pp_void[i], (size_t)(ptr->cols*alglib_impl::ae_sizeof(ptr->datatype)));
     alglib_impl::ae_state_clear(&_state);
     return *this;
 }
@@ -8459,7 +8993,8 @@ alglib::boolean_2d_array::~boolean_2d_array()
 
 const alglib::boolean_2d_array& alglib::boolean_2d_array::operator=(const alglib::boolean_2d_array &rhs)
 {
-    return static_cast<const boolean_2d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 const ae_bool& alglib::boolean_2d_array::operator()(ae_int_t i, ae_int_t j) const
@@ -8538,7 +9073,8 @@ alglib::integer_2d_array::~integer_2d_array()
 
 const alglib::integer_2d_array& alglib::integer_2d_array::operator=(const alglib::integer_2d_array &rhs)
 {
-    return static_cast<const integer_2d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 const alglib::ae_int_t& alglib::integer_2d_array::operator()(ae_int_t i, ae_int_t j) const
@@ -8617,7 +9153,8 @@ alglib::real_2d_array::~real_2d_array()
 
 const alglib::real_2d_array& alglib::real_2d_array::operator=(const alglib::real_2d_array &rhs)
 {
-    return static_cast<const real_2d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 const double& alglib::real_2d_array::operator()(ae_int_t i, ae_int_t j) const
@@ -8727,7 +9264,8 @@ alglib::complex_2d_array::~complex_2d_array()
 
 const alglib::complex_2d_array& alglib::complex_2d_array::operator=(const alglib::complex_2d_array &rhs)
 {
-    return static_cast<const complex_2d_array&>(assign(rhs));
+    assign(rhs);
+    return *this;
 }
 
 const alglib::complex& alglib::complex_2d_array::operator()(ae_int_t i, ae_int_t j) const
@@ -8850,7 +9388,7 @@ alglib::ae_int_t alglib::my_stricmp(const char *s1, const char *s2)
         if( c1==0 )
             return c2==0 ? 0 : -1;
         if( c2==0 )
-            return c1==0 ? 0 : +1;
+            return +1;
         c1 = tolower(c1);
         c2 = tolower(c2);
         if( c1<c2 )
@@ -8876,7 +9414,7 @@ char* alglib::filter_spaces(const char *s)
     if( r==NULL )
         return r;
     for(i=0,r0=r; i<=n; i++,s++)
-        if( !isspace(*s) )
+        if( !isspace((int)(*s)) )
         {
             *r0 = *s;
             r0++;
@@ -8937,7 +9475,7 @@ void alglib::str_matrix_create(const char *src, std::vector< std::vector<const c
     {
         p_mat->push_back(std::vector<const char*>());
         str_vector_create(src, false, &p_mat->back());
-        if( p_mat->back().size()==0 || p_mat->back().size()!=(*p_mat)[0].size() )
+        if( p_mat->back().size()==(size_t)0 || p_mat->back().size()!=(*p_mat)[0].size() )
             _ALGLIB_CPP_EXCEPTION("Incorrect initializer for matrix");
         src = strchr(src, ']');
         if( src==NULL )
@@ -9041,7 +9579,7 @@ bool alglib::_parse_real_delim(const char *s, const char *delim, double *result,
         s++;
     }
     memset(buf, 0, sizeof(buf));
-    strncpy(buf, s, 3);
+    strncpy(buf, s, (size_t)3);
     if( my_stricmp(buf,"nan")!=0 && my_stricmp(buf,"inf")!=0 )
     {
         //
@@ -9081,7 +9619,7 @@ bool alglib::_parse_real_delim(const char *s, const char *delim, double *result,
         //
         // finite value conversion
         //
-        if( *new_s-p>=(int)sizeof(buf) )
+        if( (size_t)(*new_s-p)>=sizeof(buf) )
             return false;
         strncpy(buf, p, (size_t)(*new_s-p));
         buf[*new_s-p] = 0;
@@ -9152,7 +9690,7 @@ alglib::complex alglib::parse_complex_delim(const char *s, const char *delim)
             _ALGLIB_CPP_EXCEPTION("Cannot parse value");
         if( strchr(delim,*s)!=NULL )
         {
-            c_result.x = 0;
+            c_result.x = 0.0;
             return c_result;
         }
         if( strchr("+-",*s)!=NULL )
@@ -9255,16 +9793,16 @@ standard functions
 ********************************************************************/
 int alglib::sign(double x)
 {
-    if( x>0 ) return  1;
-    if( x<0 ) return -1;
+    if( x>0.0 ) return  1;
+    if( x<0.0 ) return -1;
     return 0;
 }
 
 double alglib::randomreal()
 {
-    int i1 = rand();
-    int i2 = rand();
-    double mx = (double)(RAND_MAX)+1.0;
+    double i1 = (double)alglib_impl::ae_rand();
+    double i2 = (double)alglib_impl::ae_rand();
+    double mx = (double)alglib_impl::ae_rand_max()+1.0;
     volatile double tmp0 = i2/mx;
     volatile double tmp1 = i1+tmp0;
     return tmp1/mx;
@@ -9272,14 +9810,14 @@ double alglib::randomreal()
 
 alglib::ae_int_t alglib::randominteger(alglib::ae_int_t maxv)
 {
-    return ((alglib::ae_int_t)rand())%maxv;
+    return alglib_impl::ae_rand()%maxv;
 }
 
 int alglib::round(double x)
 { return int(floor(x+0.5)); }
 
 int alglib::trunc(double x)
-{ return int(x>0 ? floor(x) : ceil(x)); }
+{ return int(x>0.0 ? floor(x) : ceil(x)); }
 
 int alglib::ifloor(double x)
 { return int(floor(x)); }
@@ -9418,7 +9956,7 @@ void alglib::read_csv(const char *filename, char separator, int flags, alglib::r
         fclose(f_in);
         return;
     }
-    size_t filesize = _filesize;
+    size_t filesize = (size_t)_filesize;
     std::vector<char> v_buf;
     v_buf.resize(filesize+2, 0);
     char *p_buf = &v_buf[0];
@@ -9499,10 +10037,10 @@ void alglib::read_csv(const char *filename, char separator, int flags, alglib::r
     //
     // Convert
     //
-    size_t row0 = skip_first_row ? 1 : 0;
+    size_t row0 = skip_first_row ? (size_t)1 : (size_t)0;
     size_t row1 = rows_count;
     lconv *loc  = localeconv();
-    out.setlength(row1-row0, cols_count);
+    out.setlength((ae_int_t)(row1-row0), (ae_int_t)cols_count);
     for(size_t ridx=row0; ridx<row1; ridx++)
         for(size_t cidx=0; cidx<cols_count; cidx++)
         {
@@ -9587,7 +10125,7 @@ void _ialglib_mv_32(const double *a, const double *x, double *y, ae_int_t stride
     pb = x;
     for(i=0; i<16; i++)
     {
-        double v0 = 0, v1 = 0;
+        double v0 = 0.0, v1 = 0.0;
         for(k=0; k<4; k++)
         {
             v0 += pa0[0]*pb[0];
@@ -9699,7 +10237,7 @@ void _ialglib_rmv(ae_int_t m, ae_int_t n, const double *a, const double *x, doub
         ntrail2 = (n-8*n8)/2;
         for(i=0; i<m2; i++)
         {
-            double v0 = 0, v1 = 0;
+            double v0 = 0.0, v1 = 0.0;
 
             /*
              * 'a' points to the part of the matrix which
@@ -9762,7 +10300,7 @@ void _ialglib_rmv(ae_int_t m, ae_int_t n, const double *a, const double *x, doub
             /*
              * final update
              */
-            if( beta!=0 )
+            if( beta!=0.0 )
             {
                 y[0] = beta*y[0]+alpha*v0;
                 y[stride] = beta*y[stride]+alpha*v1;
@@ -9785,7 +10323,7 @@ void _ialglib_rmv(ae_int_t m, ae_int_t n, const double *a, const double *x, doub
          */
         if( m%2!=0 )
         {
-            double v0 = 0;
+            double v0 = 0.0;
 
             /*
              * 'a' points to the part of the matrix which
@@ -9814,7 +10352,7 @@ void _ialglib_rmv(ae_int_t m, ae_int_t n, const double *a, const double *x, doub
             /*
              * final update
              */
-            if( beta!=0 )
+            if( beta!=0.0 )
                 y[0] = beta*y[0]+alpha*v0;
             else
                 y[0] = alpha*v0;
@@ -10164,7 +10702,7 @@ void _ialglib_cmv(ae_int_t m, ae_int_t n, const double *a, const double *x, ae_c
     parow = a;
     for(i=0; i<m; i++)
     {
-        double v0 = 0, v1 = 0;
+        double v0 = 0.0, v1 = 0.0;
         pa = parow;
         pb = x;
         for(j=0; j<n; j++)
@@ -10310,7 +10848,7 @@ void _ialglib_cmv_sse2(ae_int_t m, ae_int_t n, const double *a, const double *x,
     }
     if( m%2 )
     {
-        double v0 = 0, v1 = 0;
+        double v0 = 0.0, v1 = 0.0;
         double tx, ty;
         pa0 = parow;
         pb = x;
@@ -10913,7 +11451,7 @@ ae_bool _ialglib_rmatrixgemm(ae_int_t m,
         for(i=0; i<m; i++)
         {
             _ialglib_vcopy(k, arow, 1, abuf, 1);
-            if( beta==0 )
+            if( beta==0.0 )
                 _ialglib_vzero(n, crow, 1);
             rmv(n, k, b, abuf, crow, 1, alpha, beta);
             crow += _c_stride;
@@ -10926,7 +11464,7 @@ ae_bool _ialglib_rmatrixgemm(ae_int_t m,
         for(i=0; i<m; i++)
         {
             _ialglib_vcopy(k, acol, _a_stride, abuf, 1);
-            if( beta==0 )
+            if( beta==0.0 )
                 _ialglib_vzero(n, crow, 1);
             rmv(n, k, b, abuf, crow, 1, alpha, beta);
             crow += _c_stride;
@@ -11013,7 +11551,7 @@ ae_bool _ialglib_cmatrixgemm(ae_int_t m,
             _ialglib_vcopy_complex(k, arow, _a_stride, abuf, 1, "Conj");
             arow++;
         }
-        if( beta.x==0 && beta.y==0 )
+        if( beta.x==0.0 && beta.y==0.0 )
             _ialglib_vzero_complex(n, crow, 1);
         cmv(n, k, b, abuf, crow, NULL, 1, alpha, beta);
         crow += _c_stride;
@@ -11423,10 +11961,10 @@ ae_bool _ialglib_cmatrixherk(ae_int_t n,
      * alpha==0 or k==0 are correctly processed (A is not referenced)
      */
     c_alpha.x = alpha;
-    c_alpha.y = 0;
+    c_alpha.y = 0.0;
     c_beta.x = beta;
-    c_beta.y = 0;
-    if( alpha==0 )
+    c_beta.y = 0.0;
+    if( alpha==0.0 )
         k = 0;
     if( k>0 )
     {
@@ -11436,7 +11974,7 @@ ae_bool _ialglib_cmatrixherk(ae_int_t n,
             _ialglib_mcopyblock_complex(k, n, _a, 1, _a_stride, abuf);
     }
     _ialglib_mcopyblock_complex(n, n, _c, 0, _c_stride, cbuf);
-    if( beta==0 )
+    if( beta==0.0 )
     {
         for(i=0,crow=cbuf; i<n; i++,crow+=2*alglib_c_block)
             if( isupper )
@@ -11510,7 +12048,7 @@ ae_bool _ialglib_rmatrixsyrk(ae_int_t n,
      *
      * alpha==0 or k==0 are correctly processed (A is not referenced)
      */
-    if( alpha==0 )
+    if( alpha==0.0 )
         k = 0;
     if( k>0 )
     {
@@ -11520,7 +12058,7 @@ ae_bool _ialglib_rmatrixsyrk(ae_int_t n,
             _ialglib_mcopyblock(k, n, _a, 1, _a_stride, abuf);
     }
     _ialglib_mcopyblock(n, n, _c, 0, _c_stride, cbuf);
-    if( beta==0 )
+    if( beta==0.0 )
     {
         for(i=0,crow=cbuf; i<n; i++,crow+=alglib_r_block)
             if( isupper )
@@ -11837,7 +12375,7 @@ ae_bool _ialglib_i_cmatrixgemmf(ae_int_t m,
      ae_int_t jc)
 {
     /* handle degenerate cases like zero matrices by ALGLIB - greatly simplifies passing data to ALGLIB kernel */
-    if( (alpha.x==0.0 && alpha.y==0) || k==0 || n==0 || m==0 )
+    if( (alpha.x==0.0 && alpha.y==0.0) || k==0 || n==0 || m==0 )
         return ae_false;
     
     /* handle with optimized ALGLIB kernel */
@@ -12220,7 +12758,7 @@ void _ialglib_mm22(double alpha, const double *a, const double *b, ae_int_t k, d
     }
     if( store_mode==0 )
     {
-        if( beta==0 )
+        if( beta==0.0 )
         {
             r[0] = alpha*v00;
             r[1] = alpha*v01;
@@ -12238,7 +12776,7 @@ void _ialglib_mm22(double alpha, const double *a, const double *b, ae_int_t k, d
     }
     if( store_mode==1 )
     {
-        if( beta==0 )
+        if( beta==0.0 )
         {
             r[0] = alpha*v00;
             r[1] = alpha*v01;
@@ -12252,7 +12790,7 @@ void _ialglib_mm22(double alpha, const double *a, const double *b, ae_int_t k, d
     }
     if( store_mode==2 )
     {
-        if( beta==0 )
+        if( beta==0.0 )
         {
             r[0] =alpha*v00;
             r[stride+0] = alpha*v10;
@@ -12266,7 +12804,7 @@ void _ialglib_mm22(double alpha, const double *a, const double *b, ae_int_t k, d
     }
     if( store_mode==3 )
     {
-        if( beta==0 )
+        if( beta==0.0 )
         {
             r[0] = alpha*v00;
         }
@@ -12373,7 +12911,7 @@ void _ialglib_mm22_sse2(double alpha, const double *a, const double *b, ae_int_t
      */
     if( store_mode==0 )
     {
-        if( beta==0 )
+        if( beta==0.0 )
         {
             _mm_storeu_pd(r,r0);
             _mm_storeu_pd(r+stride,r1);
@@ -12388,7 +12926,7 @@ void _ialglib_mm22_sse2(double alpha, const double *a, const double *b, ae_int_t
     }
     if( store_mode==1 )
     {
-        if( beta==0 )
+        if( beta==0.0 )
             _mm_storeu_pd(r,r0);
         else
             _mm_storeu_pd(r,_mm_add_pd(_mm_mul_pd(_mm_loadu_pd(r),_mm_load1_pd(&beta)),r0));
@@ -12399,7 +12937,7 @@ void _ialglib_mm22_sse2(double alpha, const double *a, const double *b, ae_int_t
         double buf[4];
         _mm_storeu_pd(buf,r0);
         _mm_storeu_pd(buf+2,r1);
-        if( beta==0 )
+        if( beta==0.0 )
         {
             r[0] =buf[0];
             r[stride+0] = buf[2];
@@ -12415,7 +12953,7 @@ void _ialglib_mm22_sse2(double alpha, const double *a, const double *b, ae_int_t
     {
         double buf[2];
         _mm_storeu_pd(buf,r0);
-        if( beta==0 )
+        if( beta==0.0 )
             r[0] = buf[0];
         else
             r[0] = beta*r[0] + buf[0];
@@ -12554,7 +13092,7 @@ void _ialglib_mm22x2_sse2(double alpha, const double *a, const double *b0, const
     /*
      * store
      */
-    if( beta==0 )
+    if( beta==0.0 )
     {
         _mm_storeu_pd(r,r00);
         _mm_storeu_pd(r+2,r01);
@@ -14873,7 +15411,7 @@ void rtrsvx(ae_int_t n,
                 v = v/a->ptr.pp_double[ia+i][ja+i];
             }
             x->ptr.p_double[ix+i] = v;
-            if( v==0 )
+            if( v==0.0 )
             {
                 continue;
             }
@@ -14894,7 +15432,7 @@ void rtrsvx(ae_int_t n,
                 v = v/a->ptr.pp_double[ia+i][ja+i];
             }
             x->ptr.p_double[ix+i] = v;
-            if( v==0 )
+            if( v==0.0 )
             {
                 continue;
             }
@@ -15593,6 +16131,69 @@ ae_bool spchol_updatekernel4444(/* Real    */ ae_vector* rowstorage,
     }
     result = ae_true;
     return result;
+}
+
+ae_bool rbfv3farfields_bhpaneleval1fastkernel(double d0,
+     double d1,
+     double d2,
+     ae_int_t panelp,
+     /* Real    */ ae_vector* pnma,
+     /* Real    */ ae_vector* pnmb,
+     /* Real    */ ae_vector* pmmcdiag,
+     /* Real    */ ae_vector* ynma,
+     /* Real    */ ae_vector* tblrmodmn,
+     double* f,
+     double* invpowrpplus1,
+     ae_state *_state)
+{
+    /*
+     * Only panelp=15 is supported
+     */
+    if( panelp!=15 )
+        return ae_false;
+
+    /*
+     * Try fast kernels.
+     * On success this macro will return, on failure to find kernel it will pass execution to the generic C implementation
+     */
+    _ALGLIB_KERNEL_RETURN_AVX2(rbfv3farfields_bhpaneleval1fastkernel16,(d0,d1,d2,pnma->ptr.p_double,pnmb->ptr.p_double,pmmcdiag->ptr.p_double,ynma->ptr.p_double,tblrmodmn->ptr.p_double,f,invpowrpplus1,_state))
+
+    /*
+     * No fast kernels, no generic C implementation
+     */
+    return ae_false;
+}
+
+ae_bool rbfv3farfields_bhpanelevalfastkernel(double d0,
+     double d1,
+     double d2,
+     ae_int_t ny,
+     ae_int_t panelp,
+     /* Real    */ ae_vector* pnma,
+     /* Real    */ ae_vector* pnmb,
+     /* Real    */ ae_vector* pmmcdiag,
+     /* Real    */ ae_vector* ynma,
+     /* Real    */ ae_vector* tblrmodmn,
+     /* Real    */ ae_vector* f,
+     double* invpowrpplus1,
+     ae_state *_state)
+{
+    /*
+     * Only panelp=15 is supported
+     */
+    if( panelp!=15 )
+        return ae_false;
+
+    /*
+     * Try fast kernels.
+     * On success this macro will return, on failure to find kernel it will pass execution to the generic C implementation
+     */
+    _ALGLIB_KERNEL_RETURN_AVX2(rbfv3farfields_bhpanelevalfastkernel16,(d0,d1,d2,ny,pnma->ptr.p_double,pnmb->ptr.p_double,pmmcdiag->ptr.p_double,ynma->ptr.p_double,tblrmodmn->ptr.p_double,f->ptr.p_double,invpowrpplus1,_state))
+
+    /*
+     * No fast kernels, no generic C implementation
+     */
+    return ae_false;
 }
 
 /* ALGLIB_NO_FAST_KERNELS */

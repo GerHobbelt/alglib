@@ -9931,7 +9931,7 @@ int main()
 
                 // unpack and test
                 spline2dunpackv(s, m, n, d, c);
-                _TestResult = _TestResult && doc_test_real_matrix(c, "[[0, 1, 0, 1, 0,2,0,0, 1,3,0,0, 0,0,0,0, 0,0,0,0 ]]", 0.00005);
+                _TestResult = _TestResult && doc_test_real_matrix(c, "[[0, 1, 0, 1, 0,2,0,0, 1,3,0,0, 0,0,0,0, 0,0,0,0, 1]]", 0.00005);
                 _TestResult = _TestResult && (_spoil_scenario==-1);
             }
             catch(ap_error)

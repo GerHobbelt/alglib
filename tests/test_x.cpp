@@ -66,7 +66,7 @@ void _innerrec_init(void* _p, alglib_impl::ae_state *_state, ae_bool make_automa
 }
 
 
-void _innerrec_init_copy(void* _dst, void* _src, alglib_impl::ae_state *_state, ae_bool make_automatic)
+void _innerrec_init_copy(void* _dst, const void* _src, alglib_impl::ae_state *_state, ae_bool make_automatic)
 {
     innerrec *dst = (innerrec*)_dst;
     innerrec *src = (innerrec*)_src;
@@ -103,7 +103,7 @@ void _seedrec_init(void* _p, alglib_impl::ae_state *_state, ae_bool make_automat
 }
 
 
-void _seedrec_init_copy(void* _dst, void* _src, alglib_impl::ae_state *_state, ae_bool make_automatic)
+void _seedrec_init_copy(void* _dst, const void* _src, alglib_impl::ae_state *_state, ae_bool make_automatic)
 {
     seedrec *dst = (seedrec*)_dst;
     seedrec *src = (seedrec*)_src;

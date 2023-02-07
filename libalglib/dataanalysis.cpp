@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -175,7 +175,7 @@ void pcabuildbasis(const real_2d_array &x, const ae_int_t npoints, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::pcabuildbasis(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), npoints, nvars, &info, const_cast<alglib_impl::ae_vector*>(s2.c_ptr()), const_cast<alglib_impl::ae_matrix*>(v.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -266,7 +266,7 @@ void pcatruncatedsubspace(const real_2d_array &x, const ae_int_t npoints, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::pcatruncatedsubspace(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), npoints, nvars, nneeded, eps, maxits, const_cast<alglib_impl::ae_vector*>(s2.c_ptr()), const_cast<alglib_impl::ae_matrix*>(v.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -364,7 +364,7 @@ void pcatruncatedsubspacesparse(const sparsematrix &x, const ae_int_t npoints, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::pcatruncatedsubspacesparse(const_cast<alglib_impl::sparsematrix*>(x.c_ptr()), npoints, nvars, nneeded, eps, maxits, const_cast<alglib_impl::ae_vector*>(s2.c_ptr()), const_cast<alglib_impl::ae_matrix*>(v.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -415,7 +415,7 @@ void dsoptimalsplit2(const real_1d_array &a, const integer_1d_array &c, const ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dsoptimalsplit2(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, &info, &threshold, &pal, &pbl, &par, &pbr, &cve, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -461,7 +461,7 @@ void dsoptimalsplit2fast(real_1d_array &a, integer_1d_array &c, integer_1d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dsoptimalsplit2fast(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(c.c_ptr()), const_cast<alglib_impl::ae_vector*>(tiesbuf.c_ptr()), const_cast<alglib_impl::ae_vector*>(cntbuf.c_ptr()), const_cast<alglib_impl::ae_vector*>(bufr.c_ptr()), const_cast<alglib_impl::ae_vector*>(bufi.c_ptr()), n, nc, alpha, &info, &threshold, &rms, &cvrms, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -905,7 +905,7 @@ void mlpcreate0(const ae_int_t nin, const ae_int_t nout, multilayerperceptron &n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreate0(nin, nout, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -934,7 +934,7 @@ void mlpcreate1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, mu
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreate1(nin, nhid, nout, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -964,7 +964,7 @@ void mlpcreate2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreate2(nin, nhid1, nhid2, nout, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1003,7 +1003,7 @@ void mlpcreateb0(const ae_int_t nin, const ae_int_t nout, const double b, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreateb0(nin, nout, b, d, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1031,7 +1031,7 @@ void mlpcreateb1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreateb1(nin, nhid, nout, b, d, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1059,7 +1059,7 @@ void mlpcreateb2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreateb2(nin, nhid1, nhid2, nout, b, d, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1089,7 +1089,7 @@ void mlpcreater0(const ae_int_t nin, const ae_int_t nout, const double a, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreater0(nin, nout, a, b, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1117,7 +1117,7 @@ void mlpcreater1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreater1(nin, nhid, nout, a, b, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1145,7 +1145,7 @@ void mlpcreater2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreater2(nin, nhid1, nhid2, nout, a, b, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1176,7 +1176,7 @@ void mlpcreatec0(const ae_int_t nin, const ae_int_t nout, multilayerperceptron &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreatec0(nin, nout, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1204,7 +1204,7 @@ void mlpcreatec1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, m
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreatec1(nin, nhid, nout, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1232,7 +1232,7 @@ void mlpcreatec2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreatec2(nin, nhid1, nhid2, nout, const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1266,7 +1266,7 @@ void mlpcopy(const multilayerperceptron &network1, multilayerperceptron &network
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcopy(const_cast<alglib_impl::multilayerperceptron*>(network1.c_ptr()), const_cast<alglib_impl::multilayerperceptron*>(network2.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1306,7 +1306,7 @@ void mlpcopytunableparameters(const multilayerperceptron &network1, const multil
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcopytunableparameters(const_cast<alglib_impl::multilayerperceptron*>(network1.c_ptr()), const_cast<alglib_impl::multilayerperceptron*>(network2.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1334,7 +1334,7 @@ void mlprandomize(const multilayerperceptron &network, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlprandomize(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1362,7 +1362,7 @@ void mlprandomizefull(const multilayerperceptron &network, const xparams _xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlprandomizefull(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1390,7 +1390,7 @@ void mlpinitpreprocessor(const multilayerperceptron &network, const real_2d_arra
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpinitpreprocessor(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1419,7 +1419,7 @@ void mlpproperties(const multilayerperceptron &network, ae_int_t &nin, ae_int_t 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpproperties(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &nin, &nout, &wcount, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1447,11 +1447,11 @@ ae_int_t mlpgetinputscount(const multilayerperceptron &network, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mlpgetinputscount(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -1475,11 +1475,11 @@ ae_int_t mlpgetoutputscount(const multilayerperceptron &network, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mlpgetoutputscount(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -1503,11 +1503,11 @@ ae_int_t mlpgetweightscount(const multilayerperceptron &network, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mlpgetweightscount(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -1531,11 +1531,11 @@ bool mlpissoftmax(const multilayerperceptron &network, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::mlpissoftmax(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -1560,11 +1560,11 @@ ae_int_t mlpgetlayerscount(const multilayerperceptron &network, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mlpgetlayerscount(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -1594,11 +1594,11 @@ ae_int_t mlpgetlayersize(const multilayerperceptron &network, const ae_int_t k, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mlpgetlayersize(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), k, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -1635,7 +1635,7 @@ void mlpgetinputscaling(const multilayerperceptron &network, const ae_int_t i, d
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgetinputscaling(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), i, &mean, &sigma, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1677,7 +1677,7 @@ void mlpgetoutputscaling(const multilayerperceptron &network, const ae_int_t i, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgetoutputscaling(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), i, &mean, &sigma, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1719,7 +1719,7 @@ void mlpgetneuroninfo(const multilayerperceptron &network, const ae_int_t k, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgetneuroninfo(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), k, i, &fkind, &threshold, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1762,11 +1762,11 @@ double mlpgetweight(const multilayerperceptron &network, const ae_int_t k0, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpgetweight(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), k0, i0, k1, i1, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -1801,7 +1801,7 @@ void mlpsetinputscaling(const multilayerperceptron &network, const ae_int_t i, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetinputscaling(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), i, mean, sigma, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1844,7 +1844,7 @@ void mlpsetoutputscaling(const multilayerperceptron &network, const ae_int_t i, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetoutputscaling(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), i, mean, sigma, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1892,7 +1892,7 @@ void mlpsetneuroninfo(const multilayerperceptron &network, const ae_int_t k, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetneuroninfo(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), k, i, fkind, threshold, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1935,7 +1935,7 @@ void mlpsetweight(const multilayerperceptron &network, const ae_int_t k0, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetweight(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), k0, i0, k1, i1, w, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -1972,7 +1972,7 @@ void mlpactivationfunction(const double net, const ae_int_t k, double &f, double
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpactivationfunction(net, k, &f, &df, &d2f, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2010,7 +2010,7 @@ void mlpprocess(const multilayerperceptron &network, const real_1d_array &x, rea
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpprocess(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2044,7 +2044,7 @@ void mlpprocessi(const multilayerperceptron &network, const real_1d_array &x, re
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpprocessi(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -2110,11 +2110,11 @@ double mlperror(const multilayerperceptron &network, const real_2d_array &xy, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlperror(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2180,11 +2180,11 @@ double mlperrorsparse(const multilayerperceptron &network, const sparsematrix &x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlperrorsparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2211,11 +2211,11 @@ double mlperrorn(const multilayerperceptron &network, const real_2d_array &xy, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlperrorn(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2277,11 +2277,11 @@ ae_int_t mlpclserror(const multilayerperceptron &network, const real_2d_array &x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mlpclserror(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -2344,11 +2344,11 @@ double mlprelclserror(const multilayerperceptron &network, const real_2d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlprelclserror(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2412,11 +2412,11 @@ double mlprelclserrorsparse(const multilayerperceptron &network, const sparsemat
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlprelclserrorsparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2479,11 +2479,11 @@ double mlpavgce(const multilayerperceptron &network, const real_2d_array &xy, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpavgce(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2551,11 +2551,11 @@ double mlpavgcesparse(const multilayerperceptron &network, const sparsematrix &x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpavgcesparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2619,11 +2619,11 @@ double mlprmserror(const multilayerperceptron &network, const real_2d_array &xy,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlprmserror(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2691,11 +2691,11 @@ double mlprmserrorsparse(const multilayerperceptron &network, const sparsematrix
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlprmserrorsparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2758,11 +2758,11 @@ double mlpavgerror(const multilayerperceptron &network, const real_2d_array &xy,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpavgerror(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2829,11 +2829,11 @@ double mlpavgerrorsparse(const multilayerperceptron &network, const sparsematrix
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpavgerrorsparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2897,11 +2897,11 @@ double mlpavgrelerror(const multilayerperceptron &network, const real_2d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpavgrelerror(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -2969,11 +2969,11 @@ double mlpavgrelerrorsparse(const multilayerperceptron &network, const sparsemat
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpavgrelerrorsparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3010,7 +3010,7 @@ void mlpgrad(const multilayerperceptron &network, const real_1d_array &x, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgrad(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(desiredy.c_ptr()), &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3052,7 +3052,7 @@ void mlpgradn(const multilayerperceptron &network, const real_1d_array &x, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgradn(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(desiredy.c_ptr()), &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3109,7 +3109,7 @@ void mlpgradbatch(const multilayerperceptron &network, const real_2d_array &xy, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgradbatch(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3168,7 +3168,7 @@ void mlpgradbatchsparse(const multilayerperceptron &network, const sparsematrix 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgradbatchsparse(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), ssize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3239,7 +3239,7 @@ void mlpgradbatchsubset(const multilayerperceptron &network, const real_2d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgradbatchsubset(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), setsize, const_cast<alglib_impl::ae_vector*>(idx.c_ptr()), subsetsize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3315,7 +3315,7 @@ void mlpgradbatchsparsesubset(const multilayerperceptron &network, const sparsem
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgradbatchsparsesubset(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), setsize, const_cast<alglib_impl::ae_vector*>(idx.c_ptr()), subsetsize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3360,7 +3360,7 @@ void mlpgradnbatch(const multilayerperceptron &network, const real_2d_array &xy,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpgradnbatch(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3394,7 +3394,7 @@ void mlphessiannbatch(const multilayerperceptron &network, const real_2d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlphessiannbatch(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), const_cast<alglib_impl::ae_matrix*>(h.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3428,7 +3428,7 @@ void mlphessianbatch(const multilayerperceptron &network, const real_2d_array &x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlphessianbatch(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &e, const_cast<alglib_impl::ae_vector*>(grad.c_ptr()), const_cast<alglib_impl::ae_matrix*>(h.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3484,7 +3484,7 @@ void mlpallerrorssubset(const multilayerperceptron &network, const real_2d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpallerrorssubset(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), setsize, const_cast<alglib_impl::ae_vector*>(subset.c_ptr()), subsetsize, const_cast<alglib_impl::modelerrors*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3542,7 +3542,7 @@ void mlpallerrorssparsesubset(const multilayerperceptron &network, const sparsem
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpallerrorssparsesubset(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), setsize, const_cast<alglib_impl::ae_vector*>(subset.c_ptr()), subsetsize, const_cast<alglib_impl::modelerrors*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -3615,11 +3615,11 @@ double mlperrorsubset(const multilayerperceptron &network, const real_2d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlperrorsubset(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), setsize, const_cast<alglib_impl::ae_vector*>(subset.c_ptr()), subsetsize, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -3693,11 +3693,11 @@ double mlperrorsparsesubset(const multilayerperceptron &network, const sparsemat
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlperrorsparsesubset(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), setsize, const_cast<alglib_impl::ae_vector*>(subset.c_ptr()), subsetsize, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -3997,7 +3997,7 @@ void mlpecreate0(const ae_int_t nin, const ae_int_t nout, const ae_int_t ensembl
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreate0(nin, nout, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4025,7 +4025,7 @@ void mlpecreate1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreate1(nin, nhid, nout, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4053,7 +4053,7 @@ void mlpecreate2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreate2(nin, nhid1, nhid2, nout, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4081,7 +4081,7 @@ void mlpecreateb0(const ae_int_t nin, const ae_int_t nout, const double b, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreateb0(nin, nout, b, d, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4109,7 +4109,7 @@ void mlpecreateb1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreateb1(nin, nhid, nout, b, d, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4137,7 +4137,7 @@ void mlpecreateb2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreateb2(nin, nhid1, nhid2, nout, b, d, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4165,7 +4165,7 @@ void mlpecreater0(const ae_int_t nin, const ae_int_t nout, const double a, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreater0(nin, nout, a, b, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4193,7 +4193,7 @@ void mlpecreater1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreater1(nin, nhid, nout, a, b, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4221,7 +4221,7 @@ void mlpecreater2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreater2(nin, nhid1, nhid2, nout, a, b, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4249,7 +4249,7 @@ void mlpecreatec0(const ae_int_t nin, const ae_int_t nout, const ae_int_t ensemb
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreatec0(nin, nout, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4277,7 +4277,7 @@ void mlpecreatec1(const ae_int_t nin, const ae_int_t nhid, const ae_int_t nout, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreatec1(nin, nhid, nout, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4305,7 +4305,7 @@ void mlpecreatec2(const ae_int_t nin, const ae_int_t nhid1, const ae_int_t nhid2
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreatec2(nin, nhid1, nhid2, nout, ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4333,7 +4333,7 @@ void mlpecreatefromnetwork(const multilayerperceptron &network, const ae_int_t e
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpecreatefromnetwork(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), ensemblesize, const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4361,7 +4361,7 @@ void mlperandomize(const mlpensemble &ensemble, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlperandomize(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4389,7 +4389,7 @@ void mlpeproperties(const mlpensemble &ensemble, ae_int_t &nin, ae_int_t &nout, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpeproperties(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &nin, &nout, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4417,11 +4417,11 @@ bool mlpeissoftmax(const mlpensemble &ensemble, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::mlpeissoftmax(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -4457,7 +4457,7 @@ void mlpeprocess(const mlpensemble &ensemble, const real_1d_array &x, real_1d_ar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpeprocess(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4491,7 +4491,7 @@ void mlpeprocessi(const mlpensemble &ensemble, const real_1d_array &x, real_1d_a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpeprocessi(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -4529,11 +4529,11 @@ double mlperelclserror(const mlpensemble &ensemble, const real_2d_array &xy, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlperelclserror(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -4566,11 +4566,11 @@ double mlpeavgce(const mlpensemble &ensemble, const real_2d_array &xy, const ae_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpeavgce(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -4604,11 +4604,11 @@ double mlpermserror(const mlpensemble &ensemble, const real_2d_array &xy, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpermserror(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -4641,11 +4641,11 @@ double mlpeavgerror(const mlpensemble &ensemble, const real_2d_array &xy, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpeavgerror(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -4678,11 +4678,11 @@ double mlpeavgrelerror(const mlpensemble &ensemble, const real_2d_array &xy, con
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mlpeavgrelerror(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -5234,7 +5234,7 @@ void clusterizercreate(clusterizerstate &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizercreate(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5305,7 +5305,7 @@ void clusterizersetpoints(const clusterizerstate &s, const real_2d_array &xy, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetpoints(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, disttype, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5375,7 +5375,7 @@ void clusterizersetpoints(const clusterizerstate &s, const real_2d_array &xy, co
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetpoints(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, disttype, &_alglib_env_state);
 
@@ -5428,7 +5428,7 @@ void clusterizersetdistances(const clusterizerstate &s, const real_2d_array &d, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetdistances(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(d.c_ptr()), npoints, isupper, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5477,7 +5477,7 @@ void clusterizersetdistances(const clusterizerstate &s, const real_2d_array &d, 
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetdistances(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(d.c_ptr()), npoints, isupper, &_alglib_env_state);
 
@@ -5524,7 +5524,7 @@ void clusterizersetahcalgo(const clusterizerstate &s, const ae_int_t algo, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetahcalgo(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), algo, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5562,7 +5562,7 @@ void clusterizersetkmeanslimits(const clusterizerstate &s, const ae_int_t restar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetkmeanslimits(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), restarts, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5609,7 +5609,7 @@ void clusterizersetkmeansinit(const clusterizerstate &s, const ae_int_t initalgo
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetkmeansinit(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), initalgo, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5648,7 +5648,7 @@ void clusterizersetseed(const clusterizerstate &s, const ae_int_t seed, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizersetseed(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), seed, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5726,7 +5726,7 @@ void clusterizerrunahc(const clusterizerstate &s, ahcreport &rep, const xparams 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizerrunahc(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), const_cast<alglib_impl::ahcreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5818,7 +5818,7 @@ void clusterizerrunkmeans(const clusterizerstate &s, const ae_int_t k, kmeansrep
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizerrunkmeans(const_cast<alglib_impl::clusterizerstate*>(s.c_ptr()), k, const_cast<alglib_impl::kmeansreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5905,7 +5905,7 @@ void clusterizergetdistances(const real_2d_array &xy, const ae_int_t npoints, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizergetdistances(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, disttype, const_cast<alglib_impl::ae_matrix*>(d.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -5970,7 +5970,7 @@ void clusterizergetkclusters(const ahcreport &rep, const ae_int_t k, integer_1d_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizergetkclusters(const_cast<alglib_impl::ahcreport*>(rep.c_ptr()), k, const_cast<alglib_impl::ae_vector*>(cidx.c_ptr()), const_cast<alglib_impl::ae_vector*>(cz.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6041,7 +6041,7 @@ void clusterizerseparatedbydist(const ahcreport &rep, const double r, ae_int_t &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizerseparatedbydist(const_cast<alglib_impl::ahcreport*>(rep.c_ptr()), r, &k, const_cast<alglib_impl::ae_vector*>(cidx.c_ptr()), const_cast<alglib_impl::ae_vector*>(cz.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6112,7 +6112,7 @@ void clusterizerseparatedbycorr(const ahcreport &rep, const double r, ae_int_t &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::clusterizerseparatedbycorr(const_cast<alglib_impl::ahcreport*>(rep.c_ptr()), r, &k, const_cast<alglib_impl::ae_vector*>(cidx.c_ptr()), const_cast<alglib_impl::ae_vector*>(cz.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6898,7 +6898,7 @@ void dfcreatebuffer(const decisionforest &model, decisionforestbuffer &buf, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfcreatebuffer(const_cast<alglib_impl::decisionforest*>(model.c_ptr()), const_cast<alglib_impl::decisionforestbuffer*>(buf.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -6950,7 +6950,7 @@ void dfbuildercreate(decisionforestbuilder &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildercreate(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7000,7 +7000,7 @@ void dfbuildersetdataset(const decisionforestbuilder &s, const real_2d_array &xy
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetdataset(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7039,7 +7039,7 @@ void dfbuildersetrndvars(const decisionforestbuilder &s, const ae_int_t rndvars,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetrndvars(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), rndvars, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7077,7 +7077,7 @@ void dfbuildersetrndvarsratio(const decisionforestbuilder &s, const double f, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetrndvarsratio(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), f, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7113,7 +7113,7 @@ void dfbuildersetrndvarsauto(const decisionforestbuilder &s, const xparams _xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetrndvarsauto(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7157,7 +7157,7 @@ void dfbuildersetsubsampleratio(const decisionforestbuilder &s, const double f, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetsubsampleratio(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), f, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7205,7 +7205,7 @@ void dfbuildersetseed(const decisionforestbuilder &s, const ae_int_t seedval, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetseed(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), seedval, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7244,7 +7244,7 @@ void dfbuildersetrdfalgo(const decisionforestbuilder &s, const ae_int_t algotype
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetrdfalgo(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), algotype, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7284,7 +7284,7 @@ void dfbuildersetrdfsplitstrength(const decisionforestbuilder &s, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetrdfsplitstrength(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), splitstrength, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7361,7 +7361,7 @@ void dfbuildersetimportancetrngini(const decisionforestbuilder &s, const xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetimportancetrngini(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7439,7 +7439,7 @@ void dfbuildersetimportanceoobgini(const decisionforestbuilder &s, const xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetimportanceoobgini(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7524,7 +7524,7 @@ void dfbuildersetimportancepermutation(const decisionforestbuilder &s, const xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetimportancepermutation(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7561,7 +7561,7 @@ void dfbuildersetimportancenone(const decisionforestbuilder &s, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildersetimportancenone(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7590,11 +7590,11 @@ double dfbuildergetprogress(const decisionforestbuilder &s, const xparams _xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfbuildergetprogress(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -7628,11 +7628,11 @@ double dfbuilderpeekprogress(const decisionforestbuilder &s, const xparams _xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfbuilderpeekprogress(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -7725,7 +7725,7 @@ void dfbuilderbuildrandomforest(const decisionforestbuilder &s, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuilderbuildrandomforest(const_cast<alglib_impl::decisionforestbuilder*>(s.c_ptr()), ntrees, const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::dfreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7786,11 +7786,11 @@ double dfbinarycompression(const decisionforest &df, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfbinarycompression(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -7833,7 +7833,7 @@ void dfprocess(const decisionforest &df, const real_1d_array &x, real_1d_array &
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfprocess(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7873,7 +7873,7 @@ void dfprocessi(const decisionforest &df, const real_1d_array &x, real_1d_array 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfprocessi(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -7927,11 +7927,11 @@ double dfprocess0(const decisionforest &model, const real_1d_array &x, const xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfprocess0(const_cast<alglib_impl::decisionforest*>(model.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -7974,11 +7974,11 @@ ae_int_t dfclassify(const decisionforest &model, const real_1d_array &x, const x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::dfclassify(const_cast<alglib_impl::decisionforest*>(model.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -8022,7 +8022,7 @@ void dftsprocess(const decisionforest &df, const decisionforestbuffer &buf, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dftsprocess(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::decisionforestbuffer*>(buf.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8059,11 +8059,11 @@ double dfrelclserror(const decisionforest &df, const real_2d_array &xy, const ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfrelclserror(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8096,11 +8096,11 @@ double dfavgce(const decisionforest &df, const real_2d_array &xy, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfavgce(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8135,11 +8135,11 @@ double dfrmserror(const decisionforest &df, const real_2d_array &xy, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfrmserror(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8173,11 +8173,11 @@ double dfavgerror(const decisionforest &df, const real_2d_array &xy, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfavgerror(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8211,11 +8211,11 @@ double dfavgrelerror(const decisionforest &df, const real_2d_array &xy, const ae
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::dfavgrelerror(const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8241,7 +8241,7 @@ void dfbuildrandomdecisionforest(const real_2d_array &xy, const ae_int_t npoints
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildrandomdecisionforest(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, ntrees, r, &info, const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::dfreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8271,7 +8271,7 @@ void dfbuildrandomdecisionforestx1(const real_2d_array &xy, const ae_int_t npoin
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::dfbuildrandomdecisionforestx1(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, ntrees, nrndvars, r, &info, const_cast<alglib_impl::decisionforest*>(df.c_ptr()), const_cast<alglib_impl::dfreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8600,7 +8600,7 @@ void lrbuild(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nva
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::lrbuild(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, &info, const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::lrreport*>(ar.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8652,7 +8652,7 @@ void lrbuilds(const real_2d_array &xy, const real_1d_array &s, const ae_int_t np
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::lrbuilds(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), const_cast<alglib_impl::ae_vector*>(s.c_ptr()), npoints, nvars, &info, const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::lrreport*>(ar.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8684,7 +8684,7 @@ void lrbuildzs(const real_2d_array &xy, const real_1d_array &s, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::lrbuildzs(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), const_cast<alglib_impl::ae_vector*>(s.c_ptr()), npoints, nvars, &info, const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::lrreport*>(ar.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8716,7 +8716,7 @@ void lrbuildz(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nv
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::lrbuildz(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, &info, const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::lrreport*>(ar.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8753,7 +8753,7 @@ void lrunpack(const linearmodel &lm, real_1d_array &v, ae_int_t &nvars, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::lrunpack(const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_vector*>(v.c_ptr()), &nvars, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8789,7 +8789,7 @@ void lrpack(const real_1d_array &v, const ae_int_t nvars, linearmodel &lm, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::lrpack(const_cast<alglib_impl::ae_vector*>(v.c_ptr()), nvars, const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -8824,11 +8824,11 @@ double lrprocess(const linearmodel &lm, const real_1d_array &x, const xparams _x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::lrprocess(const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8860,11 +8860,11 @@ double lrrmserror(const linearmodel &lm, const real_2d_array &xy, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::lrrmserror(const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8896,11 +8896,11 @@ double lravgerror(const linearmodel &lm, const real_2d_array &xy, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::lravgerror(const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -8932,11 +8932,11 @@ double lravgrelerror(const linearmodel &lm, const real_2d_array &xy, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::lravgrelerror(const_cast<alglib_impl::linearmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 #endif
 
@@ -8992,7 +8992,7 @@ void filtersma(real_1d_array &x, const ae_int_t n, const ae_int_t k, const xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::filtersma(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, k, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9047,7 +9047,7 @@ void filtersma(real_1d_array &x, const ae_int_t k, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::filtersma(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, k, &_alglib_env_state);
 
@@ -9102,7 +9102,7 @@ void filterema(real_1d_array &x, const ae_int_t n, const double alpha, const xpa
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::filterema(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, alpha, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9152,7 +9152,7 @@ void filterema(real_1d_array &x, const double alpha, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::filterema(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, alpha, &_alglib_env_state);
 
@@ -9215,7 +9215,7 @@ void filterlrma(real_1d_array &x, const ae_int_t n, const ae_int_t k, const xpar
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::filterlrma(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, k, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9273,7 +9273,7 @@ void filterlrma(real_1d_array &x, const ae_int_t k, const xparams _xparams)
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::filterlrma(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, k, &_alglib_env_state);
 
@@ -9471,7 +9471,7 @@ void ssacreate(ssamodel &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssacreate(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9519,7 +9519,7 @@ void ssasetwindow(const ssamodel &s, const ae_int_t windowwidth, const xparams _
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetwindow(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), windowwidth, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9565,7 +9565,7 @@ void ssasetseed(const ssamodel &s, const ae_int_t seed, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetseed(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), seed, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9609,7 +9609,7 @@ void ssasetpoweruplength(const ssamodel &s, const ae_int_t pwlen, const xparams 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetpoweruplength(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), pwlen, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9651,7 +9651,7 @@ void ssasetmemorylimit(const ssamodel &s, const ae_int_t memlimit, const xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetmemorylimit(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), memlimit, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9715,7 +9715,7 @@ void ssaaddsequence(const ssamodel &s, const real_1d_array &x, const ae_int_t n,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaaddsequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9776,7 +9776,7 @@ void ssaaddsequence(const ssamodel &s, const real_1d_array &x, const xparams _xp
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaaddsequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
 
@@ -9859,7 +9859,7 @@ void ssaappendpointandupdate(const ssamodel &s, const double x, const double upd
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaappendpointandupdate(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), x, updateits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -9938,7 +9938,7 @@ void ssaappendsequenceandupdate(const ssamodel &s, const real_1d_array &x, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaappendsequenceandupdate(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), nticks, updateits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10014,7 +10014,7 @@ void ssaappendsequenceandupdate(const ssamodel &s, const real_1d_array &x, const
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaappendsequenceandupdate(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), nticks, updateits, &_alglib_env_state);
 
@@ -10073,7 +10073,7 @@ void ssasetalgoprecomputed(const ssamodel &s, const real_2d_array &a, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetalgoprecomputed(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), windowwidth, nbasis, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10129,7 +10129,7 @@ void ssasetalgoprecomputed(const ssamodel &s, const real_2d_array &a, const xpar
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetalgoprecomputed(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), windowwidth, nbasis, &_alglib_env_state);
 
@@ -10182,7 +10182,7 @@ void ssasetalgotopkdirect(const ssamodel &s, const ae_int_t topk, const xparams 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetalgotopkdirect(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), topk, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10245,7 +10245,7 @@ void ssasetalgotopkrealtime(const ssamodel &s, const ae_int_t topk, const xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssasetalgotopkrealtime(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), topk, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10280,7 +10280,7 @@ void ssacleardata(const ssamodel &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssacleardata(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10343,7 +10343,7 @@ void ssagetbasis(const ssamodel &s, real_2d_array &a, real_1d_array &sv, ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssagetbasis(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(sv.c_ptr()), &windowwidth, &nbasis, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10403,7 +10403,7 @@ void ssagetlrr(const ssamodel &s, real_1d_array &a, ae_int_t &windowwidth, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssagetlrr(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(a.c_ptr()), &windowwidth, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10498,7 +10498,7 @@ void ssaanalyzelastwindow(const ssamodel &s, real_1d_array &trend, real_1d_array
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaanalyzelastwindow(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), const_cast<alglib_impl::ae_vector*>(noise.c_ptr()), &nticks, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10610,7 +10610,7 @@ void ssaanalyzelast(const ssamodel &s, const ae_int_t nticks, real_1d_array &tre
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaanalyzelast(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), nticks, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), const_cast<alglib_impl::ae_vector*>(noise.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10705,7 +10705,7 @@ void ssaanalyzesequence(const ssamodel &s, const real_1d_array &data, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaanalyzesequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(data.c_ptr()), nticks, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), const_cast<alglib_impl::ae_vector*>(noise.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10797,7 +10797,7 @@ void ssaanalyzesequence(const ssamodel &s, const real_1d_array &data, real_1d_ar
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaanalyzesequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(data.c_ptr()), nticks, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), const_cast<alglib_impl::ae_vector*>(noise.c_ptr()), &_alglib_env_state);
 
@@ -10894,7 +10894,7 @@ void ssaforecastlast(const ssamodel &s, const ae_int_t nticks, real_1d_array &tr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaforecastlast(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), nticks, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -10992,7 +10992,7 @@ void ssaforecastsequence(const ssamodel &s, const real_1d_array &data, const ae_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaforecastsequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(data.c_ptr()), datalen, forecastlen, applysmoothing, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11089,7 +11089,7 @@ void ssaforecastsequence(const ssamodel &s, const real_1d_array &data, const ae_
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaforecastsequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(data.c_ptr()), datalen, forecastlen, applysmoothing, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), &_alglib_env_state);
 
@@ -11190,7 +11190,7 @@ void ssaforecastavglast(const ssamodel &s, const ae_int_t m, const ae_int_t ntic
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaforecastavglast(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), m, nticks, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11291,7 +11291,7 @@ void ssaforecastavgsequence(const ssamodel &s, const real_1d_array &data, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaforecastavgsequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(data.c_ptr()), datalen, m, forecastlen, applysmoothing, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11391,7 +11391,7 @@ void ssaforecastavgsequence(const ssamodel &s, const real_1d_array &data, const 
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ssaforecastavgsequence(const_cast<alglib_impl::ssamodel*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(data.c_ptr()), datalen, m, forecastlen, applysmoothing, const_cast<alglib_impl::ae_vector*>(trend.c_ptr()), &_alglib_env_state);
 
@@ -11473,7 +11473,7 @@ void fisherlda(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fisherlda(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, &info, const_cast<alglib_impl::ae_vector*>(w.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11554,7 +11554,7 @@ void fisherldan(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::fisherldan(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, &info, const_cast<alglib_impl::ae_matrix*>(w.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11906,7 +11906,7 @@ void mcpdcreate(const ae_int_t n, mcpdstate &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdcreate(n, const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -11974,7 +11974,7 @@ void mcpdcreateentry(const ae_int_t n, const ae_int_t entrystate, mcpdstate &s, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdcreateentry(n, entrystate, const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12042,7 +12042,7 @@ void mcpdcreateexit(const ae_int_t n, const ae_int_t exitstate, mcpdstate &s, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdcreateexit(n, exitstate, const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12121,7 +12121,7 @@ void mcpdcreateentryexit(const ae_int_t n, const ae_int_t entrystate, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdcreateentryexit(n, entrystate, exitstate, const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12175,7 +12175,7 @@ void mcpdaddtrack(const mcpdstate &s, const real_2d_array &xy, const ae_int_t k,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdaddtrack(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), k, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12226,7 +12226,7 @@ void mcpdaddtrack(const mcpdstate &s, const real_2d_array &xy, const xparams _xp
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdaddtrack(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), k, &_alglib_env_state);
 
@@ -12306,7 +12306,7 @@ void mcpdsetec(const mcpdstate &s, const real_2d_array &ec, const xparams _xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsetec(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(ec.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12380,7 +12380,7 @@ void mcpdaddec(const mcpdstate &s, const ae_int_t i, const ae_int_t j, const dou
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdaddec(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), i, j, c, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12450,7 +12450,7 @@ void mcpdsetbc(const mcpdstate &s, const real_2d_array &bndl, const real_2d_arra
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsetbc(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(bndl.c_ptr()), const_cast<alglib_impl::ae_matrix*>(bndu.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12520,7 +12520,7 @@ void mcpdaddbc(const mcpdstate &s, const ae_int_t i, const ae_int_t j, const dou
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdaddbc(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), i, j, bndl, bndu, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12583,7 +12583,7 @@ void mcpdsetlc(const mcpdstate &s, const real_2d_array &c, const integer_1d_arra
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsetlc(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), const_cast<alglib_impl::ae_vector*>(ct.c_ptr()), k, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12644,7 +12644,7 @@ void mcpdsetlc(const mcpdstate &s, const real_2d_array &c, const integer_1d_arra
     if( setjmp(_break_jump) )
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsetlc(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), const_cast<alglib_impl::ae_vector*>(ct.c_ptr()), k, &_alglib_env_state);
 
@@ -12688,7 +12688,7 @@ void mcpdsettikhonovregularizer(const mcpdstate &s, const double v, const xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsettikhonovregularizer(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12732,7 +12732,7 @@ void mcpdsetprior(const mcpdstate &s, const real_2d_array &pp, const xparams _xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsetprior(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(pp.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12779,7 +12779,7 @@ void mcpdsetpredictionweights(const mcpdstate &s, const real_1d_array &pw, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsetpredictionweights(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_vector*>(pw.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12810,7 +12810,7 @@ void mcpdsolve(const mcpdstate &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdsolve(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -12851,7 +12851,7 @@ void mcpdresults(const mcpdstate &s, real_2d_array &p, mcpdreport &rep, const xp
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mcpdresults(const_cast<alglib_impl::mcpdstate*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(p.c_ptr()), const_cast<alglib_impl::mcpdreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -13158,7 +13158,7 @@ void mnltrainh(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mnltrainh(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, &info, const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::mnlreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -13199,7 +13199,7 @@ void mnlprocess(const logitmodel &lm, const real_1d_array &x, real_1d_array &y, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mnlprocess(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -13233,7 +13233,7 @@ void mnlprocessi(const logitmodel &lm, const real_1d_array &x, real_1d_array &y,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mnlprocessi(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -13273,7 +13273,7 @@ void mnlunpack(const logitmodel &lm, real_2d_array &a, ae_int_t &nvars, ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mnlunpack(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), &nvars, &nclasses, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -13310,7 +13310,7 @@ void mnlpack(const real_2d_array &a, const ae_int_t nvars, const ae_int_t nclass
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mnlpack(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), nvars, nclasses, const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -13346,11 +13346,11 @@ double mnlavgce(const logitmodel &lm, const real_2d_array &xy, const ae_int_t np
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mnlavgce(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13382,11 +13382,11 @@ double mnlrelclserror(const logitmodel &lm, const real_2d_array &xy, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mnlrelclserror(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13418,11 +13418,11 @@ double mnlrmserror(const logitmodel &lm, const real_2d_array &xy, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mnlrmserror(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13454,11 +13454,11 @@ double mnlavgerror(const logitmodel &lm, const real_2d_array &xy, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mnlavgerror(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13490,11 +13490,11 @@ double mnlavgrelerror(const logitmodel &lm, const real_2d_array &xy, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::mnlavgrelerror(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), ssize, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -13518,11 +13518,11 @@ ae_int_t mnlclserror(const logitmodel &lm, const real_2d_array &xy, const ae_int
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::mnlclserror(const_cast<alglib_impl::logitmodel*>(lm.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 #endif
 
@@ -14245,7 +14245,7 @@ void knncreatebuffer(const knnmodel &model, knnbuffer &buf, const xparams _xpara
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knncreatebuffer(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::knnbuffer*>(buf.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14292,7 +14292,7 @@ void knnbuildercreate(knnbuilder &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnbuildercreate(const_cast<alglib_impl::knnbuilder*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14340,7 +14340,7 @@ void knnbuildersetdatasetreg(const knnbuilder &s, const real_2d_array &xy, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnbuildersetdatasetreg(const_cast<alglib_impl::knnbuilder*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nout, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14387,7 +14387,7 @@ void knnbuildersetdatasetcls(const knnbuilder &s, const real_2d_array &xy, const
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnbuildersetdatasetcls(const_cast<alglib_impl::knnbuilder*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, nclasses, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14425,7 +14425,7 @@ void knnbuildersetnorm(const knnbuilder &s, const ae_int_t nrmtype, const xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnbuildersetnorm(const_cast<alglib_impl::knnbuilder*>(s.c_ptr()), nrmtype, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14487,7 +14487,7 @@ void knnbuilderbuildknnmodel(const knnbuilder &s, const ae_int_t k, const double
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnbuilderbuildknnmodel(const_cast<alglib_impl::knnbuilder*>(s.c_ptr()), k, eps, const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::knnreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14536,7 +14536,7 @@ void knnrewritekeps(const knnmodel &model, const ae_int_t k, const double eps, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnrewritekeps(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), k, eps, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14583,7 +14583,7 @@ void knnprocess(const knnmodel &model, const real_1d_array &x, real_1d_array &y,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnprocess(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14637,11 +14637,11 @@ double knnprocess0(const knnmodel &model, const real_1d_array &x, const xparams 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::knnprocess0(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -14684,11 +14684,11 @@ ae_int_t knnclassify(const knnmodel &model, const real_1d_array &x, const xparam
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_int_t result = alglib_impl::knnclassify(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<ae_int_t*>(&result));
+    return ae_int_t(result);
 }
 
 /*************************************************************************
@@ -14725,7 +14725,7 @@ void knnprocessi(const knnmodel &model, const real_1d_array &x, real_1d_array &y
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnprocessi(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14768,7 +14768,7 @@ void knntsprocess(const knnmodel &model, const knnbuffer &buf, const real_1d_arr
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knntsprocess(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::knnbuffer*>(buf.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -14809,11 +14809,11 @@ double knnrelclserror(const knnmodel &model, const real_2d_array &xy, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::knnrelclserror(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -14854,11 +14854,11 @@ double knnavgce(const knnmodel &model, const real_2d_array &xy, const ae_int_t n
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::knnavgce(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -14897,11 +14897,11 @@ double knnrmserror(const knnmodel &model, const real_2d_array &xy, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::knnrmserror(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -14940,11 +14940,11 @@ double knnavgerror(const knnmodel &model, const real_2d_array &xy, const ae_int_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::knnavgerror(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -14983,11 +14983,11 @@ double knnavgrelerror(const knnmodel &model, const real_2d_array &xy, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     double result = alglib_impl::knnavgrelerror(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<double*>(&result));
+    return double(result);
 }
 
 /*************************************************************************
@@ -15038,7 +15038,7 @@ void knnallerrors(const knnmodel &model, const real_2d_array &xy, const ae_int_t
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::knnallerrors(const_cast<alglib_impl::knnmodel*>(model.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, const_cast<alglib_impl::knnreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15492,7 +15492,7 @@ void mlptrainlm(const multilayerperceptron &network, const real_2d_array &xy, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlptrainlm(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15551,7 +15551,7 @@ void mlptrainlbfgs(const multilayerperceptron &network, const real_2d_array &xy,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlptrainlbfgs(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, wstep, maxits, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15623,7 +15623,7 @@ void mlptraines(const multilayerperceptron &network, const real_2d_array &trnxy,
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlptraines(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(trnxy.c_ptr()), trnsize, const_cast<alglib_impl::ae_matrix*>(valxy.c_ptr()), valsize, decay, restarts, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15674,7 +15674,7 @@ void mlpkfoldcvlbfgs(const multilayerperceptron &network, const real_2d_array &x
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpkfoldcvlbfgs(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, wstep, maxits, foldscount, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), const_cast<alglib_impl::mlpcvreport*>(cvrep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15723,7 +15723,7 @@ void mlpkfoldcvlm(const multilayerperceptron &network, const real_2d_array &xy, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpkfoldcvlm(const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, foldscount, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), const_cast<alglib_impl::mlpcvreport*>(cvrep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15805,7 +15805,7 @@ void mlpkfoldcv(const mlptrainer &s, const multilayerperceptron &network, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpkfoldcv(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), nrestarts, foldscount, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15842,7 +15842,7 @@ void mlpcreatetrainer(const ae_int_t nin, const ae_int_t nout, mlptrainer &s, co
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreatetrainer(nin, nout, const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15879,7 +15879,7 @@ void mlpcreatetrainercls(const ae_int_t nin, const ae_int_t nclasses, mlptrainer
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpcreatetrainercls(nin, nclasses, const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15935,7 +15935,7 @@ void mlpsetdataset(const mlptrainer &s, const real_2d_array &xy, const ae_int_t 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetdataset(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -15992,7 +15992,7 @@ void mlpsetsparsedataset(const mlptrainer &s, const sparsematrix &xy, const ae_i
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetsparsedataset(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::sparsematrix*>(xy.c_ptr()), npoints, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16030,7 +16030,7 @@ void mlpsetdecay(const mlptrainer &s, const double decay, const xparams _xparams
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetdecay(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), decay, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16078,7 +16078,7 @@ void mlpsetcond(const mlptrainer &s, const double wstep, const ae_int_t maxits, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetcond(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), wstep, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16117,7 +16117,7 @@ void mlpsetalgobatch(const mlptrainer &s, const xparams _xparams)
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpsetalgobatch(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16182,7 +16182,7 @@ void mlptrainnetwork(const mlptrainer &s, const multilayerperceptron &network, c
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlptrainnetwork(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), nrestarts, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16256,7 +16256,7 @@ void mlpstarttraining(const mlptrainer &s, const multilayerperceptron &network, 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpstarttraining(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), randomstart, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16352,11 +16352,11 @@ bool mlpcontinuetraining(const mlptrainer &s, const multilayerperceptron &networ
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     ae_bool result = alglib_impl::mlpcontinuetraining(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::multilayerperceptron*>(network.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return *(reinterpret_cast<bool*>(&result));
+    return bool(result);
 }
 
 /*************************************************************************
@@ -16399,7 +16399,7 @@ void mlpebagginglm(const mlpensemble &ensemble, const real_2d_array &xy, const a
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpebagginglm(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), const_cast<alglib_impl::mlpcvreport*>(ooberrors.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16449,7 +16449,7 @@ void mlpebagginglbfgs(const mlpensemble &ensemble, const real_2d_array &xy, cons
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpebagginglbfgs(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, wstep, maxits, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), const_cast<alglib_impl::mlpcvreport*>(ooberrors.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16495,7 +16495,7 @@ void mlpetraines(const mlpensemble &ensemble, const real_2d_array &xy, const ae_
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlpetraines(const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, decay, restarts, &info, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16561,7 +16561,7 @@ void mlptrainensemblees(const mlptrainer &s, const mlpensemble &ensemble, const 
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::mlptrainensemblees(const_cast<alglib_impl::mlptrainer*>(s.c_ptr()), const_cast<alglib_impl::mlpensemble*>(ensemble.c_ptr()), nrestarts, const_cast<alglib_impl::mlpreport*>(rep.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -16593,7 +16593,7 @@ void kmeansgenerate(const real_2d_array &xy, const ae_int_t npoints, const ae_in
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=0x0 )
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::kmeansgenerate(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nvars, k, restarts, &info, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), const_cast<alglib_impl::ae_vector*>(xyc.c_ptr()), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
@@ -17079,7 +17079,7 @@ static void mcpd_mcpdinit(ae_int_t n,
 
 #endif
 #if defined(AE_COMPILE_LOGIT) || !defined(AE_PARTIAL_BUILD)
-static double logit_xtol = 100*ae_machineepsilon;
+static double logit_xtol = (double)100*ae_machineepsilon;
 static double logit_ftol = 0.0001;
 static double logit_gtol = 0.3;
 static ae_int_t logit_maxfev = 20;
@@ -17448,7 +17448,7 @@ void pcabuildbasis(/* Real    */ ae_matrix* x,
     {
         for(i=0; i<=nvars-1; i++)
         {
-            s2->ptr.p_double[i] = ae_sqr(s2->ptr.p_double[i], _state)/(npoints-1);
+            s2->ptr.p_double[i] = ae_sqr(s2->ptr.p_double[i], _state)/(double)(npoints-1);
         }
     }
     ae_matrix_set_length(v, nvars, nvars, _state);
@@ -17638,7 +17638,7 @@ void pcatruncatedsubspace(/* Real    */ ae_matrix* x,
     {
         for(i=0; i<=nneeded-1; i++)
         {
-            s2->ptr.p_double[i] = s2->ptr.p_double[i]/(npoints-1);
+            s2->ptr.p_double[i] = s2->ptr.p_double[i]/(double)(npoints-1);
         }
     }
     ae_frame_leave(_state);
@@ -17881,7 +17881,7 @@ void pcatruncatedsubspacesparse(sparsematrix* x,
     {
         for(i=0; i<=nneeded-1; i++)
         {
-            s2->ptr.p_double[i] = s2->ptr.p_double[i]/(npoints-1);
+            s2->ptr.p_double[i] = s2->ptr.p_double[i]/(double)(npoints-1);
         }
     }
     ae_frame_leave(_state);
@@ -17979,7 +17979,7 @@ void dserraccumulate(/* Real    */ ae_vector* buf,
         }
         if( mmax!=rmax )
         {
-            buf->ptr.p_double[0] = buf->ptr.p_double[0]+1;
+            buf->ptr.p_double[0] = buf->ptr.p_double[0]+(double)1;
         }
         if( ae_fp_greater(y->ptr.p_double[rmax],(double)(0)) )
         {
@@ -18005,10 +18005,10 @@ void dserraccumulate(/* Real    */ ae_vector* buf,
             if( ae_fp_neq(ev,(double)(0)) )
             {
                 buf->ptr.p_double[4] = buf->ptr.p_double[4]+ae_fabs((v-ev)/ev, _state);
-                buf->ptr.p_double[offs+2] = buf->ptr.p_double[offs+2]+1;
+                buf->ptr.p_double[offs+2] = buf->ptr.p_double[offs+2]+(double)1;
             }
         }
-        buf->ptr.p_double[offs+1] = buf->ptr.p_double[offs+1]+1;
+        buf->ptr.p_double[offs+1] = buf->ptr.p_double[offs+1]+(double)1;
     }
     else
     {
@@ -18035,7 +18035,7 @@ void dserraccumulate(/* Real    */ ae_vector* buf,
         }
         if( mmax!=rmax )
         {
-            buf->ptr.p_double[0] = buf->ptr.p_double[0]+1;
+            buf->ptr.p_double[0] = buf->ptr.p_double[0]+(double)1;
         }
         for(j=0; j<=nout-1; j++)
         {
@@ -18046,10 +18046,10 @@ void dserraccumulate(/* Real    */ ae_vector* buf,
             if( ae_fp_neq(ev,(double)(0)) )
             {
                 buf->ptr.p_double[4] = buf->ptr.p_double[4]+ae_fabs((v-ev)/ev, _state);
-                buf->ptr.p_double[offs+2] = buf->ptr.p_double[offs+2]+1;
+                buf->ptr.p_double[offs+2] = buf->ptr.p_double[offs+2]+(double)1;
             }
         }
-        buf->ptr.p_double[offs+1] = buf->ptr.p_double[offs+1]+1;
+        buf->ptr.p_double[offs+1] = buf->ptr.p_double[offs+1]+(double)1;
     }
 }
 
@@ -18072,8 +18072,8 @@ void dserrfinish(/* Real    */ ae_vector* buf, ae_state *_state)
     {
         buf->ptr.p_double[0] = buf->ptr.p_double[0]/buf->ptr.p_double[offs+1];
         buf->ptr.p_double[1] = buf->ptr.p_double[1]/buf->ptr.p_double[offs+1];
-        buf->ptr.p_double[2] = ae_sqrt(buf->ptr.p_double[2]/(nout*buf->ptr.p_double[offs+1]), _state);
-        buf->ptr.p_double[3] = buf->ptr.p_double[3]/(nout*buf->ptr.p_double[offs+1]);
+        buf->ptr.p_double[2] = ae_sqrt(buf->ptr.p_double[2]/((double)nout*buf->ptr.p_double[offs+1]), _state);
+        buf->ptr.p_double[3] = buf->ptr.p_double[3]/((double)nout*buf->ptr.p_double[offs+1]);
     }
     if( ae_fp_neq(buf->ptr.p_double[offs+2],(double)(0)) )
     {
@@ -18268,7 +18268,7 @@ double dsgetmeanmindistance(/* Real    */ ae_matrix* xy,
     result = (double)(0);
     for(i=0; i<=npoints-1; i++)
     {
-        result = result+tmp.ptr.p_double[i]/npoints;
+        result = result+tmp.ptr.p_double[i]/(double)npoints;
     }
     ae_frame_leave(_state);
     return result;
@@ -18470,12 +18470,12 @@ void dsoptimalsplit2(/* Real    */ ae_vector* a,
     ae_vector_init_copy(&_c, c, _state, ae_true);
     c = &_c;
     *info = 0;
-    *threshold = 0;
-    *pal = 0;
-    *pbl = 0;
-    *par = 0;
-    *pbr = 0;
-    *cve = 0;
+    *threshold = 0.0;
+    *pal = 0.0;
+    *pbl = 0.0;
+    *par = 0.0;
+    *pbr = 0.0;
+    *cve = 0.0;
     ae_vector_init(&ties, 0, DT_INT, _state, ae_true);
     ae_vector_init(&p1, 0, DT_INT, _state, ae_true);
     ae_vector_init(&p2, 0, DT_INT, _state, ae_true);
@@ -18542,11 +18542,11 @@ void dsoptimalsplit2(/* Real    */ ae_vector* a,
     {
         if( c->ptr.p_int[i]==0 )
         {
-            *par = *par+1;
+            *par = *par+(double)1;
         }
         if( c->ptr.p_int[i]==1 )
         {
-            *pbr = *pbr+1;
+            *pbr = *pbr+(double)1;
         }
     }
     koptimal = -1;
@@ -18564,11 +18564,11 @@ void dsoptimalsplit2(/* Real    */ ae_vector* a,
         {
             if( c->ptr.p_int[i]==0 )
             {
-                pak = pak+1;
+                pak = pak+(double)1;
             }
             if( c->ptr.p_int[i]==1 )
             {
-                pbk = pbk+1;
+                pbk = pbk+(double)1;
             }
         }
         
@@ -18576,10 +18576,10 @@ void dsoptimalsplit2(/* Real    */ ae_vector* a,
          * Calculate cross-validation CE
          */
         cv = (double)(0);
-        cv = cv-bdss_xlny(*pal+pak, (*pal+pak)/(*pal+pak+(*pbl)+pbk+1), _state);
-        cv = cv-bdss_xlny(*pbl+pbk, (*pbl+pbk)/(*pal+pak+1+(*pbl)+pbk), _state);
-        cv = cv-bdss_xlny(*par-pak, (*par-pak)/(*par-pak+(*pbr)-pbk+1), _state);
-        cv = cv-bdss_xlny(*pbr-pbk, (*pbr-pbk)/(*par-pak+1+(*pbr)-pbk), _state);
+        cv = cv-bdss_xlny(*pal+pak, (*pal+pak)/(*pal+pak+(*pbl)+pbk+(double)1), _state);
+        cv = cv-bdss_xlny(*pbl+pbk, (*pbl+pbk)/(*pal+pak+(double)1+(*pbl)+pbk), _state);
+        cv = cv-bdss_xlny(*par-pak, (*par-pak)/(*par-pak+(*pbr)-pbk+(double)1), _state);
+        cv = cv-bdss_xlny(*pbr-pbk, (*pbr-pbk)/(*par-pak+(double)1+(*pbr)-pbk), _state);
         
         /*
          * Compare with best
@@ -18610,22 +18610,22 @@ void dsoptimalsplit2(/* Real    */ ae_vector* a,
         {
             if( c->ptr.p_int[i]==0 )
             {
-                *pal = *pal+1;
+                *pal = *pal+(double)1;
             }
             else
             {
-                *pbl = *pbl+1;
+                *pbl = *pbl+(double)1;
             }
         }
         else
         {
             if( c->ptr.p_int[i]==0 )
             {
-                *par = *par+1;
+                *par = *par+(double)1;
             }
             else
             {
-                *pbr = *pbr+1;
+                *pbr = *pbr+(double)1;
             }
         }
     }
@@ -18692,9 +18692,9 @@ void dsoptimalsplit2fast(/* Real    */ ae_vector* a,
     double x;
 
     *info = 0;
-    *threshold = 0;
-    *rms = 0;
-    *cvrms = 0;
+    *threshold = 0.0;
+    *rms = 0.0;
+    *cvrms = 0.0;
 
     
     /*
@@ -18767,19 +18767,19 @@ void dsoptimalsplit2fast(/* Real    */ ae_vector* a,
         for(i=0; i<=nc-1; i++)
         {
             w = (double)(cntbuf->ptr.p_int[i]);
-            v = v+w*ae_sqr(w/sl-1, _state);
-            v = v+(sl-w)*ae_sqr(w/sl, _state);
+            v = v+w*ae_sqr(w/(double)sl-(double)1, _state);
+            v = v+((double)sl-w)*ae_sqr(w/(double)sl, _state);
             w = (double)(cntbuf->ptr.p_int[nc+i]);
-            v = v+w*ae_sqr(w/sr-1, _state);
-            v = v+(sr-w)*ae_sqr(w/sr, _state);
+            v = v+w*ae_sqr(w/(double)sr-(double)1, _state);
+            v = v+((double)sr-w)*ae_sqr(w/(double)sr, _state);
         }
-        v = ae_sqrt(v/(nc*n), _state);
+        v = ae_sqrt(v/(double)(nc*n), _state);
         
         /*
          * Compare with best
          */
-        x = (double)(2*sl)/(double)(sl+sr)-1;
-        cc = v*(1-alpha+alpha*ae_sqr(x, _state));
+        x = (double)(2*sl)/(double)(sl+sr)-(double)1;
+        cc = v*((double)1-alpha+alpha*ae_sqr(x, _state));
         if( ae_fp_less(cc,cbest) )
         {
             
@@ -18799,29 +18799,29 @@ void dsoptimalsplit2fast(/* Real    */ ae_vector* a,
                 if( sl>1 )
                 {
                     w = (double)(cntbuf->ptr.p_int[i]);
-                    *cvrms = *cvrms+w*ae_sqr((w-1)/(sl-1)-1, _state);
-                    *cvrms = *cvrms+(sl-w)*ae_sqr(w/(sl-1), _state);
+                    *cvrms = *cvrms+w*ae_sqr((w-(double)1)/(double)(sl-1)-(double)1, _state);
+                    *cvrms = *cvrms+((double)sl-w)*ae_sqr(w/(double)(sl-1), _state);
                 }
                 else
                 {
                     w = (double)(cntbuf->ptr.p_int[i]);
-                    *cvrms = *cvrms+w*ae_sqr((double)1/(double)nc-1, _state);
-                    *cvrms = *cvrms+(sl-w)*ae_sqr((double)1/(double)nc, _state);
+                    *cvrms = *cvrms+w*ae_sqr((double)1/(double)nc-(double)1, _state);
+                    *cvrms = *cvrms+((double)sl-w)*ae_sqr((double)1/(double)nc, _state);
                 }
                 if( sr>1 )
                 {
                     w = (double)(cntbuf->ptr.p_int[nc+i]);
-                    *cvrms = *cvrms+w*ae_sqr((w-1)/(sr-1)-1, _state);
-                    *cvrms = *cvrms+(sr-w)*ae_sqr(w/(sr-1), _state);
+                    *cvrms = *cvrms+w*ae_sqr((w-(double)1)/(double)(sr-1)-(double)1, _state);
+                    *cvrms = *cvrms+((double)sr-w)*ae_sqr(w/(double)(sr-1), _state);
                 }
                 else
                 {
                     w = (double)(cntbuf->ptr.p_int[nc+i]);
-                    *cvrms = *cvrms+w*ae_sqr((double)1/(double)nc-1, _state);
-                    *cvrms = *cvrms+(sr-w)*ae_sqr((double)1/(double)nc, _state);
+                    *cvrms = *cvrms+w*ae_sqr((double)1/(double)nc-(double)1, _state);
+                    *cvrms = *cvrms+((double)sr-w)*ae_sqr((double)1/(double)nc, _state);
                 }
             }
-            *cvrms = ae_sqrt(*cvrms/(nc*n), _state);
+            *cvrms = ae_sqrt(*cvrms/(double)(nc*n), _state);
         }
     }
     
@@ -18890,7 +18890,7 @@ void dssplitk(/* Real    */ ae_vector* a,
     *info = 0;
     ae_vector_clear(thresholds);
     *ni = 0;
-    *cve = 0;
+    *cve = 0.0;
     ae_vector_init(&ties, 0, DT_INT, _state, ae_true);
     ae_vector_init(&p1, 0, DT_INT, _state, ae_true);
     ae_vector_init(&p2, 0, DT_INT, _state, ae_true);
@@ -18960,9 +18960,9 @@ void dssplitk(/* Real    */ ae_vector* a,
     j = -1;
     for(i=1; i<=tiecount-1; i++)
     {
-        if( ae_fp_less(ae_fabs(ties.ptr.p_int[i]-0.5*(n-1), _state),v2) )
+        if( ae_fp_less(ae_fabs((double)ties.ptr.p_int[i]-0.5*(double)(n-1), _state),v2) )
         {
-            v2 = ae_fabs(ties.ptr.p_int[i]-0.5*n, _state);
+            v2 = ae_fabs((double)ties.ptr.p_int[i]-0.5*(double)n, _state);
             j = i;
         }
     }
@@ -19041,7 +19041,7 @@ void dssplitk(/* Real    */ ae_vector* a,
             /*
              * Place J-th tie in I-th bin, or leave for I+1-th bin.
              */
-            if( ae_fp_less(ae_fabs(cursizes.ptr.p_int[i]+ties.ptr.p_int[j+1]-ties.ptr.p_int[j]-(double)n/(double)k, _state),ae_fabs(cursizes.ptr.p_int[i]-(double)n/(double)k, _state)) )
+            if( ae_fp_less(ae_fabs((double)(cursizes.ptr.p_int[i]+ties.ptr.p_int[j+1]-ties.ptr.p_int[j])-(double)n/(double)k, _state),ae_fabs((double)cursizes.ptr.p_int[i]-(double)n/(double)k, _state)) )
             {
                 cursizes.ptr.p_int[i] = cursizes.ptr.p_int[i]+ties.ptr.p_int[j+1]-ties.ptr.p_int[j];
                 j = j+1;
@@ -19158,7 +19158,7 @@ void dsoptimalsplitk(/* Real    */ ae_vector* a,
     *info = 0;
     ae_vector_clear(thresholds);
     *ni = 0;
-    *cve = 0;
+    *cve = 0.0;
     ae_vector_init(&ties, 0, DT_INT, _state, ae_true);
     ae_vector_init(&p1, 0, DT_INT, _state, ae_true);
     ae_vector_init(&p2, 0, DT_INT, _state, ae_true);
@@ -19308,9 +19308,9 @@ void dsoptimalsplitk(/* Real    */ ae_vector* a,
         j = -1;
         for(i=1; i<=tiecount-1; i++)
         {
-            if( ae_fp_less(ae_fabs(ties.ptr.p_int[i]-0.5*(n-1), _state),v2) )
+            if( ae_fp_less(ae_fabs((double)ties.ptr.p_int[i]-0.5*(double)(n-1), _state),v2) )
             {
-                v2 = ae_fabs(ties.ptr.p_int[i]-0.5*(n-1), _state);
+                v2 = ae_fabs((double)ties.ptr.p_int[i]-0.5*(double)(n-1), _state);
                 j = i;
             }
         }
@@ -19400,12 +19400,12 @@ static double bdss_getcv(/* Integer */ ae_vector* cnt,
     s = (double)(0);
     for(i=0; i<=nc-1; i++)
     {
-        s = s+cnt->ptr.p_int[i];
+        s = s+(double)cnt->ptr.p_int[i];
     }
     result = (double)(0);
     for(i=0; i<=nc-1; i++)
     {
-        result = result-bdss_xlny((double)(cnt->ptr.p_int[i]), cnt->ptr.p_int[i]/(s+nc-1), _state);
+        result = result-bdss_xlny((double)(cnt->ptr.p_int[i]), (double)cnt->ptr.p_int[i]/(s+(double)nc-(double)1), _state);
     }
     return result;
 }
@@ -19458,10 +19458,10 @@ void _cvreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _cvreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _cvreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    cvreport *dst = (cvreport*)_dst;
-    cvreport *src = (cvreport*)_src;
+    cvreport       *dst = (cvreport*)_dst;
+    const cvreport *src = (const cvreport*)_src;
     dst->relclserror = src->relclserror;
     dst->avgce = src->avgce;
     dst->rmserror = src->rmserror;
@@ -20420,14 +20420,14 @@ void mlpcopyshared(multilayerperceptron* network1,
      * copy buffers
      */
     wcount = mlpgetweightscount(network1, _state);
-    ae_shared_pool_set_seed(&network2->buf, &buf, sizeof(buf), _mlpbuffers_init, _mlpbuffers_init_copy, _mlpbuffers_destroy, _state);
+    ae_shared_pool_set_seed(&network2->buf, &buf, (ae_int_t)sizeof(buf), (ae_constructor)_mlpbuffers_init, (ae_copy_constructor)_mlpbuffers_init_copy, (ae_destructor)_mlpbuffers_destroy, _state);
     ae_vector_set_length(&sgrad.g, wcount, _state);
     sgrad.f = 0.0;
     for(i=0; i<=wcount-1; i++)
     {
         sgrad.g.ptr.p_double[i] = 0.0;
     }
-    ae_shared_pool_set_seed(&network2->gradbuf, &sgrad, sizeof(sgrad), _smlpgrad_init, _smlpgrad_init_copy, _smlpgrad_destroy, _state);
+    ae_shared_pool_set_seed(&network2->gradbuf, &sgrad, (ae_int_t)sizeof(sgrad), (ae_constructor)_smlpgrad_init, (ae_copy_constructor)_smlpgrad_init_copy, (ae_destructor)_smlpgrad_destroy, _state);
     ae_frame_leave(_state);
 }
 
@@ -21023,8 +21023,8 @@ void mlprandomize(multilayerperceptron* network, ae_state *_state)
                 ef = ef+v;
                 ef2 = ef2+v*v;
             }
-            ef = ef/montecarlocnt;
-            ef2 = ef2/montecarlocnt;
+            ef = ef/(double)montecarlocnt;
+            ef2 = ef2/(double)montecarlocnt;
             network->rndbuf.ptr.p_double[entryoffs+0] = ef;
             network->rndbuf.ptr.p_double[entryoffs+1] = ae_maxreal(ef2-ef*ef, 0.0, _state);
             continue;
@@ -21086,7 +21086,7 @@ void mlprandomizefull(multilayerperceptron* network, ae_state *_state)
                 /*
                  * Shifts are changed only for linear outputs neurons
                  */
-                network->columnmeans.ptr.p_double[nin+i] = 2*ae_randomreal(_state)-1;
+                network->columnmeans.ptr.p_double[nin+i] = (double)2*ae_randomreal(_state)-(double)1;
             }
             if( ntype==0||ntype==3 )
             {
@@ -21095,7 +21095,7 @@ void mlprandomizefull(multilayerperceptron* network, ae_state *_state)
                  * Scales are changed only for linear or bounded outputs neurons.
                  * Note that scale randomization preserves sign.
                  */
-                network->columnsigmas.ptr.p_double[nin+i] = ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*(1.5*ae_randomreal(_state)+0.5);
+                network->columnsigmas.ptr.p_double[nin+i] = (double)ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*(1.5*ae_randomreal(_state)+0.5);
             }
         }
     }
@@ -21165,7 +21165,7 @@ void mlpinitpreprocessor(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        means.ptr.p_double[i] = means.ptr.p_double[i]/ssize;
+        means.ptr.p_double[i] = means.ptr.p_double[i]/(double)ssize;
     }
     for(i=0; i<=ssize-1; i++)
     {
@@ -21176,7 +21176,7 @@ void mlpinitpreprocessor(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/ssize, _state);
+        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/(double)ssize, _state);
     }
     
     /*
@@ -21229,7 +21229,7 @@ void mlpinitpreprocessor(multilayerperceptron* network,
                 {
                     s = 1.0;
                 }
-                network->columnsigmas.ptr.p_double[nin+i] = ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
+                network->columnsigmas.ptr.p_double[nin+i] = (double)ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
                 if( ae_fp_eq(network->columnsigmas.ptr.p_double[nin+i],(double)(0)) )
                 {
                     network->columnsigmas.ptr.p_double[nin+i] = (double)(1);
@@ -21314,7 +21314,7 @@ void mlpinitpreprocessorsparse(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        means.ptr.p_double[i] = means.ptr.p_double[i]/ssize;
+        means.ptr.p_double[i] = means.ptr.p_double[i]/(double)ssize;
     }
     for(i=0; i<=ssize-1; i++)
     {
@@ -21326,7 +21326,7 @@ void mlpinitpreprocessorsparse(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/ssize, _state);
+        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/(double)ssize, _state);
     }
     
     /*
@@ -21379,7 +21379,7 @@ void mlpinitpreprocessorsparse(multilayerperceptron* network,
                 {
                     s = 1.0;
                 }
-                network->columnsigmas.ptr.p_double[nin+i] = ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
+                network->columnsigmas.ptr.p_double[nin+i] = (double)ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
                 if( ae_fp_eq(network->columnsigmas.ptr.p_double[nin+i],(double)(0)) )
                 {
                     network->columnsigmas.ptr.p_double[nin+i] = (double)(1);
@@ -21495,7 +21495,7 @@ void mlpinitpreprocessorsubset(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        means.ptr.p_double[i] = means.ptr.p_double[i]/subsetsize;
+        means.ptr.p_double[i] = means.ptr.p_double[i]/(double)subsetsize;
     }
     for(i=0; i<=subsetsize-1; i++)
     {
@@ -21506,7 +21506,7 @@ void mlpinitpreprocessorsubset(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/subsetsize, _state);
+        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/(double)subsetsize, _state);
     }
     
     /*
@@ -21559,7 +21559,7 @@ void mlpinitpreprocessorsubset(multilayerperceptron* network,
                 {
                     s = 1.0;
                 }
-                network->columnsigmas.ptr.p_double[nin+i] = ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
+                network->columnsigmas.ptr.p_double[nin+i] = (double)ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
                 if( ae_fp_eq(network->columnsigmas.ptr.p_double[nin+i],(double)(0)) )
                 {
                     network->columnsigmas.ptr.p_double[nin+i] = (double)(1);
@@ -21677,7 +21677,7 @@ void mlpinitpreprocessorsparsesubset(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        means.ptr.p_double[i] = means.ptr.p_double[i]/subsetsize;
+        means.ptr.p_double[i] = means.ptr.p_double[i]/(double)subsetsize;
     }
     for(i=0; i<=subsetsize-1; i++)
     {
@@ -21689,7 +21689,7 @@ void mlpinitpreprocessorsparsesubset(multilayerperceptron* network,
     }
     for(i=0; i<=jmax; i++)
     {
-        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/subsetsize, _state);
+        sigmas.ptr.p_double[i] = ae_sqrt(sigmas.ptr.p_double[i]/(double)subsetsize, _state);
     }
     
     /*
@@ -21742,7 +21742,7 @@ void mlpinitpreprocessorsparsesubset(multilayerperceptron* network,
                 {
                     s = 1.0;
                 }
-                network->columnsigmas.ptr.p_double[nin+i] = ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
+                network->columnsigmas.ptr.p_double[nin+i] = (double)ae_sign(network->columnsigmas.ptr.p_double[nin+i], _state)*ae_fabs(s, _state);
                 if( ae_fp_eq(network->columnsigmas.ptr.p_double[nin+i],(double)(0)) )
                 {
                     network->columnsigmas.ptr.p_double[nin+i] = (double)(1);
@@ -21931,8 +21931,8 @@ void mlpgetinputscaling(multilayerperceptron* network,
      ae_state *_state)
 {
 
-    *mean = 0;
-    *sigma = 0;
+    *mean = 0.0;
+    *sigma = 0.0;
 
     ae_assert(i>=0&&i<network->hllayersizes.ptr.p_int[0], "MLPGetInputScaling: incorrect (nonexistent) I", _state);
     *mean = network->columnmeans.ptr.p_double[i];
@@ -21971,8 +21971,8 @@ void mlpgetoutputscaling(multilayerperceptron* network,
      ae_state *_state)
 {
 
-    *mean = 0;
-    *sigma = 0;
+    *mean = 0.0;
+    *sigma = 0.0;
 
     ae_assert(i>=0&&i<network->hllayersizes.ptr.p_int[network->hllayersizes.cnt-1], "MLPGetOutputScaling: incorrect (nonexistent) I", _state);
     if( network->structinfo.ptr.p_int[6]==1 )
@@ -22021,7 +22021,7 @@ void mlpgetneuroninfo(multilayerperceptron* network,
     ae_int_t activationoffset;
 
     *fkind = 0;
-    *threshold = 0;
+    *threshold = 0.0;
 
     ncnt = network->hlneurons.cnt/mlpbase_hlnfieldwidth;
     istart = network->structinfo.ptr.p_int[5];
@@ -22378,9 +22378,9 @@ void mlpactivationfunction(double net,
     double root;
     double r;
 
-    *f = 0;
-    *df = 0;
-    *d2f = 0;
+    *f = 0.0;
+    *df = 0.0;
+    *d2f = 0.0;
 
     if( k==0||k==-5 )
     {
@@ -22403,8 +22403,8 @@ void mlpactivationfunction(double net,
         {
             *f = (double)(ae_sign(net, _state));
         }
-        *df = 1-*f*(*f);
-        *d2f = -2*(*f)*(*df);
+        *df = (double)1-*f*(*f);
+        *d2f = -(double)2*(*f)*(*df);
         return;
     }
     if( k==3 )
@@ -22416,11 +22416,11 @@ void mlpactivationfunction(double net,
         if( ae_fp_greater_eq(net,(double)(0)) )
         {
             net2 = net*net;
-            arg = net2+1;
+            arg = net2+(double)1;
             root = ae_sqrt(arg, _state);
             *f = net+root;
             r = net/root;
-            *df = 1+r;
+            *df = (double)1+r;
             *d2f = (root-net*r)/arg;
         }
         else
@@ -22434,8 +22434,8 @@ void mlpactivationfunction(double net,
     if( k==2 )
     {
         *f = ae_exp(-ae_sqr(net, _state), _state);
-        *df = -2*net*(*f);
-        *d2f = -2*(*f+*df*net);
+        *df = -(double)2*net*(*f);
+        *d2f = -(double)2*(*f+*df*net);
         return;
     }
     *f = (double)(0);
@@ -22564,7 +22564,7 @@ double mlperror(multilayerperceptron* network,
         }
     }
     mlpallerrorsx(network, xy, &network->dummysxy, npoints, 0, &network->dummyidx, 0, npoints, 0, &network->buf, &network->err, _state);
-    result = ae_sqr(network->err.rmserror, _state)*npoints*mlpgetoutputscount(network, _state)/2;
+    result = ae_sqr(network->err.rmserror, _state)*(double)npoints*(double)mlpgetoutputscount(network, _state)/(double)2;
     return result;
 }
 
@@ -22639,7 +22639,7 @@ double mlperrorsparse(multilayerperceptron* network,
         }
     }
     mlpallerrorsx(network, &network->dummydxy, xy, npoints, 1, &network->dummyidx, 0, npoints, 0, &network->buf, &network->err, _state);
-    result = ae_sqr(network->err.rmserror, _state)*npoints*mlpgetoutputscount(network, _state)/2;
+    result = ae_sqr(network->err.rmserror, _state)*(double)npoints*(double)mlpgetoutputscount(network, _state)/(double)2;
     return result;
 }
 
@@ -22689,7 +22689,7 @@ double mlperrorn(multilayerperceptron* network,
              */
             ae_v_sub(&network->y.ptr.p_double[0], 1, &xy->ptr.pp_double[i][nin], 1, ae_v_len(0,nout-1));
             e = ae_v_dotproduct(&network->y.ptr.p_double[0], 1, &network->y.ptr.p_double[0], 1, ae_v_len(0,nout-1));
-            result = result+e/2;
+            result = result+e/(double)2;
         }
         else
         {
@@ -22773,7 +22773,7 @@ ae_int_t mlpclserror(multilayerperceptron* network,
         }
     }
     mlpallerrorsx(network, xy, &network->dummysxy, npoints, 0, &network->dummyidx, 0, npoints, 0, &network->buf, &network->err, _state);
-    result = ae_round(npoints*network->err.relclserror, _state);
+    result = ae_round((double)npoints*network->err.relclserror, _state);
     return result;
 }
 
@@ -23551,7 +23551,7 @@ void mlpgrad(multilayerperceptron* network,
     ae_int_t nout;
     ae_int_t ntotal;
 
-    *e = 0;
+    *e = 0.0;
 
     
     /*
@@ -23573,7 +23573,7 @@ void mlpgrad(multilayerperceptron* network,
     for(i=0; i<=nout-1; i++)
     {
         network->derror.ptr.p_double[ntotal-nout+i] = network->y.ptr.p_double[i]-desiredy->ptr.p_double[i];
-        *e = *e+ae_sqr(network->y.ptr.p_double[i]-desiredy->ptr.p_double[i], _state)/2;
+        *e = *e+ae_sqr(network->y.ptr.p_double[i]-desiredy->ptr.p_double[i], _state)/(double)2;
     }
     
     /*
@@ -23615,7 +23615,7 @@ void mlpgradn(multilayerperceptron* network,
     ae_int_t nout;
     ae_int_t ntotal;
 
-    *e = 0;
+    *e = 0.0;
 
     
     /*
@@ -23643,7 +23643,7 @@ void mlpgradn(multilayerperceptron* network,
         for(i=0; i<=nout-1; i++)
         {
             network->derror.ptr.p_double[ntotal-nout+i] = network->y.ptr.p_double[i]-desiredy->ptr.p_double[i];
-            *e = *e+ae_sqr(network->y.ptr.p_double[i]-desiredy->ptr.p_double[i], _state)/2;
+            *e = *e+ae_sqr(network->y.ptr.p_double[i]-desiredy->ptr.p_double[i], _state)/(double)2;
         }
     }
     else
@@ -23726,7 +23726,7 @@ void mlpgradbatch(multilayerperceptron* network,
 
     ae_frame_make(_state, &_frame_block);
     memset(&_sgrad, 0, sizeof(_sgrad));
-    *e = 0;
+    *e = 0.0;
     ae_smart_ptr_init(&_sgrad, (void**)&sgrad, _state, ae_true);
 
     ae_assert(ssize>=0, "MLPGradBatchSparse: SSize<0", _state);
@@ -23822,7 +23822,7 @@ void mlpgradbatchsparse(multilayerperceptron* network,
 
     ae_frame_make(_state, &_frame_block);
     memset(&_sgrad, 0, sizeof(_sgrad));
-    *e = 0;
+    *e = 0.0;
     ae_smart_ptr_init(&_sgrad, (void**)&sgrad, _state, ae_true);
 
     ae_assert(ssize>=0, "MLPGradBatchSparse: SSize<0", _state);
@@ -23934,7 +23934,7 @@ void mlpgradbatchsubset(multilayerperceptron* network,
 
     ae_frame_make(_state, &_frame_block);
     memset(&_sgrad, 0, sizeof(_sgrad));
-    *e = 0;
+    *e = 0.0;
     ae_smart_ptr_init(&_sgrad, (void**)&sgrad, _state, ae_true);
 
     ae_assert(setsize>=0, "MLPGradBatchSubset: SetSize<0", _state);
@@ -24066,7 +24066,7 @@ void mlpgradbatchsparsesubset(multilayerperceptron* network,
 
     ae_frame_make(_state, &_frame_block);
     memset(&_sgrad, 0, sizeof(_sgrad));
-    *e = 0;
+    *e = 0.0;
     ae_smart_ptr_init(&_sgrad, (void**)&sgrad, _state, ae_true);
 
     ae_assert(setsize>=0, "MLPGradBatchSparseSubset: SetSize<0", _state);
@@ -24203,7 +24203,7 @@ void mlpgradbatchx(multilayerperceptron* network,
      *       because ProblemCost may be larger than MAXINT.
      */
     problemcost = (double)(subset1-subset0);
-    problemcost = problemcost*wcount*2;
+    problemcost = problemcost*(double)wcount*(double)2;
     if( ae_fp_greater_eq(problemcost,smpactivationlevel(_state))&&subset1-subset0>=2*mlpbase_microbatchsize )
     {
         if( _trypexec_mlpgradbatchx(network,densexy,sparsexy,datasetsize,datasettype,idx,subset0,subset1,subsettype,buf,gradbuf, _state) )
@@ -24331,7 +24331,7 @@ void mlpgradnbatch(multilayerperceptron* network,
 
     ae_frame_make(_state, &_frame_block);
     memset(&_pbuf, 0, sizeof(_pbuf));
-    *e = 0;
+    *e = 0.0;
     ae_smart_ptr_init(&_pbuf, (void**)&pbuf, _state, ae_true);
 
     
@@ -24380,7 +24380,7 @@ void mlphessiannbatch(multilayerperceptron* network,
      ae_state *_state)
 {
 
-    *e = 0;
+    *e = 0.0;
 
     mlpbase_mlphessianbatchinternal(network, xy, ssize, ae_true, e, grad, h, _state);
 }
@@ -24407,7 +24407,7 @@ void mlphessianbatch(multilayerperceptron* network,
      ae_state *_state)
 {
 
-    *e = 0;
+    *e = 0.0;
 
     mlpbase_mlphessianbatchinternal(network, xy, ssize, ae_false, e, grad, h, _state);
 }
@@ -25052,7 +25052,7 @@ double mlperrorsubset(multilayerperceptron* network,
         idxtype = 0;
     }
     mlpallerrorsx(network, xy, &network->dummysxy, setsize, 0, subset, idx0, idx1, idxtype, &network->buf, &network->err, _state);
-    result = ae_sqr(network->err.rmserror, _state)*(idx1-idx0)*mlpgetoutputscount(network, _state)/2;
+    result = ae_sqr(network->err.rmserror, _state)*(double)(idx1-idx0)*(double)mlpgetoutputscount(network, _state)/(double)2;
     return result;
 }
 
@@ -25152,7 +25152,7 @@ double mlperrorsparsesubset(multilayerperceptron* network,
         idxtype = 0;
     }
     mlpallerrorsx(network, &network->dummydxy, xy, setsize, 1, subset, idx0, idx1, idxtype, &network->buf, &network->err, _state);
-    result = ae_sqr(network->err.rmserror, _state)*(idx1-idx0)*mlpgetoutputscount(network, _state)/2;
+    result = ae_sqr(network->err.rmserror, _state)*(double)(idx1-idx0)*(double)mlpgetoutputscount(network, _state)/(double)2;
     return result;
 }
 
@@ -25230,7 +25230,7 @@ void mlpallerrorsx(multilayerperceptron* network,
      *       because ProblemCost may be larger than MAXINT.
      */
     problemcost = (double)(subset1-subset0);
-    problemcost = problemcost*wcount*2;
+    problemcost = problemcost*(double)wcount*(double)2;
     if( ae_fp_greater_eq(problemcost,smpactivationlevel(_state))&&subset1-subset0>=2*mlpbase_microbatchsize )
     {
         if( _trypexec_mlpallerrorsx(network,densexy,sparsexy,datasetsize,datasettype,idx,subset0,subset1,subsettype,buf,rep, _state) )
@@ -25244,11 +25244,11 @@ void mlpallerrorsx(multilayerperceptron* network,
         splitlength(subset1-subset0, mlpbase_microbatchsize, &len0, &len1, _state);
         mlpallerrorsx(network, densexy, sparsexy, datasetsize, datasettype, idx, subset0, subset0+len0, subsettype, buf, &rep0, _state);
         mlpallerrorsx(network, densexy, sparsexy, datasetsize, datasettype, idx, subset0+len0, subset1, subsettype, buf, &rep1, _state);
-        rep->relclserror = (len0*rep0.relclserror+len1*rep1.relclserror)/(len0+len1);
-        rep->avgce = (len0*rep0.avgce+len1*rep1.avgce)/(len0+len1);
-        rep->rmserror = ae_sqrt((len0*ae_sqr(rep0.rmserror, _state)+len1*ae_sqr(rep1.rmserror, _state))/(len0+len1), _state);
-        rep->avgerror = (len0*rep0.avgerror+len1*rep1.avgerror)/(len0+len1);
-        rep->avgrelerror = (len0*rep0.avgrelerror+len1*rep1.avgrelerror)/(len0+len1);
+        rep->relclserror = ((double)len0*rep0.relclserror+(double)len1*rep1.relclserror)/(double)(len0+len1);
+        rep->avgce = ((double)len0*rep0.avgce+(double)len1*rep1.avgce)/(double)(len0+len1);
+        rep->rmserror = ae_sqrt(((double)len0*ae_sqr(rep0.rmserror, _state)+(double)len1*ae_sqr(rep1.rmserror, _state))/(double)(len0+len1), _state);
+        rep->avgerror = ((double)len0*rep0.avgerror+(double)len1*rep1.avgerror)/(double)(len0+len1);
+        rep->avgrelerror = ((double)len0*rep0.avgrelerror+(double)len1*rep1.avgrelerror)/(double)(len0+len1);
         ae_frame_leave(_state);
         return;
     }
@@ -26025,14 +26025,14 @@ static void mlpbase_mlpcreate(ae_int_t nin,
     /*
      * Seed buffers
      */
-    ae_shared_pool_set_seed(&network->buf, &buf, sizeof(buf), _mlpbuffers_init, _mlpbuffers_init_copy, _mlpbuffers_destroy, _state);
+    ae_shared_pool_set_seed(&network->buf, &buf, (ae_int_t)sizeof(buf), (ae_constructor)_mlpbuffers_init, (ae_copy_constructor)_mlpbuffers_init_copy, (ae_destructor)_mlpbuffers_destroy, _state);
     ae_vector_set_length(&sgrad.g, wcount, _state);
     sgrad.f = 0.0;
     for(i=0; i<=wcount-1; i++)
     {
         sgrad.g.ptr.p_double[i] = 0.0;
     }
-    ae_shared_pool_set_seed(&network->gradbuf, &sgrad, sizeof(sgrad), _smlpgrad_init, _smlpgrad_init_copy, _smlpgrad_destroy, _state);
+    ae_shared_pool_set_seed(&network->gradbuf, &sgrad, (ae_int_t)sizeof(sgrad), (ae_constructor)_smlpgrad_init, (ae_copy_constructor)_smlpgrad_init_copy, (ae_destructor)_smlpgrad_destroy, _state);
     ae_frame_leave(_state);
 }
 
@@ -26099,7 +26099,7 @@ static void mlpbase_mlphessianbatchinternal(multilayerperceptron* network,
     memset(&ry, 0, sizeof(ry));
     memset(&rdx, 0, sizeof(rdx));
     memset(&rdy, 0, sizeof(rdy));
-    *e = 0;
+    *e = 0.0;
     ae_vector_init(&x, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&desiredy, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&gt, 0, DT_REAL, _state, ae_true);
@@ -26410,11 +26410,11 @@ static void mlpbase_mlphessianbatchinternal(multilayerperceptron* network,
                         expj = network->nwbuf.ptr.p_double[j];
                         if( j==i )
                         {
-                            deidyj = expi/ae_sqr(s, _state)*((z+expi)*(s-2*expi)/s+expi*s2/ae_sqr(s, _state));
+                            deidyj = expi/ae_sqr(s, _state)*((z+expi)*(s-(double)2*expi)/s+expi*s2/ae_sqr(s, _state));
                         }
                         else
                         {
-                            deidyj = expi*expj/ae_sqr(s, _state)*(s2/ae_sqr(s, _state)-2*z/s-(expi+expj)/s+(network->y.ptr.p_double[i]-desiredy.ptr.p_double[i])-(network->y.ptr.p_double[j]-desiredy.ptr.p_double[j]));
+                            deidyj = expi*expj/ae_sqr(s, _state)*(s2/ae_sqr(s, _state)-(double)2*z/s-(expi+expj)/s+(network->y.ptr.p_double[i]-desiredy.ptr.p_double[i])-(network->y.ptr.p_double[j]-desiredy.ptr.p_double[j]));
                         }
                         ae_v_addd(&rdy.ptr.pp_double[ntotal-nout+i][0], 1, &ry.ptr.pp_double[ntotal-nout+j][0], 1, ae_v_len(0,wcount-1), deidyj);
                     }
@@ -27069,7 +27069,7 @@ static void mlpbase_mlpchunkedgradient(multilayerperceptron* network,
                     fown = batch4buf->ptr.p_double[offs1];
                     if( i==kl )
                     {
-                        deown = fown/s-1;
+                        deown = fown/s-(double)1;
                     }
                     else
                     {
@@ -27077,7 +27077,7 @@ static void mlpbase_mlpchunkedgradient(multilayerperceptron* network,
                     }
                     batch4buf->ptr.p_double[offs2] = deown;
                     vv = vv+deown*fown;
-                    *e = *e+deown*deown/2;
+                    *e = *e+deown*deown/(double)2;
                     offs1 = offs1+chunksize;
                     offs2 = offs2+chunksize;
                 }
@@ -27118,7 +27118,7 @@ static void mlpbase_mlpchunkedgradient(multilayerperceptron* network,
             {
                 v = batch4buf->ptr.p_double[offs0+j]*v0+v1-xy->ptr.pp_double[cstart+j][nin+i];
                 batch4buf->ptr.p_double[offs1+j] = v*v0;
-                *e = *e+v*v/2;
+                *e = *e+v*v/(double)2;
             }
         }
     }
@@ -27679,10 +27679,10 @@ void _modelerrors_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _modelerrors_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _modelerrors_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    modelerrors *dst = (modelerrors*)_dst;
-    modelerrors *src = (modelerrors*)_src;
+    modelerrors       *dst = (modelerrors*)_dst;
+    const modelerrors *src = (const modelerrors*)_src;
     dst->relclserror = src->relclserror;
     dst->avgce = src->avgce;
     dst->rmserror = src->rmserror;
@@ -27713,10 +27713,10 @@ void _smlpgrad_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _smlpgrad_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _smlpgrad_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    smlpgrad *dst = (smlpgrad*)_dst;
-    smlpgrad *src = (smlpgrad*)_src;
+    smlpgrad       *dst = (smlpgrad*)_dst;
+    const smlpgrad *src = (const smlpgrad*)_src;
     dst->f = src->f;
     ae_vector_init_copy(&dst->g, &src->g, _state, make_automatic);
 }
@@ -27769,10 +27769,10 @@ void _multilayerperceptron_init(void* _p, ae_state *_state, ae_bool make_automat
 }
 
 
-void _multilayerperceptron_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _multilayerperceptron_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    multilayerperceptron *dst = (multilayerperceptron*)_dst;
-    multilayerperceptron *src = (multilayerperceptron*)_src;
+    multilayerperceptron       *dst = (multilayerperceptron*)_dst;
+    const multilayerperceptron *src = (const multilayerperceptron*)_src;
     dst->hlnetworktype = src->hlnetworktype;
     dst->hlnormtype = src->hlnormtype;
     ae_vector_init_copy(&dst->hllayersizes, &src->hllayersizes, _state, make_automatic);
@@ -28612,11 +28612,11 @@ void mlpeallerrorssparse(mlpensemble* ensemble,
     memset(&workx, 0, sizeof(workx));
     memset(&y, 0, sizeof(y));
     memset(&dy, 0, sizeof(dy));
-    *relcls = 0;
-    *avgce = 0;
-    *rms = 0;
-    *avg = 0;
-    *avgrel = 0;
+    *relcls = 0.0;
+    *avgce = 0.0;
+    *rms = 0.0;
+    *avg = 0.0;
+    *avgrel = 0.0;
     ae_vector_init(&buf, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&workx, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&y, 0, DT_REAL, _state, ae_true);
@@ -28929,10 +28929,10 @@ void _mlpensemble_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mlpensemble_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlpensemble_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlpensemble *dst = (mlpensemble*)_dst;
-    mlpensemble *src = (mlpensemble*)_src;
+    mlpensemble       *dst = (mlpensemble*)_dst;
+    const mlpensemble *src = (const mlpensemble*)_src;
     dst->ensemblesize = src->ensemblesize;
     ae_vector_init_copy(&dst->weights, &src->weights, _state, make_automatic);
     ae_vector_init_copy(&dst->columnmeans, &src->columnmeans, _state, make_automatic);
@@ -29732,7 +29732,7 @@ void clusterizergetdistancesbuf(apbuffers* buf,
             d->ptr.pp_double[i][i] = 0.0;
             for(j=i+1; j<=npoints-1; j++)
             {
-                v = ae_sqrt(ae_maxreal(buf->ra0.ptr.p_double[i]+buf->ra0.ptr.p_double[j]-2*d->ptr.pp_double[i][j], 0.0, _state), _state);
+                v = ae_sqrt(ae_maxreal(buf->ra0.ptr.p_double[i]+buf->ra0.ptr.p_double[j]-(double)2*d->ptr.pp_double[i][j], 0.0, _state), _state);
                 d->ptr.pp_double[i][j] = v;
             }
         }
@@ -29757,7 +29757,7 @@ void clusterizergetdistancesbuf(apbuffers* buf,
             {
                 v = v+xy->ptr.pp_double[i][j];
             }
-            v = v/nfeatures;
+            v = v/(double)nfeatures;
             for(j=0; j<=nfeatures-1; j++)
             {
                 buf->rm0.ptr.pp_double[i][j] = xy->ptr.pp_double[i][j]-v;
@@ -29776,11 +29776,11 @@ void clusterizergetdistancesbuf(apbuffers* buf,
                 v = d->ptr.pp_double[i][j]/ae_sqrt(buf->ra0.ptr.p_double[i]*buf->ra0.ptr.p_double[j], _state);
                 if( disttype==10 )
                 {
-                    v = 1-v;
+                    v = (double)1-v;
                 }
                 else
                 {
-                    v = 1-ae_fabs(v, _state);
+                    v = (double)1-ae_fabs(v, _state);
                 }
                 v = ae_maxreal(v, 0.0, _state);
                 d->ptr.pp_double[i][j] = v;
@@ -29815,7 +29815,7 @@ void clusterizergetdistancesbuf(apbuffers* buf,
                     v = ae_fabs(v, _state);
                 }
                 v = ae_minreal(v, 1.0, _state);
-                d->ptr.pp_double[i][j] = 1-v;
+                d->ptr.pp_double[i][j] = (double)1-v;
             }
         }
         rmatrixenforcesymmetricity(d, npoints, ae_true, _state);
@@ -29840,7 +29840,7 @@ void clusterizergetdistancesbuf(apbuffers* buf,
         {
             if( ae_fp_greater(d->ptr.pp_double[i][i],(double)(0)) )
             {
-                buf->ra0.ptr.p_double[i] = 1/ae_sqrt(d->ptr.pp_double[i][i], _state);
+                buf->ra0.ptr.p_double[i] = (double)1/ae_sqrt(d->ptr.pp_double[i][i], _state);
             }
             else
             {
@@ -29856,11 +29856,11 @@ void clusterizergetdistancesbuf(apbuffers* buf,
                 vv = d->ptr.pp_double[i][j]*v*buf->ra0.ptr.p_double[j];
                 if( disttype==20 )
                 {
-                    vr = 1-vv;
+                    vr = (double)1-vv;
                 }
                 else
                 {
-                    vr = 1-ae_fabs(vv, _state);
+                    vr = (double)1-ae_fabs(vv, _state);
                 }
                 if( ae_fp_less(vr,(double)(0)) )
                 {
@@ -30185,7 +30185,7 @@ void clusterizerseparatedbycorr(ahcreport* rep,
 
     ae_assert((ae_isfinite(r, _state)&&ae_fp_greater_eq(r,(double)(-1)))&&ae_fp_less_eq(r,(double)(1)), "ClusterizerSeparatedByCorr: R is infinite or less than 0", _state);
     *k = 1;
-    while(*k<rep->npoints&&ae_fp_greater_eq(rep->mergedist.ptr.p_double[rep->npoints-1-(*k)],1-r))
+    while(*k<rep->npoints&&ae_fp_greater_eq(rep->mergedist.ptr.p_double[rep->npoints-1-(*k)],(double)1-r))
     {
         *k = *k+1;
     }
@@ -30217,7 +30217,7 @@ void kmeansinitbuf(kmeansbuffers* buf, ae_state *_state)
     memset(&updateseed, 0, sizeof(updateseed));
     _apbuffers_init(&updateseed, _state, ae_true);
 
-    ae_shared_pool_set_seed(&buf->updatepool, &updateseed, sizeof(updateseed), _apbuffers_init, _apbuffers_init_copy, _apbuffers_destroy, _state);
+    ae_shared_pool_set_seed(&buf->updatepool, &updateseed, (ae_int_t)sizeof(updateseed), (ae_constructor)_apbuffers_init, (ae_copy_constructor)_apbuffers_init_copy, (ae_destructor)_apbuffers_destroy, _state);
     ae_frame_leave(_state);
 }
 
@@ -30313,7 +30313,7 @@ void kmeansgenerateinternal(/* Real    */ ae_matrix* xy,
     ae_matrix_clear(ccol);
     ae_matrix_clear(crow);
     ae_vector_clear(xyc);
-    *energy = 0;
+    *energy = 0.0;
     _hqrndstate_init(&rs, _state, ae_true);
 
     
@@ -30655,7 +30655,7 @@ void kmeansupdatedistances(/* Real    */ ae_matrix* xy,
      *
      * NOTE: real arithmetics is used to avoid integer overflow on large problem sizes
      */
-    rcomplexity = 2*rmul3((double)(idx1-idx0), (double)(cidx1-cidx0), (double)(nvars), _state);
+    rcomplexity = (double)2*rmul3((double)(idx1-idx0), (double)(cidx1-cidx0), (double)(nvars), _state);
     if( ae_fp_greater_eq(rcomplexity,smpactivationlevel(_state))&&idx1-idx0>=2*clustering_kmeansblocksize )
     {
         if( _trypexec_kmeansupdatedistances(xy,idx0,idx1,nvars,ct,cidx0,cidx1,xyc,xydist2,bufferpool, _state) )
@@ -31105,7 +31105,7 @@ static void clustering_selectinitialcenters(/* Real    */ ae_matrix* xy,
          * which is stored at the beginning of the array
          */
         samplesize = 2*k;
-        samplescale = 0.5*k;
+        samplescale = 0.5*(double)k;
         rmatrixsetlengthatleast(&initbuf->rm0, samplesize, nvars, _state);
         ptidx = hqrnduniformi(rs, npoints, _state);
         ae_v_move(&initbuf->rm0.ptr.pp_double[0][0], 1, &xy->ptr.pp_double[ptidx][0], 1, ae_v_len(0,nvars-1));
@@ -31586,15 +31586,15 @@ static void clustering_clusterizerrunahcinternal(clusterizerstate* s,
                 }
                 if( s->ahcalgo==2 )
                 {
-                    d->ptr.pp_double[i][c0] = (csizes.ptr.p_int[c0]*d->ptr.pp_double[i][c0]+csizes.ptr.p_int[c1]*d->ptr.pp_double[i][c1])/(csizes.ptr.p_int[c0]+csizes.ptr.p_int[c1]);
+                    d->ptr.pp_double[i][c0] = ((double)csizes.ptr.p_int[c0]*d->ptr.pp_double[i][c0]+(double)csizes.ptr.p_int[c1]*d->ptr.pp_double[i][c1])/(double)(csizes.ptr.p_int[c0]+csizes.ptr.p_int[c1]);
                 }
                 if( s->ahcalgo==3 )
                 {
-                    d->ptr.pp_double[i][c0] = (d->ptr.pp_double[i][c0]+d->ptr.pp_double[i][c1])/2;
+                    d->ptr.pp_double[i][c0] = (d->ptr.pp_double[i][c0]+d->ptr.pp_double[i][c1])/(double)2;
                 }
                 if( s->ahcalgo==4 )
                 {
-                    d->ptr.pp_double[i][c0] = ((n0+ni)*d->ptr.pp_double[i][c0]+(n1+ni)*d->ptr.pp_double[i][c1]-ni*d01)/(n0+n1+ni);
+                    d->ptr.pp_double[i][c0] = ((double)(n0+ni)*d->ptr.pp_double[i][c0]+(double)(n1+ni)*d->ptr.pp_double[i][c1]-(double)ni*d01)/(double)(n0+n1+ni);
                 }
                 d->ptr.pp_double[c0][i] = d->ptr.pp_double[i][c0];
             }
@@ -31945,10 +31945,10 @@ void _kmeansbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _kmeansbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _kmeansbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    kmeansbuffers *dst = (kmeansbuffers*)_dst;
-    kmeansbuffers *src = (kmeansbuffers*)_src;
+    kmeansbuffers       *dst = (kmeansbuffers*)_dst;
+    const kmeansbuffers *src = (const kmeansbuffers*)_src;
     ae_matrix_init_copy(&dst->ct, &src->ct, _state, make_automatic);
     ae_matrix_init_copy(&dst->ctbest, &src->ctbest, _state, make_automatic);
     ae_vector_init_copy(&dst->xycbest, &src->xycbest, _state, make_automatic);
@@ -32002,10 +32002,10 @@ void _clusterizerstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _clusterizerstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _clusterizerstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    clusterizerstate *dst = (clusterizerstate*)_dst;
-    clusterizerstate *src = (clusterizerstate*)_src;
+    clusterizerstate       *dst = (clusterizerstate*)_dst;
+    const clusterizerstate *src = (const clusterizerstate*)_src;
     dst->npoints = src->npoints;
     dst->nfeatures = src->nfeatures;
     dst->disttype = src->disttype;
@@ -32059,10 +32059,10 @@ void _ahcreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _ahcreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _ahcreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    ahcreport *dst = (ahcreport*)_dst;
-    ahcreport *src = (ahcreport*)_src;
+    ahcreport       *dst = (ahcreport*)_dst;
+    const ahcreport *src = (const ahcreport*)_src;
     dst->terminationtype = src->terminationtype;
     dst->npoints = src->npoints;
     ae_vector_init_copy(&dst->p, &src->p, _state, make_automatic);
@@ -32106,10 +32106,10 @@ void _kmeansreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _kmeansreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _kmeansreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    kmeansreport *dst = (kmeansreport*)_dst;
-    kmeansreport *src = (kmeansreport*)_src;
+    kmeansreport       *dst = (kmeansreport*)_dst;
+    const kmeansreport *src = (const kmeansreport*)_src;
     dst->npoints = src->npoints;
     dst->nfeatures = src->nfeatures;
     dst->terminationtype = src->terminationtype;
@@ -32801,7 +32801,7 @@ double dfbuilderpeekprogress(decisionforestbuilder* s, ae_state *_state)
     double result;
 
 
-    result = s->rdfprogress/ae_maxreal((double)(s->rdftotal), (double)(1), _state);
+    result = (double)s->rdfprogress/ae_maxreal((double)(s->rdftotal), (double)(1), _state);
     result = ae_maxreal(result, (double)(0), _state);
     result = ae_minreal(result, (double)(1), _state);
     return result;
@@ -32957,7 +32957,7 @@ void dfbuilderbuildrandomforest(decisionforestbuilder* s,
     /*
      * Prepare "work", "vote" and "tree" pools and other settings
      */
-    trnsize = ae_round(npoints*s->rdfratio, _state);
+    trnsize = ae_round((double)npoints*s->rdfratio, _state);
     trnsize = ae_maxint(trnsize, 1, _state);
     trnsize = ae_minint(trnsize, npoints, _state);
     maxtreesize = 1+dforest_innernodewidth*(trnsize-1)+dforest_leafnodewidth*trnsize;
@@ -33003,10 +33003,10 @@ void dfbuilderbuildrandomforest(decisionforestbuilder* s,
         votebufseed.giniimportances.ptr.p_double[i] = 0.0;
     }
     treebufseed.treeidx = -1;
-    ae_shared_pool_set_seed(&s->workpool, &workbufseed, sizeof(workbufseed), _dfworkbuf_init, _dfworkbuf_init_copy, _dfworkbuf_destroy, _state);
-    ae_shared_pool_set_seed(&s->votepool, &votebufseed, sizeof(votebufseed), _dfvotebuf_init, _dfvotebuf_init_copy, _dfvotebuf_destroy, _state);
-    ae_shared_pool_set_seed(&s->treepool, &treebufseed, sizeof(treebufseed), _dftreebuf_init, _dftreebuf_init_copy, _dftreebuf_destroy, _state);
-    ae_shared_pool_set_seed(&s->treefactory, &treebufseed, sizeof(treebufseed), _dftreebuf_init, _dftreebuf_init_copy, _dftreebuf_destroy, _state);
+    ae_shared_pool_set_seed(&s->workpool, &workbufseed, (ae_int_t)sizeof(workbufseed), (ae_constructor)_dfworkbuf_init, (ae_copy_constructor)_dfworkbuf_init_copy, (ae_destructor)_dfworkbuf_destroy, _state);
+    ae_shared_pool_set_seed(&s->votepool, &votebufseed, (ae_int_t)sizeof(votebufseed), (ae_constructor)_dfvotebuf_init, (ae_copy_constructor)_dfvotebuf_init_copy, (ae_destructor)_dfvotebuf_destroy, _state);
+    ae_shared_pool_set_seed(&s->treepool, &treebufseed, (ae_int_t)sizeof(treebufseed), (ae_constructor)_dftreebuf_init, (ae_copy_constructor)_dftreebuf_init_copy, (ae_destructor)_dftreebuf_destroy, _state);
+    ae_shared_pool_set_seed(&s->treefactory, &treebufseed, (ae_int_t)sizeof(treebufseed), (ae_constructor)_dftreebuf_init, (ae_copy_constructor)_dftreebuf_init_copy, (ae_destructor)_dftreebuf_destroy, _state);
     
     /*
      * Select session seed (individual trees are constructed using
@@ -33507,7 +33507,7 @@ double dfavgce(decisionforest* df,
             }
         }
     }
-    result = result/npoints;
+    result = result/(double)npoints;
     ae_frame_leave(_state);
     return result;
 }
@@ -33576,7 +33576,7 @@ double dfrmserror(decisionforest* df,
             {
                 if( j==k )
                 {
-                    result = result+ae_sqr(y.ptr.p_double[j]-1, _state);
+                    result = result+ae_sqr(y.ptr.p_double[j]-(double)1, _state);
                 }
                 else
                 {
@@ -33593,7 +33593,7 @@ double dfrmserror(decisionforest* df,
             result = result+ae_sqr(y.ptr.p_double[0]-xy->ptr.pp_double[i][df->nvars], _state);
         }
     }
-    result = ae_sqrt(result/(npoints*df->nclasses), _state);
+    result = ae_sqrt(result/(double)(npoints*df->nclasses), _state);
     ae_frame_leave(_state);
     return result;
 }
@@ -33652,7 +33652,7 @@ double dfavgerror(decisionforest* df,
             {
                 if( j==k )
                 {
-                    result = result+ae_fabs(y.ptr.p_double[j]-1, _state);
+                    result = result+ae_fabs(y.ptr.p_double[j]-(double)1, _state);
                 }
                 else
                 {
@@ -33669,7 +33669,7 @@ double dfavgerror(decisionforest* df,
             result = result+ae_fabs(y.ptr.p_double[0]-xy->ptr.pp_double[i][df->nvars], _state);
         }
     }
-    result = result/(npoints*df->nclasses);
+    result = result/(double)(npoints*df->nclasses);
     ae_frame_leave(_state);
     return result;
 }
@@ -33730,7 +33730,7 @@ double dfavgrelerror(decisionforest* df,
             {
                 if( j==k )
                 {
-                    result = result+ae_fabs(y.ptr.p_double[j]-1, _state);
+                    result = result+ae_fabs(y.ptr.p_double[j]-(double)1, _state);
                     relcnt = relcnt+1;
                 }
             }
@@ -33750,7 +33750,7 @@ double dfavgrelerror(decisionforest* df,
     }
     if( relcnt>0 )
     {
-        result = result/relcnt;
+        result = result/(double)relcnt;
     }
     ae_frame_leave(_state);
     return result;
@@ -33977,7 +33977,7 @@ void dfbuildrandomdecisionforest(/* Real    */ ae_matrix* xy,
         *info = -1;
         return;
     }
-    samplesize = ae_maxint(ae_round(r*npoints, _state), 1, _state);
+    samplesize = ae_maxint(ae_round(r*(double)npoints, _state), 1, _state);
     dfbuildinternal(xy, npoints, nvars, nclasses, ntrees, samplesize, ae_maxint(nvars/2, 1, _state), dforest_dfusestrongsplits+dforest_dfuseevs, info, df, rep, _state);
 }
 
@@ -34018,7 +34018,7 @@ void dfbuildrandomdecisionforestx1(/* Real    */ ae_matrix* xy,
         *info = -1;
         return;
     }
-    samplesize = ae_maxint(ae_round(r*npoints, _state), 1, _state);
+    samplesize = ae_maxint(ae_round(r*(double)npoints, _state), 1, _state);
     dfbuildinternal(xy, npoints, nvars, nclasses, ntrees, samplesize, nrndvars, dforest_dfusestrongsplits+dforest_dfuseevs, info, df, rep, _state);
 }
 
@@ -34224,7 +34224,7 @@ static void dforest_buildrandomtree(decisionforestbuilder* s,
     }
     if( ae_fp_less(s->rdfvars,(double)(0)) )
     {
-        varstoselect = ae_round(-nvars*s->rdfvars, _state);
+        varstoselect = ae_round(-(double)nvars*s->rdfvars, _state);
     }
     varstoselect = ae_maxint(varstoselect, 1, _state);
     varstoselect = ae_minint(varstoselect, nvars, _state);
@@ -34619,7 +34619,7 @@ static void dforest_estimatevariableimportance(decisionforestbuilder* s,
         {
             for(i=0; i<=nvars-1; i++)
             {
-                rep->varimportances.ptr.p_double[i] = rep->varimportances.ptr.p_double[i]+vote->giniimportances.ptr.p_double[i]/ntrees;
+                rep->varimportances.ptr.p_double[i] = rep->varimportances.ptr.p_double[i]+vote->giniimportances.ptr.p_double[i]/(double)ntrees;
             }
             ae_shared_pool_next_recycled(&s->votepool, &_vote, _state);
         }
@@ -34695,7 +34695,7 @@ static void dforest_estimatevariableimportance(decisionforestbuilder* s,
         ae_vector_set_length(&permseed.targety, nclasses, _state);
         ae_vector_set_length(&permseed.startnodes, nvars, _state);
         ae_vector_set_length(&permseed.y, nclasses, _state);
-        ae_shared_pool_set_seed(&permpool, &permseed, sizeof(permseed), _dfpermimpbuf_init, _dfpermimpbuf_init_copy, _dfpermimpbuf_destroy, _state);
+        ae_shared_pool_set_seed(&permpool, &permseed, (ae_int_t)sizeof(permseed), (ae_constructor)_dfpermimpbuf_init, (ae_copy_constructor)_dfpermimpbuf_init_copy, (ae_destructor)_dfpermimpbuf_destroy, _state);
         
         /*
          * Recursively split subset and process (using parallel capabilities, if possible)
@@ -34727,7 +34727,7 @@ static void dforest_estimatevariableimportance(decisionforestbuilder* s,
         totalpermloss = losses.ptr.p_double[nvars];
         for(i=0; i<=nvars-1; i++)
         {
-            rep->varimportances.ptr.p_double[i] = 1-nopermloss/totalpermloss-(1-losses.ptr.p_double[i]/totalpermloss);
+            rep->varimportances.ptr.p_double[i] = (double)1-nopermloss/totalpermloss-((double)1-losses.ptr.p_double[i]/totalpermloss);
             rep->varimportances.ptr.p_double[i] = boundval(rep->varimportances.ptr.p_double[i], (double)(0), (double)(1), _state);
         }
         
@@ -34918,7 +34918,7 @@ static void dforest_estimatepermutationimportances(decisionforestbuilder* s,
                 if( nclasses>1 )
                 {
                     j = ae_round(prediction, _state);
-                    permimpbuf->yv.ptr.p_double[varidx*nclasses+j] = permimpbuf->yv.ptr.p_double[varidx*nclasses+j]+1;
+                    permimpbuf->yv.ptr.p_double[varidx*nclasses+j] = permimpbuf->yv.ptr.p_double[varidx*nclasses+j]+(double)1;
                 }
                 else
                 {
@@ -34969,7 +34969,7 @@ static void dforest_estimatepermutationimportances(decisionforestbuilder* s,
                                 if( nclasses>1 )
                                 {
                                     j = ae_round(df->trees.ptr.p_double[nodeoffs+1], _state);
-                                    permimpbuf->yv.ptr.p_double[varidx*nclasses+j] = permimpbuf->yv.ptr.p_double[varidx*nclasses+j]+1;
+                                    permimpbuf->yv.ptr.p_double[varidx*nclasses+j] = permimpbuf->yv.ptr.p_double[varidx*nclasses+j]+(double)1;
                                 }
                                 else
                                 {
@@ -34999,7 +34999,7 @@ static void dforest_estimatepermutationimportances(decisionforestbuilder* s,
                         if( nclasses>1 )
                         {
                             j = ae_round(prediction, _state);
-                            permimpbuf->yv.ptr.p_double[varidx*nclasses+j] = permimpbuf->yv.ptr.p_double[varidx*nclasses+j]+1;
+                            permimpbuf->yv.ptr.p_double[varidx*nclasses+j] = permimpbuf->yv.ptr.p_double[varidx*nclasses+j]+(double)1;
                         }
                         else
                         {
@@ -35156,7 +35156,7 @@ static double dforest_meannrms2(ae_int_t nclasses,
     {
         return result;
     }
-    invntrn = 1.0/ntrn;
+    invntrn = 1.0/(double)ntrn;
     if( nclasses>1 )
     {
         
@@ -35180,10 +35180,10 @@ static double dforest_meannrms2(ae_int_t nclasses,
         }
         for(i=0; i<=nclasses-1; i++)
         {
-            pitrn = tmpi->ptr.p_int[i]*invntrn;
+            pitrn = (double)tmpi->ptr.p_int[i]*invntrn;
             nitst = (double)(tmpi->ptr.p_int[i+nclasses]);
-            result = result+nitst*(1-pitrn)*(1-pitrn);
-            result = result+(ntst-nitst)*pitrn*pitrn;
+            result = result+nitst*((double)1-pitrn)*((double)1-pitrn);
+            result = result+((double)ntst-nitst)*pitrn*pitrn;
         }
     }
     else
@@ -35244,7 +35244,7 @@ static void dforest_choosecurrentsplitdense(decisionforestbuilder* s,
     ae_int_t info;
 
     *varbest = 0;
-    *splitbest = 0;
+    *splitbest = 0.0;
 
     ae_assert(s->dstype==0, "sparsity is not supported 4terg!", _state);
     ae_assert(s->rdfalgo==0, "BuildRandomTreeRec: integrity check failed (1657)", _state);
@@ -35365,8 +35365,8 @@ static void dforest_evaluatedensesplit(decisionforestbuilder* s,
     ae_int_t sr;
 
     *info = 0;
-    *split = 0;
-    *rms = 0;
+    *split = 0.0;
+    *rms = 0.0;
 
     ae_assert(idx0<idx1, "BuildRandomTreeRec: integrity check failed (8754)", _state);
     nclasses = s->nclasses;
@@ -35408,9 +35408,9 @@ static void dforest_evaluatedensesplit(decisionforestbuilder* s,
             {
                 k0 = workbuf->classtotals0.ptr.p_int[j];
                 k1 = workbuf->classpriors.ptr.p_int[j]-k0;
-                *rms = *rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+                *rms = *rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
             }
-            *rms = ae_sqrt(*rms/(nclasses*(idx1-idx0+1)), _state);
+            *rms = ae_sqrt(*rms/(double)(nclasses*(idx1-idx0+1)), _state);
         }
         else
         {
@@ -35436,8 +35436,8 @@ static void dforest_evaluatedensesplit(decisionforestbuilder* s,
                 }
             }
             ae_assert(sl!=0&&sr!=0, "BuildRandomTreeRec: something strange, impossible failure!", _state);
-            v1 = v1/sl;
-            v2 = v2/sr;
+            v1 = v1/(double)sl;
+            v2 = v2/(double)sr;
             *rms = (double)(0);
             for(j=0; j<=idx1-idx0-1; j++)
             {
@@ -35452,7 +35452,7 @@ static void dforest_evaluatedensesplit(decisionforestbuilder* s,
                 }
                 *rms = *rms+v*v;
             }
-            *rms = ae_sqrt(*rms/(idx1-idx0+1), _state);
+            *rms = ae_sqrt(*rms/(double)(idx1-idx0+1), _state);
         }
     }
     else
@@ -35517,15 +35517,15 @@ static void dforest_classifiersplit(decisionforestbuilder* s,
     double vmax;
 
     *info = 0;
-    *threshold = 0;
-    *e = 0;
+    *threshold = 0.0;
+    *e = 0.0;
 
     ae_assert((s->rdfsplitstrength==0||s->rdfsplitstrength==1)||s->rdfsplitstrength==2, "RDF: unexpected split type at ClassifierSplit()", _state);
     nclasses = s->nclasses;
     advanceby = 1;
     if( n>=20 )
     {
-        advanceby = ae_maxint(2, ae_round(n*0.05, _state), _state);
+        advanceby = ae_maxint(2, ae_round((double)n*0.05, _state), _state);
     }
     *info = -1;
     *threshold = (double)(0);
@@ -35589,7 +35589,7 @@ static void dforest_classifiersplit(decisionforestbuilder* s,
         {
             k0 = workbuf->classtotals0.ptr.p_int[j];
             k1 = workbuf->classpriors.ptr.p_int[j]-k0;
-            rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+            rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
         }
         *threshold = v;
         *info = 1;
@@ -35654,7 +35654,7 @@ static void dforest_classifiersplit(decisionforestbuilder* s,
         {
             k0 = workbuf->classtotals0.ptr.p_int[j];
             k1 = workbuf->classpriors.ptr.p_int[j]-k0;
-            rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+            rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
         }
         *threshold = v;
         *info = 1;
@@ -35703,7 +35703,7 @@ static void dforest_classifiersplit(decisionforestbuilder* s,
             {
                 k0 = workbuf->classtotals0.ptr.p_int[j];
                 k1 = workbuf->classpriors.ptr.p_int[j]-k0;
-                rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+                rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
             }
             if( *info<0||rms<*e )
             {
@@ -35733,7 +35733,7 @@ static void dforest_classifiersplit(decisionforestbuilder* s,
         }
         if( *info>0 )
         {
-            *e = ae_sqrt(*e/(nclasses*n), _state);
+            *e = ae_sqrt(*e/(double)(nclasses*n), _state);
         }
         return;
     }
@@ -35781,13 +35781,13 @@ static void dforest_regressionsplit(decisionforestbuilder* s,
     ae_int_t k1;
 
     *info = 0;
-    *threshold = 0;
-    *e = 0;
+    *threshold = 0.0;
+    *e = 0.0;
 
     advanceby = 1;
     if( n>=20 )
     {
-        advanceby = ae_maxint(2, ae_round(n*0.05, _state), _state);
+        advanceby = ae_maxint(2, ae_round((double)n*0.05, _state), _state);
     }
     
     /*
@@ -35905,16 +35905,16 @@ static void dforest_regressionsplit(decisionforestbuilder* s,
         rms = (double)(0);
         k0 = cnt0;
         k1 = total0-cnt0;
-        rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+        rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
         k0 = cnt1;
         k1 = total1-cnt1;
-        rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+        rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
         k0 = cnt2;
         k1 = total2-cnt2;
-        rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+        rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
         k0 = cnt3;
         k1 = total3-cnt3;
-        rms = rms+k0*(1-v0*k0)+k1*(1-v1*k1);
+        rms = rms+(double)k0*((double)1-v0*(double)k0)+(double)k1*((double)1-v1*(double)k1);
         if( *info<0||rms<*e )
         {
             *info = 1;
@@ -35964,7 +35964,7 @@ static void dforest_regressionsplit(decisionforestbuilder* s,
     }
     if( *info>0 )
     {
-        *e = ae_sqrt(*e/(4*n), _state);
+        *e = ae_sqrt(*e/(double)(4*n), _state);
     }
 }
 
@@ -36066,13 +36066,13 @@ static void dforest_outputleaf(decisionforestbuilder* s,
         for(i=idx0; i<=idx1-1; i++)
         {
             j = workbuf->trnset.ptr.p_int[i];
-            votebuf->trntotals.ptr.p_double[j*nclasses+leafvali] = votebuf->trntotals.ptr.p_double[j*nclasses+leafvali]+1;
+            votebuf->trntotals.ptr.p_double[j*nclasses+leafvali] = votebuf->trntotals.ptr.p_double[j*nclasses+leafvali]+(double)1;
             votebuf->trncounts.ptr.p_int[j] = votebuf->trncounts.ptr.p_int[j]+1;
         }
         for(i=oobidx0; i<=oobidx1-1; i++)
         {
             j = workbuf->oobset.ptr.p_int[i];
-            votebuf->oobtotals.ptr.p_double[j*nclasses+leafvali] = votebuf->oobtotals.ptr.p_double[j*nclasses+leafvali]+1;
+            votebuf->oobtotals.ptr.p_double[j*nclasses+leafvali] = votebuf->oobtotals.ptr.p_double[j*nclasses+leafvali]+(double)1;
             votebuf->oobcounts.ptr.p_int[j] = votebuf->oobcounts.ptr.p_int[j]+1;
         }
     }
@@ -36164,7 +36164,7 @@ static void dforest_analyzeandpreprocessdataset(decisionforestbuilder* s,
         {
             s->dsravg = s->dsravg+s->dsrval.ptr.p_double[i];
         }
-        s->dsravg = s->dsravg/npoints;
+        s->dsravg = s->dsravg/(double)npoints;
     }
     else
     {
@@ -36374,12 +36374,12 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
     }
     for(i=0; i<=npoints-1; i++)
     {
-        v = 1/coalesce((double)(buf->trncounts.ptr.p_int[i]), (double)(1), _state);
+        v = (double)1/coalesce((double)(buf->trncounts.ptr.p_int[i]), (double)(1), _state);
         for(j=0; j<=nclasses-1; j++)
         {
             buf->trntotals.ptr.p_double[i*nclasses+j] = buf->trntotals.ptr.p_double[i*nclasses+j]*v;
         }
-        v = 1/coalesce((double)(buf->oobcounts.ptr.p_int[i]), (double)(1), _state);
+        v = (double)1/coalesce((double)(buf->oobcounts.ptr.p_int[i]), (double)(1), _state);
         for(j=0; j<=nclasses-1; j++)
         {
             buf->oobtotals.ptr.p_double[i*nclasses+j] = buf->oobtotals.ptr.p_double[i*nclasses+j]*v;
@@ -36416,9 +36416,9 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
                 if( j==k )
                 {
                     rep->avgce = rep->avgce-ae_log(coalesce(v, ae_minrealnumber, _state), _state);
-                    rep->rmserror = rep->rmserror+ae_sqr(v-1, _state);
-                    rep->avgerror = rep->avgerror+ae_fabs(v-1, _state);
-                    rep->avgrelerror = rep->avgrelerror+ae_fabs(v-1, _state);
+                    rep->rmserror = rep->rmserror+ae_sqr(v-(double)1, _state);
+                    rep->avgerror = rep->avgerror+ae_fabs(v-(double)1, _state);
+                    rep->avgrelerror = rep->avgrelerror+ae_fabs(v-(double)1, _state);
                     inc(&avgrelcnt, _state);
                 }
                 else
@@ -36430,9 +36430,9 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
                 if( j==k )
                 {
                     rep->oobavgce = rep->oobavgce-ae_log(coalesce(v, ae_minrealnumber, _state), _state);
-                    rep->oobrmserror = rep->oobrmserror+ae_sqr(v-1, _state);
-                    rep->oobavgerror = rep->oobavgerror+ae_fabs(v-1, _state);
-                    rep->oobavgrelerror = rep->oobavgrelerror+ae_fabs(v-1, _state);
+                    rep->oobrmserror = rep->oobrmserror+ae_sqr(v-(double)1, _state);
+                    rep->oobavgerror = rep->oobavgerror+ae_fabs(v-(double)1, _state);
+                    rep->oobavgrelerror = rep->oobavgrelerror+ae_fabs(v-(double)1, _state);
                     inc(&oobavgrelcnt, _state);
                 }
                 else
@@ -36455,7 +36455,7 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
             }
             if( k1!=k )
             {
-                rep->relclserror = rep->relclserror+1;
+                rep->relclserror = rep->relclserror+(double)1;
             }
             k1 = 0;
             for(j=1; j<=nclasses-1; j++)
@@ -36467,7 +36467,7 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
             }
             if( k1!=k )
             {
-                rep->oobrelclserror = rep->oobrelclserror+1;
+                rep->oobrelclserror = rep->oobrelclserror+(double)1;
             }
         }
         else
@@ -36494,13 +36494,13 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
             }
         }
     }
-    rep->relclserror = rep->relclserror/npoints;
-    rep->rmserror = ae_sqrt(rep->rmserror/(npoints*nclasses), _state);
-    rep->avgerror = rep->avgerror/(npoints*nclasses);
+    rep->relclserror = rep->relclserror/(double)npoints;
+    rep->rmserror = ae_sqrt(rep->rmserror/(double)(npoints*nclasses), _state);
+    rep->avgerror = rep->avgerror/(double)(npoints*nclasses);
     rep->avgrelerror = rep->avgrelerror/coalesce((double)(avgrelcnt), (double)(1), _state);
-    rep->oobrelclserror = rep->oobrelclserror/npoints;
-    rep->oobrmserror = ae_sqrt(rep->oobrmserror/(npoints*nclasses), _state);
-    rep->oobavgerror = rep->oobavgerror/(npoints*nclasses);
+    rep->oobrelclserror = rep->oobrelclserror/(double)npoints;
+    rep->oobrmserror = ae_sqrt(rep->oobrmserror/(double)(npoints*nclasses), _state);
+    rep->oobavgerror = rep->oobavgerror/(double)(npoints*nclasses);
     rep->oobavgrelerror = rep->oobavgrelerror/coalesce((double)(oobavgrelcnt), (double)(1), _state);
     ae_frame_leave(_state);
 }
@@ -37037,7 +37037,7 @@ static void dforest_streamfloat(ae_vector* buf,
     }
     while(v<0.5)
     {
-        v = v*2;
+        v = v*(double)2;
         e = e-1;
     }
     ae_assert(v>=0.5&&v<1.0, "StreamFloat: integrity check failed", _state);
@@ -37062,7 +37062,7 @@ static void dforest_streamfloat(ae_vector* buf,
      */
     if( usemantissa8 )
     {
-        m = ae_round(v*256, _state);
+        m = ae_round(v*(double)256, _state);
         if( m==256 )
         {
             m = m/2;
@@ -37074,7 +37074,7 @@ static void dforest_streamfloat(ae_vector* buf,
     }
     else
     {
-        m = ae_round(v*65536, _state);
+        m = ae_round(v*(double)65536, _state);
         if( m==65536 )
         {
             m = m/2;
@@ -37119,13 +37119,13 @@ static double dforest_unstreamfloat(ae_vector* buf,
     if( usemantissa8 )
     {
         e = buf->ptr.p_ubyte[*offs+0];
-        v = buf->ptr.p_ubyte[*offs+1]*inv256;
+        v = (double)buf->ptr.p_ubyte[*offs+1]*inv256;
         *offs = *offs+2;
     }
     else
     {
         e = buf->ptr.p_ubyte[*offs+0];
-        v = (buf->ptr.p_ubyte[*offs+1]*inv256+buf->ptr.p_ubyte[*offs+2])*inv256;
+        v = ((double)buf->ptr.p_ubyte[*offs+1]*inv256+(double)buf->ptr.p_ubyte[*offs+2])*inv256;
         *offs = *offs+3;
     }
     
@@ -37229,7 +37229,7 @@ static void dforest_dfprocessinternaluncompressed(decisionforest* df,
             else
             {
                 idx = ae_round(df->trees.ptr.p_double[nodeoffs+1], _state);
-                y->ptr.p_double[idx] = y->ptr.p_double[idx]+1;
+                y->ptr.p_double[idx] = y->ptr.p_double[idx]+(double)1;
             }
             break;
         }
@@ -37299,7 +37299,7 @@ static void dforest_dfprocessinternalcompressed(decisionforest* df,
                  * Classification forest
                  */
                 leafcls = dforest_unstreamuint(&df->trees8, &offs, _state);
-                y->ptr.p_double[leafcls] = y->ptr.p_double[leafcls]+1;
+                y->ptr.p_double[leafcls] = y->ptr.p_double[leafcls]+(double)1;
             }
             break;
         }
@@ -37367,7 +37367,7 @@ static double dforest_xfastpow(double r, ae_int_t n, ae_state *_state)
     }
     if( n<0 )
     {
-        result = dforest_xfastpow(1/r, -n, _state);
+        result = dforest_xfastpow((double)1/r, -n, _state);
     }
     return result;
 }
@@ -37393,10 +37393,10 @@ void _decisionforestbuilder_init(void* _p, ae_state *_state, ae_bool make_automa
 }
 
 
-void _decisionforestbuilder_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _decisionforestbuilder_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    decisionforestbuilder *dst = (decisionforestbuilder*)_dst;
-    decisionforestbuilder *src = (decisionforestbuilder*)_src;
+    decisionforestbuilder       *dst = (decisionforestbuilder*)_dst;
+    const decisionforestbuilder *src = (const decisionforestbuilder*)_src;
     dst->dstype = src->dstype;
     dst->npoints = src->npoints;
     dst->nvars = src->nvars;
@@ -37495,10 +37495,10 @@ void _dfworkbuf_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _dfworkbuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _dfworkbuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    dfworkbuf *dst = (dfworkbuf*)_dst;
-    dfworkbuf *src = (dfworkbuf*)_src;
+    dfworkbuf       *dst = (dfworkbuf*)_dst;
+    const dfworkbuf *src = (const dfworkbuf*)_src;
     ae_vector_init_copy(&dst->classpriors, &src->classpriors, _state, make_automatic);
     ae_vector_init_copy(&dst->varpool, &src->varpool, _state, make_automatic);
     dst->varpoolsize = src->varpoolsize;
@@ -37594,10 +37594,10 @@ void _dfvotebuf_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _dfvotebuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _dfvotebuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    dfvotebuf *dst = (dfvotebuf*)_dst;
-    dfvotebuf *src = (dfvotebuf*)_src;
+    dfvotebuf       *dst = (dfvotebuf*)_dst;
+    const dfvotebuf *src = (const dfvotebuf*)_src;
     ae_vector_init_copy(&dst->trntotals, &src->trntotals, _state, make_automatic);
     ae_vector_init_copy(&dst->oobtotals, &src->oobtotals, _state, make_automatic);
     ae_vector_init_copy(&dst->trncounts, &src->trncounts, _state, make_automatic);
@@ -37645,10 +37645,10 @@ void _dfpermimpbuf_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _dfpermimpbuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _dfpermimpbuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    dfpermimpbuf *dst = (dfpermimpbuf*)_dst;
-    dfpermimpbuf *src = (dfpermimpbuf*)_src;
+    dfpermimpbuf       *dst = (dfpermimpbuf*)_dst;
+    const dfpermimpbuf *src = (const dfpermimpbuf*)_src;
     ae_vector_init_copy(&dst->losses, &src->losses, _state, make_automatic);
     ae_vector_init_copy(&dst->xraw, &src->xraw, _state, make_automatic);
     ae_vector_init_copy(&dst->xdist, &src->xdist, _state, make_automatic);
@@ -37698,10 +37698,10 @@ void _dftreebuf_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _dftreebuf_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _dftreebuf_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    dftreebuf *dst = (dftreebuf*)_dst;
-    dftreebuf *src = (dftreebuf*)_src;
+    dftreebuf       *dst = (dftreebuf*)_dst;
+    const dftreebuf *src = (const dftreebuf*)_src;
     ae_vector_init_copy(&dst->treebuf, &src->treebuf, _state, make_automatic);
     dst->treeidx = src->treeidx;
 }
@@ -37732,10 +37732,10 @@ void _decisionforestbuffer_init(void* _p, ae_state *_state, ae_bool make_automat
 }
 
 
-void _decisionforestbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _decisionforestbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    decisionforestbuffer *dst = (decisionforestbuffer*)_dst;
-    decisionforestbuffer *src = (decisionforestbuffer*)_src;
+    decisionforestbuffer       *dst = (decisionforestbuffer*)_dst;
+    const decisionforestbuffer *src = (const decisionforestbuffer*)_src;
     ae_vector_init_copy(&dst->x, &src->x, _state, make_automatic);
     ae_vector_init_copy(&dst->y, &src->y, _state, make_automatic);
 }
@@ -37769,10 +37769,10 @@ void _decisionforest_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _decisionforest_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _decisionforest_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    decisionforest *dst = (decisionforest*)_dst;
-    decisionforest *src = (decisionforest*)_src;
+    decisionforest       *dst = (decisionforest*)_dst;
+    const decisionforest *src = (const decisionforest*)_src;
     dst->forestformat = src->forestformat;
     dst->usemantissa8 = src->usemantissa8;
     dst->nvars = src->nvars;
@@ -37814,10 +37814,10 @@ void _dfreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _dfreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _dfreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    dfreport *dst = (dfreport*)_dst;
-    dfreport *src = (dfreport*)_src;
+    dfreport       *dst = (dfreport*)_dst;
+    const dfreport *src = (const dfreport*)_src;
     dst->relclserror = src->relclserror;
     dst->avgce = src->avgce;
     dst->rmserror = src->rmserror;
@@ -37870,10 +37870,10 @@ void _dfinternalbuffers_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _dfinternalbuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _dfinternalbuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    dfinternalbuffers *dst = (dfinternalbuffers*)_dst;
-    dfinternalbuffers *src = (dfinternalbuffers*)_src;
+    dfinternalbuffers       *dst = (dfinternalbuffers*)_dst;
+    const dfinternalbuffers *src = (const dfinternalbuffers*)_src;
     ae_vector_init_copy(&dst->treebuf, &src->treebuf, _state, make_automatic);
     ae_vector_init_copy(&dst->idxbuf, &src->idxbuf, _state, make_automatic);
     ae_vector_init_copy(&dst->tmpbufr, &src->tmpbufr, _state, make_automatic);
@@ -38004,7 +38004,7 @@ void lrbuild(/* Real    */ ae_matrix* xy,
         ae_frame_leave(_state);
         return;
     }
-    sigma2 = ae_sqr(ar->rmserror, _state)*npoints/(npoints-nvars-1);
+    sigma2 = ae_sqr(ar->rmserror, _state)*(double)npoints/(double)(npoints-nvars-1);
     for(i=0; i<=nvars; i++)
     {
         ae_v_muld(&ar->c.ptr.pp_double[i][0], 1, ae_v_len(0,nvars), sigma2);
@@ -38153,7 +38153,7 @@ void lrbuilds(/* Real    */ ae_matrix* xy,
          * J-th term is updated
          */
         lm->w.ptr.p_double[offs+j] = lm->w.ptr.p_double[offs+j]/sigmas.ptr.p_double[j];
-        v = 1/sigmas.ptr.p_double[j];
+        v = (double)1/sigmas.ptr.p_double[j];
         ae_v_muld(&ar->c.ptr.pp_double[j][0], 1, ae_v_len(0,nvars), v);
         ae_v_muld(&ar->c.ptr.pp_double[0][j], ar->c.stride, ae_v_len(0,nvars), v);
     }
@@ -38283,7 +38283,7 @@ void lrbuildzs(/* Real    */ ae_matrix* xy,
          * J-th term is updated
          */
         lm->w.ptr.p_double[offs+j] = lm->w.ptr.p_double[offs+j]/c.ptr.p_double[j];
-        v = 1/c.ptr.p_double[j];
+        v = (double)1/c.ptr.p_double[j];
         ae_v_muld(&ar->c.ptr.pp_double[j][0], 1, ae_v_len(0,nvars), v);
         ae_v_muld(&ar->c.ptr.pp_double[0][j], ar->c.stride, ae_v_len(0,nvars), v);
     }
@@ -38338,7 +38338,7 @@ void lrbuildz(/* Real    */ ae_matrix* xy,
         ae_frame_leave(_state);
         return;
     }
-    sigma2 = ae_sqr(ar->rmserror, _state)*npoints/(npoints-nvars-1);
+    sigma2 = ae_sqr(ar->rmserror, _state)*(double)npoints/(double)(npoints-nvars-1);
     for(i=0; i<=nvars; i++)
     {
         ae_v_muld(&ar->c.ptr.pp_double[i][0], 1, ae_v_len(0,nvars), sigma2);
@@ -38481,7 +38481,7 @@ double lrrmserror(linearmodel* lm,
         v = v+lm->w.ptr.p_double[offs+nvars];
         result = result+ae_sqr(v-xy->ptr.pp_double[i][nvars], _state);
     }
-    result = ae_sqrt(result/npoints, _state);
+    result = ae_sqrt(result/(double)npoints, _state);
     return result;
 }
 
@@ -38522,7 +38522,7 @@ double lravgerror(linearmodel* lm,
         v = v+lm->w.ptr.p_double[offs+nvars];
         result = result+ae_fabs(v-xy->ptr.pp_double[i][nvars], _state);
     }
-    result = result/npoints;
+    result = result/(double)npoints;
     return result;
 }
 
@@ -38571,7 +38571,7 @@ double lravgrelerror(linearmodel* lm,
     }
     if( k!=0 )
     {
-        result = result/k;
+        result = result/(double)k;
     }
     return result;
 }
@@ -38626,13 +38626,13 @@ void lrlines(/* Real    */ ae_matrix* xy,
     double chi2;
 
     *info = 0;
-    *a = 0;
-    *b = 0;
-    *vara = 0;
-    *varb = 0;
-    *covab = 0;
-    *corrab = 0;
-    *p = 0;
+    *a = 0.0;
+    *b = 0.0;
+    *vara = 0.0;
+    *varb = 0.0;
+    *covab = 0.0;
+    *corrab = 0.0;
+    *p = 0.0;
 
     if( n<2 )
     {
@@ -38659,7 +38659,7 @@ void lrlines(/* Real    */ ae_matrix* xy,
     for(i=0; i<=n-1; i++)
     {
         t = ae_sqr(s->ptr.p_double[i], _state);
-        ss = ss+1/t;
+        ss = ss+(double)1/t;
         sx = sx+xy->ptr.pp_double[i][0]/t;
         sy = sy+xy->ptr.pp_double[i][1]/t;
         sxx = sxx+ae_sqr(xy->ptr.pp_double[i][0], _state)/t;
@@ -38668,10 +38668,10 @@ void lrlines(/* Real    */ ae_matrix* xy,
     /*
      * Test for condition number
      */
-    t = ae_sqrt(4*ae_sqr(sx, _state)+ae_sqr(ss-sxx, _state), _state);
+    t = ae_sqrt((double)4*ae_sqr(sx, _state)+ae_sqr(ss-sxx, _state), _state);
     e1 = 0.5*(ss+sxx+t);
     e2 = 0.5*(ss+sxx-t);
-    if( ae_fp_less_eq(ae_minreal(e1, e2, _state),1000*ae_machineepsilon*ae_maxreal(e1, e2, _state)) )
+    if( ae_fp_less_eq(ae_minreal(e1, e2, _state),(double)1000*ae_machineepsilon*ae_maxreal(e1, e2, _state)) )
     {
         *info = -3;
         return;
@@ -38702,7 +38702,7 @@ void lrlines(/* Real    */ ae_matrix* xy,
         {
             chi2 = chi2+ae_sqr((xy->ptr.pp_double[i][1]-(*a)-*b*xy->ptr.pp_double[i][0])/s->ptr.p_double[i], _state);
         }
-        *p = incompletegammac((double)(n-2)/(double)2, chi2/2, _state);
+        *p = incompletegammac((double)(n-2)/(double)2, chi2/(double)2, _state);
     }
     else
     {
@@ -38712,8 +38712,8 @@ void lrlines(/* Real    */ ae_matrix* xy,
     /*
      * Calculate other parameters
      */
-    *vara = (1+ae_sqr(sx, _state)/(ss*stt))/ss;
-    *varb = 1/stt;
+    *vara = ((double)1+ae_sqr(sx, _state)/(ss*stt))/ss;
+    *varb = (double)1/stt;
     *covab = -sx/(ss*stt);
     *corrab = *covab/ae_sqrt(*vara*(*varb), _state);
 }
@@ -38738,8 +38738,8 @@ void lrline(/* Real    */ ae_matrix* xy,
     ae_frame_make(_state, &_frame_block);
     memset(&s, 0, sizeof(s));
     *info = 0;
-    *a = 0;
-    *b = 0;
+    *a = 0.0;
+    *b = 0.0;
     ae_vector_init(&s, 0, DT_REAL, _state, ae_true);
 
     if( n<2 )
@@ -38852,7 +38852,7 @@ static void linreg_lrinternal(/* Real    */ ae_matrix* xy,
     ae_vector_set_length(&b, npoints-1+1, _state);
     for(i=0; i<=npoints-1; i++)
     {
-        r = 1/s->ptr.p_double[i];
+        r = (double)1/s->ptr.p_double[i];
         ae_v_moved(&a.ptr.pp_double[i][0], 1, &xy->ptr.pp_double[i][0], 1, ae_v_len(0,nvars-1), r);
         b.ptr.p_double[i] = xy->ptr.pp_double[i][nvars]/s->ptr.p_double[i];
     }
@@ -39009,7 +39009,7 @@ static void linreg_lrinternal(/* Real    */ ae_matrix* xy,
     {
         if( ae_fp_greater(sv.ptr.p_double[i],epstol*ae_machineepsilon*sv.ptr.p_double[0]) )
         {
-            svi.ptr.p_double[i] = 1/sv.ptr.p_double[i];
+            svi.ptr.p_double[i] = (double)1/sv.ptr.p_double[i];
         }
         else
         {
@@ -39121,13 +39121,13 @@ static void linreg_lrinternal(/* Real    */ ae_matrix* xy,
          * Error using fast leave-one-out cross-validation
          */
         p = ae_v_dotproduct(&u.ptr.pp_double[i][0], 1, &u.ptr.pp_double[i][0], 1, ae_v_len(0,nvars-1));
-        if( ae_fp_greater(p,1-epstol*ae_machineepsilon) )
+        if( ae_fp_greater(p,(double)1-epstol*ae_machineepsilon) )
         {
             ar->cvdefects.ptr.p_int[ar->ncvdefects] = i;
             ar->ncvdefects = ar->ncvdefects+1;
             continue;
         }
-        r = s->ptr.p_double[i]*(r/s->ptr.p_double[i]-b.ptr.p_double[i]*p)/(1-p);
+        r = s->ptr.p_double[i]*(r/s->ptr.p_double[i]-b.ptr.p_double[i]*p)/((double)1-p);
         ar->cvrmserror = ar->cvrmserror+ae_sqr(r-xy->ptr.pp_double[i][nvars], _state);
         ar->cvavgerror = ar->cvavgerror+ae_fabs(r-xy->ptr.pp_double[i][nvars], _state);
         if( ae_fp_neq(xy->ptr.pp_double[i][nvars],(double)(0)) )
@@ -39148,17 +39148,17 @@ static void linreg_lrinternal(/* Real    */ ae_matrix* xy,
         ae_frame_leave(_state);
         return;
     }
-    ar->rmserror = ae_sqrt(ar->rmserror/npoints, _state);
-    ar->avgerror = ar->avgerror/npoints;
+    ar->rmserror = ae_sqrt(ar->rmserror/(double)npoints, _state);
+    ar->avgerror = ar->avgerror/(double)npoints;
     if( na!=0 )
     {
-        ar->avgrelerror = ar->avgrelerror/na;
+        ar->avgrelerror = ar->avgrelerror/(double)na;
     }
-    ar->cvrmserror = ae_sqrt(ar->cvrmserror/ncv, _state);
-    ar->cvavgerror = ar->cvavgerror/ncv;
+    ar->cvrmserror = ae_sqrt(ar->cvrmserror/(double)ncv, _state);
+    ar->cvavgerror = ar->cvavgerror/(double)ncv;
     if( nacv!=0 )
     {
-        ar->cvavgrelerror = ar->cvavgrelerror/nacv;
+        ar->cvavgrelerror = ar->cvavgrelerror/(double)nacv;
     }
     ae_frame_leave(_state);
 }
@@ -39172,10 +39172,10 @@ void _linearmodel_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _linearmodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _linearmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    linearmodel *dst = (linearmodel*)_dst;
-    linearmodel *src = (linearmodel*)_src;
+    linearmodel       *dst = (linearmodel*)_dst;
+    const linearmodel *src = (const linearmodel*)_src;
     ae_vector_init_copy(&dst->w, &src->w, _state, make_automatic);
 }
 
@@ -39205,10 +39205,10 @@ void _lrreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _lrreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _lrreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    lrreport *dst = (lrreport*)_dst;
-    lrreport *src = (lrreport*)_src;
+    lrreport       *dst = (lrreport*)_dst;
+    const lrreport *src = (const lrreport*)_src;
     ae_matrix_init_copy(&dst->c, &src->c, _state, make_automatic);
     dst->rmserror = src->rmserror;
     dst->avgerror = src->avgerror;
@@ -39312,7 +39312,7 @@ void filtersma(/* Real    */ ae_vector* x,
     for(i=ae_maxint(n-k, 0, _state); i<=n-1; i++)
     {
         runningsum = runningsum+x->ptr.p_double[i];
-        termsinsum = termsinsum+1;
+        termsinsum = termsinsum+(double)1;
     }
     i = ae_maxint(n-k, 0, _state);
     zeroprefix = 0;
@@ -39356,7 +39356,7 @@ void filtersma(/* Real    */ ae_vector* x,
         else
         {
             runningsum = runningsum-v;
-            termsinsum = termsinsum-1;
+            termsinsum = termsinsum-(double)1;
         }
         
         /*
@@ -39445,7 +39445,7 @@ void filterema(/* Real    */ ae_vector* x,
      */
     for(i=1; i<=n-1; i++)
     {
-        x->ptr.p_double[i] = alpha*x->ptr.p_double[i]+(1-alpha)*x->ptr.p_double[i-1];
+        x->ptr.p_double[i] = alpha*x->ptr.p_double[i]+((double)1-alpha)*x->ptr.p_double[i-1];
     }
 }
 
@@ -39549,7 +39549,7 @@ void filterlrma(/* Real    */ ae_vector* x,
         ae_v_move(&xy.ptr.pp_double[0][1], xy.stride, &x->ptr.p_double[i-m+1], 1, ae_v_len(0,m-1));
         lrlines(&xy, &s, m, &info, &a, &b, &vara, &varb, &covab, &corrab, &p, _state);
         ae_assert(info==1, "FilterLRMA: internal error", _state);
-        x->ptr.p_double[i] = a+b*(m-1);
+        x->ptr.p_double[i] = a+b*(double)(m-1);
     }
     ae_frame_leave(_state);
 }
@@ -41920,7 +41920,7 @@ static void ssa_updatebasis(ssamodel* s,
              */
             needevd = !s->arebasisandsolvervalid;
             needevd = needevd||ae_fp_greater_eq(updateits,(double)(1));
-            needevd = needevd||ae_fp_less(hqrnduniformr(&s->rs, _state),updateits-ae_ifloor(updateits, _state));
+            needevd = needevd||ae_fp_less(hqrnduniformr(&s->rs, _state),updateits-(double)ae_ifloor(updateits, _state));
             if( needevd )
             {
                 inc(&s->dbgcntevd, _state);
@@ -41981,7 +41981,7 @@ static void ssa_updatebasis(ssamodel* s,
                     ae_assert(s->arebasisandsolvervalid, "SSA: integrity check in UpdateBasis() failed / srg6f", _state);
                     ae_assert(ae_fp_greater_eq(updateits,(double)(0)), "SSA: integrity check in UpdateBasis() failed / srg4f", _state);
                     subspaceits = ae_ifloor(updateits, _state);
-                    if( ae_fp_less(hqrnduniformr(&s->rs, _state),updateits-ae_ifloor(updateits, _state)) )
+                    if( ae_fp_less(hqrnduniformr(&s->rs, _state),updateits-(double)ae_ifloor(updateits, _state)) )
                     {
                         inc(&subspaceits, _state);
                     }
@@ -42061,9 +42061,9 @@ static void ssa_updatebasis(ssamodel* s,
             s->tmp0.ptr.p_double[i] = v;
             nu2 = nu2+v*v;
         }
-        if( ae_fp_less(nu2,1-1000*ae_machineepsilon) )
+        if( ae_fp_less(nu2,(double)1-(double)1000*ae_machineepsilon) )
         {
-            rmatrixgemv(winw-1, s->nbasis, 1/(1-nu2), &s->basist, 0, 0, 1, &s->tmp0, 0, 0.0, &s->forecasta, 0, _state);
+            rmatrixgemv(winw-1, s->nbasis, (double)1/((double)1-nu2), &s->basist, 0, 0, 1, &s->tmp0, 0, 0.0, &s->forecasta, 0, _state);
         }
         else
         {
@@ -42221,7 +42221,7 @@ static void ssa_analyzesequence(ssamodel* s,
     }
     for(i=0; i<=cnt-1; i++)
     {
-        trend->ptr.p_double[offs+i] = trend->ptr.p_double[offs+i]/s->aseqcounts.ptr.p_int[i];
+        trend->ptr.p_double[offs+i] = trend->ptr.p_double[offs+i]/(double)s->aseqcounts.ptr.p_int[i];
     }
     
     /*
@@ -42346,7 +42346,7 @@ static void ssa_forecastavgsequence(ssamodel* s,
             s->fctrendm.ptr.pp_double[i][winw-1] = s->tmp0.ptr.p_double[i];
             trend->ptr.p_double[offs+k] = trend->ptr.p_double[offs+k]+s->tmp0.ptr.p_double[i];
         }
-        trend->ptr.p_double[offs+k] = trend->ptr.p_double[offs+k]/m;
+        trend->ptr.p_double[offs+k] = trend->ptr.p_double[offs+k]/(double)m;
     }
 }
 
@@ -42581,10 +42581,10 @@ void _ssamodel_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _ssamodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _ssamodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    ssamodel *dst = (ssamodel*)_dst;
-    ssamodel *src = (ssamodel*)_src;
+    ssamodel       *dst = (ssamodel*)_dst;
+    const ssamodel *src = (const ssamodel*)_src;
     dst->nsequences = src->nsequences;
     ae_vector_init_copy(&dst->sequenceidx, &src->sequenceidx, _state, make_automatic);
     ae_vector_init_copy(&dst->sequencedata, &src->sequencedata, _state, make_automatic);
@@ -43062,7 +43062,7 @@ void fisherldan(/* Real    */ ae_matrix* xy,
         return;
     }
     ae_matrix_set_length(w, nvars, nvars, _state);
-    if( ae_fp_less_eq(d.ptr.p_double[nvars-1],(double)(0))||ae_fp_less_eq(d.ptr.p_double[0],1000*ae_machineepsilon*d.ptr.p_double[nvars-1]) )
+    if( ae_fp_less_eq(d.ptr.p_double[nvars-1],(double)(0))||ae_fp_less_eq(d.ptr.p_double[0],(double)1000*ae_machineepsilon*d.ptr.p_double[nvars-1]) )
     {
         
         /*
@@ -43106,7 +43106,7 @@ void fisherldan(/* Real    */ ae_matrix* xy,
         m = 0;
         for(k=0; k<=nvars-1; k++)
         {
-            if( ae_fp_less_eq(d.ptr.p_double[k],1000*ae_machineepsilon*d.ptr.p_double[nvars-1]) )
+            if( ae_fp_less_eq(d.ptr.p_double[k],(double)1000*ae_machineepsilon*d.ptr.p_double[nvars-1]) )
             {
                 m = k+1;
             }
@@ -43172,7 +43172,7 @@ void fisherldan(/* Real    */ ae_matrix* xy,
     for(k=0; k<=nvars-1; k++)
     {
         v = ae_v_dotproduct(&w->ptr.pp_double[0][k], w->stride, &w->ptr.pp_double[0][k], w->stride, ae_v_len(0,nvars-1));
-        v = 1/ae_sqrt(v, _state);
+        v = (double)1/ae_sqrt(v, _state);
         ae_v_muld(&w->ptr.pp_double[0][k], w->stride, ae_v_len(0,nvars-1), v);
         v = (double)(0);
         for(i=0; i<=nvars-1; i++)
@@ -43181,7 +43181,7 @@ void fisherldan(/* Real    */ ae_matrix* xy,
         }
         if( ae_fp_less(v,(double)(0)) )
         {
-            ae_v_muld(&w->ptr.pp_double[0][k], w->stride, ae_v_len(0,nvars-1), -1);
+            ae_v_muld(&w->ptr.pp_double[0][k], w->stride, ae_v_len(0,nvars-1), -1.0);
         }
     }
     ae_frame_leave(_state);
@@ -44111,7 +44111,7 @@ void mcpdsolve(mcpdstate* s, ae_state *_state)
             }
             if( k!=0 )
             {
-                s->effectivew.ptr.p_double[i] = k/v;
+                s->effectivew.ptr.p_double[i] = (double)k/v;
             }
             else
             {
@@ -44127,7 +44127,7 @@ void mcpdsolve(mcpdstate* s, ae_state *_state)
     {
         for(j=0; j<=n-1; j++)
         {
-            s->h.ptr.p_double[i*n+j] = 2*s->regterm;
+            s->h.ptr.p_double[i*n+j] = (double)2*s->regterm;
         }
     }
     for(k=0; k<=npairs-1; k++)
@@ -44136,7 +44136,7 @@ void mcpdsolve(mcpdstate* s, ae_state *_state)
         {
             for(j=0; j<=n-1; j++)
             {
-                s->h.ptr.p_double[i*n+j] = s->h.ptr.p_double[i*n+j]+2*ae_sqr(s->effectivew.ptr.p_double[i], _state)*ae_sqr(s->data.ptr.pp_double[k][j], _state);
+                s->h.ptr.p_double[i*n+j] = s->h.ptr.p_double[i*n+j]+(double)2*ae_sqr(s->effectivew.ptr.p_double[i], _state)*ae_sqr(s->data.ptr.pp_double[k][j], _state);
             }
         }
     }
@@ -44278,7 +44278,7 @@ void mcpdsolve(mcpdstate* s, ae_state *_state)
                 for(j=0; j<=n-1; j++)
                 {
                     s->bs.f = s->bs.f+vv*ae_sqr(s->bs.x.ptr.p_double[i*n+j]-s->priorp.ptr.pp_double[i][j], _state);
-                    s->bs.g.ptr.p_double[i*n+j] = 2*vv*(s->bs.x.ptr.p_double[i*n+j]-s->priorp.ptr.pp_double[i][j]);
+                    s->bs.g.ptr.p_double[i*n+j] = (double)2*vv*(s->bs.x.ptr.p_double[i*n+j]-s->priorp.ptr.pp_double[i][j]);
                 }
             }
             
@@ -44294,7 +44294,7 @@ void mcpdsolve(mcpdstate* s, ae_state *_state)
                     s->bs.f = s->bs.f+ae_sqr(vv*(v-s->data.ptr.pp_double[k][n+i]), _state);
                     for(j=0; j<=n-1; j++)
                     {
-                        s->bs.g.ptr.p_double[i*n+j] = s->bs.g.ptr.p_double[i*n+j]+2*vv*vv*(v-s->data.ptr.pp_double[k][n+i])*s->data.ptr.pp_double[k][j];
+                        s->bs.g.ptr.p_double[i*n+j] = s->bs.g.ptr.p_double[i*n+j]+(double)2*vv*vv*(v-s->data.ptr.pp_double[k][n+i])*s->data.ptr.pp_double[k][j];
                     }
                 }
             }
@@ -44462,10 +44462,10 @@ void _mcpdstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mcpdstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mcpdstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mcpdstate *dst = (mcpdstate*)_dst;
-    mcpdstate *src = (mcpdstate*)_src;
+    mcpdstate       *dst = (mcpdstate*)_dst;
+    const mcpdstate *src = (const mcpdstate*)_src;
     dst->n = src->n;
     ae_vector_init_copy(&dst->states, &src->states, _state, make_automatic);
     dst->npairs = src->npairs;
@@ -44555,10 +44555,10 @@ void _mcpdreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mcpdreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mcpdreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mcpdreport *dst = (mcpdreport*)_dst;
-    mcpdreport *src = (mcpdreport*)_src;
+    mcpdreport       *dst = (mcpdreport*)_dst;
+    const mcpdreport *src = (const mcpdreport*)_src;
     dst->inneriterationscount = src->inneriterationscount;
     dst->outeriterationscount = src->outeriterationscount;
     dst->nfev = src->nfev;
@@ -44732,7 +44732,7 @@ void mnltrainh(/* Real    */ ae_matrix* xy,
         {
             lm->w.ptr.p_double[offs+i] = (double)(0);
         }
-        v = -2*ae_log(ae_minrealnumber, _state);
+        v = -(double)2*ae_log(ae_minrealnumber, _state);
         k = ae_round(xy->ptr.pp_double[0][nvars], _state);
         if( k==nclasses-1 )
         {
@@ -44768,7 +44768,7 @@ void mnltrainh(/* Real    */ ae_matrix* xy,
     mlpproperties(&network, &nin, &nout, &wcount, _state);
     for(i=0; i<=wcount-1; i++)
     {
-        network.weights.ptr.p_double[i] = (2*ae_randomreal(_state)-1)/nvars;
+        network.weights.ptr.p_double[i] = ((double)2*ae_randomreal(_state)-(double)1)/(double)nvars;
     }
     ae_vector_set_length(&g, wcount-1+1, _state);
     ae_matrix_set_length(&h, wcount-1+1, wcount-1+1, _state);
@@ -44797,7 +44797,7 @@ void mnltrainh(/* Real    */ ae_matrix* xy,
         ae_v_moveneg(&wdir.ptr.p_double[0], 1, &g.ptr.p_double[0], 1, ae_v_len(0,wcount-1));
         v = ae_v_dotproduct(&wdir.ptr.p_double[0], 1, &wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1));
         wstep = ae_sqrt(v, _state);
-        v = 1/ae_sqrt(v, _state);
+        v = (double)1/ae_sqrt(v, _state);
         ae_v_muld(&wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1), v);
         mcstage = 0;
         logit_mnlmcsrch(wcount, &network.weights, &e, &g, &wdir, &wstep, &mcinfo, &mcnfev, &work, &mcstate, &mcstage, _state);
@@ -44846,7 +44846,7 @@ void mnltrainh(/* Real    */ ae_matrix* xy,
              * H is positive definite.
              * Step in Newton direction.
              */
-            ae_v_muld(&wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1), -1);
+            ae_v_muld(&wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1), -1.0);
             spd = ae_true;
         }
         else
@@ -44865,7 +44865,7 @@ void mnltrainh(/* Real    */ ae_matrix* xy,
          */
         v = ae_v_dotproduct(&wdir.ptr.p_double[0], 1, &wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1));
         wstep = ae_sqrt(v, _state);
-        v = 1/ae_sqrt(v, _state);
+        v = (double)1/ae_sqrt(v, _state);
         ae_v_muld(&wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1), v);
         mcstage = 0;
         logit_mnlmcsrch(wcount, &network.weights, &e, &g, &wdir, &wstep, &mcinfo, &mcnfev, &work, &mcstate, &mcstage, _state);
@@ -45155,7 +45155,7 @@ double mnlavgce(logitmodel* lm,
             result = result-ae_log(ae_minrealnumber, _state);
         }
     }
-    result = result/(npoints*ae_log((double)(2), _state));
+    result = result/((double)npoints*ae_log((double)(2), _state));
     ae_frame_leave(_state);
     return result;
 }
@@ -45427,11 +45427,11 @@ static void logit_mnlallerrors(logitmodel* lm,
     memset(&workx, 0, sizeof(workx));
     memset(&y, 0, sizeof(y));
     memset(&dy, 0, sizeof(dy));
-    *relcls = 0;
-    *avgce = 0;
-    *rms = 0;
-    *avg = 0;
-    *avgrel = 0;
+    *relcls = 0.0;
+    *avgce = 0.0;
+    *rms = 0.0;
+    *avg = 0.0;
+    *avgrel = 0.0;
     ae_vector_init(&buf, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&workx, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&y, 0, DT_REAL, _state, ae_true);
@@ -45887,7 +45887,7 @@ static void logit_mnlmcstep(double* stx,
     {
         *info = 1;
         bound = ae_true;
-        theta = 3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
+        theta = (double)3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
         s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dx, _state), ae_fabs(dp, _state), _state), _state);
         gamma = s*ae_sqrt(ae_sqr(theta/s, _state)-*dx/s*(dp/s), _state);
         if( ae_fp_less(*stp,*stx) )
@@ -45898,14 +45898,14 @@ static void logit_mnlmcstep(double* stx,
         q = gamma-(*dx)+gamma+dp;
         r = p/q;
         stpc = *stx+r*(*stp-(*stx));
-        stpq = *stx+*dx/((*fx-fp)/(*stp-(*stx))+(*dx))/2*(*stp-(*stx));
+        stpq = *stx+*dx/((*fx-fp)/(*stp-(*stx))+(*dx))/(double)2*(*stp-(*stx));
         if( ae_fp_less(ae_fabs(stpc-(*stx), _state),ae_fabs(stpq-(*stx), _state)) )
         {
             stpf = stpc;
         }
         else
         {
-            stpf = stpc+(stpq-stpc)/2;
+            stpf = stpc+(stpq-stpc)/(double)2;
         }
         *brackt = ae_true;
     }
@@ -45922,7 +45922,7 @@ static void logit_mnlmcstep(double* stx,
              */
             *info = 2;
             bound = ae_false;
-            theta = 3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
+            theta = (double)3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
             s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dx, _state), ae_fabs(dp, _state), _state), _state);
             gamma = s*ae_sqrt(ae_sqr(theta/s, _state)-*dx/s*(dp/s), _state);
             if( ae_fp_greater(*stp,*stx) )
@@ -45961,7 +45961,7 @@ static void logit_mnlmcstep(double* stx,
                  */
                 *info = 3;
                 bound = ae_true;
-                theta = 3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
+                theta = (double)3*(*fx-fp)/(*stp-(*stx))+(*dx)+dp;
                 s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dx, _state), ae_fabs(dp, _state), _state), _state);
                 
                 /*
@@ -46028,7 +46028,7 @@ static void logit_mnlmcstep(double* stx,
                 bound = ae_false;
                 if( *brackt )
                 {
-                    theta = 3*(fp-(*fy))/(*sty-(*stp))+(*dy)+dp;
+                    theta = (double)3*(fp-(*fy))/(*sty-(*stp))+(*dy)+dp;
                     s = ae_maxreal(ae_fabs(theta, _state), ae_maxreal(ae_fabs(*dy, _state), ae_fabs(dp, _state), _state), _state);
                     gamma = s*ae_sqrt(ae_sqr(theta/s, _state)-*dy/s*(dp/s), _state);
                     if( ae_fp_greater(*stp,*sty) )
@@ -46107,10 +46107,10 @@ void _logitmodel_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _logitmodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _logitmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    logitmodel *dst = (logitmodel*)_dst;
-    logitmodel *src = (logitmodel*)_src;
+    logitmodel       *dst = (logitmodel*)_dst;
+    const logitmodel *src = (const logitmodel*)_src;
     ae_vector_init_copy(&dst->w, &src->w, _state, make_automatic);
 }
 
@@ -46138,10 +46138,10 @@ void _logitmcstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _logitmcstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _logitmcstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    logitmcstate *dst = (logitmcstate*)_dst;
-    logitmcstate *src = (logitmcstate*)_src;
+    logitmcstate       *dst = (logitmcstate*)_dst;
+    const logitmcstate *src = (const logitmcstate*)_src;
     dst->brackt = src->brackt;
     dst->stage1 = src->stage1;
     dst->infoc = src->infoc;
@@ -46191,10 +46191,10 @@ void _mnlreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mnlreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mnlreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mnlreport *dst = (mnlreport*)_dst;
-    mnlreport *src = (mnlreport*)_src;
+    mnlreport       *dst = (mnlreport*)_dst;
+    const mnlreport *src = (const mnlreport*)_src;
     dst->ngrad = src->ngrad;
     dst->nhess = src->nhess;
 }
@@ -47411,7 +47411,7 @@ static void knn_processinternal(knnmodel* model,
         buf->y.ptr.p_double[i] = (double)(0);
     }
     nncnt = kdtreetsqueryaknn(&model->tree, &buf->treebuf, &buf->x, model->k, ae_true, model->eps, _state);
-    v = 1/coalesce((double)(nncnt), (double)(1), _state);
+    v = (double)1/coalesce((double)(nncnt), (double)(1), _state);
     if( iscls )
     {
         kdtreetsqueryresultstags(&model->tree, &buf->treebuf, &buf->tags, _state);
@@ -47447,10 +47447,10 @@ void _knnbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _knnbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _knnbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    knnbuffer *dst = (knnbuffer*)_dst;
-    knnbuffer *src = (knnbuffer*)_src;
+    knnbuffer       *dst = (knnbuffer*)_dst;
+    const knnbuffer *src = (const knnbuffer*)_src;
     _kdtreerequestbuffer_init_copy(&dst->treebuf, &src->treebuf, _state, make_automatic);
     ae_vector_init_copy(&dst->x, &src->x, _state, make_automatic);
     ae_vector_init_copy(&dst->y, &src->y, _state, make_automatic);
@@ -47493,10 +47493,10 @@ void _knnbuilder_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _knnbuilder_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _knnbuilder_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    knnbuilder *dst = (knnbuilder*)_dst;
-    knnbuilder *src = (knnbuilder*)_src;
+    knnbuilder       *dst = (knnbuilder*)_dst;
+    const knnbuilder *src = (const knnbuilder*)_src;
     dst->dstype = src->dstype;
     dst->npoints = src->npoints;
     dst->nvars = src->nvars;
@@ -47538,10 +47538,10 @@ void _knnmodel_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _knnmodel_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _knnmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    knnmodel *dst = (knnmodel*)_dst;
-    knnmodel *src = (knnmodel*)_src;
+    knnmodel       *dst = (knnmodel*)_dst;
+    const knnmodel *src = (const knnmodel*)_src;
     dst->nvars = src->nvars;
     dst->nout = src->nout;
     dst->k = src->k;
@@ -47578,10 +47578,10 @@ void _knnreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _knnreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _knnreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    knnreport *dst = (knnreport*)_dst;
-    knnreport *src = (knnreport*)_src;
+    knnreport       *dst = (knnreport*)_dst;
+    const knnreport *src = (const knnreport*)_src;
     dst->relclserror = src->relclserror;
     dst->avgce = src->avgce;
     dst->rmserror = src->rmserror;
@@ -47850,17 +47850,17 @@ void mlptrainlm(multilayerperceptron* network,
             if( !spd )
             {
                 lambdav = lambdav*lambdaup*nu;
-                nu = nu*2;
+                nu = nu*(double)2;
                 continue;
             }
             spdmatrixcholeskysolve(&hmod, wcount, ae_true, &g, &solverinfo, &solverrep, &wdir, _state);
             if( solverinfo<0 )
             {
                 lambdav = lambdav*lambdaup*nu;
-                nu = nu*2;
+                nu = nu*(double)2;
                 continue;
             }
-            ae_v_muld(&wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1), -1);
+            ae_v_muld(&wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1), -1.0);
             
             /*
              * Lambda found.
@@ -47873,14 +47873,14 @@ void mlptrainlm(multilayerperceptron* network,
             stepnorm = ae_v_dotproduct(&wdir.ptr.p_double[0], 1, &wdir.ptr.p_double[0], 1, ae_v_len(0,wcount-1));
             stepnorm = ae_sqrt(stepnorm, _state);
             enew = mlperror(network, xy, npoints, _state)+0.5*decay*xnorm2;
-            if( ae_fp_less(stepnorm,lmsteptol*(1+ae_sqrt(xnorm2, _state))) )
+            if( ae_fp_less(stepnorm,lmsteptol*((double)1+ae_sqrt(xnorm2, _state))) )
             {
                 break;
             }
             if( ae_fp_greater(enew,e) )
             {
                 lambdav = lambdav*lambdaup*nu;
-                nu = nu*2;
+                nu = nu*(double)2;
                 continue;
             }
             
@@ -48360,7 +48360,7 @@ void mlptraines(multilayerperceptron* network,
                     ae_v_move(&wbest.ptr.p_double[0], 1, &network->weights.ptr.p_double[0], 1, ae_v_len(0,wcount-1));
                     itbest = itcnt;
                 }
-                if( itcnt>30&&ae_fp_greater((double)(itcnt),1.5*itbest) )
+                if( itcnt>30&&ae_fp_greater((double)(itcnt),1.5*(double)itbest) )
                 {
                     *info = 6;
                     break;
@@ -48682,7 +48682,7 @@ void mlpkfoldcv(mlptrainer* s,
     /*
      * Create shared pool
      */
-    ae_shared_pool_set_seed(&pooldatacv, &datacv, sizeof(datacv), _mlpparallelizationcv_init, _mlpparallelizationcv_init_copy, _mlpparallelizationcv_destroy, _state);
+    ae_shared_pool_set_seed(&pooldatacv, &datacv, (ae_int_t)sizeof(datacv), (ae_constructor)_mlpparallelizationcv_init, (ae_copy_constructor)_mlpparallelizationcv_init_copy, (ae_destructor)_mlpparallelizationcv_destroy, _state);
     
     /*
      * Parallelization
@@ -49959,7 +49959,7 @@ static void mlptrain_mlpkfoldcvgeneral(multilayerperceptron* n,
             /*
              * classification-only code
              */
-            cvrep->relclserror = cvrep->relclserror+mlpclserror(&network, &testset, tssize, _state);
+            cvrep->relclserror = cvrep->relclserror+(double)mlpclserror(&network, &testset, tssize, _state);
             cvrep->avgce = cvrep->avgce+mlperrorn(&network, &testset, tssize, _state);
         }
         for(i=0; i<=tssize-1; i++)
@@ -49977,9 +49977,9 @@ static void mlptrain_mlpkfoldcvgeneral(multilayerperceptron* n,
                 {
                     if( j==k )
                     {
-                        cvrep->rmserror = cvrep->rmserror+ae_sqr(y.ptr.p_double[j]-1, _state);
-                        cvrep->avgerror = cvrep->avgerror+ae_fabs(y.ptr.p_double[j]-1, _state);
-                        cvrep->avgrelerror = cvrep->avgrelerror+ae_fabs(y.ptr.p_double[j]-1, _state);
+                        cvrep->rmserror = cvrep->rmserror+ae_sqr(y.ptr.p_double[j]-(double)1, _state);
+                        cvrep->avgerror = cvrep->avgerror+ae_fabs(y.ptr.p_double[j]-(double)1, _state);
+                        cvrep->avgrelerror = cvrep->avgrelerror+ae_fabs(y.ptr.p_double[j]-(double)1, _state);
                         relcnt = relcnt+1;
                     }
                     else
@@ -50010,14 +50010,14 @@ static void mlptrain_mlpkfoldcvgeneral(multilayerperceptron* n,
     }
     if( mlpissoftmax(&network, _state) )
     {
-        cvrep->relclserror = cvrep->relclserror/npoints;
-        cvrep->avgce = cvrep->avgce/(ae_log((double)(2), _state)*npoints);
+        cvrep->relclserror = cvrep->relclserror/(double)npoints;
+        cvrep->avgce = cvrep->avgce/(ae_log((double)(2), _state)*(double)npoints);
     }
-    cvrep->rmserror = ae_sqrt(cvrep->rmserror/(npoints*nout), _state);
-    cvrep->avgerror = cvrep->avgerror/(npoints*nout);
+    cvrep->rmserror = ae_sqrt(cvrep->rmserror/(double)(npoints*nout), _state);
+    cvrep->avgerror = cvrep->avgerror/(double)(npoints*nout);
     if( relcnt>0 )
     {
-        cvrep->avgrelerror = cvrep->avgrelerror/relcnt;
+        cvrep->avgrelerror = cvrep->avgrelerror/(double)relcnt;
     }
     *info = 1;
     ae_frame_leave(_state);
@@ -50177,7 +50177,7 @@ static void mlptrain_mthreadcv(mlptrainer* s,
          * We expect that minimum number of iterations before convergence is 100.
          * Hence is our approach to evaluation of task complexity.
          */
-        if( ae_fp_greater_eq(ae_maxint(nrestarts, 1, _state)*rmul3((double)(2*wcount), (double)(s->npoints), (double)(100), _state),smpactivationlevel(_state)) )
+        if( ae_fp_greater_eq((double)ae_maxint(nrestarts, 1, _state)*rmul3((double)(2*wcount), (double)(s->npoints), (double)(100), _state),smpactivationlevel(_state)) )
         {
             if( _trypexec_mlptrain_mthreadcv(s,rowsize,nrestarts,folds,fold,dfold,cvy,pooldatacv,wcount, _state) )
             {
@@ -50293,7 +50293,7 @@ static void mlptrain_mlptrainnetworkx(mlptrainer* s,
          * We expect that minimum number of iterations before convergence is 100.
          * Hence is our approach to evaluation of task complexity.
          */
-        if( ae_fp_greater_eq(ae_maxint(nrestarts, 1, _state)*rmul3((double)(2*wcount), (double)(s->npoints), (double)(100), _state),smpactivationlevel(_state)) )
+        if( ae_fp_greater_eq((double)ae_maxint(nrestarts, 1, _state)*rmul3((double)(2*wcount), (double)(s->npoints), (double)(100), _state),smpactivationlevel(_state)) )
         {
             if( _trypexec_mlptrain_mlptrainnetworkx(s,nrestarts,algokind,trnsubset,trnsubsetsize,valsubset,valsubsetsize,network,rep,isrootcall,sessions, _state) )
             {
@@ -50463,7 +50463,7 @@ static void mlptrain_mlptrainnetworkx(mlptrainer* s,
                 ebest = eval;
                 itbest = itcnt;
             }
-            if( itcnt>30&&ae_fp_greater((double)(itcnt),1.5*itbest) )
+            if( itcnt>30&&ae_fp_greater((double)(itcnt),1.5*(double)itbest) )
             {
                 break;
             }
@@ -50622,7 +50622,7 @@ static void mlptrain_mlptrainensemblex(mlptrainer* s,
          * We expect that minimum number of iterations before convergence is 100.
          * Hence is our approach to evaluation of task complexity.
          */
-        if( ae_fp_greater_eq(ae_maxint(nrestarts, 1, _state)*(idx1-idx0)*rmul3((double)(2*wcount), (double)(s->npoints), (double)(100), _state),smpactivationlevel(_state)) )
+        if( ae_fp_greater_eq((double)(ae_maxint(nrestarts, 1, _state)*(idx1-idx0))*rmul3((double)(2*wcount), (double)(s->npoints), (double)(100), _state),smpactivationlevel(_state)) )
         {
             if( _trypexec_mlptrain_mlptrainensemblex(s,ensemble,idx0,idx1,nrestarts,trainingmethod,ngrad,isrootcall,esessions, _state) )
             {
@@ -50975,8 +50975,8 @@ static ae_bool mlptrain_mlpcontinuetrainingx(mlptrainer* s,
         cursize = 763;
         idx0 = -541;
         idx1 = -698;
-        decay = -900;
-        v = -318;
+        decay = -900.0;
+        v = -318.0;
     }
     if( session->rstate.stage==0 )
     {
@@ -51466,7 +51466,7 @@ static void mlptrain_initmlptrnsessions(multilayerperceptron* networktrained,
          * Prepare session and seed pool
          */
         mlptrain_initmlptrnsession(networktrained, randomizenetwork, trainer, &t, _state);
-        ae_shared_pool_set_seed(sessions, &t, sizeof(t), _smlptrnsession_init, _smlptrnsession_init_copy, _smlptrnsession_destroy, _state);
+        ae_shared_pool_set_seed(sessions, &t, (ae_int_t)sizeof(t), (ae_constructor)_smlptrnsession_init, (ae_copy_constructor)_smlptrnsession_init_copy, (ae_destructor)_smlptrnsession_destroy, _state);
     }
     ae_frame_leave(_state);
 }
@@ -51521,7 +51521,7 @@ static void mlptrain_initmlpetrnsessions(multilayerperceptron* individualnetwork
     if( !ae_shared_pool_is_initialized(sessions) )
     {
         mlptrain_initmlpetrnsession(individualnetwork, trainer, &t, _state);
-        ae_shared_pool_set_seed(sessions, &t, sizeof(t), _mlpetrnsession_init, _mlpetrnsession_init_copy, _mlpetrnsession_destroy, _state);
+        ae_shared_pool_set_seed(sessions, &t, (ae_int_t)sizeof(t), (ae_constructor)_mlpetrnsession_init, (ae_copy_constructor)_mlpetrnsession_init_copy, (ae_destructor)_mlpetrnsession_destroy, _state);
     }
     ae_frame_leave(_state);
 }
@@ -51534,10 +51534,10 @@ void _mlpreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mlpreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlpreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlpreport *dst = (mlpreport*)_dst;
-    mlpreport *src = (mlpreport*)_src;
+    mlpreport       *dst = (mlpreport*)_dst;
+    const mlpreport *src = (const mlpreport*)_src;
     dst->relclserror = src->relclserror;
     dst->avgce = src->avgce;
     dst->rmserror = src->rmserror;
@@ -51570,10 +51570,10 @@ void _mlpcvreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mlpcvreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlpcvreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlpcvreport *dst = (mlpcvreport*)_dst;
-    mlpcvreport *src = (mlpcvreport*)_src;
+    mlpcvreport       *dst = (mlpcvreport*)_dst;
+    const mlpcvreport *src = (const mlpcvreport*)_src;
     dst->relclserror = src->relclserror;
     dst->avgce = src->avgce;
     dst->rmserror = src->rmserror;
@@ -51613,10 +51613,10 @@ void _smlptrnsession_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _smlptrnsession_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _smlptrnsession_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    smlptrnsession *dst = (smlptrnsession*)_dst;
-    smlptrnsession *src = (smlptrnsession*)_src;
+    smlptrnsession       *dst = (smlptrnsession*)_dst;
+    const smlptrnsession *src = (const smlptrnsession*)_src;
     ae_vector_init_copy(&dst->bestparameters, &src->bestparameters, _state, make_automatic);
     dst->bestrmserror = src->bestrmserror;
     dst->randomizenetwork = src->randomizenetwork;
@@ -51680,10 +51680,10 @@ void _mlpetrnsession_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mlpetrnsession_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlpetrnsession_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlpetrnsession *dst = (mlpetrnsession*)_dst;
-    mlpetrnsession *src = (mlpetrnsession*)_src;
+    mlpetrnsession       *dst = (mlpetrnsession*)_dst;
+    const mlpetrnsession *src = (const mlpetrnsession*)_src;
     ae_vector_init_copy(&dst->trnsubset, &src->trnsubset, _state, make_automatic);
     ae_vector_init_copy(&dst->valsubset, &src->valsubset, _state, make_automatic);
     ae_shared_pool_init_copy(&dst->mlpsessions, &src->mlpsessions, _state, make_automatic);
@@ -51728,10 +51728,10 @@ void _mlptrainer_init(void* _p, ae_state *_state, ae_bool make_automatic)
 }
 
 
-void _mlptrainer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlptrainer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlptrainer *dst = (mlptrainer*)_dst;
-    mlptrainer *src = (mlptrainer*)_src;
+    mlptrainer       *dst = (mlptrainer*)_dst;
+    const mlptrainer *src = (const mlptrainer*)_src;
     dst->nin = src->nin;
     dst->nout = src->nout;
     dst->rcpar = src->rcpar;
@@ -51791,10 +51791,10 @@ void _mlpparallelizationcv_init(void* _p, ae_state *_state, ae_bool make_automat
 }
 
 
-void _mlpparallelizationcv_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic)
+void _mlpparallelizationcv_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
 {
-    mlpparallelizationcv *dst = (mlpparallelizationcv*)_dst;
-    mlpparallelizationcv *src = (mlpparallelizationcv*)_src;
+    mlpparallelizationcv       *dst = (mlpparallelizationcv*)_dst;
+    const mlpparallelizationcv *src = (const mlpparallelizationcv*)_src;
     _multilayerperceptron_init_copy(&dst->network, &src->network, _state, make_automatic);
     _mlpreport_init_copy(&dst->rep, &src->rep, _state, make_automatic);
     ae_vector_init_copy(&dst->subset, &src->subset, _state, make_automatic);

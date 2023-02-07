@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -163,14 +163,6 @@ typedef struct
 #if defined(AE_COMPILE_AMDORDERING) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
-    ae_int_t n;
-    ae_int_t nstored;
-    ae_vector items;
-    ae_vector locationof;
-    ae_int_t iteridx;
-} amdnset;
-typedef struct
-{
     ae_int_t k;
     ae_int_t n;
     ae_vector flagarray;
@@ -214,22 +206,22 @@ typedef struct
     amdknset sete;
     amdllmatrix mtxl;
     amdvertexset vertexdegrees;
-    amdnset setq;
+    niset setq;
     ae_vector perm;
     ae_vector invperm;
     ae_vector columnswaps;
-    amdnset setp;
-    amdnset lp;
-    amdnset setrp;
-    amdnset ep;
-    amdnset adji;
-    amdnset adjj;
+    niset setp;
+    niset lp;
+    niset setrp;
+    niset ep;
+    niset adji;
+    niset adjj;
     ae_vector ls;
     ae_int_t lscnt;
-    amdnset setqsupercand;
-    amdnset exactdegreetmp0;
+    niset setqsupercand;
+    niset exactdegreetmp0;
     amdknset hashbuckets;
-    amdnset nonemptybuckets;
+    niset nonemptybuckets;
     ae_vector sncandidates;
     ae_vector tmp0;
     ae_vector arrwe;
@@ -237,6 +229,17 @@ typedef struct
 } amdbuffer;
 #endif
 #if defined(AE_COMPILE_SPCHOL) || !defined(AE_PARTIAL_BUILD)
+typedef struct
+{
+    ae_vector rowbegin;
+    ae_vector rowend;
+    ae_vector idx;
+    ae_vector urow0;
+    ae_vector uwidth;
+    ae_vector uflop;
+    ae_vector nflop;
+    ae_vector sflop;
+} spcholadj;
 typedef struct
 {
     ae_int_t tasktype;
@@ -248,15 +251,21 @@ typedef struct
     double modparam1;
     double modparam2;
     double modparam3;
+    ae_bool debugblocksupernodal;
     ae_bool extendeddebug;
     ae_bool dotrace;
+    ae_bool dotracescheduler;
     ae_bool dotracesupernodalstructure;
     ae_vector referenceridx;
     ae_int_t nsuper;
     ae_vector parentsupernode;
+    ae_vector childsupernodesridx;
+    ae_vector childsupernodesidx;
     ae_vector supercolrange;
     ae_vector superrowridx;
     ae_vector superrowidx;
+    ae_vector blkstruct;
+    ae_bool useparallelism;
     ae_vector fillinperm;
     ae_vector invfillinperm;
     ae_vector superperm;
@@ -265,28 +274,29 @@ typedef struct
     ae_vector inveffectiveperm;
     ae_bool istopologicalordering;
     ae_bool applypermutationtooutput;
-    ae_vector ladjplusr;
-    ae_vector ladjplus;
+    spcholadj ladj;
     ae_vector outrowcounts;
     ae_vector inputstorage;
     ae_vector outputstorage;
     ae_vector rowstrides;
     ae_vector rowoffsets;
     ae_vector diagd;
-    ae_vector wrkrows;
+    nbpool nbooleanpool;
+    nipool nintegerpool;
+    nrpool nrealpool;
+    ae_vector currowbegin;
     ae_vector flagarray;
     ae_vector eligible;
     ae_vector curpriorities;
     ae_vector tmpparent;
     ae_vector node2supernode;
-    ae_vector u2smap;
-    ae_vector raw2smap;
     amdbuffer amdtmp;
     ae_vector tmp0;
     ae_vector tmp1;
     ae_vector tmp2;
     ae_vector tmp3;
     ae_vector tmp4;
+    ae_vector raw2smap;
     sparsematrix tmpa;
     sparsematrix tmpat;
     sparsematrix tmpa2;
@@ -8680,11 +8690,11 @@ void sparseunserialize(ae_serializer* s,
      sparsematrix* a,
      ae_state *_state);
 void _sparsematrix_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sparsematrix_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sparsematrix_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sparsematrix_clear(void* _p);
 void _sparsematrix_destroy(void* _p);
 void _sparsebuffers_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sparsebuffers_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sparsebuffers_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sparsebuffers_clear(void* _p);
 void _sparsebuffers_destroy(void* _p);
 #endif
@@ -8846,11 +8856,11 @@ ae_bool rmatrixevd(/* Real    */ ae_matrix* a,
      /* Real    */ ae_matrix* vr,
      ae_state *_state);
 void _eigsubspacestate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _eigsubspacestate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _eigsubspacestate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _eigsubspacestate_clear(void* _p);
 void _eigsubspacestate_destroy(void* _p);
 void _eigsubspacereport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _eigsubspacereport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _eigsubspacereport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _eigsubspacereport_clear(void* _p);
 void _eigsubspacereport_destroy(void* _p);
 #endif
@@ -8892,19 +8902,19 @@ ae_bool sptrflu(sparsematrix* a,
      sluv2buffer* buf,
      ae_state *_state);
 void _sluv2list1matrix_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sluv2list1matrix_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sluv2list1matrix_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sluv2list1matrix_clear(void* _p);
 void _sluv2list1matrix_destroy(void* _p);
 void _sluv2sparsetrail_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sluv2sparsetrail_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sluv2sparsetrail_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sluv2sparsetrail_clear(void* _p);
 void _sluv2sparsetrail_destroy(void* _p);
 void _sluv2densetrail_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sluv2densetrail_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sluv2densetrail_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sluv2densetrail_clear(void* _p);
 void _sluv2densetrail_destroy(void* _p);
 void _sluv2buffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sluv2buffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sluv2buffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sluv2buffer_clear(void* _p);
 void _sluv2buffer_destroy(void* _p);
 #endif
@@ -8918,29 +8928,26 @@ void generateamdpermutation(sparsematrix* a,
 ae_int_t generateamdpermutationx(sparsematrix* a,
      /* Boolean */ ae_vector* eligible,
      ae_int_t n,
+     double promoteabove,
      /* Integer */ ae_vector* perm,
      /* Integer */ ae_vector* invperm,
      ae_int_t amdtype,
      amdbuffer* buf,
      ae_state *_state);
-void _amdnset_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _amdnset_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
-void _amdnset_clear(void* _p);
-void _amdnset_destroy(void* _p);
 void _amdknset_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _amdknset_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _amdknset_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _amdknset_clear(void* _p);
 void _amdknset_destroy(void* _p);
 void _amdvertexset_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _amdvertexset_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _amdvertexset_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _amdvertexset_clear(void* _p);
 void _amdvertexset_destroy(void* _p);
 void _amdllmatrix_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _amdllmatrix_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _amdllmatrix_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _amdllmatrix_clear(void* _p);
 void _amdllmatrix_destroy(void* _p);
 void _amdbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _amdbuffer_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _amdbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _amdbuffer_clear(void* _p);
 void _amdbuffer_destroy(void* _p);
 #endif
@@ -8948,6 +8955,7 @@ void _amdbuffer_destroy(void* _p);
 ae_int_t spsymmgetmaxfastkernel(ae_state *_state);
 ae_bool spsymmanalyze(sparsematrix* a,
      /* Integer */ ae_vector* priorities,
+     double promoteabove,
      ae_int_t facttype,
      ae_int_t permtype,
      spcholanalysis* analysis,
@@ -8978,8 +8986,12 @@ void spsymmdiagerr(spcholanalysis* analysis,
      double* sumsq,
      double* errsq,
      ae_state *_state);
+void _spcholadj_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _spcholadj_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _spcholadj_clear(void* _p);
+void _spcholadj_destroy(void* _p);
 void _spcholanalysis_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _spcholanalysis_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _spcholanalysis_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _spcholanalysis_clear(void* _p);
 void _spcholanalysis_destroy(void* _p);
 #endif
@@ -9088,7 +9100,7 @@ ae_bool spdmatrixcholeskyrec(/* Real    */ ae_matrix* a,
      /* Real    */ ae_vector* tmp,
      ae_state *_state);
 void _sparsedecompositionanalysis_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sparsedecompositionanalysis_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _sparsedecompositionanalysis_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sparsedecompositionanalysis_clear(void* _p);
 void _sparsedecompositionanalysis_destroy(void* _p);
 #endif
@@ -9230,11 +9242,11 @@ void fblssolvels(/* Real    */ ae_matrix* a,
      /* Real    */ ae_vector* tmp2,
      ae_state *_state);
 void _fblslincgstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _fblslincgstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _fblslincgstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _fblslincgstate_clear(void* _p);
 void _fblslincgstate_destroy(void* _p);
 void _fblsgmresstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _fblsgmresstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _fblsgmresstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _fblsgmresstate_clear(void* _p);
 void _fblsgmresstate_destroy(void* _p);
 #endif
@@ -9258,7 +9270,7 @@ void normestimatorresults(normestimatorstate* state,
      ae_state *_state);
 void normestimatorrestart(normestimatorstate* state, ae_state *_state);
 void _normestimatorstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _normestimatorstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _normestimatorstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _normestimatorstate_clear(void* _p);
 void _normestimatorstate_destroy(void* _p);
 #endif
@@ -9335,7 +9347,7 @@ ae_bool _trypexec_spdmatrixcholeskyinverserec(/* Real    */ ae_matrix* a,
     ae_bool isupper,
     /* Real    */ ae_vector* tmp, ae_state *_state);
 void _matinvreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _matinvreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _matinvreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _matinvreport_clear(void* _p);
 void _matinvreport_destroy(void* _p);
 #endif

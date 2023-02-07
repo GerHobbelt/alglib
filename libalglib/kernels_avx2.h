@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 3.20.0 (source code generated 2022-12-19)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -167,6 +167,29 @@ ae_bool spchol_updatekernel4444_avx2(
      ae_int_t* raw2smap,
      ae_int_t* superrowidx,
      ae_int_t urbase,
+     ae_state *_state);
+ae_bool rbfv3farfields_bhpaneleval1fastkernel16_avx2(double d0,
+     double d1,
+     double d2,
+     double* pnma,
+     double* pnmb,
+     double* pmmcdiag,
+     double* ynma,
+     double* tblrmodmn,
+     double* f,
+     double* invpowrpplus1,
+     ae_state *_state);
+ae_bool rbfv3farfields_bhpanelevalfastkernel16_avx2(double d0,
+     double d1,
+     double d2,
+     ae_int_t ny,
+     double* pnma,
+     double* pnmb,
+     double* pmmcdiag,
+     double* ynma,
+     double* tblrmodmn,
+     double* f,
+     double* invpowrpplus1,
      ae_state *_state);
 
 /* ALGLIB_NO_FAST_KERNELS, _ALGLIB_HAS_AVX2_INTRINSICS */
