@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -87,7 +87,7 @@ public:
     _odesolverstate_owner& operator=(const _odesolverstate_owner &rhs);
     virtual ~_odesolverstate_owner();
     alglib_impl::odesolverstate* c_ptr();
-    alglib_impl::odesolverstate* c_ptr() const;
+    const alglib_impl::odesolverstate* c_ptr() const;
 protected:
     alglib_impl::odesolverstate *p_struct;
 };
@@ -117,7 +117,7 @@ public:
     _odesolverreport_owner& operator=(const _odesolverreport_owner &rhs);
     virtual ~_odesolverreport_owner();
     alglib_impl::odesolverreport* c_ptr();
-    alglib_impl::odesolverreport* c_ptr() const;
+    const alglib_impl::odesolverreport* c_ptr() const;
 protected:
     alglib_impl::odesolverreport *p_struct;
 };
@@ -191,11 +191,11 @@ This function provides reverse communication interface
 Reverse communication interface is not documented or recommended to use.
 See below for functions which provide better documented API
 *************************************************************************/
-bool odesolveriteration(const odesolverstate &state, const xparams _xparams = alglib::xdefault);
+bool odesolveriteration(odesolverstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
-This function is used to launcn iterations of ODE solver
+This function is used to start iterations of the ODE solver
 
 It accepts following parameters:
     diff    -   callback which calculates dy/dx for given y and x
@@ -246,16 +246,16 @@ void odesolverresults(const odesolverstate &state, ae_int_t &m, real_1d_array &x
 namespace alglib_impl
 {
 #if defined(AE_COMPILE_ODESOLVER) || !defined(AE_PARTIAL_BUILD)
-void odesolverrkck(/* Real    */ ae_vector* y,
+void odesolverrkck(/* Real    */ const ae_vector* y,
      ae_int_t n,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_int_t m,
      double eps,
      double h,
      odesolverstate* state,
      ae_state *_state);
 ae_bool odesolveriteration(odesolverstate* state, ae_state *_state);
-void odesolverresults(odesolverstate* state,
+void odesolverresults(const odesolverstate* state,
      ae_int_t* m,
      /* Real    */ ae_vector* xtbl,
      /* Real    */ ae_matrix* ytbl,

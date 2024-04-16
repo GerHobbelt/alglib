@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -2211,7 +2211,7 @@ double chebyshevcalculate(ae_int_t r,
      ae_int_t n,
      double x,
      ae_state *_state);
-double chebyshevsum(/* Real    */ ae_vector* c,
+double chebyshevsum(/* Real    */ const ae_vector* c,
      ae_int_t r,
      ae_int_t n,
      double x,
@@ -2219,7 +2219,7 @@ double chebyshevsum(/* Real    */ ae_vector* c,
 void chebyshevcoefficients(ae_int_t n,
      /* Real    */ ae_vector* c,
      ae_state *_state);
-void fromchebyshev(/* Real    */ ae_vector* a,
+void fromchebyshev(/* Real    */ const ae_vector* a,
      ae_int_t n,
      /* Real    */ ae_vector* b,
      ae_state *_state);
@@ -2251,7 +2251,7 @@ double dawsonintegral(double x, ae_state *_state);
 #endif
 #if defined(AE_COMPILE_HERMITE) || !defined(AE_PARTIAL_BUILD)
 double hermitecalculate(ae_int_t n, double x, ae_state *_state);
-double hermitesum(/* Real    */ ae_vector* c,
+double hermitesum(/* Real    */ const ae_vector* c,
      ae_int_t n,
      double x,
      ae_state *_state);
@@ -2261,7 +2261,7 @@ void hermitecoefficients(ae_int_t n,
 #endif
 #if defined(AE_COMPILE_LEGENDRE) || !defined(AE_PARTIAL_BUILD)
 double legendrecalculate(ae_int_t n, double x, ae_state *_state);
-double legendresum(/* Real    */ ae_vector* c,
+double legendresum(/* Real    */ const ae_vector* c,
      ae_int_t n,
      double x,
      ae_state *_state);
@@ -2284,7 +2284,7 @@ double besselkn(ae_int_t nn, double x, ae_state *_state);
 #endif
 #if defined(AE_COMPILE_LAGUERRE) || !defined(AE_PARTIAL_BUILD)
 double laguerrecalculate(ae_int_t n, double x, ae_state *_state);
-double laguerresum(/* Real    */ ae_vector* c,
+double laguerresum(/* Real    */ const ae_vector* c,
      ae_int_t n,
      double x,
      ae_state *_state);

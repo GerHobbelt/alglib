@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -58,6 +58,15 @@ typedef struct
 } idwcalcbuffer;
 typedef struct
 {
+    ae_vector dist;
+    ae_vector x;
+    ae_vector w;
+    ae_vector wy;
+    ae_vector tags;
+    kdtreerequestbuffer requestbuffer;
+} mstabbuffer;
+typedef struct
+{
     ae_int_t nx;
     ae_int_t ny;
     ae_vector globalprior;
@@ -69,6 +78,7 @@ typedef struct
     double lambdalast;
     double lambdadecay;
     double shepardp;
+    ae_bool debugprofile;
     kdtree tree;
     ae_int_t npoints;
     ae_vector shepardxy;
@@ -86,6 +96,9 @@ typedef struct
     double lambdalast;
     double lambdadecay;
     double shepardp;
+    ae_bool debugprofile;
+    ae_int_t mbatchsize;
+    double mprogress;
     ae_vector xy;
     ae_int_t npoints;
     ae_int_t nx;
@@ -94,9 +107,6 @@ typedef struct
     ae_matrix tmplayers;
     ae_vector tmptags;
     ae_vector tmpdist;
-    ae_vector tmpx;
-    ae_vector tmpwy;
-    ae_vector tmpw;
     kdtree tmptree;
     ae_vector tmpmean;
 } idwbuilder;
@@ -124,16 +134,28 @@ typedef struct
 } spline1dinterpolant;
 typedef struct
 {
+    ae_int_t terminationtype;
     double taskrcond;
     double rmserror;
     double avgerror;
     double avgrelerror;
     double maxerror;
 } spline1dfitreport;
+typedef struct
+{
+    ae_int_t m;
+    ae_int_t bfrad;
+    spline1dinterpolant s0;
+    spline1dinterpolant s1;
+    spline1dinterpolant s2;
+    ae_vector tmpx;
+    ae_vector tmpy;
+} spline1dbbasis;
 #endif
 #if defined(AE_COMPILE_LSFIT) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
+    ae_int_t terminationtype;
     double taskrcond;
     double rmserror;
     double avgerror;
@@ -142,6 +164,7 @@ typedef struct
 } polynomialfitreport;
 typedef struct
 {
+    ae_int_t terminationtype;
     double taskrcond;
     ae_int_t dbest;
     double rmserror;
@@ -151,6 +174,7 @@ typedef struct
 } barycentricfitreport;
 typedef struct
 {
+    ae_int_t terminationtype;
     double taskrcond;
     ae_int_t iterationscount;
     ae_int_t varidx;
@@ -167,6 +191,7 @@ typedef struct
 } lsfitreport;
 typedef struct
 {
+    ae_int_t protocolversion;
     ae_int_t optalgo;
     ae_int_t m;
     ae_int_t k;
@@ -194,21 +219,36 @@ typedef struct
     ae_bool xupdated;
     ae_bool needf;
     ae_bool needfg;
-    ae_bool needfgh;
     ae_int_t pointindex;
     ae_vector x;
     ae_vector c;
     double f;
     ae_vector g;
-    ae_matrix h;
+    ae_int_t requesttype;
+    ae_vector reportx;
+    double reportf;
+    ae_int_t querysize;
+    ae_int_t queryfuncs;
+    ae_int_t queryvars;
+    ae_int_t querydim;
+    ae_int_t queryformulasize;
+    ae_vector querydata;
+    ae_vector replyfi;
+    ae_vector replydj;
+    sparsematrix replysj;
+    ae_vector tmpx1;
+    ae_vector tmpc1;
+    ae_vector tmpf1;
+    ae_vector tmpg1;
+    ae_matrix tmpj1;
     ae_vector wcur;
+    ae_vector tmpwk;
     ae_vector tmpct;
     ae_vector tmp;
     ae_vector tmpf;
     ae_matrix tmpjac;
     ae_matrix tmpjacw;
     double tmpnoise;
-    matinvreport invrep;
     ae_int_t repiterationscount;
     ae_int_t repterminationtype;
     ae_int_t repvaridx;
@@ -787,7 +827,7 @@ public:
     _barycentricinterpolant_owner& operator=(const _barycentricinterpolant_owner &rhs);
     virtual ~_barycentricinterpolant_owner();
     alglib_impl::barycentricinterpolant* c_ptr();
-    alglib_impl::barycentricinterpolant* c_ptr() const;
+    const alglib_impl::barycentricinterpolant* c_ptr() const;
 protected:
     alglib_impl::barycentricinterpolant *p_struct;
 };
@@ -817,7 +857,7 @@ public:
     _idwcalcbuffer_owner& operator=(const _idwcalcbuffer_owner &rhs);
     virtual ~_idwcalcbuffer_owner();
     alglib_impl::idwcalcbuffer* c_ptr();
-    alglib_impl::idwcalcbuffer* c_ptr() const;
+    const alglib_impl::idwcalcbuffer* c_ptr() const;
 protected:
     alglib_impl::idwcalcbuffer *p_struct;
 };
@@ -843,7 +883,7 @@ public:
     _idwmodel_owner& operator=(const _idwmodel_owner &rhs);
     virtual ~_idwmodel_owner();
     alglib_impl::idwmodel* c_ptr();
-    alglib_impl::idwmodel* c_ptr() const;
+    const alglib_impl::idwmodel* c_ptr() const;
 protected:
     alglib_impl::idwmodel *p_struct;
 };
@@ -869,7 +909,7 @@ public:
     _idwbuilder_owner& operator=(const _idwbuilder_owner &rhs);
     virtual ~_idwbuilder_owner();
     alglib_impl::idwbuilder* c_ptr();
-    alglib_impl::idwbuilder* c_ptr() const;
+    const alglib_impl::idwbuilder* c_ptr() const;
 protected:
     alglib_impl::idwbuilder *p_struct;
 };
@@ -899,7 +939,7 @@ public:
     _idwreport_owner& operator=(const _idwreport_owner &rhs);
     virtual ~_idwreport_owner();
     alglib_impl::idwreport* c_ptr();
-    alglib_impl::idwreport* c_ptr() const;
+    const alglib_impl::idwreport* c_ptr() const;
 protected:
     alglib_impl::idwreport *p_struct;
 };
@@ -938,7 +978,7 @@ public:
     _spline1dinterpolant_owner& operator=(const _spline1dinterpolant_owner &rhs);
     virtual ~_spline1dinterpolant_owner();
     alglib_impl::spline1dinterpolant* c_ptr();
-    alglib_impl::spline1dinterpolant* c_ptr() const;
+    const alglib_impl::spline1dinterpolant* c_ptr() const;
 protected:
     alglib_impl::spline1dinterpolant *p_struct;
 };
@@ -955,6 +995,9 @@ public:
 
 /*************************************************************************
 Spline fitting report:
+    TerminationType completion code:
+                    * >0 for success
+                    * <0 for failure
     RMSError        RMS error
     AvgError        average error
     AvgRelError     average relative error (for non-zero Y[I])
@@ -972,7 +1015,7 @@ public:
     _spline1dfitreport_owner& operator=(const _spline1dfitreport_owner &rhs);
     virtual ~_spline1dfitreport_owner();
     alglib_impl::spline1dfitreport* c_ptr();
-    alglib_impl::spline1dfitreport* c_ptr() const;
+    const alglib_impl::spline1dfitreport* c_ptr() const;
 protected:
     alglib_impl::spline1dfitreport *p_struct;
 };
@@ -983,6 +1026,7 @@ public:
     spline1dfitreport(const spline1dfitreport &rhs);
     spline1dfitreport& operator=(const spline1dfitreport &rhs);
     virtual ~spline1dfitreport();
+    ae_int_t &terminationtype;
     double &taskrcond;
     double &rmserror;
     double &avgerror;
@@ -995,6 +1039,7 @@ public:
 #if defined(AE_COMPILE_LSFIT) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 Polynomial fitting report:
+    TerminationType completion code: >0 for success, <0 for failure
     TaskRCond       reciprocal of task's condition number
     RMSError        RMS error
     AvgError        average error
@@ -1009,7 +1054,7 @@ public:
     _polynomialfitreport_owner& operator=(const _polynomialfitreport_owner &rhs);
     virtual ~_polynomialfitreport_owner();
     alglib_impl::polynomialfitreport* c_ptr();
-    alglib_impl::polynomialfitreport* c_ptr() const;
+    const alglib_impl::polynomialfitreport* c_ptr() const;
 protected:
     alglib_impl::polynomialfitreport *p_struct;
 };
@@ -1020,6 +1065,7 @@ public:
     polynomialfitreport(const polynomialfitreport &rhs);
     polynomialfitreport& operator=(const polynomialfitreport &rhs);
     virtual ~polynomialfitreport();
+    ae_int_t &terminationtype;
     double &taskrcond;
     double &rmserror;
     double &avgerror;
@@ -1031,6 +1077,7 @@ public:
 
 /*************************************************************************
 Barycentric fitting report:
+    TerminationType completion code: >0 for success, <0 for failure
     RMSError        RMS error
     AvgError        average error
     AvgRelError     average relative error (for non-zero Y[I])
@@ -1045,7 +1092,7 @@ public:
     _barycentricfitreport_owner& operator=(const _barycentricfitreport_owner &rhs);
     virtual ~_barycentricfitreport_owner();
     alglib_impl::barycentricfitreport* c_ptr();
-    alglib_impl::barycentricfitreport* c_ptr() const;
+    const alglib_impl::barycentricfitreport* c_ptr() const;
 protected:
     alglib_impl::barycentricfitreport *p_struct;
 };
@@ -1056,6 +1103,7 @@ public:
     barycentricfitreport(const barycentricfitreport &rhs);
     barycentricfitreport& operator=(const barycentricfitreport &rhs);
     virtual ~barycentricfitreport();
+    ae_int_t &terminationtype;
     double &taskrcond;
     ae_int_t &dbest;
     double &rmserror;
@@ -1073,6 +1121,10 @@ which are set by fitting functions provided by this unit.
 Different functions initialize different sets of  fields,  so  you  should
 read documentation on specific function you used in order  to  know  which
 fields are initialized.
+
+    TerminationType filled by all solvers:
+                    * positive values, usually 1, denote success
+                    * negative values denote various failure scenarios
 
     TaskRCond       reciprocal of task's condition number
     IterationsCount number of internal iterations
@@ -1106,7 +1158,7 @@ public:
     _lsfitreport_owner& operator=(const _lsfitreport_owner &rhs);
     virtual ~_lsfitreport_owner();
     alglib_impl::lsfitreport* c_ptr();
-    alglib_impl::lsfitreport* c_ptr() const;
+    const alglib_impl::lsfitreport* c_ptr() const;
 protected:
     alglib_impl::lsfitreport *p_struct;
 };
@@ -1117,6 +1169,7 @@ public:
     lsfitreport(const lsfitreport &rhs);
     lsfitreport& operator=(const lsfitreport &rhs);
     virtual ~lsfitreport();
+    ae_int_t &terminationtype;
     double &taskrcond;
     ae_int_t &iterationscount;
     ae_int_t &varidx;
@@ -1148,7 +1201,7 @@ public:
     _lsfitstate_owner& operator=(const _lsfitstate_owner &rhs);
     virtual ~_lsfitstate_owner();
     alglib_impl::lsfitstate* c_ptr();
-    alglib_impl::lsfitstate* c_ptr() const;
+    const alglib_impl::lsfitstate* c_ptr() const;
 protected:
     alglib_impl::lsfitstate *p_struct;
 };
@@ -1159,15 +1212,6 @@ public:
     lsfitstate(const lsfitstate &rhs);
     lsfitstate& operator=(const lsfitstate &rhs);
     virtual ~lsfitstate();
-    ae_bool &needf;
-    ae_bool &needfg;
-    ae_bool &needfgh;
-    ae_bool &xupdated;
-    real_1d_array c;
-    double &f;
-    real_1d_array g;
-    real_2d_array h;
-    real_1d_array x;
 
 };
 #endif
@@ -1191,7 +1235,7 @@ public:
     _pspline2interpolant_owner& operator=(const _pspline2interpolant_owner &rhs);
     virtual ~_pspline2interpolant_owner();
     alglib_impl::pspline2interpolant* c_ptr();
-    alglib_impl::pspline2interpolant* c_ptr() const;
+    const alglib_impl::pspline2interpolant* c_ptr() const;
 protected:
     alglib_impl::pspline2interpolant *p_struct;
 };
@@ -1220,7 +1264,7 @@ public:
     _pspline3interpolant_owner& operator=(const _pspline3interpolant_owner &rhs);
     virtual ~_pspline3interpolant_owner();
     alglib_impl::pspline3interpolant* c_ptr();
-    alglib_impl::pspline3interpolant* c_ptr() const;
+    const alglib_impl::pspline3interpolant* c_ptr() const;
 protected:
     alglib_impl::pspline3interpolant *p_struct;
 };
@@ -1259,7 +1303,7 @@ public:
     _spline2dinterpolant_owner& operator=(const _spline2dinterpolant_owner &rhs);
     virtual ~_spline2dinterpolant_owner();
     alglib_impl::spline2dinterpolant* c_ptr();
-    alglib_impl::spline2dinterpolant* c_ptr() const;
+    const alglib_impl::spline2dinterpolant* c_ptr() const;
 protected:
     alglib_impl::spline2dinterpolant *p_struct;
 };
@@ -1285,7 +1329,7 @@ public:
     _spline2dbuilder_owner& operator=(const _spline2dbuilder_owner &rhs);
     virtual ~_spline2dbuilder_owner();
     alglib_impl::spline2dbuilder* c_ptr();
-    alglib_impl::spline2dbuilder* c_ptr() const;
+    const alglib_impl::spline2dbuilder* c_ptr() const;
 protected:
     alglib_impl::spline2dbuilder *p_struct;
 };
@@ -1315,7 +1359,7 @@ public:
     _spline2dfitreport_owner& operator=(const _spline2dfitreport_owner &rhs);
     virtual ~_spline2dfitreport_owner();
     alglib_impl::spline2dfitreport* c_ptr();
-    alglib_impl::spline2dfitreport* c_ptr() const;
+    const alglib_impl::spline2dfitreport* c_ptr() const;
 protected:
     alglib_impl::spline2dfitreport *p_struct;
 };
@@ -1350,7 +1394,7 @@ public:
     _spline3dinterpolant_owner& operator=(const _spline3dinterpolant_owner &rhs);
     virtual ~_spline3dinterpolant_owner();
     alglib_impl::spline3dinterpolant* c_ptr();
-    alglib_impl::spline3dinterpolant* c_ptr() const;
+    const alglib_impl::spline3dinterpolant* c_ptr() const;
 protected:
     alglib_impl::spline3dinterpolant *p_struct;
 };
@@ -1384,7 +1428,7 @@ public:
     _rbfcalcbuffer_owner& operator=(const _rbfcalcbuffer_owner &rhs);
     virtual ~_rbfcalcbuffer_owner();
     alglib_impl::rbfcalcbuffer* c_ptr();
-    alglib_impl::rbfcalcbuffer* c_ptr() const;
+    const alglib_impl::rbfcalcbuffer* c_ptr() const;
 protected:
     alglib_impl::rbfcalcbuffer *p_struct;
 };
@@ -1413,7 +1457,7 @@ public:
     _rbfmodel_owner& operator=(const _rbfmodel_owner &rhs);
     virtual ~_rbfmodel_owner();
     alglib_impl::rbfmodel* c_ptr();
-    alglib_impl::rbfmodel* c_ptr() const;
+    const alglib_impl::rbfmodel* c_ptr() const;
 protected:
     alglib_impl::rbfmodel *p_struct;
 };
@@ -1445,7 +1489,7 @@ public:
     _rbfreport_owner& operator=(const _rbfreport_owner &rhs);
     virtual ~_rbfreport_owner();
     alglib_impl::rbfreport* c_ptr();
-    alglib_impl::rbfreport* c_ptr() const;
+    const alglib_impl::rbfreport* c_ptr() const;
 protected:
     alglib_impl::rbfreport *p_struct;
 };
@@ -1550,7 +1594,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB PROJECT --
      Copyright 19.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void barycentriclintransx(const barycentricinterpolant &b, const double ca, const double cb, const xparams _xparams = alglib::xdefault);
+void barycentriclintransx(barycentricinterpolant &b, const double ca, const double cb, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1567,7 +1611,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB PROJECT --
      Copyright 19.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void barycentriclintransy(const barycentricinterpolant &b, const double ca, const double cb, const xparams _xparams = alglib::xdefault);
+void barycentriclintransy(barycentricinterpolant &b, const double ca, const double cb, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1649,25 +1693,17 @@ Important properties of s_out:
 * although  serializer  uses  spaces and CR+LF as separators, you can 
   replace any separator character by arbitrary combination of spaces,
   tabs, Windows or Unix newlines. It allows flexible reformatting  of
-  the  string  in  case you want to include it into text or XML file. 
+  the  string in case you want to include it into a text or XML file. 
   But you should not insert separators into the middle of the "words"
-  nor you should change case of letters.
+  nor should you change the case of letters.
 * s_out can be freely moved between 32-bit and 64-bit systems, little
   and big endian machines, and so on. You can serialize structure  on
   32-bit machine and unserialize it on 64-bit one (or vice versa), or
   serialize  it  on  SPARC  and  unserialize  on  x86.  You  can also 
-  serialize  it  in  C++ version of ALGLIB and unserialize in C# one, 
+  serialize it in C++ version of ALGLIB and unserialize it in C# one, 
   and vice versa.
 *************************************************************************/
-void idwserialize(idwmodel &obj, std::string &s_out);
-
-
-/*************************************************************************
-This function unserializes data structure from string.
-*************************************************************************/
-void idwunserialize(const std::string &s_in, idwmodel &obj);
-
-
+void idwserialize(const idwmodel &obj, std::string &s_out);
 
 
 /*************************************************************************
@@ -1681,7 +1717,13 @@ spaces and CR+LF.
 We recommend you to read comments on string version of serializer to find
 out more about serialization of AlGLIB objects.
 *************************************************************************/
-void idwserialize(idwmodel &obj, std::ostream &s_out);
+void idwserialize(const idwmodel &obj, std::ostream &s_out);
+
+
+/*************************************************************************
+This function unserializes data structure from string.
+*************************************************************************/
+void idwunserialize(const std::string &s_in, idwmodel &obj);
 
 
 /*************************************************************************
@@ -1794,7 +1836,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetnlayers(const idwbuilder &state, const ae_int_t nlayers, const xparams _xparams = alglib::xdefault);
+void idwbuildersetnlayers(idwbuilder &state, const ae_int_t nlayers, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1815,8 +1857,8 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetpoints(const idwbuilder &state, const real_2d_array &xy, const ae_int_t n, const xparams _xparams = alglib::xdefault);
-void idwbuildersetpoints(const idwbuilder &state, const real_2d_array &xy, const xparams _xparams = alglib::xdefault);
+void idwbuildersetpoints(idwbuilder &state, const real_2d_array &xy, const ae_int_t n, const xparams _xparams = alglib::xdefault);
+void idwbuildersetpoints(idwbuilder &state, const real_2d_array &xy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1847,6 +1889,16 @@ Thus, IDW-MSTAB is  a  good  "default"  option  if  you  want  to  perform
 scattered multidimensional interpolation. Although it has  its  drawbacks,
 it is easy to use and robust, which makes it a good first step.
 
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
 
 INPUT PARAMETERS:
     State   -   builder object
@@ -1900,7 +1952,7 @@ change this parameter with idwbuildersetnlayers() method.
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetalgomstab(const idwbuilder &state, const double srad, const xparams _xparams = alglib::xdefault);
+void idwbuildersetalgomstab(idwbuilder &state, const double srad, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1921,7 +1973,7 @@ NOTE 1: IDW interpolation can  correctly  handle  ANY  dataset,  including
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetalgotextbookshepard(const idwbuilder &state, const double p, const xparams _xparams = alglib::xdefault);
+void idwbuildersetalgotextbookshepard(idwbuilder &state, const double p, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1942,7 +1994,7 @@ NOTE 1: IDW interpolation can  correctly  handle  ANY  dataset,  including
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetalgotextbookmodshepard(const idwbuilder &state, const double r, const xparams _xparams = alglib::xdefault);
+void idwbuildersetalgotextbookmodshepard(idwbuilder &state, const double r, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1959,7 +2011,7 @@ NOTE: for vector-valued models all components of the prior are set to same
   -- ALGLIB --
      Copyright 29.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetuserterm(const idwbuilder &state, const double v, const xparams _xparams = alglib::xdefault);
+void idwbuildersetuserterm(idwbuilder &state, const double v, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1973,7 +2025,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 29.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetconstterm(const idwbuilder &state, const xparams _xparams = alglib::xdefault);
+void idwbuildersetconstterm(idwbuilder &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1985,7 +2037,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 29.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwbuildersetzeroterm(const idwbuilder &state, const xparams _xparams = alglib::xdefault);
+void idwbuildersetzeroterm(idwbuilder &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2006,7 +2058,7 @@ Result:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-double idwcalc1(const idwmodel &s, const double x0, const xparams _xparams = alglib::xdefault);
+double idwcalc1(idwmodel &s, const double x0, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2027,7 +2079,7 @@ Result:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-double idwcalc2(const idwmodel &s, const double x0, const double x1, const xparams _xparams = alglib::xdefault);
+double idwcalc2(idwmodel &s, const double x0, const double x1, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2048,7 +2100,7 @@ Result:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-double idwcalc3(const idwmodel &s, const double x0, const double x1, const double x2, const xparams _xparams = alglib::xdefault);
+double idwcalc3(idwmodel &s, const double x0, const double x1, const double x2, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2078,7 +2130,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwcalc(const idwmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void idwcalc(idwmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2105,7 +2157,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwcalcbuf(const idwmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void idwcalcbuf(idwmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2132,12 +2184,23 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void idwtscalcbuf(const idwmodel &s, const idwcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void idwtscalcbuf(const idwmodel &s, idwcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
 This function fits IDW model to the dataset using current IDW construction
 algorithm. A model being built and fitting report are returned.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
 
 INPUT PARAMETERS:
     State   -   builder object
@@ -2155,7 +2218,167 @@ NOTE: although IDW-MSTAB algorithm is an  interpolation  method,  i.e.  it
   -- ALGLIB --
      Copyright 22.10.2018 by Bochkanov Sergey
 *************************************************************************/
-void idwfit(const idwbuilder &state, idwmodel &model, idwreport &rep, const xparams _xparams = alglib::xdefault);
+void idwfit(idwbuilder &state, idwmodel &model, idwreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This function is used to peek into the IDW construction  process from some
+other thread and get the progress indicator. It returns value in [0,1].
+
+IMPORTANT: only MSTAB algorithm supports peeking into progress  indicator.
+           Legacy versions of the Shepard's method do  not support it. You
+           will always get zero as the result.
+
+INPUT PARAMETERS:
+    S           -   RBF model object
+
+RESULT:
+    progress value, in [0,1]
+
+  -- ALGLIB --
+     Copyright 27.11.2023 by Bochkanov Sergey
+*************************************************************************/
+double idwpeekprogress(const idwbuilder &s, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This function calculates values  of  an  IDW  model  at  a  regular  grid,
+which  has  N0*N1 points, with Point[I,J] = (X0[I], X1[J]).  Vector-valued
+IDW models are supported.
+
+This function returns 0.0 when:
+* the model is not initialized
+* NX<>2
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+NOTE: Parallel  processing  is  implemented only for modern (MSTAB) IDW's.
+
+INPUT PARAMETERS:
+    S       -   IDW model, used in read-only mode, can be  shared  between
+                multiple   invocations  of  this  function  from  multiple
+                threads.
+
+    X0      -   array of grid nodes, first coordinates, array[N0].
+                Must be ordered by ascending. Exception is generated
+                if the array is not correctly ordered.
+    N0      -   grid size (number of nodes) in the first dimension, N0>=1
+
+    X1      -   array of grid nodes, second coordinates, array[N1]
+                Must be ordered by ascending. Exception is generated
+                if the array is not correctly ordered.
+    N1      -   grid size (number of nodes) in the second dimension, N1>=1
+
+OUTPUT PARAMETERS:
+    Y       -   function values, array[NY*N0*N1], where NY is a  number of
+                "output" vector values (this  function   supports  vector-
+                valued IDW models). Y is out-variable and  is  reallocated
+                by this function.
+                Y[K+NY*(I0+I1*N0)]=F_k(X0[I0],X1[I1]), for:
+                *  K=0...NY-1
+                * I0=0...N0-1
+                * I1=0...N1-1
+
+NOTE: this function supports weakly ordered grid nodes, i.e. you may  have
+      X[i]=X[i+1] for some i. It does  not  provide  you  any  performance
+      benefits  due  to   duplication  of  points,  just  convenience  and
+      flexibility.
+
+NOTE: this  function  is  re-entrant,  i.e.  you  may  use  same  idwmodel
+      structure in multiple threads calling  this function  for  different
+      grids.
+
+NOTE: if you need function values on some subset  of  regular  grid, which
+      may be described as "several compact and  dense  islands",  you  may
+      use idwgridcalc2vsubset().
+
+  -- ALGLIB --
+     Copyright 24.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void idwgridcalc2v(const idwmodel &s, const real_1d_array &x0, const ae_int_t n0, const real_1d_array &x1, const ae_int_t n1, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This function calculates values of an  IDW  model  at  some  subset  of  a
+regular grid:
+* the grid has N0*N1 points, with Point[I,J] = (X0[I], X1[J])
+* only values at some subset of the grid are required
+Vector-valued IDW models are supported.
+
+This function returns 0.0 when:
+* the model is not initialized
+* NX<>2
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+NOTE: Parallel processing is implemented only for modern (MSTAB) IDW's.
+
+INPUT PARAMETERS:
+    S       -   IDW model, used in read-only mode, can be  shared  between
+                multiple   invocations  of  this  function  from  multiple
+                threads.
+
+    X0      -   array of grid nodes, first coordinates, array[N0].
+                Must be ordered by ascending. Exception is generated
+                if the array is not correctly ordered.
+    N0      -   grid size (number of nodes) in the first dimension, N0>=1
+
+    X1      -   array of grid nodes, second coordinates, array[N1]
+                Must be ordered by ascending. Exception is generated
+                if the array is not correctly ordered.
+    N1      -   grid size (number of nodes) in the second dimension, N1>=1
+
+    FlagY   -   array[N0*N1]:
+                * Y[I0+I1*N0] corresponds to node (X0[I0],X1[I1])
+                * it is a "bitmap" array which contains  False  for  nodes
+                  which are NOT calculated, and True for nodes  which  are
+                  required.
+
+OUTPUT PARAMETERS:
+    Y       -   function values, array[NY*N0*N1*N2], where NY is a  number
+                of "output" vector values (this function  supports vector-
+                valued IDW models):
+                * Y[K+NY*(I0+I1*N0)]=F_k(X0[I0],X1[I1]),
+                  for K=0...NY-1, I0=0...N0-1, I1=0...N1-1.
+                * elements of Y[] which correspond  to  FlagY[]=True   are
+                  loaded by model values (which may be  exactly  zero  for
+                  some nodes).
+                * elements of Y[] which correspond to FlagY[]=False MAY be
+                  initialized by zeros OR may  be  calculated.  Generally,
+                  they  are   not   calculated,  but  future  SIMD-capable
+                  versions may compute several elements in a batch.
+
+NOTE: this function supports weakly ordered grid nodes, i.e. you may  have
+      X[i]=X[i+1] for some i. It does  not  provide  you  any  performance
+      benefits  due  to   duplication  of  points,  just  convenience  and
+      flexibility.
+
+NOTE: this  function  is  re-entrant,  i.e.  you  may  use  same  idwmodel
+      structure in multiple threads calling  this function  for  different
+      grids.
+
+  -- ALGLIB --
+     Copyright 24.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void idwgridcalc2vsubset(const idwmodel &s, const real_1d_array &x0, const ae_int_t n0, const real_1d_array &x1, const ae_int_t n1, const boolean_1d_array &flagy, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_INTFITSERV) || !defined(AE_PARTIAL_BUILD)
@@ -2480,6 +2703,55 @@ double polynomialcalccheb2(const double a, const double b, const real_1d_array &
 
 #if defined(AE_COMPILE_SPLINE1D) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
+This function serializes data structure to string.
+
+Important properties of s_out:
+* it contains alphanumeric characters, dots, underscores, minus signs
+* these symbols are grouped into words, which are separated by spaces
+  and Windows-style (CR+LF) newlines
+* although  serializer  uses  spaces and CR+LF as separators, you can 
+  replace any separator character by arbitrary combination of spaces,
+  tabs, Windows or Unix newlines. It allows flexible reformatting  of
+  the  string in case you want to include it into a text or XML file. 
+  But you should not insert separators into the middle of the "words"
+  nor should you change the case of letters.
+* s_out can be freely moved between 32-bit and 64-bit systems, little
+  and big endian machines, and so on. You can serialize structure  on
+  32-bit machine and unserialize it on 64-bit one (or vice versa), or
+  serialize  it  on  SPARC  and  unserialize  on  x86.  You  can also 
+  serialize it in C++ version of ALGLIB and unserialize it in C# one, 
+  and vice versa.
+*************************************************************************/
+void spline1dserialize(const spline1dinterpolant &obj, std::string &s_out);
+
+
+/*************************************************************************
+This function serializes data structure to C++ stream.
+
+Data stream generated by this function is same as  string  representation
+generated  by  string  version  of  serializer - alphanumeric characters,
+dots, underscores, minus signs, which are grouped into words separated by
+spaces and CR+LF.
+
+We recommend you to read comments on string version of serializer to find
+out more about serialization of AlGLIB objects.
+*************************************************************************/
+void spline1dserialize(const spline1dinterpolant &obj, std::ostream &s_out);
+
+
+/*************************************************************************
+This function unserializes data structure from string.
+*************************************************************************/
+void spline1dunserialize(const std::string &s_in, spline1dinterpolant &obj);
+
+
+/*************************************************************************
+This function unserializes data structure from stream.
+*************************************************************************/
+void spline1dunserialize(const std::istream &s_in, spline1dinterpolant &obj);
+
+
+/*************************************************************************
 This subroutine builds linear spline interpolant
 
 INPUT PARAMETERS:
@@ -2504,6 +2776,19 @@ Subroutine automatically sorts points, so caller may pass unsorted array.
 *************************************************************************/
 void spline1dbuildlinear(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
 void spline1dbuildlinear(const real_1d_array &x, const real_1d_array &y, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine builds linear spline interpolant.
+
+Buffered version of Spline1DBuildLinear() which reused  memory  previously
+allocated in C as much as possible.
+
+  -- ALGLIB PROJECT --
+     Copyright 24.06.2007 by Bochkanov Sergey
+*************************************************************************/
+void spline1dbuildlinearbuf(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline1dbuildlinearbuf(const real_1d_array &x, const real_1d_array &y, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2981,6 +3266,19 @@ void spline1dbuildhermite(const real_1d_array &x, const real_1d_array &y, const 
 
 
 /*************************************************************************
+This subroutine builds Hermite spline interpolant.
+
+Buffered version which reuses memory previously allocated in C as much  as
+possible.
+
+  -- ALGLIB PROJECT --
+     Copyright 23.06.2007 by Bochkanov Sergey
+*************************************************************************/
+void spline1dbuildhermitebuf(const real_1d_array &x, const real_1d_array &y, const real_1d_array &d, const ae_int_t n, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline1dbuildhermitebuf(const real_1d_array &x, const real_1d_array &y, const real_1d_array &d, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
 This subroutine builds Akima spline interpolant
 
 INPUT PARAMETERS:
@@ -3005,6 +3303,39 @@ Subroutine automatically sorts points, so caller may pass unsorted array.
 *************************************************************************/
 void spline1dbuildakima(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
 void spline1dbuildakima(const real_1d_array &x, const real_1d_array &y, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine builds modified Akima spline interpolant, with weights
+
+    W[i]=|Delta[I]-Delta[I-1]|
+
+replaced by
+
+    W[i]=|Delta[I]-Delta[I-1]|+0.5*|Delta[I]+Delta[I-1]|
+
+INPUT PARAMETERS:
+    X           -   spline nodes, array[0..N-1]
+    Y           -   function values, array[0..N-1]
+    N           -   points count (optional):
+                    * N>=2
+                    * if given, only first N points are used to build spline
+                    * if not given, automatically detected from X/Y sizes
+                      (len(X) must be equal to len(Y))
+
+OUTPUT PARAMETERS:
+    C           -   spline interpolant
+
+
+ORDER OF POINTS
+
+Subroutine automatically sorts points, so caller may pass unsorted array.
+
+  -- ALGLIB PROJECT --
+     Copyright 24.06.2007 by Bochkanov Sergey
+*************************************************************************/
+void spline1dbuildakimamod(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline1dbuildakimamod(const real_1d_array &x, const real_1d_array &y, spline1dinterpolant &c, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3084,7 +3415,7 @@ Result:
   -- ALGLIB PROJECT --
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************/
-void spline1dlintransx(const spline1dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
+void spline1dlintransx(spline1dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3099,7 +3430,7 @@ Result:
   -- ALGLIB PROJECT --
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************/
-void spline1dlintransy(const spline1dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
+void spline1dlintransy(spline1dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3119,14 +3450,14 @@ double spline1dintegrate(const spline1dinterpolant &c, const double x, const xpa
 
 
 /*************************************************************************
-Fitting by smoothing (penalized) cubic spline.
+Fitting by the smoothing (penalized) cubic spline.
 
 This function approximates N scattered points (some of X[] may be equal to
-each other) by cubic spline with M  nodes  at  equidistant  grid  spanning
-interval [min(x,xc),max(x,xc)].
+each other) by the cubic spline with M equidistant nodes spanning interval
+[min(x),max(x)].
 
-The problem is regularized by adding nonlinearity penalty to  usual  least
-squares penalty function:
+The problem is regularized by adding nonlinearity  penalty  to  the  usual
+least squares penalty function:
 
     MERIT_FUNC = F_LS + F_NL
 
@@ -3137,7 +3468,7 @@ term roughly invariant to scaling of X[] and changes in M.
 
 This function is a new edition  of  penalized  regression  spline fitting,
 a fast and compact one which needs much less resources that  its  previous
-version: just O(maxMN) memory and O(maxMN*log(maxMN)) time.
+version: just O(maxMN) memory and O(maxMN) time.
 
 NOTE: it is OK to run this function with both M<<N and M>>N;  say,  it  is
       possible to process 100 points with 1000-node spline.
@@ -3157,13 +3488,14 @@ INPUT PARAMETERS:
 OUTPUT PARAMETERS:
     S   -   spline interpolant.
     Rep -   Following fields are set:
+            * TerminationType set to 1
             * RMSError      rms error on the (X,Y).
             * AvgError      average error on the (X,Y).
             * AvgRelError   average relative error on the non-zero Y
             * MaxError      maximum error
 
   -- ALGLIB PROJECT --
-     Copyright 27.08.2019 by Bochkanov Sergey
+     Copyright 10.04.2023 by Bochkanov Sergey
 *************************************************************************/
 void spline1dfit(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, const double lambdans, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
 void spline1dfit(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, const double lambdans, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
@@ -3315,18 +3647,16 @@ INPUT PARAMETERS:
     M   -   number of basis functions (= polynomial_degree + 1), M>=1
 
 OUTPUT PARAMETERS:
-    Info-   same format as in LSFitLinearW() subroutine:
-            * Info>0    task is solved
-            * Info<=0   an error occured:
-                        -4 means inconvergence of internal SVD
-    P   -   interpolant in barycentric form.
-    Rep -   report, same format as in LSFitLinearW() subroutine.
-            Following fields are set:
-            * RMSError      rms error on the (X,Y).
-            * AvgError      average error on the (X,Y).
-            * AvgRelError   average relative error on the non-zero Y
-            * MaxError      maximum error
-                            NON-WEIGHTED ERRORS ARE CALCULATED
+    P   -   interpolant in barycentric form for Rep.TerminationType>0.
+            undefined for Rep.TerminationType<0.
+    Rep -   fitting report. The following fields are set:
+                * Rep.TerminationType is a completion code which is always
+                  set to 1 (success)
+                * RMSError      rms error on the (X,Y).
+                * AvgError      average error on the (X,Y).
+                * AvgRelError   average relative error on the non-zero Y
+                * MaxError      maximum error
+                                NON-WEIGHTED ERRORS ARE CALCULATED
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -3355,8 +3685,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB PROJECT --
      Copyright 10.12.2009 by Bochkanov Sergey
 *************************************************************************/
-void polynomialfit(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, ae_int_t &info, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
-void polynomialfit(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, ae_int_t &info, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
+void polynomialfit(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
+void polynomialfit(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3375,7 +3705,7 @@ SEE ALSO:
 NOTES:
     you can convert P from barycentric form  to  the  power  or  Chebyshev
     basis with PolynomialBar2Pow() or PolynomialBar2Cheb() functions  from
-    POLINT subpackage.
+    the POLINT subpackage.
 
 INPUT PARAMETERS:
     X   -   points, array[0..N-1].
@@ -3400,19 +3730,19 @@ INPUT PARAMETERS:
     M   -   number of basis functions (= polynomial_degree + 1), M>=1
 
 OUTPUT PARAMETERS:
-    Info-   same format as in LSFitLinearW() subroutine:
-            * Info>0    task is solved
-            * Info<=0   an error occured:
-                        -4 means inconvergence of internal SVD
-                        -3 means inconsistent constraints
-    P   -   interpolant in barycentric form.
-    Rep -   report, same format as in LSFitLinearW() subroutine.
-            Following fields are set:
-            * RMSError      rms error on the (X,Y).
-            * AvgError      average error on the (X,Y).
-            * AvgRelError   average relative error on the non-zero Y
-            * MaxError      maximum error
-                            NON-WEIGHTED ERRORS ARE CALCULATED
+    P   -   interpolant in barycentric form for Rep.TerminationType>0.
+            undefined for Rep.TerminationType<0.
+    Rep -   fitting report. The following fields are set:
+                * Rep.TerminationType is a completion code:
+                  * set to  1 on success
+                  * set to -3 on failure due to  problematic  constraints:
+                    either too many  constraints,  degenerate  constraints
+                    or inconsistent constraints were passed
+                * RMSError      rms error on the (X,Y).
+                * AvgError      average error on the (X,Y).
+                * AvgRelError   average relative error on the non-zero Y
+                * MaxError      maximum error
+                                NON-WEIGHTED ERRORS ARE CALCULATED
 
 IMPORTANT:
     this subroitine doesn't calculate task's condition number for K<>0.
@@ -3462,8 +3792,8 @@ above is not guaranteed and may result in inconsistency.
   -- ALGLIB PROJECT --
      Copyright 10.12.2009 by Bochkanov Sergey
 *************************************************************************/
-void polynomialfitwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, ae_int_t &info, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
-void polynomialfitwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t m, ae_int_t &info, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
+void polynomialfitwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
+void polynomialfitwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t m, barycentricinterpolant &p, polynomialfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4076,16 +4406,13 @@ INPUT PARAMETERS:
     M   -   number of basis functions ( = number_of_nodes), M>=2.
 
 OUTPUT PARAMETERS:
-    Info-   same format as in LSFitLinearWC() subroutine.
-            * Info>0    task is solved
-            * Info<=0   an error occured:
-                        -4 means inconvergence of internal SVD
-                        -3 means inconsistent constraints
-                        -1 means another errors in parameters passed
-                           (N<=0, for example)
-    B   -   barycentric interpolant.
-    Rep -   report, same format as in LSFitLinearWC() subroutine.
-            Following fields are set:
+    B   -   barycentric interpolant. Undefined for rep.terminationtype<0.
+    Rep -   fitting report. The following fields are set:
+            * Rep.TerminationType is a completion code:
+              * set to  1 on success
+              * set to -3 on failure due to  problematic  constraints:
+                either too many  constraints,  degenerate  constraints
+                or inconsistent constraints were passed
             * DBest         best value of the D parameter
             * RMSError      rms error on the (X,Y).
             * AvgError      average error on the (X,Y).
@@ -4148,7 +4475,7 @@ above is not guaranteed and may result in inconsistency.
   -- ALGLIB PROJECT --
      Copyright 18.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void barycentricfitfloaterhormannwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, ae_int_t &info, barycentricinterpolant &b, barycentricfitreport &rep, const xparams _xparams = alglib::xdefault);
+void barycentricfitfloaterhormannwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, barycentricinterpolant &b, barycentricfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4168,14 +4495,9 @@ INPUT PARAMETERS:
     M   -   number of basis functions ( = number_of_nodes), M>=2.
 
 OUTPUT PARAMETERS:
-    Info-   same format as in LSFitLinearWC() subroutine.
-            * Info>0    task is solved
-            * Info<=0   an error occured:
-                        -4 means inconvergence of internal SVD
-                        -3 means inconsistent constraints
     B   -   barycentric interpolant.
-    Rep -   report, same format as in LSFitLinearWC() subroutine.
-            Following fields are set:
+    Rep -   fitting report. The following fields are set:
+            * Rep.TerminationType is a completion code, always set to 1
             * DBest         best value of the D parameter
             * RMSError      rms error on the (X,Y).
             * AvgError      average error on the (X,Y).
@@ -4210,7 +4532,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB PROJECT --
      Copyright 18.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void barycentricfitfloaterhormann(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, ae_int_t &info, barycentricinterpolant &b, barycentricfitreport &rep, const xparams _xparams = alglib::xdefault);
+void barycentricfitfloaterhormann(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, barycentricinterpolant &b, barycentricfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4226,11 +4548,10 @@ stability).
 Task is linear, so linear least squares solver is used. Complexity of this
 computational scheme is O(N*M^2), mostly dominated by least squares solver
 
-SEE ALSO
-    Spline1DFitHermiteWC()  -   fitting by Hermite splines (more flexible,
-                                less smooth)
-    Spline1DFitCubic()      -   "lightweight" fitting  by  cubic  splines,
-                                without invididual weights and constraints
+IMPORTANT: ALGLIB has a much faster version  of  the  cubic spline fitting
+           function - spline1dfit(). This function performs least  squares
+           fit in O(max(M,N)) time/memory. However, it  does  not  support
+           constraints.
 
 INPUT PARAMETERS:
     X   -   points, array[0..N-1].
@@ -4259,19 +4580,18 @@ INPUT PARAMETERS:
     M   -   number of basis functions ( = number_of_nodes+2), M>=4.
 
 OUTPUT PARAMETERS:
-    Info-   same format as in LSFitLinearWC() subroutine.
-            * Info>0    task is solved
-            * Info<=0   an error occured:
-                        -4 means inconvergence of internal SVD
-                        -3 means inconsistent constraints
     S   -   spline interpolant.
-    Rep -   report, same format as in LSFitLinearWC() subroutine.
-            Following fields are set:
-            * RMSError      rms error on the (X,Y).
-            * AvgError      average error on the (X,Y).
-            * AvgRelError   average relative error on the non-zero Y
-            * MaxError      maximum error
-                            NON-WEIGHTED ERRORS ARE CALCULATED
+    Rep     -   fitting report. The following fields are set:
+                * Rep.TerminationType is a completion code:
+                  * set to  1 on success
+                  * set to -3 on failure due to  problematic  constraints:
+                    either too many  constraints,  degenerate  constraints
+                    or inconsistent constraints were passed
+                * RMSError      rms error on the (X,Y).
+                * AvgError      average error on the (X,Y).
+                * AvgRelError   average relative error on the non-zero Y
+                * MaxError      maximum error
+                                NON-WEIGHTED ERRORS ARE CALCULATED
 
 IMPORTANT:
     this subroitine doesn't calculate task's condition number for K<>0.
@@ -4335,8 +4655,8 @@ above is not guaranteed and may result in inconsistency.
   -- ALGLIB PROJECT --
      Copyright 18.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void spline1dfitcubicwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
-void spline1dfitcubicwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfitcubicwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfitcubicwc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4350,11 +4670,10 @@ term is used when solving constrained tasks (to improve stability).
 Task is linear, so linear least squares solver is used. Complexity of this
 computational scheme is O(N*M^2), mostly dominated by least squares solver
 
-SEE ALSO
-    Spline1DFitCubicWC()    -   fitting by Cubic splines (less flexible,
-                                more smooth)
-    Spline1DFitHermite()    -   "lightweight" Hermite fitting, without
-                                invididual weights and constraints
+IMPORTANT: ALGLIB has a much faster version  of  the  cubic spline fitting
+           function - spline1dfit(). This function performs least  squares
+           fit in O(max(M,N)) time/memory. However, it  does  not  support
+           constraints.
 
 INPUT PARAMETERS:
     X   -   points, array[0..N-1].
@@ -4385,22 +4704,18 @@ INPUT PARAMETERS:
             M IS EVEN!
 
 OUTPUT PARAMETERS:
-    Info-   same format as in LSFitLinearW() subroutine:
-            * Info>0    task is solved
-            * Info<=0   an error occured:
-                        -4 means inconvergence of internal SVD
-                        -3 means inconsistent constraints
-                        -2 means odd M was passed (which is not supported)
-                        -1 means another errors in parameters passed
-                           (N<=0, for example)
     S   -   spline interpolant.
-    Rep -   report, same format as in LSFitLinearW() subroutine.
-            Following fields are set:
-            * RMSError      rms error on the (X,Y).
-            * AvgError      average error on the (X,Y).
-            * AvgRelError   average relative error on the non-zero Y
-            * MaxError      maximum error
-                            NON-WEIGHTED ERRORS ARE CALCULATED
+    Rep     -   fitting report. The following fields are set:
+                * Rep.TerminationType is a completion code:
+                  * set to  1 on success
+                  * set to -3 on failure due to  problematic  constraints:
+                    either too many  constraints,  degenerate  constraints
+                    or inconsistent constraints were passed
+                  * RMSError      rms error on the (X,Y).
+                * AvgError      average error on the (X,Y).
+                * AvgRelError   average relative error on the non-zero Y
+                * MaxError      maximum error
+                                NON-WEIGHTED ERRORS ARE CALCULATED
 
 IMPORTANT:
     this subroitine doesn't calculate task's condition number for K<>0.
@@ -4467,85 +4782,19 @@ above is not guaranteed and may result in inconsistency.
   -- ALGLIB PROJECT --
      Copyright 18.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void spline1dfithermitewc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
-void spline1dfithermitewc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfithermitewc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t k, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfithermitewc(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &xc, const real_1d_array &yc, const integer_1d_array &dc, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
-Least squares fitting by cubic spline.
-
-This subroutine is "lightweight" alternative for more complex and feature-
-rich Spline1DFitCubicWC().  See  Spline1DFitCubicWC() for more information
-about subroutine parameters (we don't duplicate it here because of length)
-
-  ! FREE EDITION OF ALGLIB:
-  !
-  ! Free Edition of ALGLIB supports following important features for  this
-  ! function:
-  ! * C++ version: x64 SIMD support using C++ intrinsics
-  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
-  !
-  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
-  ! Reference Manual in order  to  find  out  how to activate SIMD support
-  ! in ALGLIB.
-
-  ! COMMERCIAL EDITION OF ALGLIB:
-  !
-  ! Commercial Edition of ALGLIB includes following important improvements
-  ! of this function:
-  ! * high-performance native backend with same C# interface (C# version)
-  ! * multithreading support (C++ and C# versions)
-  ! * hardware vendor (Intel) implementations of linear algebra primitives
-  !   (C++ and C# versions, x86/x64 platform)
-  !
-  ! We recommend you to read 'Working with commercial version' section  of
-  ! ALGLIB Reference Manual in order to find out how to  use  performance-
-  ! related features provided by commercial edition of ALGLIB.
+Deprecated fitting function with O(N*M^2+M^3) running time. Superseded  by
+spline1dfit().
 
   -- ALGLIB PROJECT --
      Copyright 18.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void spline1dfitcubic(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
-void spline1dfitcubic(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
-
-
-/*************************************************************************
-Least squares fitting by Hermite spline.
-
-This subroutine is "lightweight" alternative for more complex and feature-
-rich Spline1DFitHermiteWC().  See Spline1DFitHermiteWC()  description  for
-more information about subroutine parameters (we don't duplicate  it  here
-because of length).
-
-  ! FREE EDITION OF ALGLIB:
-  !
-  ! Free Edition of ALGLIB supports following important features for  this
-  ! function:
-  ! * C++ version: x64 SIMD support using C++ intrinsics
-  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
-  !
-  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
-  ! Reference Manual in order  to  find  out  how to activate SIMD support
-  ! in ALGLIB.
-
-  ! COMMERCIAL EDITION OF ALGLIB:
-  !
-  ! Commercial Edition of ALGLIB includes following important improvements
-  ! of this function:
-  ! * high-performance native backend with same C# interface (C# version)
-  ! * multithreading support (C++ and C# versions)
-  ! * hardware vendor (Intel) implementations of linear algebra primitives
-  !   (C++ and C# versions, x86/x64 platform)
-  !
-  ! We recommend you to read 'Working with commercial version' section  of
-  ! ALGLIB Reference Manual in order to find out how to  use  performance-
-  ! related features provided by commercial edition of ALGLIB.
-
-  -- ALGLIB PROJECT --
-     Copyright 18.08.2009 by Bochkanov Sergey
-*************************************************************************/
-void spline1dfithermite(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
-void spline1dfithermite(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfithermitedeprecated(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfithermitedeprecated(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4573,13 +4822,9 @@ INPUT PARAMETERS:
     M       -   number of basis functions, M>=1.
 
 OUTPUT PARAMETERS:
-    Info    -   error code:
-                * -4    internal SVD decomposition subroutine failed (very
-                        rare and for degenerate systems only)
-                * -1    incorrect N/M were specified
-                *  1    task is solved
     C       -   decomposition coefficients, array[0..M-1]
     Rep     -   fitting report. Following fields are set:
+                * Rep.TerminationType always set to 1 (success)
                 * Rep.TaskRCond     reciprocal of condition number
                 * R2                non-adjusted coefficient of determination
                                     (non-weighted)
@@ -4652,8 +4897,8 @@ NOTE:       covariance matrix is estimated using  correction  for  degrees
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitlinearw(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, const ae_int_t n, const ae_int_t m, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
-void lsfitlinearw(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinearw(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, const ae_int_t n, const ae_int_t m, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinearw(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4687,16 +4932,14 @@ INPUT PARAMETERS:
                 K=0 corresponds to absence of constraints.
 
 OUTPUT PARAMETERS:
-    Info    -   error code:
-                * -4    internal SVD decomposition subroutine failed (very
-                        rare and for degenerate systems only)
-                * -3    either   too   many  constraints  (M   or   more),
-                        degenerate  constraints   (some   constraints  are
-                        repetead twice) or inconsistent  constraints  were
-                        specified.
-                *  1    task is solved
     C       -   decomposition coefficients, array[0..M-1]
-    Rep     -   fitting report. Following fields are set:
+    Rep     -   fitting report. The following fields are set:
+                * Rep.TerminationType is a completion code:
+                  * set to  1 on success
+                  * set to -3 on failure due to  problematic  constraints:
+                    either too many  constraints (M or  more),  degenerate
+                    constraints (some constraints are repetead  twice)  or
+                    inconsistent constraints are specified
                 * R2                non-adjusted coefficient of determination
                                     (non-weighted)
                 * RMSError          rms error on the (X,Y).
@@ -4776,8 +5019,8 @@ NOTE:       covariance matrix is estimated using  correction  for  degrees
   -- ALGLIB --
      Copyright 07.09.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitlinearwc(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, const real_2d_array &cmatrix, const ae_int_t n, const ae_int_t m, const ae_int_t k, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
-void lsfitlinearwc(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, const real_2d_array &cmatrix, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinearwc(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, const real_2d_array &cmatrix, const ae_int_t n, const ae_int_t m, const ae_int_t k, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinearwc(const real_1d_array &y, const real_1d_array &w, const real_2d_array &fmatrix, const real_2d_array &cmatrix, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4801,12 +5044,10 @@ INPUT PARAMETERS:
     M       -   number of basis functions, M>=1.
 
 OUTPUT PARAMETERS:
-    Info    -   error code:
-                * -4    internal SVD decomposition subroutine failed (very
-                        rare and for degenerate systems only)
-                *  1    task is solved
     C       -   decomposition coefficients, array[0..M-1]
     Rep     -   fitting report. Following fields are set:
+                * Rep.TerminationType is a completion code, always set  to
+                  1 which denotes success
                 * Rep.TaskRCond     reciprocal of condition number
                 * R2                non-adjusted coefficient of determination
                                     (non-weighted)
@@ -4879,8 +5120,8 @@ NOTE:       covariance matrix is estimated using  correction  for  degrees
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitlinear(const real_1d_array &y, const real_2d_array &fmatrix, const ae_int_t n, const ae_int_t m, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
-void lsfitlinear(const real_1d_array &y, const real_2d_array &fmatrix, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinear(const real_1d_array &y, const real_2d_array &fmatrix, const ae_int_t n, const ae_int_t m, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinear(const real_1d_array &y, const real_2d_array &fmatrix, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4910,16 +5151,14 @@ INPUT PARAMETERS:
                 K=0 corresponds to absence of constraints.
 
 OUTPUT PARAMETERS:
-    Info    -   error code:
-                * -4    internal SVD decomposition subroutine failed (very
-                        rare and for degenerate systems only)
-                * -3    either   too   many  constraints  (M   or   more),
-                        degenerate  constraints   (some   constraints  are
-                        repetead twice) or inconsistent  constraints  were
-                        specified.
-                *  1    task is solved
     C       -   decomposition coefficients, array[0..M-1]
     Rep     -   fitting report. Following fields are set:
+                * Rep.TerminationType is a completion code:
+                  * set to  1 on success
+                  * set to -3 on failure due to  problematic  constraints:
+                    either too many  constraints (M or  more),  degenerate
+                    constraints (some constraints are repetead  twice)  or
+                    inconsistent constraints are specified
                 * R2                non-adjusted coefficient of determination
                                     (non-weighted)
                 * RMSError          rms error on the (X,Y).
@@ -4999,8 +5238,8 @@ NOTE:       covariance matrix is estimated using  correction  for  degrees
   -- ALGLIB --
      Copyright 07.09.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitlinearc(const real_1d_array &y, const real_2d_array &fmatrix, const real_2d_array &cmatrix, const ae_int_t n, const ae_int_t m, const ae_int_t k, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
-void lsfitlinearc(const real_1d_array &y, const real_2d_array &fmatrix, const real_2d_array &cmatrix, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinearc(const real_1d_array &y, const real_2d_array &fmatrix, const real_2d_array &cmatrix, const ae_int_t n, const ae_int_t m, const ae_int_t k, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitlinearc(const real_1d_array &y, const real_2d_array &fmatrix, const real_2d_array &cmatrix, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5037,6 +5276,20 @@ INPUT PARAMETERS:
 
 OUTPUT PARAMETERS:
     State   -   structure which stores algorithm state
+
+IMPORTANT: the LSFIT optimizer  supports  parallel  model  evaluation  and
+           parallel numerical  differentiation  ('callback  parallelism').
+           This feature, which is present in commercial  ALGLIB  editions,
+           greatly accelerates fits with large datasets  and/or  expensive
+           target functions.
+
+           Callback parallelism is usually beneficial when a  single  pass
+           over  the   entire   dataset   requires   more   than   several
+           milliseconds.
+
+           See ALGLIB Reference Manual, 'Working with commercial  version'
+           section,  and  comments  on  lsfitfit()   function   for   more
+           information.
 
   -- ALGLIB --
      Copyright 18.10.2008 by Bochkanov Sergey
@@ -5079,6 +5332,20 @@ INPUT PARAMETERS:
 OUTPUT PARAMETERS:
     State   -   structure which stores algorithm state
 
+IMPORTANT: the LSFIT optimizer  supports  parallel  model  evaluation  and
+           parallel numerical  differentiation  ('callback  parallelism').
+           This feature, which is present in commercial  ALGLIB  editions,
+           greatly accelerates fits with large datasets  and/or  expensive
+           target functions.
+
+           Callback parallelism is usually beneficial when a  single  pass
+           over  the   entire   dataset   requires   more   than   several
+           milliseconds.
+
+           See ALGLIB Reference Manual, 'Working with commercial  version'
+           section,  and  comments  on  lsfitfit()   function   for   more
+           information.
+
   -- ALGLIB --
      Copyright 18.10.2008 by Bochkanov Sergey
 *************************************************************************/
@@ -5110,14 +5377,6 @@ INPUT PARAMETERS:
     N       -   number of points, N>1
     M       -   dimension of space
     K       -   number of parameters being fitted
-    CheapFG -   boolean flag, which is:
-                * True  if both function and gradient calculation complexity
-                        are less than O(M^2).  An improved  algorithm  can
-                        be  used  which corresponds  to  FGJ  scheme  from
-                        MINLM unit.
-                * False otherwise.
-                        Standard Jacibian-bases  Levenberg-Marquardt  algo
-                        will be used (FJ scheme).
 
 OUTPUT PARAMETERS:
     State   -   structure which stores algorithm state
@@ -5126,13 +5385,26 @@ See also:
     LSFitResults
     LSFitCreateFG (fitting without weights)
     LSFitCreateWFGH (fitting using Hessian)
-    LSFitCreateFGH (fitting using Hessian, without weights)
+
+IMPORTANT: the LSFIT optimizer  supports  parallel  model  evaluation  and
+           parallel numerical  differentiation  ('callback  parallelism').
+           This feature, which is present in commercial  ALGLIB  editions,
+           greatly accelerates fits with large datasets  and/or  expensive
+           target functions.
+
+           Callback parallelism is usually beneficial when a  single  pass
+           over  the   entire   dataset   requires   more   than   several
+           milliseconds.
+
+           See ALGLIB Reference Manual, 'Working with commercial  version'
+           section,  and  comments  on  lsfitfit()   function   for   more
+           information.
 
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitcreatewfg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &c, const ae_int_t n, const ae_int_t m, const ae_int_t k, const bool cheapfg, lsfitstate &state, const xparams _xparams = alglib::xdefault);
-void lsfitcreatewfg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &c, const bool cheapfg, lsfitstate &state, const xparams _xparams = alglib::xdefault);
+void lsfitcreatewfg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &c, const ae_int_t n, const ae_int_t m, const ae_int_t k, lsfitstate &state, const xparams _xparams = alglib::xdefault);
+void lsfitcreatewfg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &c, lsfitstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5158,93 +5430,29 @@ INPUT PARAMETERS:
     N       -   number of points, N>1
     M       -   dimension of space
     K       -   number of parameters being fitted
-    CheapFG -   boolean flag, which is:
-                * True  if both function and gradient calculation complexity
-                        are less than O(M^2).  An improved  algorithm  can
-                        be  used  which corresponds  to  FGJ  scheme  from
-                        MINLM unit.
-                * False otherwise.
-                        Standard Jacibian-bases  Levenberg-Marquardt  algo
-                        will be used (FJ scheme).
 
 OUTPUT PARAMETERS:
     State   -   structure which stores algorithm state
 
-  -- ALGLIB --
-     Copyright 17.08.2009 by Bochkanov Sergey
-*************************************************************************/
-void lsfitcreatefg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &c, const ae_int_t n, const ae_int_t m, const ae_int_t k, const bool cheapfg, lsfitstate &state, const xparams _xparams = alglib::xdefault);
-void lsfitcreatefg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &c, const bool cheapfg, lsfitstate &state, const xparams _xparams = alglib::xdefault);
+IMPORTANT: the LSFIT optimizer  supports  parallel  model  evaluation  and
+           parallel numerical  differentiation  ('callback  parallelism').
+           This feature, which is present in commercial  ALGLIB  editions,
+           greatly accelerates fits with large datasets  and/or  expensive
+           target functions.
 
+           Callback parallelism is usually beneficial when a  single  pass
+           over  the   entire   dataset   requires   more   than   several
+           milliseconds.
 
-/*************************************************************************
-Weighted nonlinear least squares fitting using gradient/Hessian.
-
-Nonlinear task min(F(c)) is solved, where
-
-    F(c) = (w[0]*(f(c,x[0])-y[0]))^2 + ... + (w[n-1]*(f(c,x[n-1])-y[n-1]))^2,
-
-    * N is a number of points,
-    * M is a dimension of a space points belong to,
-    * K is a dimension of a space of parameters being fitted,
-    * w is an N-dimensional vector of weight coefficients,
-    * x is a set of N points, each of them is an M-dimensional vector,
-    * c is a K-dimensional vector of parameters being fitted
-
-This subroutine uses f(c,x[i]), its gradient and its Hessian.
-
-INPUT PARAMETERS:
-    X       -   array[0..N-1,0..M-1], points (one row = one point)
-    Y       -   array[0..N-1], function values.
-    W       -   weights, array[0..N-1]
-    C       -   array[0..K-1], initial approximation to the solution,
-    N       -   number of points, N>1
-    M       -   dimension of space
-    K       -   number of parameters being fitted
-
-OUTPUT PARAMETERS:
-    State   -   structure which stores algorithm state
+           See ALGLIB Reference Manual, 'Working with commercial  version'
+           section,  and  comments  on  lsfitfit()   function   for   more
+           information.
 
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitcreatewfgh(const real_2d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &c, const ae_int_t n, const ae_int_t m, const ae_int_t k, lsfitstate &state, const xparams _xparams = alglib::xdefault);
-void lsfitcreatewfgh(const real_2d_array &x, const real_1d_array &y, const real_1d_array &w, const real_1d_array &c, lsfitstate &state, const xparams _xparams = alglib::xdefault);
-
-
-/*************************************************************************
-Nonlinear least squares fitting using gradient/Hessian, without individial
-weights.
-
-Nonlinear task min(F(c)) is solved, where
-
-    F(c) = ((f(c,x[0])-y[0]))^2 + ... + ((f(c,x[n-1])-y[n-1]))^2,
-
-    * N is a number of points,
-    * M is a dimension of a space points belong to,
-    * K is a dimension of a space of parameters being fitted,
-    * x is a set of N points, each of them is an M-dimensional vector,
-    * c is a K-dimensional vector of parameters being fitted
-
-This subroutine uses f(c,x[i]), its gradient and its Hessian.
-
-INPUT PARAMETERS:
-    X       -   array[0..N-1,0..M-1], points (one row = one point)
-    Y       -   array[0..N-1], function values.
-    C       -   array[0..K-1], initial approximation to the solution,
-    N       -   number of points, N>1
-    M       -   dimension of space
-    K       -   number of parameters being fitted
-
-OUTPUT PARAMETERS:
-    State   -   structure which stores algorithm state
-
-
-  -- ALGLIB --
-     Copyright 17.08.2009 by Bochkanov Sergey
-*************************************************************************/
-void lsfitcreatefgh(const real_2d_array &x, const real_1d_array &y, const real_1d_array &c, const ae_int_t n, const ae_int_t m, const ae_int_t k, lsfitstate &state, const xparams _xparams = alglib::xdefault);
-void lsfitcreatefgh(const real_2d_array &x, const real_1d_array &y, const real_1d_array &c, lsfitstate &state, const xparams _xparams = alglib::xdefault);
+void lsfitcreatefg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &c, const ae_int_t n, const ae_int_t m, const ae_int_t k, lsfitstate &state, const xparams _xparams = alglib::xdefault);
+void lsfitcreatefg(const real_2d_array &x, const real_1d_array &y, const real_1d_array &c, lsfitstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5274,7 +5482,7 @@ stopping criterion selection (according to the scheme used by MINLM unit).
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetcond(const lsfitstate &state, const double epsx, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
+void lsfitsetcond(lsfitstate &state, const double epsx, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5298,7 +5506,7 @@ with limits on step size.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetstpmax(const lsfitstate &state, const double stpmax, const xparams _xparams = alglib::xdefault);
+void lsfitsetstpmax(lsfitstate &state, const double stpmax, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5315,7 +5523,7 @@ value of fitting function) are reported.
   -- ALGLIB --
      Copyright 15.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetxrep(const lsfitstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
+void lsfitsetxrep(lsfitstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5345,7 +5553,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.01.2011 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetscale(const lsfitstate &state, const real_1d_array &s, const xparams _xparams = alglib::xdefault);
+void lsfitsetscale(lsfitstate &state, const real_1d_array &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5376,7 +5584,7 @@ following useful properties:
   -- ALGLIB --
      Copyright 14.01.2011 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetbc(const lsfitstate &state, const real_1d_array &bndl, const real_1d_array &bndu, const xparams _xparams = alglib::xdefault);
+void lsfitsetbc(lsfitstate &state, const real_1d_array &bndl, const real_1d_array &bndu, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5421,8 +5629,8 @@ NOTE: general linear constraints  add  significant  overhead  to  solution
   -- ALGLIB --
      Copyright 29.04.2017 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetlc(const lsfitstate &state, const real_2d_array &c, const integer_1d_array &ct, const ae_int_t k, const xparams _xparams = alglib::xdefault);
-void lsfitsetlc(const lsfitstate &state, const real_2d_array &c, const integer_1d_array &ct, const xparams _xparams = alglib::xdefault);
+void lsfitsetlc(lsfitstate &state, const real_2d_array &c, const integer_1d_array &ct, const ae_int_t k, const xparams _xparams = alglib::xdefault);
+void lsfitsetlc(lsfitstate &state, const real_2d_array &c, const integer_1d_array &ct, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5430,11 +5638,11 @@ This function provides reverse communication interface
 Reverse communication interface is not documented or recommended to use.
 See below for functions which provide better documented API
 *************************************************************************/
-bool lsfititeration(const lsfitstate &state, const xparams _xparams = alglib::xdefault);
+bool lsfititeration(lsfitstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
-This family of functions is used to launcn iterations of nonlinear fitter
+This family of functions is used to launch iterations of nonlinear fitter
 
 These functions accept following parameters:
     state   -   algorithm state
@@ -5442,49 +5650,52 @@ These functions accept following parameters:
                 value func at given point x
     grad    -   callback which calculates function (or merit function)
                 value func and gradient grad at given point x
-    hess    -   callback which calculates function (or merit function)
-                value func, gradient grad and Hessian hess at given point x
     rep     -   optional callback which is called after each iteration
                 can be NULL
     ptr     -   optional pointer which is passed to func/grad/hess/jac/rep
                 can be NULL
 
-NOTES:
 
-1. this algorithm is somewhat unusual because it works with  parameterized
-   function f(C,X), where X is a function argument (we  have  many  points
-   which are characterized by different  argument  values),  and  C  is  a
-   parameter to fit.
+CALLBACK PARALLELISM:
 
-   For example, if we want to do linear fit by f(c0,c1,x) = c0*x+c1,  then
-   x will be argument, and {c0,c1} will be parameters.
+The  LSFIT  optimizer  supports  parallel  model  evaluation  and parallel
+numerical differentiation ('callback parallelism'). This feature, which is
+present in commercial ALGLIB editions, greatly accelerates fits with large
+datasets and/or expensive target functions.
 
-   It is important to understand that this algorithm finds minimum in  the
-   space of function PARAMETERS (not arguments), so it  needs  derivatives
-   of f() with respect to C, not X.
+Callback parallelism is usually beneficial when a  single  pass  over  the
+entire dataset requires more than several milliseconds. In this  case  the
+job of computing model values at  dataset  points  can  be  split  between
+multiple threads.
 
-   In the example above it will need f=c0*x+c1 and {df/dc0,df/dc1} = {x,1}
-   instead of {df/dx} = {c0}.
+If you employ a numerical differentiation scheme, you can also parallelize
+computation of different components of a numerical gradient. Generally, the
+mode computationally demanding your problem is (many points, numerical differentiation,
+expensive model), the more you can get for multithreading.
 
-2. Callback functions accept C as the first parameter, and X as the second
+ALGLIB Reference Manual, 'Working with commercial  version' section,
+describes how to activate callback parallelism for your programming language.
 
-3. If  state  was  created  with  LSFitCreateFG(),  algorithm  needs  just
-   function   and   its   gradient,   but   if   state   was  created with
-   LSFitCreateFGH(), algorithm will need function, gradient and Hessian.
+CALLBACK ARGUMENTS
 
-   According  to  the  said  above,  there  ase  several  versions of this
-   function, which accept different sets of callbacks.
+This algorithm is somewhat unusual because  it  works  with  parameterized
+function f(C,X), where X is  a  function  argument (we  have  many  points
+which  are  characterized  by different  argument  values),  and  C  is  a
+parameter to fit.
 
-   This flexibility opens way to subtle errors - you may create state with
-   LSFitCreateFGH() (optimization using Hessian), but call function  which
-   does not accept Hessian. So when algorithm will request Hessian,  there
-   will be no callback to call. In this case exception will be thrown.
+For example, if we want to do linear  fit  by  f(c0,c1,x) = c0*x+c1,  then
+x will be argument, and {c0,c1} will be parameters.
 
-   Be careful to avoid such errors because there is no way to find them at
-   compile time - you can see them at runtime only.
+It is important to understand that this algorithm finds   minimum  in  the
+space of function PARAMETERS (not  arguments),  so  it  needs  derivatives
+of f() with respect to C, not X.
+
+In the example above it will need f=c0*x+c1 and {df/dc0,df/dc1} = {x,1}
+instead of {df/dx} = {c0}.
 
   -- ALGLIB --
-     Copyright 17.08.2009 by Bochkanov Sergey
+     Copyright 17.12.2023 by Bochkanov Sergey
+
 
 *************************************************************************/
 void lsfitfit(lsfitstate &state,
@@ -5495,13 +5706,6 @@ void lsfitfit(lsfitstate &state,
 void lsfitfit(lsfitstate &state,
     void (*func)(const real_1d_array &c, const real_1d_array &x, double &func, void *ptr),
     void (*grad)(const real_1d_array &c, const real_1d_array &x, double &func, real_1d_array &grad, void *ptr),
-    void  (*rep)(const real_1d_array &c, double func, void *ptr) = NULL,
-    void *ptr = NULL,
-    const xparams _xparams = alglib::xdefault);
-void lsfitfit(lsfitstate &state,
-    void (*func)(const real_1d_array &c, const real_1d_array &x, double &func, void *ptr),
-    void (*grad)(const real_1d_array &c, const real_1d_array &x, double &func, real_1d_array &grad, void *ptr),
-    void (*hess)(const real_1d_array &c, const real_1d_array &x, double &func, real_1d_array &grad, real_2d_array &hess, void *ptr),
     void  (*rep)(const real_1d_array &c, double func, void *ptr) = NULL,
     void *ptr = NULL,
     const xparams _xparams = alglib::xdefault);
@@ -5516,7 +5720,9 @@ INPUT PARAMETERS:
     State   -   algorithm state
 
 OUTPUT PARAMETERS:
-    Info    -   completion code:
+    C       -   array[K], solution
+    Rep     -   optimization report. On success following fields are set:
+                * TerminationType   completion code:
                     * -8    optimizer   detected  NAN/INF  in  the  target
                             function and/or gradient
                     * -7    gradient verification failed.
@@ -5526,8 +5732,6 @@ OUTPUT PARAMETERS:
                     *  5    MaxIts steps was taken
                     *  7    stopping conditions are too stringent,
                             further improvement is impossible
-    C       -   array[0..K-1], solution
-    Rep     -   optimization report. On success following fields are set:
                 * R2                non-adjusted coefficient of determination
                                     (non-weighted)
                 * RMSError          rms error on the (X,Y).
@@ -5581,7 +5785,7 @@ NOTE:       covariance matrix is estimated using  correction  for  degrees
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void lsfitresults(const lsfitstate &state, ae_int_t &info, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
+void lsfitresults(const lsfitstate &state, real_1d_array &c, lsfitreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -5635,7 +5839,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 15.06.2012 by Bochkanov Sergey
 *************************************************************************/
-void lsfitsetgradientcheck(const lsfitstate &state, const double teststep, const xparams _xparams = alglib::xdefault);
+void lsfitsetgradientcheck(lsfitstate &state, const double teststep, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_FITSPHERE) || !defined(AE_PARTIAL_BUILD)
@@ -5769,9 +5973,6 @@ This  is  expert  function  which  allows  to  tweak  many  parameters  of
 underlying nonlinear solver:
 * stopping criteria for inner iterations
 * number of outer iterations
-* penalty coefficient used to handle  nonlinear  constraints  (we  convert
-  unconstrained nonsmooth optimization problem ivolving max() and/or min()
-  operations to quadratically constrained smooth one).
 
 You may tweak all these parameters or only some  of  them,  leaving  other
 ones at their default state - just specify zero  value,  and  solver  will
@@ -5806,13 +6007,6 @@ INPUT PARAMETERS:
                   speed up solver; 10 often results in good combination of
                   precision and speed; sometimes you may get good results
                   with just 6 outer iterations.
-                Ignored for ProblemType=0.
-    Penalty -   penalty coefficient for NLC optimizer:
-                * must be non-negative
-                * use 0 to choose default value (1.0E6 in current version)
-                * it should be really large, 1.0E6...1.0E7 is a good value
-                  to start from;
-                * generally, default value is good enough
                 Ignored for ProblemType=0.
 
 OUTPUT PARAMETERS:
@@ -5911,7 +6105,7 @@ include it in ALGLIB.
   -- ALGLIB --
      Copyright 14.04.2017 by Bochkanov Sergey
 *************************************************************************/
-void fitspherex(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nx, const ae_int_t problemtype, const double epsx, const ae_int_t aulits, const double penalty, real_1d_array &cx, double &rlo, double &rhi, const xparams _xparams = alglib::xdefault);
+void fitspherex(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nx, const ae_int_t problemtype, const double epsx, const ae_int_t aulits, real_1d_array &cx, double &rlo, double &rhi, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_PARAMETRIC) || !defined(AE_PARTIAL_BUILD)
@@ -6390,25 +6584,17 @@ Important properties of s_out:
 * although  serializer  uses  spaces and CR+LF as separators, you can 
   replace any separator character by arbitrary combination of spaces,
   tabs, Windows or Unix newlines. It allows flexible reformatting  of
-  the  string  in  case you want to include it into text or XML file. 
+  the  string in case you want to include it into a text or XML file. 
   But you should not insert separators into the middle of the "words"
-  nor you should change case of letters.
+  nor should you change the case of letters.
 * s_out can be freely moved between 32-bit and 64-bit systems, little
   and big endian machines, and so on. You can serialize structure  on
   32-bit machine and unserialize it on 64-bit one (or vice versa), or
   serialize  it  on  SPARC  and  unserialize  on  x86.  You  can also 
-  serialize  it  in  C++ version of ALGLIB and unserialize in C# one, 
+  serialize it in C++ version of ALGLIB and unserialize it in C# one, 
   and vice versa.
 *************************************************************************/
-void spline2dserialize(spline2dinterpolant &obj, std::string &s_out);
-
-
-/*************************************************************************
-This function unserializes data structure from string.
-*************************************************************************/
-void spline2dunserialize(const std::string &s_in, spline2dinterpolant &obj);
-
-
+void spline2dserialize(const spline2dinterpolant &obj, std::string &s_out);
 
 
 /*************************************************************************
@@ -6422,7 +6608,13 @@ spaces and CR+LF.
 We recommend you to read comments on string version of serializer to find
 out more about serialization of AlGLIB objects.
 *************************************************************************/
-void spline2dserialize(spline2dinterpolant &obj, std::ostream &s_out);
+void spline2dserialize(const spline2dinterpolant &obj, std::ostream &s_out);
+
+
+/*************************************************************************
+This function unserializes data structure from string.
+*************************************************************************/
+void spline2dunserialize(const std::string &s_in, spline2dinterpolant &obj);
 
 
 /*************************************************************************
@@ -6450,8 +6642,10 @@ double spline2dcalc(const spline2dinterpolant &c, const double x, const double y
 
 
 /*************************************************************************
-This subroutine calculates the value of the bilinear or bicubic spline  at
-the given point X and its derivatives.
+This subroutine calculates the value of a bilinear or bicubic spline   and
+its derivatives.
+
+Use Spline2DDiff2() if you need second derivatives Sxx and Syy.
 
 Input parameters:
     C   -   spline interpolant.
@@ -6461,12 +6655,36 @@ Output parameters:
     F   -   S(x,y)
     FX  -   dS(x,y)/dX
     FY  -   dS(x,y)/dY
-    FXY -   d2S(x,y)/dXdY
 
   -- ALGLIB PROJECT --
      Copyright 05.07.2007 by Bochkanov Sergey
 *************************************************************************/
-void spline2ddiff(const spline2dinterpolant &c, const double x, const double y, double &f, double &fx, double &fy, double &fxy, const xparams _xparams = alglib::xdefault);
+void spline2ddiff(const spline2dinterpolant &c, const double x, const double y, double &f, double &fx, double &fy, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine calculates the value of a bilinear or bicubic spline   and
+its second derivatives.
+
+Input parameters:
+    C   -   spline interpolant.
+    X, Y-   point
+
+Output parameters:
+    F   -   S(x,y)
+    FX  -   dS(x,y)/dX
+    FY  -   dS(x,y)/dY
+    FXX -   d2S(x,y)/dXdX
+    FXY -   d2S(x,y)/dXdY
+    FYY -   d2S(x,y)/dYdY
+
+  -- ALGLIB PROJECT --
+     Copyright 17.04.2023 by Bochkanov Sergey.
+
+     The second derivatives code was contributed by  Horst  Greiner  under
+     public domain terms.
+*************************************************************************/
+void spline2ddiff2(const spline2dinterpolant &c, const double x, const double y, double &f, double &fx, double &fy, double &fxx, double &fxy, double &fyy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6533,8 +6751,8 @@ void spline2dcalcv(const spline2dinterpolant &c, const double x, const double y,
 
 
 /*************************************************************************
-This subroutine calculates value of  specific  component  of  bilinear  or
-bicubic vector-valued spline and its derivatives.
+This subroutine calculates the value and the derivatives of I-th component
+of a  vector-valued bilinear or bicubic spline.
 
 Input parameters:
     C   -   spline interpolant.
@@ -6545,12 +6763,37 @@ Output parameters:
     F   -   S(x,y)
     FX  -   dS(x,y)/dX
     FY  -   dS(x,y)/dY
-    FXY -   d2S(x,y)/dXdY
 
   -- ALGLIB PROJECT --
      Copyright 05.07.2007 by Bochkanov Sergey
 *************************************************************************/
-void spline2ddiffvi(const spline2dinterpolant &c, const double x, const double y, const ae_int_t i, double &f, double &fx, double &fy, double &fxy, const xparams _xparams = alglib::xdefault);
+void spline2ddiffvi(const spline2dinterpolant &c, const double x, const double y, const ae_int_t i, double &f, double &fx, double &fy, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine calculates the value and the derivatives of I-th component
+of a vector-valued bilinear or bicubic spline.
+
+Input parameters:
+    C   -   spline interpolant.
+    X, Y-   point
+    I   -   component index, in [0,D)
+
+Output parameters:
+    F   -   S(x,y)
+    FX  -   dS(x,y)/dX
+    FY  -   dS(x,y)/dY
+    FXX -   d2S(x,y)/dXdX
+    FXY -   d2S(x,y)/dXdY
+    FYY -   d2S(x,y)/dYdY
+
+  -- ALGLIB PROJECT --
+     Copyright 17.04.2023 by Bochkanov Sergey.
+
+     The second derivatives code was contributed by  Horst  Greiner  under
+     public domain terms.
+*************************************************************************/
+void spline2ddiff2vi(const spline2dinterpolant &c, const double x, const double y, const ae_int_t i, double &f, double &fx, double &fy, double &fxx, double &fxy, double &fyy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6566,7 +6809,7 @@ Result:
   -- ALGLIB PROJECT --
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************/
-void spline2dlintransxy(const spline2dinterpolant &c, const double ax, const double bx, const double ay, const double by, const xparams _xparams = alglib::xdefault);
+void spline2dlintransxy(spline2dinterpolant &c, const double ax, const double bx, const double ay, const double by, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6582,7 +6825,7 @@ Output parameters:
   -- ALGLIB PROJECT --
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************/
-void spline2dlintransf(const spline2dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
+void spline2dlintransf(spline2dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6647,6 +6890,10 @@ void spline2dresamplebilinear(const real_2d_array &a, const ae_int_t oldheight, 
 /*************************************************************************
 This subroutine builds bilinear vector-valued spline.
 
+This function produces C0-continuous spline, i.e.  the  spline  itself  is
+continuous, however its first and second  derivatives have discontinuities
+at the spline cell boundaries.
+
 Input parameters:
     X   -   spline abscissas, array[0..N-1]
     Y   -   spline ordinates, array[0..M-1]
@@ -6668,8 +6915,24 @@ void spline2dbuildbilinearv(const real_1d_array &x, const ae_int_t n, const real
 
 
 /*************************************************************************
+This subroutine builds bilinear vector-valued spline.
+
+Buffered version of Spline2DBuildBilinearV() which reuses memory previously
+allocated in C as much as possible.
+
+  -- ALGLIB PROJECT --
+     Copyright 16.04.2012 by Bochkanov Sergey
+*************************************************************************/
+void spline2dbuildbilinearvbuf(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
 This subroutine builds bilinear vector-valued  spline,  with  some  spline
 cells being missing due to missing nodes.
+
+This function produces C0-continuous spline, i.e.  the  spline  itself  is
+continuous, however its first and second  derivatives have discontinuities
+at the spline cell boundaries.
 
 When the node (i,j) is missing, it means that: a) we don't  have  function
 value at this point (elements of F[] are ignored), and  b)  we  don't need
@@ -6710,31 +6973,247 @@ void spline2dbuildbilinearmissing(const real_1d_array &x, const ae_int_t n, cons
 
 
 /*************************************************************************
-This subroutine builds bicubic vector-valued spline.
+This subroutine builds bilinear vector-valued  spline,  with  some  spline
+cells being missing due to missing nodes.
 
-Input parameters:
-    X   -   spline abscissas, array[0..N-1]
-    Y   -   spline ordinates, array[0..M-1]
-    F   -   function values, array[0..M*N*D-1]:
+Buffered version of  Spline2DBuildBilinearMissing()  which  reuses  memory
+previously allocated in C as much as possible.
+
+  -- ALGLIB PROJECT --
+     Copyright 27.06.2022 by Bochkanov Sergey
+*************************************************************************/
+void spline2dbuildbilinearmissingbuf(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const boolean_1d_array &missing, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine builds a bicubic vector-valued spline using  parabolically
+terminated end conditions.
+
+This function produces a C2-continuous spline, i.e. the  spline has smooth
+first and second  derivatives  both  inside  spline  cells  and  at  their
+boundaries.
+
+INPUT PARAMETERS:
+    X   -   spline abscissas, array[N]
+    N   -   N>=2:
+            * if not given, automatically determined as len(X)
+            * if given, only leading N elements of X are used
+    Y   -   spline ordinates, array[M]
+    M   -   M>=2:
+            * if not given, automatically determined as len(Y)
+            * if given, only leading M elements of Y are used
+    F   -   function values, array[M*N*D]:
             * first D elements store D values at (X[0],Y[0])
             * next D elements store D values at (X[1],Y[0])
             * general form - D function values at (X[i],Y[j]) are stored
               at F[D*(J*N+I)...D*(J*N+I)+D-1].
-    M,N -   grid size, M>=2, N>=2
-    D   -   vector dimension, D>=1
+    D   -   vector dimension, D>=1:
+            * D=1 means scalar-valued bicubic spline
+            * D>1 means vector-valued bicubic spline
 
-Output parameters:
+OUTPUT PARAMETERS:
     C   -   spline interpolant
+
+  -- ALGLIB PROJECT --
+     Copyright 2012-2023 by Bochkanov Sergey
+*************************************************************************/
+void spline2dbuildbicubicv(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline2dbuildbicubicv(const real_1d_array &x, const real_1d_array &y, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine  builds  a  bicubic  vector-valued  spline  using  clamped
+boundary conditions:
+* spline values at the grid nodes are specified
+* boundary conditions for  first,  second  derivatives  or  for  parabolic
+  termination at four boundaries (bottom  y=min(Y[]), top y=max(Y[]), left
+  x=min(X[]), right x=max(X[])) are specified
+* mixed derivatives at corners are specified
+* it is possible to  have  different  boundary  conditions  for  different
+  boundaries (first derivatives along  one  boundary,  second  derivatives
+  along other one, parabolic termination along the rest and so on)
+* it is possible to have either a scalar (D=1) or a vector-valued spline
+
+This function produces a C2-continuous spline, i.e. the  spline has smooth
+first and second  derivatives  both  inside  spline  cells  and  at  their
+boundaries.
+
+INPUT PARAMETERS:
+    X           -   spline  abscissas,  array[N].  Can  be  unsorted,  the
+                    function will sort it together with boundary conditions
+                    and F[] array (the same set of  permutations  will  be
+                    applied to X[] and F[]).
+    N           -   N>=2:
+                    * if not given, automatically determined as len(X)
+                    * if given, only leading N elements of X are used
+    Y           -   spline ordinates, array[M].  Can   be   unsorted,  the
+                    function will sort it together with boundary conditions
+                    and F[] array (the same set of  permutations  will  be
+                    applied to X[] and F[]).
+    M           -   M>=2:
+                    * if not given, automatically determined as len(Y)
+                    * if given, only leading M elements of Y are used
+    BndBtm      -   array[D*N], boundary conditions at the bottom boundary
+                    of the interpolation area  (corresponds to y=min(Y[]):
+                    * if  BndTypeBtm=0,  the  spline  has   a   'parabolic
+                      termination' boundary condition across that specific
+                      boundary. In this case BndBtm is not even referenced
+                      by the function and can be unallocated.
+                    * otherwise contains derivatives with respect to X
+                    * if BndTypeBtm=1, first derivatives are given
+                    * if BndTypeBtm=2, second derivatives are given
+                    * first D entries store derivatives at x=X[0], y=minY,
+                      subsequent D entries store  derivatives  at  x=X[1],
+                      y=minY and so on
+    BndTop      -   array[D*N],  boundary  conditions  at the top boundary
+                    of the interpolation area  (corresponds to y=max(Y[]):
+                    * if  BndTypeTop=0,  the  spline  has   a   'parabolic
+                      termination' boundary condition across that specific
+                      boundary. In this case BndTop is not even referenced
+                      by the function and can be unallocated.
+                    * otherwise contains derivatives with respect to X
+                    * if BndTypeTop=1, first derivatives are given
+                    * if BndTypeTop=2, second derivatives are given
+                    * first D entries store derivatives at x=X[0], y=maxY,
+                      subsequent D entries store  derivatives  at  x=X[1],
+                      y=maxY and so on
+    BndLft      -   array[D*M], boundary conditions at  the  left boundary
+                    of the  interpolation area (corresponds to x=min(X[]):
+                    * if  BndTypeLft=0,  the  spline  has   a   'parabolic
+                      termination' boundary condition across that specific
+                      boundary. In this case BndLft is not even referenced
+                      by the function and can be unallocated.
+                    * otherwise contains derivatives with respect to Y
+                    * if BndTypeLft=1, first derivatives are given
+                    * if BndTypeLft=2, second derivatives are given
+                    * first D entries store derivatives at x=minX, y=Y[0],
+                      subsequent D entries store  derivatives  at  x=minX,
+                      y=Y[1] and so on
+    BndRgt      -   array[D*M], boundary conditions at  the right boundary
+                    of the  interpolation area (corresponds to x=max(X[]):
+                    * if  BndTypeRgt=0,  the  spline  has   a   'parabolic
+                      termination' boundary condition across that specific
+                      boundary. In this case BndRgt is not even referenced
+                      by the function and can be unallocated.
+                    * otherwise contains derivatives with respect to Y
+                    * if BndTypeRgt=1, first derivatives are given
+                    * if BndTypeRgt=2, second derivatives are given
+                    * first D entries store derivatives at x=maxX, y=Y[0],
+                      subsequent D entries store  derivatives  at  x=maxX,
+                      y=Y[1] and so on
+    MixedD      -   array[D*4], mixed derivatives  at  4  corners  of  the
+                    interpolation area:
+                    * derivative order depends on the order  of   boundary
+                      conditions (bottom/top and left/right)  intersecting
+                      at that corner:
+                      **  for BndType(Btm|Top)=BndType(Lft|Rgt)=1 user has
+                          to provide d2S/dXdY
+                      **  for BndType(Btm|Top)=BndType(Lft|Rgt)=2 user has
+                          to provide d4S/(dX^2*dY^2)
+                      **  for BndType(Btm|Top)=1, BndType(Lft|Rgt)=2  user
+                          has to provide d3S/(dX^2*dY)
+                      **  for BndType(Btm|Top)=2, BndType(Lft|Rgt)=1  user
+                          has to provide d3S/(dX*dY^2)
+                      **  if one of the intersecting bounds has 'parabolic
+                          termination'  condition,   this  specific  mixed
+                          derivative is not used
+                    * first D entries store derivatives at the bottom left
+                      corner x=min(X[]), y=min(Y[])
+                    * subsequent D entries store derivatives at the bottom
+                      right corner x=max(X[]), y=min(Y[])
+                    * subsequent D entries store derivatives  at  the  top
+                      left corner  x=min(X[]), y=max(Y[])
+                    * subsequent D entries store derivatives  at  the  top
+                      right corner x=max(X[]), y=max(Y[])
+                    * if all bounds have 'parabolic termination' condition,
+                      MixedD[]  is  not  referenced  at  all  and  can  be
+                      unallocated.
+    F           -   function values, array[M*N*D]:
+                    * first D elements store D values at (X[0],Y[0])
+                    * next D elements store D values at (X[1],Y[0])
+                    * general form - D function values at (X[i],Y[j])  are
+                      stored at F[D*(J*N+I)...D*(J*N+I)+D-1].
+    D           -   vector dimension, D>=1:
+                    * D=1 means scalar-valued bicubic spline
+                    * D>1 means vector-valued bicubic spline
+
+OUTPUT PARAMETERS:
+    C   -   spline interpolant
+
+  -- ALGLIB PROJECT --
+     Copyright 2012-2023 by Bochkanov Sergey
+*************************************************************************/
+void spline2dbuildclampedv(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &bndbtm, const ae_int_t bndtypebtm, const real_1d_array &bndtop, const ae_int_t bndtypetop, const real_1d_array &bndlft, const ae_int_t bndtypelft, const real_1d_array &bndrgt, const ae_int_t bndtypergt, const real_1d_array &mixedd, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline2dbuildclampedv(const real_1d_array &x, const real_1d_array &y, const real_1d_array &bndbtm, const ae_int_t bndtypebtm, const real_1d_array &bndtop, const ae_int_t bndtypetop, const real_1d_array &bndlft, const ae_int_t bndtypelft, const real_1d_array &bndrgt, const ae_int_t bndtypergt, const real_1d_array &mixedd, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine builds a Hermite bicubic vector-valued spline.
+
+This function produces merely C1-continuous spline, i.e. the   spline  has
+smooth first derivatives.
+
+INPUT PARAMETERS:
+    X   -   spline abscissas, array[N]
+    N   -   N>=2:
+            * if not given, automatically determined as len(X)
+            * if given, only leading N elements of X are used
+    Y   -   spline ordinates, array[M]
+    M   -   M>=2:
+            * if not given, automatically determined as len(Y)
+            * if given, only leading M elements of Y are used
+    F   -   function values, array[M*N*D]:
+            * first D elements store D values at (X[0],Y[0])
+            * next D elements store D values at (X[1],Y[0])
+            * general form - D function values at (X[i],Y[j]) are stored
+              at F[D*(J*N+I)...D*(J*N+I)+D-1].
+    dFdX-   spline derivatives with respect to X, array[M*N*D]:
+            * first D elements store D values at (X[0],Y[0])
+            * next D elements store D values at (X[1],Y[0])
+            * general form - D function values at (X[i],Y[j]) are stored
+              at F[D*(J*N+I)...D*(J*N+I)+D-1].
+    dFdY-   spline derivatives with respect to Y, array[M*N*D]:
+            * first D elements store D values at (X[0],Y[0])
+            * next D elements store D values at (X[1],Y[0])
+            * general form - D function values at (X[i],Y[j]) are stored
+              at F[D*(J*N+I)...D*(J*N+I)+D-1].
+    d2FdXdY-mixed derivatives with respect to X and Y, array[M*N*D]:
+            * first D elements store D values at (X[0],Y[0])
+            * next D elements store D values at (X[1],Y[0])
+            * general form - D function values at (X[i],Y[j]) are stored
+              at F[D*(J*N+I)...D*(J*N+I)+D-1].
+    D   -   vector dimension, D>=1:
+            * D=1 means scalar-valued bicubic spline
+            * D>1 means vector-valued bicubic spline
+
+OUTPUT PARAMETERS:
+    C   -   spline interpolant
+
+  -- ALGLIB PROJECT --
+     Copyright 2012-2023 by Bochkanov Sergey
+*************************************************************************/
+void spline2dbuildhermitev(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const real_1d_array &dfdx, const real_1d_array &dfdy, const real_1d_array &d2fdxdy, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline2dbuildhermitev(const real_1d_array &x, const real_1d_array &y, const real_1d_array &f, const real_1d_array &dfdx, const real_1d_array &dfdy, const real_1d_array &d2fdxdy, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine builds bicubic vector-valued spline.
+
+Buffered version of Spline2DBuildBicubicV() which reuses memory previously
+allocated in C as much as possible.
 
   -- ALGLIB PROJECT --
      Copyright 16.04.2012 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildbicubicv(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+void spline2dbuildbicubicvbuf(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
 This  subroutine builds bicubic vector-valued  spline,  with  some  spline
 cells being missing due to missing nodes.
+
+This function produces C2-continuous spline, i.e. the has smooth first and
+second derivatives both inside spline cells and at the boundaries.
 
 When the node (i,j) is missing, it means that: a) we don't  have  function
 value at this point (elements of F[] are ignored), and  b)  we  don't need
@@ -6772,6 +7251,19 @@ Output parameters:
      Copyright 27.06.2022 by Bochkanov Sergey
 *************************************************************************/
 void spline2dbuildbicubicmissing(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const boolean_1d_array &missing, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This  subroutine builds bicubic vector-valued  spline,  with  some  spline
+cells being missing due to missing nodes.
+
+Buffered version  of  Spline2DBuildBicubicMissing()  which  reuses  memory
+previously allocated in C as much as possible.
+
+  -- ALGLIB PROJECT --
+     Copyright 27.06.2022 by Bochkanov Sergey
+*************************************************************************/
+void spline2dbuildbicubicmissingbuf(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &f, const boolean_1d_array &missing, const ae_int_t d, spline2dinterpolant &c, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6921,7 +7413,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetuserterm(const spline2dbuilder &state, const double v, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetuserterm(spline2dbuilder &state, const double v, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6937,7 +7429,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetlinterm(const spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetlinterm(spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6953,7 +7445,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetconstterm(const spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetconstterm(spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6967,7 +7459,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetzeroterm(const spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetzeroterm(spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -6988,7 +7480,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetpoints(const spline2dbuilder &state, const real_2d_array &xy, const ae_int_t n, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetpoints(spline2dbuilder &state, const real_2d_array &xy, const ae_int_t n, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7001,7 +7493,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetareaauto(const spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetareaauto(spline2dbuilder &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7016,7 +7508,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetarea(const spline2dbuilder &state, const double xa, const double xb, const double ya, const double yb, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetarea(spline2dbuilder &state, const double xa, const double xb, const double ya, const double yb, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7039,7 +7531,7 @@ NOTE: at  least  4  nodes  is  created in each dimension, so KX and KY are
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetgrid(const spline2dbuilder &state, const ae_int_t kx, const ae_int_t ky, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetgrid(spline2dbuilder &state, const ae_int_t kx, const ae_int_t ky, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7047,6 +7539,9 @@ This  function  allows  you to choose least squares solver used to perform
 fitting. This function sets solver algorithm to "FastDDM", which  performs
 fast parallel fitting by splitting problem into smaller chunks and merging
 results together.
+
+Unlike BlockLLS, this solver produces merely C1 continuous models  because
+domain decomposition part disrupts C2 continuity.
 
 This solver is optimized for large-scale problems, starting  from  256x256
 grids, and up to 10000x10000 grids. Of course, it will  work  for  smaller
@@ -7127,7 +7622,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetalgofastddm(const spline2dbuilder &state, const ae_int_t nlayers, const double lambdav, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetalgofastddm(spline2dbuilder &state, const ae_int_t nlayers, const double lambdav, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7135,6 +7630,8 @@ This  function  allows  you to choose least squares solver used to perform
 fitting. This function sets solver algorithm to "BlockLLS", which performs
 least squares fitting  with  fast  sparse  direct  solver,  with  optional
 nonsmoothness penalty being applied.
+
+This solver produces C2-continuous spline.
 
 Nonlinearity penalty has the following form:
 
@@ -7183,7 +7680,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetalgoblocklls(const spline2dbuilder &state, const double lambdans, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetalgoblocklls(spline2dbuilder &state, const double lambdans, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7212,7 +7709,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dbuildersetalgonaivells(const spline2dbuilder &state, const double lambdans, const xparams _xparams = alglib::xdefault);
+void spline2dbuildersetalgonaivells(spline2dbuilder &state, const double lambdans, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7243,7 +7740,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 05.02.2018 by Bochkanov Sergey
 *************************************************************************/
-void spline2dfit(const spline2dbuilder &state, spline2dinterpolant &s, spline2dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline2dfit(spline2dbuilder &state, spline2dinterpolant &s, spline2dfitreport &rep, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_RBFV2) || !defined(AE_PARTIAL_BUILD)
@@ -7285,7 +7782,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB PROJECT --
      Copyright 26.04.2012 by Bochkanov Sergey
 *************************************************************************/
-void spline3dlintransxyz(const spline3dinterpolant &c, const double ax, const double bx, const double ay, const double by, const double az, const double bz, const xparams _xparams = alglib::xdefault);
+void spline3dlintransxyz(spline3dinterpolant &c, const double ax, const double bx, const double ay, const double by, const double az, const double bz, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7301,7 +7798,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB PROJECT --
      Copyright 26.04.2012 by Bochkanov Sergey
 *************************************************************************/
-void spline3dlintransf(const spline3dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
+void spline3dlintransf(spline3dinterpolant &c, const double a, const double b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7375,6 +7872,18 @@ OUTPUT PARAMETERS:
      Copyright 26.04.2012 by Bochkanov Sergey
 *************************************************************************/
 void spline3dbuildtrilinearv(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &z, const ae_int_t l, const real_1d_array &f, const ae_int_t d, spline3dinterpolant &c, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This subroutine builds trilinear vector-valued spline.
+
+Buffered  version   of   Spline3DBuildTrilinearV()  which  reuses   memory
+previously allocated in C as much as possible.
+
+  -- ALGLIB PROJECT --
+     Copyright 26.04.2012 by Bochkanov Sergey
+*************************************************************************/
+void spline3dbuildtrilinearvbuf(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, const ae_int_t m, const real_1d_array &z, const ae_int_t l, const real_1d_array &f, const ae_int_t d, spline3dinterpolant &c, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7544,6 +8053,28 @@ Do NOT use this function in the new code!
 *************************************************************************/
 void spline1dfitpenalizedw(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t n, const ae_int_t m, const double rho, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
 void spline1dfitpenalizedw(const real_1d_array &x, const real_1d_array &y, const real_1d_array &w, const ae_int_t m, const double rho, ae_int_t &info, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Deprecated fitting function with O(N*M^2+M^3) running time. Superseded  by
+spline1dfit().
+
+  -- ALGLIB PROJECT --
+     Copyright 18.08.2009 by Bochkanov Sergey
+*************************************************************************/
+void spline1dfitcubic(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfitcubic(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Deprecated fitting function with O(N*M^2+M^3) running time. Superseded  by
+spline1dfit().
+
+  -- ALGLIB PROJECT --
+     Copyright 18.08.2009 by Bochkanov Sergey
+*************************************************************************/
+void spline1dfithermite(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
+void spline1dfithermite(const real_1d_array &x, const real_1d_array &y, const ae_int_t m, spline1dinterpolant &s, spline1dfitreport &rep, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_RBF) || !defined(AE_PARTIAL_BUILD)
@@ -7557,25 +8088,17 @@ Important properties of s_out:
 * although  serializer  uses  spaces and CR+LF as separators, you can 
   replace any separator character by arbitrary combination of spaces,
   tabs, Windows or Unix newlines. It allows flexible reformatting  of
-  the  string  in  case you want to include it into text or XML file. 
+  the  string in case you want to include it into a text or XML file. 
   But you should not insert separators into the middle of the "words"
-  nor you should change case of letters.
+  nor should you change the case of letters.
 * s_out can be freely moved between 32-bit and 64-bit systems, little
   and big endian machines, and so on. You can serialize structure  on
   32-bit machine and unserialize it on 64-bit one (or vice versa), or
   serialize  it  on  SPARC  and  unserialize  on  x86.  You  can also 
-  serialize  it  in  C++ version of ALGLIB and unserialize in C# one, 
+  serialize it in C++ version of ALGLIB and unserialize it in C# one, 
   and vice versa.
 *************************************************************************/
-void rbfserialize(rbfmodel &obj, std::string &s_out);
-
-
-/*************************************************************************
-This function unserializes data structure from string.
-*************************************************************************/
-void rbfunserialize(const std::string &s_in, rbfmodel &obj);
-
-
+void rbfserialize(const rbfmodel &obj, std::string &s_out);
 
 
 /*************************************************************************
@@ -7589,7 +8112,13 @@ spaces and CR+LF.
 We recommend you to read comments on string version of serializer to find
 out more about serialization of AlGLIB objects.
 *************************************************************************/
-void rbfserialize(rbfmodel &obj, std::ostream &s_out);
+void rbfserialize(const rbfmodel &obj, std::ostream &s_out);
+
+
+/*************************************************************************
+This function unserializes data structure from string.
+*************************************************************************/
+void rbfunserialize(const std::string &s_in, rbfmodel &obj);
 
 
 /*************************************************************************
@@ -7751,8 +8280,8 @@ NOTE: dataset added by this function is not saved during model serialization.
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetpoints(const rbfmodel &s, const real_2d_array &xy, const ae_int_t n, const xparams _xparams = alglib::xdefault);
-void rbfsetpoints(const rbfmodel &s, const real_2d_array &xy, const xparams _xparams = alglib::xdefault);
+void rbfsetpoints(rbfmodel &s, const real_2d_array &xy, const ae_int_t n, const xparams _xparams = alglib::xdefault);
+void rbfsetpoints(rbfmodel &s, const real_2d_array &xy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7800,8 +8329,8 @@ NOTE: dataset added by this function is not saved during model serialization.
   -- ALGLIB --
      Copyright 20.06.2016 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetpointsandscales(const rbfmodel &r, const real_2d_array &xy, const ae_int_t n, const real_1d_array &s, const xparams _xparams = alglib::xdefault);
-void rbfsetpointsandscales(const rbfmodel &r, const real_2d_array &xy, const real_1d_array &s, const xparams _xparams = alglib::xdefault);
+void rbfsetpointsandscales(rbfmodel &r, const real_2d_array &xy, const ae_int_t n, const real_1d_array &s, const xparams _xparams = alglib::xdefault);
+void rbfsetpointsandscales(rbfmodel &r, const real_2d_array &xy, const real_1d_array &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7812,8 +8341,8 @@ DEPRECATED: this function is deprecated. ALGLIB  includes  new  RBF  model
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgoqnn(const rbfmodel &s, const double q, const double z, const xparams _xparams = alglib::xdefault);
-void rbfsetalgoqnn(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetalgoqnn(rbfmodel &s, const double q, const double z, const xparams _xparams = alglib::xdefault);
+void rbfsetalgoqnn(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7824,8 +8353,8 @@ DEPRECATED: this function is deprecated. ALGLIB  includes  new  RBF  model
   -- ALGLIB --
      Copyright 02.03.2012 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgomultilayer(const rbfmodel &s, const double rbase, const ae_int_t nlayers, const double lambdav, const xparams _xparams = alglib::xdefault);
-void rbfsetalgomultilayer(const rbfmodel &s, const double rbase, const ae_int_t nlayers, const xparams _xparams = alglib::xdefault);
+void rbfsetalgomultilayer(rbfmodel &s, const double rbase, const ae_int_t nlayers, const double lambdav, const xparams _xparams = alglib::xdefault);
+void rbfsetalgomultilayer(rbfmodel &s, const double rbase, const ae_int_t nlayers, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7912,7 +8441,7 @@ TYPICAL ERRORS
   -- ALGLIB --
      Copyright 20.06.2016 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgohierarchical(const rbfmodel &s, const double rbase, const ae_int_t nlayers, const double lambdans, const xparams _xparams = alglib::xdefault);
+void rbfsetalgohierarchical(rbfmodel &s, const double rbase, const ae_int_t nlayers, const double lambdans, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -7964,8 +8493,8 @@ NOTE:      this algorithm supports specification of per-dimensional  radii
   -- ALGLIB --
      Copyright 12.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgothinplatespline(const rbfmodel &s, const double lambdav, const xparams _xparams = alglib::xdefault);
-void rbfsetalgothinplatespline(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetalgothinplatespline(rbfmodel &s, const double lambdav, const xparams _xparams = alglib::xdefault);
+void rbfsetalgothinplatespline(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8037,8 +8566,8 @@ NOTE:      this algorithm supports specification of per-dimensional  radii
   -- ALGLIB --
      Copyright 12.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgomultiquadricmanual(const rbfmodel &s, const double alpha, const double lambdav, const xparams _xparams = alglib::xdefault);
-void rbfsetalgomultiquadricmanual(const rbfmodel &s, const double alpha, const xparams _xparams = alglib::xdefault);
+void rbfsetalgomultiquadricmanual(rbfmodel &s, const double alpha, const double lambdav, const xparams _xparams = alglib::xdefault);
+void rbfsetalgomultiquadricmanual(rbfmodel &s, const double alpha, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8093,8 +8622,8 @@ NOTE:      this algorithm supports specification of per-dimensional  radii
   -- ALGLIB --
      Copyright 12.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgomultiquadricauto(const rbfmodel &s, const double lambdav, const xparams _xparams = alglib::xdefault);
-void rbfsetalgomultiquadricauto(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetalgomultiquadricauto(rbfmodel &s, const double lambdav, const xparams _xparams = alglib::xdefault);
+void rbfsetalgomultiquadricauto(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8148,8 +8677,8 @@ NOTE:      this algorithm supports specification of per-dimensional  radii
   -- ALGLIB --
      Copyright 12.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetalgobiharmonic(const rbfmodel &s, const double lambdav, const xparams _xparams = alglib::xdefault);
-void rbfsetalgobiharmonic(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetalgobiharmonic(rbfmodel &s, const double lambdav, const xparams _xparams = alglib::xdefault);
+void rbfsetalgobiharmonic(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8171,7 +8700,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetlinterm(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetlinterm(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8191,7 +8720,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetconstterm(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetconstterm(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8217,7 +8746,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetzeroterm(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfsetzeroterm(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8235,7 +8764,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2017 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetv2bf(const rbfmodel &s, const ae_int_t bf, const xparams _xparams = alglib::xdefault);
+void rbfsetv2bf(rbfmodel &s, const ae_int_t bf, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8252,7 +8781,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2017 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetv2its(const rbfmodel &s, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
+void rbfsetv2its(rbfmodel &s, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8279,7 +8808,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.02.2017 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetv2supportr(const rbfmodel &s, const double r, const xparams _xparams = alglib::xdefault);
+void rbfsetv2supportr(rbfmodel &s, const double r, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8308,7 +8837,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.10.2022 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetv3tol(const rbfmodel &s, const double tol, const xparams _xparams = alglib::xdefault);
+void rbfsetv3tol(rbfmodel &s, const double tol, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8361,7 +8890,7 @@ unchanged.
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfbuildmodel(const rbfmodel &s, rbfreport &rep, const xparams _xparams = alglib::xdefault);
+void rbfbuildmodel(rbfmodel &s, rbfreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8394,7 +8923,7 @@ RESULT:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-double rbfcalc1(const rbfmodel &s, const double x0, const xparams _xparams = alglib::xdefault);
+double rbfcalc1(rbfmodel &s, const double x0, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8424,7 +8953,7 @@ RESULT:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-double rbfcalc2(const rbfmodel &s, const double x0, const double x1, const xparams _xparams = alglib::xdefault);
+double rbfcalc2(rbfmodel &s, const double x0, const double x1, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8455,7 +8984,7 @@ RESULT:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-double rbfcalc3(const rbfmodel &s, const double x0, const double x1, const double x2, const xparams _xparams = alglib::xdefault);
+double rbfcalc3(rbfmodel &s, const double x0, const double x1, const double x2, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8488,7 +9017,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfdiff1(const rbfmodel &s, const double x0, double &y, double &dy0, const xparams _xparams = alglib::xdefault);
+void rbfdiff1(rbfmodel &s, const double x0, double &y, double &dy0, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8523,7 +9052,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfdiff2(const rbfmodel &s, const double x0, const double x1, double &y, double &dy0, double &dy1, const xparams _xparams = alglib::xdefault);
+void rbfdiff2(rbfmodel &s, const double x0, const double x1, double &y, double &dy0, double &dy1, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8560,7 +9089,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfdiff3(const rbfmodel &s, const double x0, const double x1, const double x2, double &y, double &dy0, double &dy1, double &dy2, const xparams _xparams = alglib::xdefault);
+void rbfdiff3(rbfmodel &s, const double x0, const double x1, const double x2, double &y, double &dy0, double &dy1, double &dy2, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8611,7 +9140,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.09.2022 by Bochkanov Sergey
 *************************************************************************/
-void rbfsetfastevaltol(const rbfmodel &s, const double tol, const xparams _xparams = alglib::xdefault);
+void rbfsetfastevaltol(rbfmodel &s, const double tol, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8648,7 +9177,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.09.2022 by Bochkanov Sergey
 *************************************************************************/
-void rbffastcalc(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void rbffastcalc(rbfmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8683,7 +9212,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfcalc(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void rbfcalc(rbfmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8733,7 +9262,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfdiff(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, const xparams _xparams = alglib::xdefault);
+void rbfdiff(rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8796,7 +9325,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfhess(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, real_1d_array &d2y, const xparams _xparams = alglib::xdefault);
+void rbfhess(rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, real_1d_array &d2y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8826,7 +9355,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfcalcbuf(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void rbfcalcbuf(rbfmodel &s, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8874,7 +9403,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfdiffbuf(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, const xparams _xparams = alglib::xdefault);
+void rbfdiffbuf(rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8931,7 +9460,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbfhessbuf(const rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, real_1d_array &d2y, const xparams _xparams = alglib::xdefault);
+void rbfhessbuf(rbfmodel &s, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, real_1d_array &d2y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -8959,7 +9488,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbftscalcbuf(const rbfmodel &s, const rbfcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
+void rbftscalcbuf(const rbfmodel &s, rbfcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -9001,7 +9530,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbftsdiffbuf(const rbfmodel &s, const rbfcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, const xparams _xparams = alglib::xdefault);
+void rbftsdiffbuf(const rbfmodel &s, rbfcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -9055,7 +9584,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2021 by Bochkanov Sergey
 *************************************************************************/
-void rbftshessbuf(const rbfmodel &s, const rbfcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, real_1d_array &d2y, const xparams _xparams = alglib::xdefault);
+void rbftshessbuf(const rbfmodel &s, rbfcalcbuffer &buf, const real_1d_array &x, real_1d_array &y, real_1d_array &dy, real_1d_array &d2y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -9066,7 +9595,7 @@ It is superseded by rbfgridcalc2v() and  rbfgridcalc2vsubset()  functions.
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfgridcalc2(const rbfmodel &s, const real_1d_array &x0, const ae_int_t n0, const real_1d_array &x1, const ae_int_t n1, real_2d_array &y, const xparams _xparams = alglib::xdefault);
+void rbfgridcalc2(rbfmodel &s, const real_1d_array &x0, const ae_int_t n0, const real_1d_array &x1, const ae_int_t n1, real_2d_array &y, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -9433,7 +9962,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 13.12.2011 by Bochkanov Sergey
 *************************************************************************/
-void rbfunpack(const rbfmodel &s, ae_int_t &nx, ae_int_t &ny, real_2d_array &xwr, ae_int_t &nc, real_2d_array &v, ae_int_t &modelversion, const xparams _xparams = alglib::xdefault);
+void rbfunpack(rbfmodel &s, ae_int_t &nx, ae_int_t &ny, real_2d_array &xwr, ae_int_t &nc, real_2d_array &v, ae_int_t &modelversion, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -9451,7 +9980,7 @@ RESULT:
   -- ALGLIB --
      Copyright 06.07.2016 by Bochkanov Sergey
 *************************************************************************/
-ae_int_t rbfgetmodelversion(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+ae_int_t rbfgetmodelversion(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -9498,7 +10027,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 17.11.2018 by Bochkanov Sergey
 *************************************************************************/
-void rbfrequesttermination(const rbfmodel &s, const xparams _xparams = alglib::xdefault);
+void rbfrequesttermination(rbfmodel &s, const xparams _xparams = alglib::xdefault);
 #endif
 }
 
@@ -9510,15 +10039,15 @@ void rbfrequesttermination(const rbfmodel &s, const xparams _xparams = alglib::x
 namespace alglib_impl
 {
 #if defined(AE_COMPILE_RATINT) || !defined(AE_PARTIAL_BUILD)
-double barycentriccalc(barycentricinterpolant* b,
+double barycentriccalc(const barycentricinterpolant* b,
      double t,
      ae_state *_state);
-void barycentricdiff1(barycentricinterpolant* b,
+void barycentricdiff1(const barycentricinterpolant* b,
      double t,
      double* f,
      double* df,
      ae_state *_state);
-void barycentricdiff2(barycentricinterpolant* b,
+void barycentricdiff2(const barycentricinterpolant* b,
      double t,
      double* f,
      double* df,
@@ -9532,25 +10061,25 @@ void barycentriclintransy(barycentricinterpolant* b,
      double ca,
      double cb,
      ae_state *_state);
-void barycentricunpack(barycentricinterpolant* b,
+void barycentricunpack(const barycentricinterpolant* b,
      ae_int_t* n,
      /* Real    */ ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* w,
      ae_state *_state);
-void barycentricbuildxyw(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void barycentricbuildxyw(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
      ae_int_t n,
      barycentricinterpolant* b,
      ae_state *_state);
-void barycentricbuildfloaterhormann(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void barycentricbuildfloaterhormann(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_int_t d,
      barycentricinterpolant* b,
      ae_state *_state);
-void barycentriccopy(barycentricinterpolant* b,
+void barycentriccopy(const barycentricinterpolant* b,
      barycentricinterpolant* b2,
      ae_state *_state);
 void _barycentricinterpolant_init(void* _p, ae_state *_state, ae_bool make_automatic);
@@ -9559,7 +10088,7 @@ void _barycentricinterpolant_clear(void* _p);
 void _barycentricinterpolant_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_IDW) || !defined(AE_PARTIAL_BUILD)
-void idwcreatecalcbuffer(idwmodel* s,
+void idwcreatecalcbuffer(const idwmodel* s,
      idwcalcbuffer* buf,
      ae_state *_state);
 void idwbuildercreate(ae_int_t nx,
@@ -9570,7 +10099,7 @@ void idwbuildersetnlayers(idwbuilder* state,
      ae_int_t nlayers,
      ae_state *_state);
 void idwbuildersetpoints(idwbuilder* state,
-     /* Real    */ ae_matrix* xy,
+     /* Real    */ const ae_matrix* xy,
      ae_int_t n,
      ae_state *_state);
 void idwbuildersetalgomstab(idwbuilder* state,
@@ -9593,29 +10122,60 @@ double idwcalc3(idwmodel* s,
      double x2,
      ae_state *_state);
 void idwcalc(idwmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
 void idwcalcbuf(idwmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void idwtscalcbuf(idwmodel* s,
+void idwtscalcbuf(const idwmodel* s,
      idwcalcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
 void idwfit(idwbuilder* state,
      idwmodel* model,
      idwreport* rep,
      ae_state *_state);
-void idwalloc(ae_serializer* s, idwmodel* model, ae_state *_state);
-void idwserialize(ae_serializer* s, idwmodel* model, ae_state *_state);
+double idwpeekprogress(const idwbuilder* s, ae_state *_state);
+void idwgridcalc2v(const idwmodel* s,
+     /* Real    */ const ae_vector* x0,
+     ae_int_t n0,
+     /* Real    */ const ae_vector* x1,
+     ae_int_t n1,
+     /* Real    */ ae_vector* y,
+     ae_state *_state);
+void idwgridcalc2vsubset(const idwmodel* s,
+     /* Real    */ const ae_vector* x0,
+     ae_int_t n0,
+     /* Real    */ const ae_vector* x1,
+     ae_int_t n1,
+     /* Boolean */ const ae_vector* flagy,
+     /* Real    */ ae_vector* y,
+     ae_state *_state);
+void idwgridcalc2vx(const idwmodel* s,
+     /* Real    */ const ae_vector* x0,
+     ae_int_t n0,
+     /* Real    */ const ae_vector* x1,
+     ae_int_t n1,
+     /* Boolean */ const ae_vector* flagy,
+     ae_bool sparsey,
+     /* Real    */ ae_vector* y,
+     ae_state *_state);
+void idwalloc(ae_serializer* s, const idwmodel* model, ae_state *_state);
+void idwserialize(ae_serializer* s,
+     const idwmodel* model,
+     ae_state *_state);
 void idwunserialize(ae_serializer* s, idwmodel* model, ae_state *_state);
 void _idwcalcbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _idwcalcbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _idwcalcbuffer_clear(void* _p);
 void _idwcalcbuffer_destroy(void* _p);
+void _mstabbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _mstabbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _mstabbuffer_clear(void* _p);
+void _mstabbuffer_destroy(void* _p);
 void _idwmodel_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _idwmodel_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _idwmodel_clear(void* _p);
@@ -9636,7 +10196,7 @@ void lsfitscalexy(/* Real    */ ae_vector* x,
      ae_int_t n,
      /* Real    */ ae_vector* xc,
      /* Real    */ ae_vector* yc,
-     /* Integer */ ae_vector* dc,
+     /* Integer */ const ae_vector* dc,
      ae_int_t k,
      double* xa,
      double* xb,
@@ -9663,78 +10223,83 @@ void buildpriorterm1(/* Real    */ ae_vector* xy1,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_POLINT) || !defined(AE_PARTIAL_BUILD)
-void polynomialbar2cheb(barycentricinterpolant* p,
+void polynomialbar2cheb(const barycentricinterpolant* p,
      double a,
      double b,
      /* Real    */ ae_vector* t,
      ae_state *_state);
-void polynomialcheb2bar(/* Real    */ ae_vector* t,
+void polynomialcheb2bar(/* Real    */ const ae_vector* t,
      ae_int_t n,
      double a,
      double b,
      barycentricinterpolant* p,
      ae_state *_state);
-void polynomialbar2pow(barycentricinterpolant* p,
+void polynomialbar2pow(const barycentricinterpolant* p,
      double c,
      double s,
      /* Real    */ ae_vector* a,
      ae_state *_state);
-void polynomialpow2bar(/* Real    */ ae_vector* a,
+void polynomialpow2bar(/* Real    */ const ae_vector* a,
      ae_int_t n,
      double c,
      double s,
      barycentricinterpolant* p,
      ae_state *_state);
-void polynomialbuild(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void polynomialbuild(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      barycentricinterpolant* p,
      ae_state *_state);
 void polynomialbuildeqdist(double a,
      double b,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      barycentricinterpolant* p,
      ae_state *_state);
 void polynomialbuildcheb1(double a,
      double b,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      barycentricinterpolant* p,
      ae_state *_state);
 void polynomialbuildcheb2(double a,
      double b,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      barycentricinterpolant* p,
      ae_state *_state);
 double polynomialcalceqdist(double a,
      double b,
-     /* Real    */ ae_vector* f,
+     /* Real    */ const ae_vector* f,
      ae_int_t n,
      double t,
      ae_state *_state);
 double polynomialcalccheb1(double a,
      double b,
-     /* Real    */ ae_vector* f,
+     /* Real    */ const ae_vector* f,
      ae_int_t n,
      double t,
      ae_state *_state);
 double polynomialcalccheb2(double a,
      double b,
-     /* Real    */ ae_vector* f,
+     /* Real    */ const ae_vector* f,
      ae_int_t n,
      double t,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_SPLINE1D) || !defined(AE_PARTIAL_BUILD)
-void spline1dbuildlinear(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dbuildlinear(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      spline1dinterpolant* c,
      ae_state *_state);
-void spline1dbuildcubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dbuildlinearbuf(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
+     ae_int_t n,
+     spline1dinterpolant* c,
+     ae_state *_state);
+void spline1dbuildcubic(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundltype,
      double boundl,
@@ -9742,8 +10307,8 @@ void spline1dbuildcubic(/* Real    */ ae_vector* x,
      double boundr,
      spline1dinterpolant* c,
      ae_state *_state);
-void spline1dgriddiffcubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dgriddiffcubic(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundltype,
      double boundl,
@@ -9751,8 +10316,8 @@ void spline1dgriddiffcubic(/* Real    */ ae_vector* x,
      double boundr,
      /* Real    */ ae_vector* d,
      ae_state *_state);
-void spline1dgriddiff2cubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dgriddiff2cubic(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundltype,
      double boundl,
@@ -9761,71 +10326,93 @@ void spline1dgriddiff2cubic(/* Real    */ ae_vector* x,
      /* Real    */ ae_vector* d1,
      /* Real    */ ae_vector* d2,
      ae_state *_state);
-void spline1dconvcubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dconvcubic(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundltype,
      double boundl,
      ae_int_t boundrtype,
      double boundr,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* _x2,
      ae_int_t n2,
      /* Real    */ ae_vector* y2,
      ae_state *_state);
-void spline1dconvdiffcubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dconvdiffcubic(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundltype,
      double boundl,
      ae_int_t boundrtype,
      double boundr,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* _x2,
      ae_int_t n2,
      /* Real    */ ae_vector* y2,
      /* Real    */ ae_vector* d2,
      ae_state *_state);
-void spline1dconvdiff2cubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dconvdiff2cubic(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundltype,
      double boundl,
      ae_int_t boundrtype,
      double boundr,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* _x2,
      ae_int_t n2,
      /* Real    */ ae_vector* y2,
      /* Real    */ ae_vector* d2,
      /* Real    */ ae_vector* dd2,
      ae_state *_state);
-void spline1dbuildcatmullrom(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dbuildcatmullrom(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t boundtype,
      double tension,
      spline1dinterpolant* c,
      ae_state *_state);
-void spline1dbuildhermite(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* d,
+void spline1dbuildhermite(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* d,
      ae_int_t n,
      spline1dinterpolant* c,
      ae_state *_state);
-void spline1dbuildakima(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dbuildhermitebuf(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
+     /* Real    */ const ae_vector* _d,
      ae_int_t n,
      spline1dinterpolant* c,
      ae_state *_state);
-double spline1dcalc(spline1dinterpolant* c, double x, ae_state *_state);
-void spline1ddiff(spline1dinterpolant* c,
+void spline1dbuildakima(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     ae_int_t n,
+     spline1dinterpolant* c,
+     ae_state *_state);
+void spline1dbuildakimamod(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     ae_int_t n,
+     spline1dinterpolant* c,
+     ae_state *_state);
+double spline1dcalc(const spline1dinterpolant* c,
+     double x,
+     ae_state *_state);
+void spline1ddiff(const spline1dinterpolant* c,
      double x,
      double* s,
      double* ds,
      double* d2s,
      ae_state *_state);
-void spline1dcopy(spline1dinterpolant* c,
+void spline1dcopy(const spline1dinterpolant* c,
      spline1dinterpolant* cc,
      ae_state *_state);
-void spline1dunpack(spline1dinterpolant* c,
+void spline1dalloc(ae_serializer* s,
+     const spline1dinterpolant* model,
+     ae_state *_state);
+void spline1dserialize(ae_serializer* s,
+     const spline1dinterpolant* model,
+     ae_state *_state);
+void spline1dunserialize(ae_serializer* s,
+     spline1dinterpolant* model,
+     ae_state *_state);
+void spline1dunpack(const spline1dinterpolant* c,
      ae_int_t* n,
      /* Real    */ ae_matrix* tbl,
      ae_state *_state);
@@ -9837,22 +10424,36 @@ void spline1dlintransy(spline1dinterpolant* c,
      double a,
      double b,
      ae_state *_state);
-double spline1dintegrate(spline1dinterpolant* c,
+double spline1dintegrate(const spline1dinterpolant* c,
      double x,
      ae_state *_state);
-void spline1dfit(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dfit(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t m,
      double lambdans,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
-void spline1dconvdiffinternal(/* Real    */ ae_vector* xold,
-     /* Real    */ ae_vector* yold,
-     /* Real    */ ae_vector* dold,
+void spline1dgriddiffcubicinternal(/* Real    */ const ae_vector* x,
+     /* Real    */ ae_vector* y,
      ae_int_t n,
-     /* Real    */ ae_vector* x2,
+     ae_int_t boundltype,
+     double boundl,
+     ae_int_t boundrtype,
+     double boundr,
+     /* Real    */ ae_vector* d,
+     /* Real    */ ae_vector* a1,
+     /* Real    */ ae_vector* a2,
+     /* Real    */ ae_vector* a3,
+     /* Real    */ ae_vector* b,
+     /* Real    */ ae_vector* dt,
+     ae_state *_state);
+void spline1dconvdiffinternal(/* Real    */ const ae_vector* xold,
+     /* Real    */ const ae_vector* yold,
+     /* Real    */ const ae_vector* dold,
+     ae_int_t n,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
      /* Real    */ ae_vector* y,
      ae_bool needy,
@@ -9861,7 +10462,7 @@ void spline1dconvdiffinternal(/* Real    */ ae_vector* xold,
      /* Real    */ ae_vector* d2,
      ae_bool needd2,
      ae_state *_state);
-void spline1drootsandextrema(spline1dinterpolant* c,
+void spline1drootsandextrema(const spline1dinterpolant* c,
      /* Real    */ ae_vector* r,
      ae_int_t* nr,
      ae_bool* dr,
@@ -9906,8 +10507,8 @@ ae_int_t bisectmethod(double pa,
      double b,
      double* x,
      ae_state *_state);
-void spline1dbuildmonotone(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dbuildmonotone(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      spline1dinterpolant* c,
      ae_state *_state);
@@ -9919,42 +10520,44 @@ void _spline1dfitreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
 void _spline1dfitreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _spline1dfitreport_clear(void* _p);
 void _spline1dfitreport_destroy(void* _p);
+void _spline1dbbasis_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _spline1dbbasis_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _spline1dbbasis_clear(void* _p);
+void _spline1dbbasis_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_LSFIT) || !defined(AE_PARTIAL_BUILD)
-void lstfitpiecewiselinearrdpfixed(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void lstfitpiecewiselinearrdpfixed(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t m,
      /* Real    */ ae_vector* x2,
      /* Real    */ ae_vector* y2,
      ae_int_t* nsections,
      ae_state *_state);
-void lstfitpiecewiselinearrdp(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void lstfitpiecewiselinearrdp(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      double eps,
      /* Real    */ ae_vector* x2,
      /* Real    */ ae_vector* y2,
      ae_int_t* nsections,
      ae_state *_state);
-void polynomialfit(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void polynomialfit(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_int_t m,
-     ae_int_t* info,
      barycentricinterpolant* p,
      polynomialfitreport* rep,
      ae_state *_state);
-void polynomialfitwc(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void polynomialfitwc(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
+     /* Real    */ const ae_vector* _w,
      ae_int_t n,
-     /* Real    */ ae_vector* xc,
-     /* Real    */ ae_vector* yc,
-     /* Integer */ ae_vector* dc,
+     /* Real    */ const ae_vector* _xc,
+     /* Real    */ const ae_vector* _yc,
+     /* Integer */ const ae_vector* dc,
      ae_int_t k,
      ae_int_t m,
-     ae_int_t* info,
      barycentricinterpolant* p,
      polynomialfitreport* rep,
      ae_state *_state);
@@ -9971,8 +10574,8 @@ double logisticcalc5(double x,
      double d,
      double g,
      ae_state *_state);
-void logisticfit4(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void logisticfit4(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      double* a,
      double* b,
@@ -9980,8 +10583,8 @@ void logisticfit4(/* Real    */ ae_vector* x,
      double* d,
      lsfitreport* rep,
      ae_state *_state);
-void logisticfit4ec(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void logisticfit4ec(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      double cnstrleft,
      double cnstrright,
@@ -9991,8 +10594,8 @@ void logisticfit4ec(/* Real    */ ae_vector* x,
      double* d,
      lsfitreport* rep,
      ae_state *_state);
-void logisticfit5(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void logisticfit5(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      double* a,
      double* b,
@@ -10001,8 +10604,8 @@ void logisticfit5(/* Real    */ ae_vector* x,
      double* g,
      lsfitreport* rep,
      ae_state *_state);
-void logisticfit5ec(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void logisticfit5ec(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      double cnstrleft,
      double cnstrright,
@@ -10013,8 +10616,8 @@ void logisticfit5ec(/* Real    */ ae_vector* x,
      double* g,
      lsfitreport* rep,
      ae_state *_state);
-void logisticfit45x(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void logisticfit45x(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      double cnstrleft,
      double cnstrright,
@@ -10029,157 +10632,128 @@ void logisticfit45x(/* Real    */ ae_vector* x,
      double* g,
      lsfitreport* rep,
      ae_state *_state);
-void barycentricfitfloaterhormannwc(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void barycentricfitfloaterhormannwc(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
      ae_int_t n,
-     /* Real    */ ae_vector* xc,
-     /* Real    */ ae_vector* yc,
-     /* Integer */ ae_vector* dc,
+     /* Real    */ const ae_vector* xc,
+     /* Real    */ const ae_vector* yc,
+     /* Integer */ const ae_vector* dc,
      ae_int_t k,
      ae_int_t m,
-     ae_int_t* info,
      barycentricinterpolant* b,
      barycentricfitreport* rep,
      ae_state *_state);
-void barycentricfitfloaterhormann(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void barycentricfitfloaterhormann(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_int_t m,
-     ae_int_t* info,
      barycentricinterpolant* b,
      barycentricfitreport* rep,
      ae_state *_state);
-void spline1dfitcubicwc(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void spline1dfitcubicwc(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
      ae_int_t n,
-     /* Real    */ ae_vector* xc,
-     /* Real    */ ae_vector* yc,
-     /* Integer */ ae_vector* dc,
+     /* Real    */ const ae_vector* xc,
+     /* Real    */ const ae_vector* yc,
+     /* Integer */ const ae_vector* dc,
      ae_int_t k,
      ae_int_t m,
-     ae_int_t* info,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
-void spline1dfithermitewc(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void spline1dfithermitewc(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
      ae_int_t n,
-     /* Real    */ ae_vector* xc,
-     /* Real    */ ae_vector* yc,
-     /* Integer */ ae_vector* dc,
+     /* Real    */ const ae_vector* xc,
+     /* Real    */ const ae_vector* yc,
+     /* Integer */ const ae_vector* dc,
      ae_int_t k,
      ae_int_t m,
-     ae_int_t* info,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
-void spline1dfitcubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dfitcubicdeprecated(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_int_t m,
-     ae_int_t* info,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
-void spline1dfithermite(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dfithermitedeprecated(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_int_t m,
-     ae_int_t* info,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
-void lsfitlinearw(/* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
-     /* Real    */ ae_matrix* fmatrix,
+void lsfitlinearw(/* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
+     /* Real    */ const ae_matrix* fmatrix,
      ae_int_t n,
      ae_int_t m,
-     ae_int_t* info,
      /* Real    */ ae_vector* c,
      lsfitreport* rep,
      ae_state *_state);
-void lsfitlinearwc(/* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
-     /* Real    */ ae_matrix* fmatrix,
-     /* Real    */ ae_matrix* cmatrix,
-     ae_int_t n,
-     ae_int_t m,
-     ae_int_t k,
-     ae_int_t* info,
-     /* Real    */ ae_vector* c,
-     lsfitreport* rep,
-     ae_state *_state);
-void lsfitlinear(/* Real    */ ae_vector* y,
-     /* Real    */ ae_matrix* fmatrix,
-     ae_int_t n,
-     ae_int_t m,
-     ae_int_t* info,
-     /* Real    */ ae_vector* c,
-     lsfitreport* rep,
-     ae_state *_state);
-void lsfitlinearc(/* Real    */ ae_vector* y,
-     /* Real    */ ae_matrix* fmatrix,
-     /* Real    */ ae_matrix* cmatrix,
+void lsfitlinearwc(/* Real    */ const ae_vector* _y,
+     /* Real    */ const ae_vector* w,
+     /* Real    */ const ae_matrix* fmatrix,
+     /* Real    */ const ae_matrix* _cmatrix,
      ae_int_t n,
      ae_int_t m,
      ae_int_t k,
-     ae_int_t* info,
      /* Real    */ ae_vector* c,
      lsfitreport* rep,
      ae_state *_state);
-void lsfitcreatewf(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void lsfitlinear(/* Real    */ const ae_vector* y,
+     /* Real    */ const ae_matrix* fmatrix,
+     ae_int_t n,
+     ae_int_t m,
      /* Real    */ ae_vector* c,
+     lsfitreport* rep,
+     ae_state *_state);
+void lsfitlinearc(/* Real    */ const ae_vector* _y,
+     /* Real    */ const ae_matrix* fmatrix,
+     /* Real    */ const ae_matrix* cmatrix,
+     ae_int_t n,
+     ae_int_t m,
+     ae_int_t k,
+     /* Real    */ ae_vector* c,
+     lsfitreport* rep,
+     ae_state *_state);
+void lsfitcreatewf(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
+     /* Real    */ const ae_vector* c,
      ae_int_t n,
      ae_int_t m,
      ae_int_t k,
      double diffstep,
      lsfitstate* state,
      ae_state *_state);
-void lsfitcreatef(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* c,
+void lsfitcreatef(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* c,
      ae_int_t n,
      ae_int_t m,
      ae_int_t k,
      double diffstep,
      lsfitstate* state,
      ae_state *_state);
-void lsfitcreatewfg(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
-     /* Real    */ ae_vector* c,
-     ae_int_t n,
-     ae_int_t m,
-     ae_int_t k,
-     ae_bool cheapfg,
-     lsfitstate* state,
-     ae_state *_state);
-void lsfitcreatefg(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* c,
-     ae_int_t n,
-     ae_int_t m,
-     ae_int_t k,
-     ae_bool cheapfg,
-     lsfitstate* state,
-     ae_state *_state);
-void lsfitcreatewfgh(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
-     /* Real    */ ae_vector* c,
+void lsfitcreatewfg(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* w,
+     /* Real    */ const ae_vector* c,
      ae_int_t n,
      ae_int_t m,
      ae_int_t k,
      lsfitstate* state,
      ae_state *_state);
-void lsfitcreatefgh(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* c,
+void lsfitcreatefg(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* c,
      ae_int_t n,
      ae_int_t m,
      ae_int_t k,
@@ -10192,26 +10766,27 @@ void lsfitsetcond(lsfitstate* state,
 void lsfitsetstpmax(lsfitstate* state, double stpmax, ae_state *_state);
 void lsfitsetxrep(lsfitstate* state, ae_bool needxrep, ae_state *_state);
 void lsfitsetscale(lsfitstate* state,
-     /* Real    */ ae_vector* s,
+     /* Real    */ const ae_vector* s,
      ae_state *_state);
 void lsfitsetbc(lsfitstate* state,
-     /* Real    */ ae_vector* bndl,
-     /* Real    */ ae_vector* bndu,
+     /* Real    */ const ae_vector* bndl,
+     /* Real    */ const ae_vector* bndu,
      ae_state *_state);
 void lsfitsetlc(lsfitstate* state,
-     /* Real    */ ae_matrix* c,
-     /* Integer */ ae_vector* ct,
+     /* Real    */ const ae_matrix* c,
+     /* Integer */ const ae_vector* ct,
      ae_int_t k,
      ae_state *_state);
 ae_bool lsfititeration(lsfitstate* state, ae_state *_state);
-void lsfitresults(lsfitstate* state,
-     ae_int_t* info,
+void lsfitresults(const lsfitstate* state,
      /* Real    */ ae_vector* c,
      lsfitreport* rep,
      ae_state *_state);
 void lsfitsetgradientcheck(lsfitstate* state,
      double teststep,
      ae_state *_state);
+void lsfitsetprotocolv1(lsfitstate* state, ae_state *_state);
+void lsfitsetprotocolv2(lsfitstate* state, ae_state *_state);
 void _polynomialfitreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _polynomialfitreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _polynomialfitreport_clear(void* _p);
@@ -10230,50 +10805,48 @@ void _lsfitstate_clear(void* _p);
 void _lsfitstate_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_FITSPHERE) || !defined(AE_PARTIAL_BUILD)
-void fitspherels(/* Real    */ ae_matrix* xy,
+void fitspherels(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* r,
      ae_state *_state);
-void fitspheremc(/* Real    */ ae_matrix* xy,
+void fitspheremc(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* rhi,
      ae_state *_state);
-void fitspheremi(/* Real    */ ae_matrix* xy,
+void fitspheremi(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* rlo,
      ae_state *_state);
-void fitspheremz(/* Real    */ ae_matrix* xy,
+void fitspheremz(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* rlo,
      double* rhi,
      ae_state *_state);
-void fitspherex(/* Real    */ ae_matrix* xy,
+void fitspherex(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      ae_int_t problemtype,
      double epsx,
      ae_int_t aulits,
-     double penalty,
      /* Real    */ ae_vector* cx,
      double* rlo,
      double* rhi,
      ae_state *_state);
-void fitsphereinternal(/* Real    */ ae_matrix* xy,
+void fitsphereinternal(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      ae_int_t problemtype,
      ae_int_t solvertype,
      double epsx,
      ae_int_t aulits,
-     double penalty,
      /* Real    */ ae_vector* cx,
      double* rlo,
      double* rhi,
@@ -10285,68 +10858,68 @@ void _fitsphereinternalreport_clear(void* _p);
 void _fitsphereinternalreport_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_PARAMETRIC) || !defined(AE_PARTIAL_BUILD)
-void pspline2build(/* Real    */ ae_matrix* xy,
+void pspline2build(/* Real    */ const ae_matrix* _xy,
      ae_int_t n,
      ae_int_t st,
      ae_int_t pt,
      pspline2interpolant* p,
      ae_state *_state);
-void pspline3build(/* Real    */ ae_matrix* xy,
+void pspline3build(/* Real    */ const ae_matrix* _xy,
      ae_int_t n,
      ae_int_t st,
      ae_int_t pt,
      pspline3interpolant* p,
      ae_state *_state);
-void pspline2buildperiodic(/* Real    */ ae_matrix* xy,
+void pspline2buildperiodic(/* Real    */ const ae_matrix* _xy,
      ae_int_t n,
      ae_int_t st,
      ae_int_t pt,
      pspline2interpolant* p,
      ae_state *_state);
-void pspline3buildperiodic(/* Real    */ ae_matrix* xy,
+void pspline3buildperiodic(/* Real    */ const ae_matrix* _xy,
      ae_int_t n,
      ae_int_t st,
      ae_int_t pt,
      pspline3interpolant* p,
      ae_state *_state);
-void pspline2parametervalues(pspline2interpolant* p,
+void pspline2parametervalues(const pspline2interpolant* p,
      ae_int_t* n,
      /* Real    */ ae_vector* t,
      ae_state *_state);
-void pspline3parametervalues(pspline3interpolant* p,
+void pspline3parametervalues(const pspline3interpolant* p,
      ae_int_t* n,
      /* Real    */ ae_vector* t,
      ae_state *_state);
-void pspline2calc(pspline2interpolant* p,
+void pspline2calc(const pspline2interpolant* p,
      double t,
      double* x,
      double* y,
      ae_state *_state);
-void pspline3calc(pspline3interpolant* p,
+void pspline3calc(const pspline3interpolant* p,
      double t,
      double* x,
      double* y,
      double* z,
      ae_state *_state);
-void pspline2tangent(pspline2interpolant* p,
+void pspline2tangent(const pspline2interpolant* p,
      double t,
      double* x,
      double* y,
      ae_state *_state);
-void pspline3tangent(pspline3interpolant* p,
+void pspline3tangent(const pspline3interpolant* p,
      double t,
      double* x,
      double* y,
      double* z,
      ae_state *_state);
-void pspline2diff(pspline2interpolant* p,
+void pspline2diff(const pspline2interpolant* p,
      double t,
      double* x,
      double* dx,
      double* y,
      double* dy,
      ae_state *_state);
-void pspline3diff(pspline3interpolant* p,
+void pspline3diff(const pspline3interpolant* p,
      double t,
      double* x,
      double* dx,
@@ -10355,7 +10928,7 @@ void pspline3diff(pspline3interpolant* p,
      double* z,
      double* dz,
      ae_state *_state);
-void pspline2diff2(pspline2interpolant* p,
+void pspline2diff2(const pspline2interpolant* p,
      double t,
      double* x,
      double* dx,
@@ -10364,7 +10937,7 @@ void pspline2diff2(pspline2interpolant* p,
      double* dy,
      double* d2y,
      ae_state *_state);
-void pspline3diff2(pspline3interpolant* p,
+void pspline3diff2(const pspline3interpolant* p,
      double t,
      double* x,
      double* dx,
@@ -10376,15 +10949,15 @@ void pspline3diff2(pspline3interpolant* p,
      double* dz,
      double* d2z,
      ae_state *_state);
-double pspline2arclength(pspline2interpolant* p,
+double pspline2arclength(const pspline2interpolant* p,
      double a,
      double b,
      ae_state *_state);
-double pspline3arclength(pspline3interpolant* p,
+double pspline3arclength(const pspline3interpolant* p,
      double a,
      double b,
      ae_state *_state);
-void parametricrdpfixed(/* Real    */ ae_matrix* x,
+void parametricrdpfixed(/* Real    */ const ae_matrix* x,
      ae_int_t n,
      ae_int_t d,
      ae_int_t stopm,
@@ -10407,11 +10980,11 @@ void rbfv1create(ae_int_t nx,
      ae_int_t ny,
      rbfv1model* s,
      ae_state *_state);
-void rbfv1createcalcbuffer(rbfv1model* s,
+void rbfv1createcalcbuffer(const rbfv1model* s,
      rbfv1calcbuffer* buf,
      ae_state *_state);
-void rbfv1buildmodel(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void rbfv1buildmodel(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_matrix* y,
      ae_int_t n,
      ae_int_t aterm,
      ae_int_t algorithmtype,
@@ -10425,8 +10998,12 @@ void rbfv1buildmodel(/* Real    */ ae_matrix* x,
      rbfv1model* s,
      rbfv1report* rep,
      ae_state *_state);
-void rbfv1alloc(ae_serializer* s, rbfv1model* model, ae_state *_state);
-void rbfv1serialize(ae_serializer* s, rbfv1model* model, ae_state *_state);
+void rbfv1alloc(ae_serializer* s,
+     const rbfv1model* model,
+     ae_state *_state);
+void rbfv1serialize(ae_serializer* s,
+     const rbfv1model* model,
+     ae_state *_state);
 void rbfv1unserialize(ae_serializer* s,
      rbfv1model* model,
      ae_state *_state);
@@ -10437,74 +11014,74 @@ double rbfv1calc3(rbfv1model* s,
      double x2,
      ae_state *_state);
 void rbfv1calcbuf(rbfv1model* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv1tscalcbuf(rbfv1model* s,
+void rbfv1tscalcbuf(const rbfv1model* s,
      rbfv1calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv1tsdiffbuf(rbfv1model* s,
+void rbfv1tsdiffbuf(const rbfv1model* s,
      rbfv1calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      ae_state *_state);
-void rbfv1tshessbuf(rbfv1model* s,
+void rbfv1tshessbuf(const rbfv1model* s,
      rbfv1calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      /* Real    */ ae_vector* d2y,
      ae_state *_state);
 void rbfv1gridcalc2(rbfv1model* s,
-     /* Real    */ ae_vector* x0,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
      /* Real    */ ae_matrix* y,
      ae_state *_state);
-void rbfv1gridcalc3vrec(rbfv1model* s,
-     /* Real    */ ae_vector* x0,
+void rbfv1gridcalc3vrec(const rbfv1model* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
-     /* Integer */ ae_vector* blocks0,
+     /* Integer */ const ae_vector* blocks0,
      ae_int_t block0a,
      ae_int_t block0b,
-     /* Integer */ ae_vector* blocks1,
+     /* Integer */ const ae_vector* blocks1,
      ae_int_t block1a,
      ae_int_t block1b,
-     /* Integer */ ae_vector* blocks2,
+     /* Integer */ const ae_vector* blocks2,
      ae_int_t block2a,
      ae_int_t block2b,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      ae_bool sparsey,
      double searchradius,
      double avgfuncpernode,
      ae_shared_pool* bufpool,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-ae_bool _trypexec_rbfv1gridcalc3vrec(rbfv1model* s,
-    /* Real    */ ae_vector* x0,
+ae_bool _trypexec_rbfv1gridcalc3vrec(const rbfv1model* s,
+    /* Real    */ const ae_vector* x0,
     ae_int_t n0,
-    /* Real    */ ae_vector* x1,
+    /* Real    */ const ae_vector* x1,
     ae_int_t n1,
-    /* Real    */ ae_vector* x2,
+    /* Real    */ const ae_vector* x2,
     ae_int_t n2,
-    /* Integer */ ae_vector* blocks0,
+    /* Integer */ const ae_vector* blocks0,
     ae_int_t block0a,
     ae_int_t block0b,
-    /* Integer */ ae_vector* blocks1,
+    /* Integer */ const ae_vector* blocks1,
     ae_int_t block1a,
     ae_int_t block1b,
-    /* Integer */ ae_vector* blocks2,
+    /* Integer */ const ae_vector* blocks2,
     ae_int_t block2a,
     ae_int_t block2b,
-    /* Boolean */ ae_vector* flagy,
+    /* Boolean */ const ae_vector* flagy,
     ae_bool sparsey,
     double searchradius,
     double avgfuncpernode,
@@ -10539,15 +11116,15 @@ void biharmonicevaluatorinit(biharmonicevaluator* eval,
      ae_int_t maxp,
      ae_state *_state);
 void bhpanelinit(biharmonicpanel* panel,
-     /* Real    */ ae_matrix* xw,
+     /* Real    */ const ae_matrix* xw,
      ae_int_t xidx0,
      ae_int_t xidx1,
      ae_int_t ny,
-     biharmonicevaluator* eval,
+     const biharmonicevaluator* eval,
      ae_state *_state);
 void bhpanelsetprec(biharmonicpanel* panel, double tol, ae_state *_state);
-void bhpaneleval1(biharmonicpanel* panel,
-     biharmonicevaluator* eval,
+void bhpaneleval1(const biharmonicpanel* panel,
+     const biharmonicevaluator* eval,
      double x0,
      double x1,
      double x2,
@@ -10555,8 +11132,8 @@ void bhpaneleval1(biharmonicpanel* panel,
      ae_bool neederrbnd,
      double* errbnd,
      ae_state *_state);
-void bhpaneleval(biharmonicpanel* panel,
-     biharmonicevaluator* eval,
+void bhpaneleval(const biharmonicpanel* panel,
+     const biharmonicevaluator* eval,
      double x0,
      double x1,
      double x2,
@@ -10580,13 +11157,13 @@ void rbfv3create(ae_int_t nx,
      double bfp,
      rbfv3model* s,
      ae_state *_state);
-void rbfv3createcalcbuffer(rbfv3model* s,
+void rbfv3createcalcbuffer(const rbfv3model* s,
      rbfv3calcbuffer* buf,
      ae_state *_state);
-void rbfv3build(/* Real    */ ae_matrix* xraw,
-     /* Real    */ ae_matrix* yraw,
+void rbfv3build(/* Real    */ const ae_matrix* xraw,
+     /* Real    */ const ae_matrix* yraw,
      ae_int_t nraw,
-     /* Real    */ ae_vector* scaleraw,
+     /* Real    */ const ae_vector* scaleraw,
      ae_int_t bftype,
      double bfparamraw,
      double lambdavraw,
@@ -10598,8 +11175,12 @@ void rbfv3build(/* Real    */ ae_matrix* xraw,
      ae_bool* terminationrequest,
      rbfv3report* rep,
      ae_state *_state);
-void rbfv3alloc(ae_serializer* s, rbfv3model* model, ae_state *_state);
-void rbfv3serialize(ae_serializer* s, rbfv3model* model, ae_state *_state);
+void rbfv3alloc(ae_serializer* s,
+     const rbfv3model* model,
+     ae_state *_state);
+void rbfv3serialize(ae_serializer* s,
+     const rbfv3model* model,
+     ae_state *_state);
 void rbfv3unserialize(ae_serializer* s,
      rbfv3model* model,
      ae_state *_state);
@@ -10611,42 +11192,42 @@ double rbfv3calc3(rbfv3model* s,
      double x2,
      ae_state *_state);
 void rbfv3calcbuf(rbfv3model* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv3tscalcbuf(rbfv3model* s,
+void rbfv3tscalcbuf(const rbfv3model* s,
      rbfv3calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
 void rbfv3tsfastcalcbuf(rbfv3model* s,
      rbfv3calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv3tsdiffbuf(rbfv3model* s,
+void rbfv3tsdiffbuf(const rbfv3model* s,
      rbfv3calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      ae_state *_state);
-void rbfv3tshessbuf(rbfv3model* s,
+void rbfv3tshessbuf(const rbfv3model* s,
      rbfv3calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      /* Real    */ ae_vector* d2y,
      ae_state *_state);
-void rbfv3gridcalcvx(rbfv3model* s,
-     /* Real    */ ae_vector* x0,
+void rbfv3gridcalcvx(const rbfv3model* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
-     /* Real    */ ae_vector* x3,
+     /* Real    */ const ae_vector* x3,
      ae_int_t n3,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      ae_bool sparsey,
      /* Real    */ ae_vector* y,
      ae_state *_state);
@@ -10713,41 +11294,60 @@ void _rbfv3report_clear(void* _p);
 void _rbfv3report_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_SPLINE2D) || !defined(AE_PARTIAL_BUILD)
-double spline2dcalc(spline2dinterpolant* c,
+double spline2dcalc(const spline2dinterpolant* c,
      double x,
      double y,
      ae_state *_state);
-void spline2ddiff(spline2dinterpolant* c,
+void spline2ddiff(const spline2dinterpolant* c,
      double x,
      double y,
      double* f,
      double* fx,
      double* fy,
-     double* fxy,
      ae_state *_state);
-void spline2dcalcvbuf(spline2dinterpolant* c,
+void spline2ddiff2(const spline2dinterpolant* c,
+     double x,
+     double y,
+     double* f,
+     double* fx,
+     double* fy,
+     double* fxx,
+     double* fxy,
+     double* fyy,
+     ae_state *_state);
+void spline2dcalcvbuf(const spline2dinterpolant* c,
      double x,
      double y,
      /* Real    */ ae_vector* f,
      ae_state *_state);
-double spline2dcalcvi(spline2dinterpolant* c,
+double spline2dcalcvi(const spline2dinterpolant* c,
      double x,
      double y,
      ae_int_t i,
      ae_state *_state);
-void spline2dcalcv(spline2dinterpolant* c,
+void spline2dcalcv(const spline2dinterpolant* c,
      double x,
      double y,
      /* Real    */ ae_vector* f,
      ae_state *_state);
-void spline2ddiffvi(spline2dinterpolant* c,
+void spline2ddiffvi(const spline2dinterpolant* c,
      double x,
      double y,
      ae_int_t i,
      double* f,
      double* fx,
      double* fy,
+     ae_state *_state);
+void spline2ddiff2vi(const spline2dinterpolant* c,
+     double x,
+     double y,
+     ae_int_t i,
+     double* f,
+     double* fx,
+     double* fy,
+     double* fxx,
      double* fxy,
+     double* fyy,
      ae_state *_state);
 void spline2dlintransxy(spline2dinterpolant* c,
      double ax,
@@ -10759,78 +11359,140 @@ void spline2dlintransf(spline2dinterpolant* c,
      double a,
      double b,
      ae_state *_state);
-void spline2dcopy(spline2dinterpolant* c,
+void spline2dcopy(const spline2dinterpolant* c,
      spline2dinterpolant* cc,
      ae_state *_state);
-void spline2dresamplebicubic(/* Real    */ ae_matrix* a,
+void spline2dresamplebicubic(/* Real    */ const ae_matrix* a,
      ae_int_t oldheight,
      ae_int_t oldwidth,
      /* Real    */ ae_matrix* b,
      ae_int_t newheight,
      ae_int_t newwidth,
      ae_state *_state);
-void spline2dresamplebilinear(/* Real    */ ae_matrix* a,
+void spline2dresamplebilinear(/* Real    */ const ae_matrix* a,
      ae_int_t oldheight,
      ae_int_t oldwidth,
      /* Real    */ ae_matrix* b,
      ae_int_t newheight,
      ae_int_t newwidth,
      ae_state *_state);
-void spline2dbuildbilinearv(/* Real    */ ae_vector* x,
+void spline2dbuildbilinearv(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
-     /* Real    */ ae_vector* f,
+     /* Real    */ const ae_vector* f,
      ae_int_t d,
      spline2dinterpolant* c,
      ae_state *_state);
-void spline2dbuildbilinearmissing(/* Real    */ ae_vector* x,
+void spline2dbuildbilinearvbuf(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
-     /* Real    */ ae_vector* f,
-     /* Boolean */ ae_vector* missing,
+     /* Real    */ const ae_vector* f,
      ae_int_t d,
      spline2dinterpolant* c,
      ae_state *_state);
-void spline2dbuildbicubicv(/* Real    */ ae_vector* x,
+void spline2dbuildbilinearmissing(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
-     /* Real    */ ae_vector* f,
+     /* Real    */ const ae_vector* _f,
+     /* Boolean */ const ae_vector* missing,
      ae_int_t d,
      spline2dinterpolant* c,
      ae_state *_state);
-void spline2dbuildbicubicmissing(/* Real    */ ae_vector* x,
+void spline2dbuildbilinearmissingbuf(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
-     /* Real    */ ae_vector* f,
-     /* Boolean */ ae_vector* missing,
+     /* Real    */ const ae_vector* _f,
+     /* Boolean */ const ae_vector* missing,
      ae_int_t d,
      spline2dinterpolant* c,
      ae_state *_state);
-void spline2dunpackv(spline2dinterpolant* c,
+void spline2dbuildbicubicv(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* f,
+     ae_int_t d,
+     spline2dinterpolant* c,
+     ae_state *_state);
+void spline2dbuildclampedv(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* _bndbtm,
+     ae_int_t bndtypebtm,
+     /* Real    */ const ae_vector* _bndtop,
+     ae_int_t bndtypetop,
+     /* Real    */ const ae_vector* _bndlft,
+     ae_int_t bndtypelft,
+     /* Real    */ const ae_vector* _bndrgt,
+     ae_int_t bndtypergt,
+     /* Real    */ const ae_vector* mixedd,
+     /* Real    */ const ae_vector* _f,
+     ae_int_t d,
+     spline2dinterpolant* c,
+     ae_state *_state);
+void spline2dbuildhermitev(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* _f,
+     /* Real    */ const ae_vector* _dfdx,
+     /* Real    */ const ae_vector* _dfdy,
+     /* Real    */ const ae_vector* _d2fdxdy,
+     ae_int_t d,
+     spline2dinterpolant* c,
+     ae_state *_state);
+void spline2dbuildbicubicvbuf(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* _f,
+     ae_int_t d,
+     spline2dinterpolant* c,
+     ae_state *_state);
+void spline2dbuildbicubicmissing(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* _f,
+     /* Boolean */ const ae_vector* missing,
+     ae_int_t d,
+     spline2dinterpolant* c,
+     ae_state *_state);
+void spline2dbuildbicubicmissingbuf(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* _f,
+     /* Boolean */ const ae_vector* missing,
+     ae_int_t d,
+     spline2dinterpolant* c,
+     ae_state *_state);
+void spline2dunpackv(const spline2dinterpolant* c,
      ae_int_t* m,
      ae_int_t* n,
      ae_int_t* d,
      /* Real    */ ae_matrix* tbl,
      ae_state *_state);
-void spline2dbuildbilinear(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_matrix* f,
+void spline2dbuildbilinear(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_matrix* f,
      ae_int_t m,
      ae_int_t n,
      spline2dinterpolant* c,
      ae_state *_state);
-void spline2dbuildbicubic(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_matrix* f,
+void spline2dbuildbicubic(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_matrix* _f,
      ae_int_t m,
      ae_int_t n,
      spline2dinterpolant* c,
      ae_state *_state);
-void spline2dunpack(spline2dinterpolant* c,
+void spline2dunpack(const spline2dinterpolant* c,
      ae_int_t* m,
      ae_int_t* n,
      /* Real    */ ae_matrix* tbl,
@@ -10845,7 +11507,7 @@ void spline2dbuildersetlinterm(spline2dbuilder* state, ae_state *_state);
 void spline2dbuildersetconstterm(spline2dbuilder* state, ae_state *_state);
 void spline2dbuildersetzeroterm(spline2dbuilder* state, ae_state *_state);
 void spline2dbuildersetpoints(spline2dbuilder* state,
-     /* Real    */ ae_matrix* xy,
+     /* Real    */ const ae_matrix* xy,
      ae_int_t n,
      ae_state *_state);
 void spline2dbuildersetareaauto(spline2dbuilder* state, ae_state *_state);
@@ -10874,10 +11536,10 @@ void spline2dfit(spline2dbuilder* state,
      spline2dfitreport* rep,
      ae_state *_state);
 void spline2dalloc(ae_serializer* s,
-     spline2dinterpolant* spline,
+     const spline2dinterpolant* spline,
      ae_state *_state);
 void spline2dserialize(ae_serializer* s,
-     spline2dinterpolant* spline,
+     const spline2dinterpolant* spline,
      ae_state *_state);
 void spline2dunserialize(ae_serializer* s,
      spline2dinterpolant* spline,
@@ -10912,13 +11574,13 @@ void rbfv2create(ae_int_t nx,
      ae_int_t ny,
      rbfv2model* s,
      ae_state *_state);
-void rbfv2createcalcbuffer(rbfv2model* s,
+void rbfv2createcalcbuffer(const rbfv2model* s,
      rbfv2calcbuffer* buf,
      ae_state *_state);
-void rbfv2buildhierarchical(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void rbfv2buildhierarchical(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_matrix* y,
      ae_int_t n,
-     /* Real    */ ae_vector* scalevec,
+     /* Real    */ const ae_vector* scalevec,
      ae_int_t aterm,
      ae_int_t nh,
      double rbase,
@@ -10928,8 +11590,12 @@ void rbfv2buildhierarchical(/* Real    */ ae_matrix* x,
      ae_bool* terminationrequest,
      rbfv2report* rep,
      ae_state *_state);
-void rbfv2alloc(ae_serializer* s, rbfv2model* model, ae_state *_state);
-void rbfv2serialize(ae_serializer* s, rbfv2model* model, ae_state *_state);
+void rbfv2alloc(ae_serializer* s,
+     const rbfv2model* model,
+     ae_state *_state);
+void rbfv2serialize(ae_serializer* s,
+     const rbfv2model* model,
+     ae_state *_state);
 void rbfv2unserialize(ae_serializer* s,
      rbfv2model* model,
      ae_state *_state);
@@ -10950,97 +11616,97 @@ double rbfv2calc3(rbfv2model* s,
      double x2,
      ae_state *_state);
 void rbfv2calcbuf(rbfv2model* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv2tscalcbuf(rbfv2model* s,
+void rbfv2tscalcbuf(const rbfv2model* s,
      rbfv2calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv2tsdiffbuf(rbfv2model* s,
+void rbfv2tsdiffbuf(const rbfv2model* s,
      rbfv2calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      ae_state *_state);
-void rbfv2tshessbuf(rbfv2model* s,
+void rbfv2tshessbuf(const rbfv2model* s,
      rbfv2calcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      /* Real    */ ae_vector* d2y,
      ae_state *_state);
 void rbfv2gridcalc2(rbfv2model* s,
-     /* Real    */ ae_vector* x0,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
      /* Real    */ ae_matrix* y,
      ae_state *_state);
-void rbfv2gridcalcvx(rbfv2model* s,
-     /* Real    */ ae_vector* x0,
+void rbfv2gridcalcvx(const rbfv2model* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
-     /* Real    */ ae_vector* x3,
+     /* Real    */ const ae_vector* x3,
      ae_int_t n3,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      ae_bool sparsey,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfv2partialgridcalcrec(rbfv2model* s,
-     /* Real    */ ae_vector* x0,
+void rbfv2partialgridcalcrec(const rbfv2model* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
-     /* Real    */ ae_vector* x3,
+     /* Real    */ const ae_vector* x3,
      ae_int_t n3,
-     /* Integer */ ae_vector* blocks0,
+     /* Integer */ const ae_vector* blocks0,
      ae_int_t block0a,
      ae_int_t block0b,
-     /* Integer */ ae_vector* blocks1,
+     /* Integer */ const ae_vector* blocks1,
      ae_int_t block1a,
      ae_int_t block1b,
-     /* Integer */ ae_vector* blocks2,
+     /* Integer */ const ae_vector* blocks2,
      ae_int_t block2a,
      ae_int_t block2b,
-     /* Integer */ ae_vector* blocks3,
+     /* Integer */ const ae_vector* blocks3,
      ae_int_t block3a,
      ae_int_t block3b,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      ae_bool sparsey,
      ae_int_t levelidx,
      double avgfuncpernode,
      ae_shared_pool* bufpool,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-ae_bool _trypexec_rbfv2partialgridcalcrec(rbfv2model* s,
-    /* Real    */ ae_vector* x0,
+ae_bool _trypexec_rbfv2partialgridcalcrec(const rbfv2model* s,
+    /* Real    */ const ae_vector* x0,
     ae_int_t n0,
-    /* Real    */ ae_vector* x1,
+    /* Real    */ const ae_vector* x1,
     ae_int_t n1,
-    /* Real    */ ae_vector* x2,
+    /* Real    */ const ae_vector* x2,
     ae_int_t n2,
-    /* Real    */ ae_vector* x3,
+    /* Real    */ const ae_vector* x3,
     ae_int_t n3,
-    /* Integer */ ae_vector* blocks0,
+    /* Integer */ const ae_vector* blocks0,
     ae_int_t block0a,
     ae_int_t block0b,
-    /* Integer */ ae_vector* blocks1,
+    /* Integer */ const ae_vector* blocks1,
     ae_int_t block1a,
     ae_int_t block1b,
-    /* Integer */ ae_vector* blocks2,
+    /* Integer */ const ae_vector* blocks2,
     ae_int_t block2a,
     ae_int_t block2b,
-    /* Integer */ ae_vector* blocks3,
+    /* Integer */ const ae_vector* blocks3,
     ae_int_t block3a,
     ae_int_t block3b,
-    /* Boolean */ ae_vector* flagy,
+    /* Boolean */ const ae_vector* flagy,
     ae_bool sparsey,
     ae_int_t levelidx,
     double avgfuncpernode,
@@ -11071,7 +11737,7 @@ void _rbfv2report_clear(void* _p);
 void _rbfv2report_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_SPLINE3D) || !defined(AE_PARTIAL_BUILD)
-double spline3dcalc(spline3dinterpolant* c,
+double spline3dcalc(const spline3dinterpolant* c,
      double x,
      double y,
      double z,
@@ -11088,10 +11754,10 @@ void spline3dlintransf(spline3dinterpolant* c,
      double a,
      double b,
      ae_state *_state);
-void spline3dcopy(spline3dinterpolant* c,
+void spline3dcopy(const spline3dinterpolant* c,
      spline3dinterpolant* cc,
      ae_state *_state);
-void spline3dresampletrilinear(/* Real    */ ae_vector* a,
+void spline3dresampletrilinear(/* Real    */ const ae_vector* a,
      ae_int_t oldzcount,
      ae_int_t oldycount,
      ae_int_t oldxcount,
@@ -11100,29 +11766,39 @@ void spline3dresampletrilinear(/* Real    */ ae_vector* a,
      ae_int_t newxcount,
      /* Real    */ ae_vector* b,
      ae_state *_state);
-void spline3dbuildtrilinearv(/* Real    */ ae_vector* x,
+void spline3dbuildtrilinearv(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
-     /* Real    */ ae_vector* z,
+     /* Real    */ const ae_vector* z,
      ae_int_t l,
-     /* Real    */ ae_vector* f,
+     /* Real    */ const ae_vector* f,
      ae_int_t d,
      spline3dinterpolant* c,
      ae_state *_state);
-void spline3dcalcvbuf(spline3dinterpolant* c,
+void spline3dbuildtrilinearvbuf(/* Real    */ const ae_vector* x,
+     ae_int_t n,
+     /* Real    */ const ae_vector* y,
+     ae_int_t m,
+     /* Real    */ const ae_vector* z,
+     ae_int_t l,
+     /* Real    */ const ae_vector* f,
+     ae_int_t d,
+     spline3dinterpolant* c,
+     ae_state *_state);
+void spline3dcalcvbuf(const spline3dinterpolant* c,
      double x,
      double y,
      double z,
      /* Real    */ ae_vector* f,
      ae_state *_state);
-void spline3dcalcv(spline3dinterpolant* c,
+void spline3dcalcv(const spline3dinterpolant* c,
      double x,
      double y,
      double z,
      /* Real    */ ae_vector* f,
      ae_state *_state);
-void spline3dunpackv(spline3dinterpolant* c,
+void spline3dunpackv(const spline3dinterpolant* c,
      ae_int_t* n,
      ae_int_t* m,
      ae_int_t* l,
@@ -11136,26 +11812,26 @@ void _spline3dinterpolant_clear(void* _p);
 void _spline3dinterpolant_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_INTCOMP) || !defined(AE_PARTIAL_BUILD)
-void nsfitspheremcc(/* Real    */ ae_matrix* xy,
+void nsfitspheremcc(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* rhi,
      ae_state *_state);
-void nsfitspheremic(/* Real    */ ae_matrix* xy,
+void nsfitspheremic(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* rlo,
      ae_state *_state);
-void nsfitspheremzc(/* Real    */ ae_matrix* xy,
+void nsfitspheremzc(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      /* Real    */ ae_vector* cx,
      double* rlo,
      double* rhi,
      ae_state *_state);
-void nsfitspherex(/* Real    */ ae_matrix* xy,
+void nsfitspherex(/* Real    */ const ae_matrix* xy,
      ae_int_t npoints,
      ae_int_t nx,
      ae_int_t problemtype,
@@ -11166,8 +11842,8 @@ void nsfitspherex(/* Real    */ ae_matrix* xy,
      double* rlo,
      double* rhi,
      ae_state *_state);
-void spline1dfitpenalized(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+void spline1dfitpenalized(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_int_t m,
      double rho,
@@ -11175,30 +11851,44 @@ void spline1dfitpenalized(/* Real    */ ae_vector* x,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
-void spline1dfitpenalizedw(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* w,
+void spline1dfitpenalizedw(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
+     /* Real    */ const ae_vector* _w,
      ae_int_t n,
      ae_int_t m,
      double rho,
      ae_int_t* info,
+     spline1dinterpolant* s,
+     spline1dfitreport* rep,
+     ae_state *_state);
+void spline1dfitcubic(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     ae_int_t n,
+     ae_int_t m,
+     spline1dinterpolant* s,
+     spline1dfitreport* rep,
+     ae_state *_state);
+void spline1dfithermite(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     ae_int_t n,
+     ae_int_t m,
      spline1dinterpolant* s,
      spline1dfitreport* rep,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_RBF) || !defined(AE_PARTIAL_BUILD)
 void rbfcreate(ae_int_t nx, ae_int_t ny, rbfmodel* s, ae_state *_state);
-void rbfcreatecalcbuffer(rbfmodel* s,
+void rbfcreatecalcbuffer(const rbfmodel* s,
      rbfcalcbuffer* buf,
      ae_state *_state);
 void rbfsetpoints(rbfmodel* s,
-     /* Real    */ ae_matrix* xy,
+     /* Real    */ const ae_matrix* xy,
      ae_int_t n,
      ae_state *_state);
 void rbfsetpointsandscales(rbfmodel* r,
-     /* Real    */ ae_matrix* xy,
+     /* Real    */ const ae_matrix* xy,
      ae_int_t n,
-     /* Real    */ ae_vector* s,
+     /* Real    */ const ae_vector* s,
      ae_state *_state);
 void rbfsetalgoqnn(rbfmodel* s, double q, double z, ae_state *_state);
 void rbfsetalgomultilayer(rbfmodel* s,
@@ -11265,115 +11955,115 @@ void rbfdiff3(rbfmodel* s,
      ae_state *_state);
 void rbfsetfastevaltol(rbfmodel* s, double tol, ae_state *_state);
 void rbffastcalc(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
 void rbfcalc(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
 void rbfdiff(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      ae_state *_state);
 void rbfhess(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      /* Real    */ ae_vector* d2y,
      ae_state *_state);
 void rbfcalcbuf(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
 void rbfdiffbuf(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      ae_state *_state);
 void rbfhessbuf(rbfmodel* s,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      /* Real    */ ae_vector* d2y,
      ae_state *_state);
-void rbftscalcbuf(rbfmodel* s,
+void rbftscalcbuf(const rbfmodel* s,
      rbfcalcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbftsdiffbuf(rbfmodel* s,
+void rbftsdiffbuf(const rbfmodel* s,
      rbfcalcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      ae_state *_state);
-void rbftshessbuf(rbfmodel* s,
+void rbftshessbuf(const rbfmodel* s,
      rbfcalcbuffer* buf,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      /* Real    */ ae_vector* dy,
      /* Real    */ ae_vector* d2y,
      ae_state *_state);
 void rbfgridcalc2(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
      /* Real    */ ae_matrix* y,
      ae_state *_state);
-void rbfgridcalc2v(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+void rbfgridcalc2v(const rbfmodel* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfgridcalc2vsubset(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+void rbfgridcalc2vsubset(const rbfmodel* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfgridcalc3v(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+void rbfgridcalc3v(const rbfmodel* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfgridcalc3vsubset(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+void rbfgridcalc3vsubset(const rbfmodel* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfgridcalc2vx(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+void rbfgridcalc2vx(const rbfmodel* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      ae_bool sparsey,
      /* Real    */ ae_vector* y,
      ae_state *_state);
-void rbfgridcalc3vx(rbfmodel* s,
-     /* Real    */ ae_vector* x0,
+void rbfgridcalc3vx(const rbfmodel* s,
+     /* Real    */ const ae_vector* x0,
      ae_int_t n0,
-     /* Real    */ ae_vector* x1,
+     /* Real    */ const ae_vector* x1,
      ae_int_t n1,
-     /* Real    */ ae_vector* x2,
+     /* Real    */ const ae_vector* x2,
      ae_int_t n2,
-     /* Boolean */ ae_vector* flagy,
+     /* Boolean */ const ae_vector* flagy,
      ae_bool sparsey,
      /* Real    */ ae_vector* y,
      ae_state *_state);
@@ -11386,12 +12076,14 @@ void rbfunpack(rbfmodel* s,
      ae_int_t* modelversion,
      ae_state *_state);
 ae_int_t rbfgetmodelversion(rbfmodel* s, ae_state *_state);
-double rbfpeekprogress(rbfmodel* s, ae_state *_state);
+double rbfpeekprogress(const rbfmodel* s, ae_state *_state);
 void rbfrequesttermination(rbfmodel* s, ae_state *_state);
 void rbfsetprofile(rbfmodel* s, ae_int_t p, ae_state *_state);
 void pushfastevaltol(rbfmodel* s, double tol, ae_state *_state);
-void rbfalloc(ae_serializer* s, rbfmodel* model, ae_state *_state);
-void rbfserialize(ae_serializer* s, rbfmodel* model, ae_state *_state);
+void rbfalloc(ae_serializer* s, const rbfmodel* model, ae_state *_state);
+void rbfserialize(ae_serializer* s,
+     const rbfmodel* model,
+     ae_state *_state);
 void rbfunserialize(ae_serializer* s, rbfmodel* model, ae_state *_state);
 void _rbfcalcbuffer_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _rbfcalcbuffer_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);

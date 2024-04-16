@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -17,6 +17,9 @@ A copy of the GNU General Public License is available at
 http://www.fsf.org/licensing/licenses
 >>> END OF LICENSE >>>
 *************************************************************************/
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 #include "stdafx.h"
 #include "statistics.h"
 
@@ -107,7 +110,7 @@ void samplemoments(const real_1d_array &x, const ae_int_t n, double &mean, doubl
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::samplemoments(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &mean, &variance, &skewness, &kurtosis, &_alglib_env_state);
+    alglib_impl::samplemoments(x.c_ptr(), n, &mean, &variance, &skewness, &kurtosis, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -146,7 +149,7 @@ void samplemoments(const real_1d_array &x, double &mean, double &variance, doubl
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::samplemoments(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &mean, &variance, &skewness, &kurtosis, &_alglib_env_state);
+    alglib_impl::samplemoments(x.c_ptr(), n, &mean, &variance, &skewness, &kurtosis, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -188,7 +191,7 @@ double samplemean(const real_1d_array &x, const ae_int_t n, const xparams _xpara
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::samplemean(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::samplemean(x.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -225,7 +228,7 @@ double samplemean(const real_1d_array &x, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::samplemean(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::samplemean(x.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -267,7 +270,7 @@ double samplevariance(const real_1d_array &x, const ae_int_t n, const xparams _x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::samplevariance(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::samplevariance(x.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -304,7 +307,7 @@ double samplevariance(const real_1d_array &x, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::samplevariance(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::samplevariance(x.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -346,7 +349,7 @@ double sampleskewness(const real_1d_array &x, const ae_int_t n, const xparams _x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::sampleskewness(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::sampleskewness(x.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -383,7 +386,7 @@ double sampleskewness(const real_1d_array &x, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::sampleskewness(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::sampleskewness(x.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -425,7 +428,7 @@ double samplekurtosis(const real_1d_array &x, const ae_int_t n, const xparams _x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::samplekurtosis(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::samplekurtosis(x.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -462,7 +465,7 @@ double samplekurtosis(const real_1d_array &x, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::samplekurtosis(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::samplekurtosis(x.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -501,7 +504,7 @@ void sampleadev(const real_1d_array &x, const ae_int_t n, double &adev, const xp
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sampleadev(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &adev, &_alglib_env_state);
+    alglib_impl::sampleadev(x.c_ptr(), n, &adev, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -535,7 +538,7 @@ void sampleadev(const real_1d_array &x, double &adev, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sampleadev(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &adev, &_alglib_env_state);
+    alglib_impl::sampleadev(x.c_ptr(), n, &adev, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -574,7 +577,7 @@ void samplemedian(const real_1d_array &x, const ae_int_t n, double &median, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::samplemedian(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &median, &_alglib_env_state);
+    alglib_impl::samplemedian(x.c_ptr(), n, &median, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -608,7 +611,7 @@ void samplemedian(const real_1d_array &x, double &median, const xparams _xparams
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::samplemedian(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &median, &_alglib_env_state);
+    alglib_impl::samplemedian(x.c_ptr(), n, &median, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -648,7 +651,7 @@ void samplepercentile(const real_1d_array &x, const ae_int_t n, const double p, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::samplepercentile(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, p, &v, &_alglib_env_state);
+    alglib_impl::samplepercentile(x.c_ptr(), n, p, &v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -683,7 +686,7 @@ void samplepercentile(const real_1d_array &x, const double p, double &v, const x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::samplepercentile(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, p, &v, &_alglib_env_state);
+    alglib_impl::samplepercentile(x.c_ptr(), n, p, &v, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -723,7 +726,7 @@ double cov2(const real_1d_array &x, const real_1d_array &y, const ae_int_t n, co
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::cov2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::cov2(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -759,7 +762,7 @@ double cov2(const real_1d_array &x, const real_1d_array &y, const xparams _xpara
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::cov2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::cov2(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -800,7 +803,7 @@ double pearsoncorr2(const real_1d_array &x, const real_1d_array &y, const ae_int
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::pearsoncorr2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::pearsoncorr2(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -837,7 +840,7 @@ double pearsoncorr2(const real_1d_array &x, const real_1d_array &y, const xparam
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::pearsoncorr2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::pearsoncorr2(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -878,7 +881,7 @@ double spearmancorr2(const real_1d_array &x, const real_1d_array &y, const ae_in
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::spearmancorr2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::spearmancorr2(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -915,7 +918,7 @@ double spearmancorr2(const real_1d_array &x, const real_1d_array &y, const xpara
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::spearmancorr2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::spearmancorr2(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return *(reinterpret_cast<double*>(&result));
@@ -972,7 +975,7 @@ void covm(const real_2d_array &x, const ae_int_t n, const ae_int_t m, real_2d_ar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::covm(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), n, m, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::covm(x.c_ptr(), n, m, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1026,7 +1029,7 @@ void covm(const real_2d_array &x, real_2d_array &c, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::covm(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), n, m, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::covm(x.c_ptr(), n, m, c.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1083,7 +1086,7 @@ void pearsoncorrm(const real_2d_array &x, const ae_int_t n, const ae_int_t m, re
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::pearsoncorrm(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), n, m, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::pearsoncorrm(x.c_ptr(), n, m, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1137,7 +1140,7 @@ void pearsoncorrm(const real_2d_array &x, real_2d_array &c, const xparams _xpara
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::pearsoncorrm(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), n, m, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::pearsoncorrm(x.c_ptr(), n, m, c.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1194,7 +1197,7 @@ void spearmancorrm(const real_2d_array &x, const ae_int_t n, const ae_int_t m, r
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spearmancorrm(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), n, m, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::spearmancorrm(x.c_ptr(), n, m, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1248,7 +1251,7 @@ void spearmancorrm(const real_2d_array &x, real_2d_array &c, const xparams _xpar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spearmancorrm(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), n, m, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::spearmancorrm(x.c_ptr(), n, m, c.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1311,7 +1314,7 @@ void covm2(const real_2d_array &x, const real_2d_array &y, const ae_int_t n, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::covm2(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), const_cast<alglib_impl::ae_matrix*>(y.c_ptr()), n, m1, m2, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::covm2(x.c_ptr(), y.c_ptr(), n, m1, m2, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1374,7 +1377,7 @@ void covm2(const real_2d_array &x, const real_2d_array &y, real_2d_array &c, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::covm2(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), const_cast<alglib_impl::ae_matrix*>(y.c_ptr()), n, m1, m2, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::covm2(x.c_ptr(), y.c_ptr(), n, m1, m2, c.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1437,7 +1440,7 @@ void pearsoncorrm2(const real_2d_array &x, const real_2d_array &y, const ae_int_
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::pearsoncorrm2(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), const_cast<alglib_impl::ae_matrix*>(y.c_ptr()), n, m1, m2, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::pearsoncorrm2(x.c_ptr(), y.c_ptr(), n, m1, m2, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1500,7 +1503,7 @@ void pearsoncorrm2(const real_2d_array &x, const real_2d_array &y, real_2d_array
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::pearsoncorrm2(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), const_cast<alglib_impl::ae_matrix*>(y.c_ptr()), n, m1, m2, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::pearsoncorrm2(x.c_ptr(), y.c_ptr(), n, m1, m2, c.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1563,7 +1566,7 @@ void spearmancorrm2(const real_2d_array &x, const real_2d_array &y, const ae_int
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spearmancorrm2(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), const_cast<alglib_impl::ae_matrix*>(y.c_ptr()), n, m1, m2, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::spearmancorrm2(x.c_ptr(), y.c_ptr(), n, m1, m2, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1626,7 +1629,7 @@ void spearmancorrm2(const real_2d_array &x, const real_2d_array &y, real_2d_arra
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spearmancorrm2(const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), const_cast<alglib_impl::ae_matrix*>(y.c_ptr()), n, m1, m2, const_cast<alglib_impl::ae_matrix*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::spearmancorrm2(x.c_ptr(), y.c_ptr(), n, m1, m2, c.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1664,7 +1667,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.04.2013 by Bochkanov Sergey
 *************************************************************************/
-void rankdata(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams)
+void rankdata(real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1681,7 +1684,7 @@ void rankdata(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nf
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rankdata(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, &_alglib_env_state);
+    alglib_impl::rankdata(xy.c_ptr(), npoints, nfeatures, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1733,7 +1736,7 @@ void rankdata(real_2d_array &xy, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rankdata(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, &_alglib_env_state);
+    alglib_impl::rankdata(xy.c_ptr(), npoints, nfeatures, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1773,7 +1776,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.04.2013 by Bochkanov Sergey
 *************************************************************************/
-void rankdatacentered(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams)
+void rankdatacentered(real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1790,7 +1793,7 @@ void rankdatacentered(const real_2d_array &xy, const ae_int_t npoints, const ae_
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rankdatacentered(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, &_alglib_env_state);
+    alglib_impl::rankdatacentered(xy.c_ptr(), npoints, nfeatures, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1844,7 +1847,7 @@ void rankdatacentered(real_2d_array &xy, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rankdatacentered(const_cast<alglib_impl::ae_matrix*>(xy.c_ptr()), npoints, nfeatures, &_alglib_env_state);
+    alglib_impl::rankdatacentered(xy.c_ptr(), npoints, nfeatures, &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -1874,7 +1877,7 @@ double pearsoncorrelation(const real_1d_array &x, const real_1d_array &y, const 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::pearsoncorrelation(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::pearsoncorrelation(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -1902,7 +1905,7 @@ double spearmanrankcorrelation(const real_1d_array &x, const real_1d_array &y, c
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::spearmanrankcorrelation(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::ae_vector*>(y.c_ptr()), n, &_alglib_env_state);
+    double result = alglib_impl::spearmanrankcorrelation(x.c_ptr(), y.c_ptr(), n, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -2076,7 +2079,7 @@ void jarqueberatest(const real_1d_array &x, const ae_int_t n, double &p, const x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::jarqueberatest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, &p, &_alglib_env_state);
+    alglib_impl::jarqueberatest(x.c_ptr(), n, &p, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2136,7 +2139,7 @@ void ftest(const real_1d_array &x, const ae_int_t n, const real_1d_array &y, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ftest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::ftest(x.c_ptr(), n, y.c_ptr(), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2192,7 +2195,7 @@ void onesamplevariancetest(const real_1d_array &x, const ae_int_t n, const doubl
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::onesamplevariancetest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, variance, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::onesamplevariancetest(x.c_ptr(), n, variance, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2265,7 +2268,7 @@ void wilcoxonsignedranktest(const real_1d_array &x, const ae_int_t n, const doub
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::wilcoxonsignedranktest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, e, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::wilcoxonsignedranktest(x.c_ptr(), n, e, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2357,7 +2360,7 @@ void mannwhitneyutest(const real_1d_array &x, const ae_int_t n, const real_1d_ar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::mannwhitneyutest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::mannwhitneyutest(x.c_ptr(), n, y.c_ptr(), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2421,7 +2424,7 @@ void onesamplesigntest(const real_1d_array &x, const ae_int_t n, const double me
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::onesamplesigntest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, median, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::onesamplesigntest(x.c_ptr(), n, median, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2487,7 +2490,7 @@ void studentttest1(const real_1d_array &x, const ae_int_t n, const double mean, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::studentttest1(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, mean, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::studentttest1(x.c_ptr(), n, mean, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2550,7 +2553,7 @@ void studentttest2(const real_1d_array &x, const ae_int_t n, const real_1d_array
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::studentttest2(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::studentttest2(x.c_ptr(), n, y.c_ptr(), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2615,7 +2618,7 @@ void unequalvariancettest(const real_1d_array &x, const ae_int_t n, const real_1
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::unequalvariancettest(const_cast<alglib_impl::ae_vector*>(x.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(y.c_ptr()), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
+    alglib_impl::unequalvariancettest(x.c_ptr(), n, y.c_ptr(), m, &bothtails, &lefttail, &righttail, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2676,7 +2679,7 @@ static double correlationtests_spearmantail(double t,
 
 #endif
 #if defined(AE_COMPILE_JARQUEBERA) || !defined(AE_PARTIAL_BUILD)
-static void jarquebera_jarqueberastatistic(/* Real    */ ae_vector* x,
+static void jarquebera_jarqueberastatistic(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* s,
      ae_state *_state);
@@ -2937,7 +2940,7 @@ NOTE: variance is calculated by dividing sum of squares by N-1, not N.
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void samplemoments(/* Real    */ ae_vector* x,
+void samplemoments(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* mean,
      double* variance,
@@ -3042,7 +3045,7 @@ and stored at 'Mean' variable.
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-double samplemean(/* Real    */ ae_vector* x,
+double samplemean(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state)
 {
@@ -3077,7 +3080,7 @@ and stored at 'Variance' variable.
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-double samplevariance(/* Real    */ ae_vector* x,
+double samplevariance(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state)
 {
@@ -3112,7 +3115,7 @@ and stored at 'Skewness' variable.
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-double sampleskewness(/* Real    */ ae_vector* x,
+double sampleskewness(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state)
 {
@@ -3147,7 +3150,7 @@ and stored at 'Kurtosis' variable.
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-double samplekurtosis(/* Real    */ ae_vector* x,
+double samplekurtosis(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state)
 {
@@ -3179,7 +3182,7 @@ Output parameters:
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void sampleadev(/* Real    */ ae_vector* x,
+void sampleadev(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* adev,
      ae_state *_state)
@@ -3238,13 +3241,13 @@ Output parameters:
   -- ALGLIB --
      Copyright 06.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void samplemedian(/* Real    */ ae_vector* x,
+void samplemedian(/* Real    */ const ae_vector* _x,
      ae_int_t n,
      double* median,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_vector _x;
+    ae_vector x;
     ae_int_t i;
     ae_int_t ir;
     ae_int_t j;
@@ -3255,14 +3258,13 @@ void samplemedian(/* Real    */ ae_vector* x,
     double tval;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
-    ae_vector_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
+    memset(&x, 0, sizeof(x));
+    ae_vector_init_copy(&x, _x, _state, ae_true);
     *median = 0.0;
 
     ae_assert(n>=0, "SampleMedian: N<0", _state);
-    ae_assert(x->cnt>=n, "SampleMedian: Length(X)<N!", _state);
-    ae_assert(isfinitevector(x, n, _state), "SampleMedian: X is not finite vector", _state);
+    ae_assert(x.cnt>=n, "SampleMedian: Length(X)<N!", _state);
+    ae_assert(isfinitevector(&x, n, _state), "SampleMedian: X is not finite vector", _state);
     
     /*
      * Some degenerate cases
@@ -3275,13 +3277,13 @@ void samplemedian(/* Real    */ ae_vector* x,
     }
     if( n==1 )
     {
-        *median = x->ptr.p_double[0];
+        *median = x.ptr.p_double[0];
         ae_frame_leave(_state);
         return;
     }
     if( n==2 )
     {
-        *median = 0.5*(x->ptr.p_double[0]+x->ptr.p_double[1]);
+        *median = 0.5*(x.ptr.p_double[0]+x.ptr.p_double[1]);
         ae_frame_leave(_state);
         return;
     }
@@ -3301,63 +3303,63 @@ void samplemedian(/* Real    */ ae_vector* x,
             /*
              * 1 or 2 elements in partition
              */
-            if( ir==l+1&&ae_fp_less(x->ptr.p_double[ir],x->ptr.p_double[l]) )
+            if( ir==l+1&&ae_fp_less(x.ptr.p_double[ir],x.ptr.p_double[l]) )
             {
-                tval = x->ptr.p_double[l];
-                x->ptr.p_double[l] = x->ptr.p_double[ir];
-                x->ptr.p_double[ir] = tval;
+                tval = x.ptr.p_double[l];
+                x.ptr.p_double[l] = x.ptr.p_double[ir];
+                x.ptr.p_double[ir] = tval;
             }
             break;
         }
         else
         {
             midp = (l+ir)/2;
-            tval = x->ptr.p_double[midp];
-            x->ptr.p_double[midp] = x->ptr.p_double[l+1];
-            x->ptr.p_double[l+1] = tval;
-            if( ae_fp_greater(x->ptr.p_double[l],x->ptr.p_double[ir]) )
+            tval = x.ptr.p_double[midp];
+            x.ptr.p_double[midp] = x.ptr.p_double[l+1];
+            x.ptr.p_double[l+1] = tval;
+            if( ae_fp_greater(x.ptr.p_double[l],x.ptr.p_double[ir]) )
             {
-                tval = x->ptr.p_double[l];
-                x->ptr.p_double[l] = x->ptr.p_double[ir];
-                x->ptr.p_double[ir] = tval;
+                tval = x.ptr.p_double[l];
+                x.ptr.p_double[l] = x.ptr.p_double[ir];
+                x.ptr.p_double[ir] = tval;
             }
-            if( ae_fp_greater(x->ptr.p_double[l+1],x->ptr.p_double[ir]) )
+            if( ae_fp_greater(x.ptr.p_double[l+1],x.ptr.p_double[ir]) )
             {
-                tval = x->ptr.p_double[l+1];
-                x->ptr.p_double[l+1] = x->ptr.p_double[ir];
-                x->ptr.p_double[ir] = tval;
+                tval = x.ptr.p_double[l+1];
+                x.ptr.p_double[l+1] = x.ptr.p_double[ir];
+                x.ptr.p_double[ir] = tval;
             }
-            if( ae_fp_greater(x->ptr.p_double[l],x->ptr.p_double[l+1]) )
+            if( ae_fp_greater(x.ptr.p_double[l],x.ptr.p_double[l+1]) )
             {
-                tval = x->ptr.p_double[l];
-                x->ptr.p_double[l] = x->ptr.p_double[l+1];
-                x->ptr.p_double[l+1] = tval;
+                tval = x.ptr.p_double[l];
+                x.ptr.p_double[l] = x.ptr.p_double[l+1];
+                x.ptr.p_double[l+1] = tval;
             }
             i = l+1;
             j = ir;
-            a = x->ptr.p_double[l+1];
+            a = x.ptr.p_double[l+1];
             for(;;)
             {
                 do
                 {
                     i = i+1;
                 }
-                while(ae_fp_less(x->ptr.p_double[i],a));
+                while(ae_fp_less(x.ptr.p_double[i],a));
                 do
                 {
                     j = j-1;
                 }
-                while(ae_fp_greater(x->ptr.p_double[j],a));
+                while(ae_fp_greater(x.ptr.p_double[j],a));
                 if( j<i )
                 {
                     break;
                 }
-                tval = x->ptr.p_double[i];
-                x->ptr.p_double[i] = x->ptr.p_double[j];
-                x->ptr.p_double[j] = tval;
+                tval = x.ptr.p_double[i];
+                x.ptr.p_double[i] = x.ptr.p_double[j];
+                x.ptr.p_double[j] = tval;
             }
-            x->ptr.p_double[l+1] = x->ptr.p_double[j];
-            x->ptr.p_double[j] = a;
+            x.ptr.p_double[l+1] = x.ptr.p_double[j];
+            x.ptr.p_double[j] = a;
             if( j>=k )
             {
                 ir = j-1;
@@ -3374,19 +3376,19 @@ void samplemedian(/* Real    */ ae_vector* x,
      */
     if( n%2==1 )
     {
-        *median = x->ptr.p_double[k];
+        *median = x.ptr.p_double[k];
         ae_frame_leave(_state);
         return;
     }
-    a = x->ptr.p_double[n-1];
+    a = x.ptr.p_double[n-1];
     for(i=k+1; i<=n-1; i++)
     {
-        if( ae_fp_less(x->ptr.p_double[i],a) )
+        if( ae_fp_less(x.ptr.p_double[i],a) )
         {
-            a = x->ptr.p_double[i];
+            a = x.ptr.p_double[i];
         }
     }
-    *median = 0.5*(x->ptr.p_double[k]+a);
+    *median = 0.5*(x.ptr.p_double[k]+a);
     ae_frame_leave(_state);
 }
 
@@ -3407,48 +3409,47 @@ Output parameters:
   -- ALGLIB --
      Copyright 01.03.2008 by Bochkanov Sergey
 *************************************************************************/
-void samplepercentile(/* Real    */ ae_vector* x,
+void samplepercentile(/* Real    */ const ae_vector* _x,
      ae_int_t n,
      double p,
      double* v,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_vector _x;
+    ae_vector x;
     ae_int_t i1;
     double t;
     ae_vector rbuf;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
+    memset(&x, 0, sizeof(x));
     memset(&rbuf, 0, sizeof(rbuf));
-    ae_vector_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
+    ae_vector_init_copy(&x, _x, _state, ae_true);
     *v = 0.0;
     ae_vector_init(&rbuf, 0, DT_REAL, _state, ae_true);
 
     ae_assert(n>=0, "SamplePercentile: N<0", _state);
-    ae_assert(x->cnt>=n, "SamplePercentile: Length(X)<N!", _state);
-    ae_assert(isfinitevector(x, n, _state), "SamplePercentile: X is not finite vector", _state);
+    ae_assert(x.cnt>=n, "SamplePercentile: Length(X)<N!", _state);
+    ae_assert(isfinitevector(&x, n, _state), "SamplePercentile: X is not finite vector", _state);
     ae_assert(ae_isfinite(p, _state), "SamplePercentile: incorrect P!", _state);
     ae_assert(ae_fp_greater_eq(p,(double)(0))&&ae_fp_less_eq(p,(double)(1)), "SamplePercentile: incorrect P!", _state);
-    tagsortfast(x, &rbuf, n, _state);
+    tagsortfast(&x, &rbuf, n, _state);
     if( ae_fp_eq(p,(double)(0)) )
     {
-        *v = x->ptr.p_double[0];
+        *v = x.ptr.p_double[0];
         ae_frame_leave(_state);
         return;
     }
     if( ae_fp_eq(p,(double)(1)) )
     {
-        *v = x->ptr.p_double[n-1];
+        *v = x.ptr.p_double[n-1];
         ae_frame_leave(_state);
         return;
     }
     t = p*(double)(n-1);
     i1 = ae_ifloor(t, _state);
     t = t-(double)ae_ifloor(t, _state);
-    *v = x->ptr.p_double[i1]*((double)1-t)+x->ptr.p_double[i1+1]*t;
+    *v = x.ptr.p_double[i1]*((double)1-t)+x.ptr.p_double[i1+1]*t;
     ae_frame_leave(_state);
 }
 
@@ -3469,8 +3470,8 @@ Result:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-double cov2(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double cov2(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state)
 {
@@ -3565,8 +3566,8 @@ Result:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-double pearsoncorr2(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double pearsoncorr2(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state)
 {
@@ -3678,32 +3679,30 @@ Result:
   -- ALGLIB --
      Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************/
-double spearmancorr2(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double spearmancorr2(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_vector _x;
-    ae_vector _y;
+    ae_vector x;
+    ae_vector y;
     apbuffers buf;
     double result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
-    memset(&_y, 0, sizeof(_y));
+    memset(&x, 0, sizeof(x));
+    memset(&y, 0, sizeof(y));
     memset(&buf, 0, sizeof(buf));
-    ae_vector_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
-    ae_vector_init_copy(&_y, y, _state, ae_true);
-    y = &_y;
+    ae_vector_init_copy(&x, _x, _state, ae_true);
+    ae_vector_init_copy(&y, _y, _state, ae_true);
     _apbuffers_init(&buf, _state, ae_true);
 
     ae_assert(n>=0, "SpearmanCorr2: N<0", _state);
-    ae_assert(x->cnt>=n, "SpearmanCorr2: Length(X)<N!", _state);
-    ae_assert(y->cnt>=n, "SpearmanCorr2: Length(Y)<N!", _state);
-    ae_assert(isfinitevector(x, n, _state), "SpearmanCorr2: X is not finite vector", _state);
-    ae_assert(isfinitevector(y, n, _state), "SpearmanCorr2: Y is not finite vector", _state);
+    ae_assert(x.cnt>=n, "SpearmanCorr2: Length(X)<N!", _state);
+    ae_assert(y.cnt>=n, "SpearmanCorr2: Length(Y)<N!", _state);
+    ae_assert(isfinitevector(&x, n, _state), "SpearmanCorr2: X is not finite vector", _state);
+    ae_assert(isfinitevector(&y, n, _state), "SpearmanCorr2: Y is not finite vector", _state);
     
     /*
      * Special case
@@ -3714,9 +3713,9 @@ double spearmancorr2(/* Real    */ ae_vector* x,
         ae_frame_leave(_state);
         return result;
     }
-    rankx(x, n, ae_false, &buf, _state);
-    rankx(y, n, ae_false, &buf, _state);
-    result = pearsoncorr2(x, y, n, _state);
+    rankx(&x, n, ae_false, &buf, _state);
+    rankx(&y, n, ae_false, &buf, _state);
+    result = pearsoncorr2(&x, &y, n, _state);
     ae_frame_leave(_state);
     return result;
 }
@@ -3755,14 +3754,14 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-void covm(/* Real    */ ae_matrix* x,
+void covm(/* Real    */ const ae_matrix* _x,
      ae_int_t n,
      ae_int_t m,
      /* Real    */ ae_matrix* c,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _x;
+    ae_matrix x;
     ae_int_t i;
     ae_int_t j;
     double v;
@@ -3771,12 +3770,11 @@ void covm(/* Real    */ ae_matrix* x,
     ae_vector same;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
+    memset(&x, 0, sizeof(x));
     memset(&t, 0, sizeof(t));
     memset(&x0, 0, sizeof(x0));
     memset(&same, 0, sizeof(same));
-    ae_matrix_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
+    ae_matrix_init_copy(&x, _x, _state, ae_true);
     ae_matrix_clear(c);
     ae_vector_init(&t, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&x0, 0, DT_REAL, _state, ae_true);
@@ -3784,9 +3782,9 @@ void covm(/* Real    */ ae_matrix* x,
 
     ae_assert(n>=0, "CovM: N<0", _state);
     ae_assert(m>=1, "CovM: M<1", _state);
-    ae_assert(x->rows>=n, "CovM: Rows(X)<N!", _state);
-    ae_assert(x->cols>=m||n==0, "CovM: Cols(X)<M!", _state);
-    ae_assert(apservisfinitematrix(x, n, m, _state), "CovM: X contains infinite/NAN elements", _state);
+    ae_assert(x.rows>=n, "CovM: Rows(X)<N!", _state);
+    ae_assert(x.cols>=m||n==0, "CovM: Cols(X)<M!", _state);
+    ae_assert(apservisfinitematrix(&x, n, m, _state), "CovM: X contains infinite/NAN elements", _state);
     
     /*
      * N<=1, return zero
@@ -3818,14 +3816,14 @@ void covm(/* Real    */ ae_matrix* x,
         t.ptr.p_double[i] = (double)(0);
         same.ptr.p_bool[i] = ae_true;
     }
-    ae_v_move(&x0.ptr.p_double[0], 1, &x->ptr.pp_double[0][0], 1, ae_v_len(0,m-1));
+    ae_v_move(&x0.ptr.p_double[0], 1, &x.ptr.pp_double[0][0], 1, ae_v_len(0,m-1));
     v = (double)1/(double)n;
     for(i=0; i<=n-1; i++)
     {
-        ae_v_addd(&t.ptr.p_double[0], 1, &x->ptr.pp_double[i][0], 1, ae_v_len(0,m-1), v);
+        ae_v_addd(&t.ptr.p_double[0], 1, &x.ptr.pp_double[i][0], 1, ae_v_len(0,m-1), v);
         for(j=0; j<=m-1; j++)
         {
-            same.ptr.p_bool[j] = same.ptr.p_bool[j]&&ae_fp_eq(x->ptr.pp_double[i][j],x0.ptr.p_double[j]);
+            same.ptr.p_bool[j] = same.ptr.p_bool[j]&&ae_fp_eq(x.ptr.pp_double[i][j],x0.ptr.p_double[j]);
         }
     }
     
@@ -3838,16 +3836,16 @@ void covm(/* Real    */ ae_matrix* x,
      */
     for(i=0; i<=n-1; i++)
     {
-        ae_v_sub(&x->ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m-1));
+        ae_v_sub(&x.ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m-1));
         for(j=0; j<=m-1; j++)
         {
             if( same.ptr.p_bool[j] )
             {
-                x->ptr.pp_double[i][j] = (double)(0);
+                x.ptr.pp_double[i][j] = (double)(0);
             }
         }
     }
-    rmatrixsyrk(m, n, (double)1/(double)(n-1), x, 0, 0, 1, 0.0, c, 0, 0, ae_true, _state);
+    rmatrixsyrk(m, n, (double)1/(double)(n-1), &x, 0, 0, 1, 0.0, c, 0, 0, ae_true, _state);
     rmatrixenforcesymmetricity(c, m, ae_true, _state);
     ae_frame_leave(_state);
 }
@@ -3886,7 +3884,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-void pearsoncorrm(/* Real    */ ae_matrix* x,
+void pearsoncorrm(/* Real    */ const ae_matrix* x,
      ae_int_t n,
      ae_int_t m,
      /* Real    */ ae_matrix* c,
@@ -3966,7 +3964,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-void spearmancorrm(/* Real    */ ae_matrix* x,
+void spearmancorrm(/* Real    */ const ae_matrix* x,
      ae_int_t n,
      ae_int_t m,
      /* Real    */ ae_matrix* c,
@@ -4155,8 +4153,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-void covm2(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void covm2(/* Real    */ const ae_matrix* _x,
+     /* Real    */ const ae_matrix* _y,
      ae_int_t n,
      ae_int_t m1,
      ae_int_t m2,
@@ -4164,8 +4162,8 @@ void covm2(/* Real    */ ae_matrix* x,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _x;
-    ae_matrix _y;
+    ae_matrix x;
+    ae_matrix y;
     ae_int_t i;
     ae_int_t j;
     double v;
@@ -4176,17 +4174,15 @@ void covm2(/* Real    */ ae_matrix* x,
     ae_vector samey;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
-    memset(&_y, 0, sizeof(_y));
+    memset(&x, 0, sizeof(x));
+    memset(&y, 0, sizeof(y));
     memset(&t, 0, sizeof(t));
     memset(&x0, 0, sizeof(x0));
     memset(&y0, 0, sizeof(y0));
     memset(&samex, 0, sizeof(samex));
     memset(&samey, 0, sizeof(samey));
-    ae_matrix_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
-    ae_matrix_init_copy(&_y, y, _state, ae_true);
-    y = &_y;
+    ae_matrix_init_copy(&x, _x, _state, ae_true);
+    ae_matrix_init_copy(&y, _y, _state, ae_true);
     ae_matrix_clear(c);
     ae_vector_init(&t, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&x0, 0, DT_REAL, _state, ae_true);
@@ -4197,12 +4193,12 @@ void covm2(/* Real    */ ae_matrix* x,
     ae_assert(n>=0, "CovM2: N<0", _state);
     ae_assert(m1>=1, "CovM2: M1<1", _state);
     ae_assert(m2>=1, "CovM2: M2<1", _state);
-    ae_assert(x->rows>=n, "CovM2: Rows(X)<N!", _state);
-    ae_assert(x->cols>=m1||n==0, "CovM2: Cols(X)<M1!", _state);
-    ae_assert(apservisfinitematrix(x, n, m1, _state), "CovM2: X contains infinite/NAN elements", _state);
-    ae_assert(y->rows>=n, "CovM2: Rows(Y)<N!", _state);
-    ae_assert(y->cols>=m2||n==0, "CovM2: Cols(Y)<M2!", _state);
-    ae_assert(apservisfinitematrix(y, n, m2, _state), "CovM2: X contains infinite/NAN elements", _state);
+    ae_assert(x.rows>=n, "CovM2: Rows(X)<N!", _state);
+    ae_assert(x.cols>=m1||n==0, "CovM2: Cols(X)<M1!", _state);
+    ae_assert(apservisfinitematrix(&x, n, m1, _state), "CovM2: X contains infinite/NAN elements", _state);
+    ae_assert(y.rows>=n, "CovM2: Rows(Y)<N!", _state);
+    ae_assert(y.cols>=m2||n==0, "CovM2: Cols(Y)<M2!", _state);
+    ae_assert(apservisfinitematrix(&y, n, m2, _state), "CovM2: X contains infinite/NAN elements", _state);
     
     /*
      * N<=1, return zero
@@ -4243,24 +4239,24 @@ void covm2(/* Real    */ ae_matrix* x,
         t.ptr.p_double[i] = (double)(0);
         samex.ptr.p_bool[i] = ae_true;
     }
-    ae_v_move(&x0.ptr.p_double[0], 1, &x->ptr.pp_double[0][0], 1, ae_v_len(0,m1-1));
+    ae_v_move(&x0.ptr.p_double[0], 1, &x.ptr.pp_double[0][0], 1, ae_v_len(0,m1-1));
     v = (double)1/(double)n;
     for(i=0; i<=n-1; i++)
     {
-        ae_v_addd(&t.ptr.p_double[0], 1, &x->ptr.pp_double[i][0], 1, ae_v_len(0,m1-1), v);
+        ae_v_addd(&t.ptr.p_double[0], 1, &x.ptr.pp_double[i][0], 1, ae_v_len(0,m1-1), v);
         for(j=0; j<=m1-1; j++)
         {
-            samex.ptr.p_bool[j] = samex.ptr.p_bool[j]&&ae_fp_eq(x->ptr.pp_double[i][j],x0.ptr.p_double[j]);
+            samex.ptr.p_bool[j] = samex.ptr.p_bool[j]&&ae_fp_eq(x.ptr.pp_double[i][j],x0.ptr.p_double[j]);
         }
     }
     for(i=0; i<=n-1; i++)
     {
-        ae_v_sub(&x->ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m1-1));
+        ae_v_sub(&x.ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m1-1));
         for(j=0; j<=m1-1; j++)
         {
             if( samex.ptr.p_bool[j] )
             {
-                x->ptr.pp_double[i][j] = (double)(0);
+                x.ptr.pp_double[i][j] = (double)(0);
             }
         }
     }
@@ -4273,24 +4269,24 @@ void covm2(/* Real    */ ae_matrix* x,
         t.ptr.p_double[i] = (double)(0);
         samey.ptr.p_bool[i] = ae_true;
     }
-    ae_v_move(&y0.ptr.p_double[0], 1, &y->ptr.pp_double[0][0], 1, ae_v_len(0,m2-1));
+    ae_v_move(&y0.ptr.p_double[0], 1, &y.ptr.pp_double[0][0], 1, ae_v_len(0,m2-1));
     v = (double)1/(double)n;
     for(i=0; i<=n-1; i++)
     {
-        ae_v_addd(&t.ptr.p_double[0], 1, &y->ptr.pp_double[i][0], 1, ae_v_len(0,m2-1), v);
+        ae_v_addd(&t.ptr.p_double[0], 1, &y.ptr.pp_double[i][0], 1, ae_v_len(0,m2-1), v);
         for(j=0; j<=m2-1; j++)
         {
-            samey.ptr.p_bool[j] = samey.ptr.p_bool[j]&&ae_fp_eq(y->ptr.pp_double[i][j],y0.ptr.p_double[j]);
+            samey.ptr.p_bool[j] = samey.ptr.p_bool[j]&&ae_fp_eq(y.ptr.pp_double[i][j],y0.ptr.p_double[j]);
         }
     }
     for(i=0; i<=n-1; i++)
     {
-        ae_v_sub(&y->ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m2-1));
+        ae_v_sub(&y.ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m2-1));
         for(j=0; j<=m2-1; j++)
         {
             if( samey.ptr.p_bool[j] )
             {
-                y->ptr.pp_double[i][j] = (double)(0);
+                y.ptr.pp_double[i][j] = (double)(0);
             }
         }
     }
@@ -4298,7 +4294,7 @@ void covm2(/* Real    */ ae_matrix* x,
     /*
      * calculate cross-covariance matrix
      */
-    rmatrixgemm(m1, m2, n, (double)1/(double)(n-1), x, 0, 0, 1, y, 0, 0, 0, 0.0, c, 0, 0, _state);
+    rmatrixgemm(m1, m2, n, (double)1/(double)(n-1), &x, 0, 0, 1, &y, 0, 0, 0, 0.0, c, 0, 0, _state);
     ae_frame_leave(_state);
 }
 
@@ -4342,8 +4338,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-void pearsoncorrm2(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void pearsoncorrm2(/* Real    */ const ae_matrix* _x,
+     /* Real    */ const ae_matrix* _y,
      ae_int_t n,
      ae_int_t m1,
      ae_int_t m2,
@@ -4351,8 +4347,8 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _x;
-    ae_matrix _y;
+    ae_matrix x;
+    ae_matrix y;
     ae_int_t i;
     ae_int_t j;
     double v;
@@ -4365,8 +4361,8 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
     ae_vector samey;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
-    memset(&_y, 0, sizeof(_y));
+    memset(&x, 0, sizeof(x));
+    memset(&y, 0, sizeof(y));
     memset(&t, 0, sizeof(t));
     memset(&x0, 0, sizeof(x0));
     memset(&y0, 0, sizeof(y0));
@@ -4374,10 +4370,8 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
     memset(&sy, 0, sizeof(sy));
     memset(&samex, 0, sizeof(samex));
     memset(&samey, 0, sizeof(samey));
-    ae_matrix_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
-    ae_matrix_init_copy(&_y, y, _state, ae_true);
-    y = &_y;
+    ae_matrix_init_copy(&x, _x, _state, ae_true);
+    ae_matrix_init_copy(&y, _y, _state, ae_true);
     ae_matrix_clear(c);
     ae_vector_init(&t, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&x0, 0, DT_REAL, _state, ae_true);
@@ -4390,12 +4384,12 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
     ae_assert(n>=0, "PearsonCorrM2: N<0", _state);
     ae_assert(m1>=1, "PearsonCorrM2: M1<1", _state);
     ae_assert(m2>=1, "PearsonCorrM2: M2<1", _state);
-    ae_assert(x->rows>=n, "PearsonCorrM2: Rows(X)<N!", _state);
-    ae_assert(x->cols>=m1||n==0, "PearsonCorrM2: Cols(X)<M1!", _state);
-    ae_assert(apservisfinitematrix(x, n, m1, _state), "PearsonCorrM2: X contains infinite/NAN elements", _state);
-    ae_assert(y->rows>=n, "PearsonCorrM2: Rows(Y)<N!", _state);
-    ae_assert(y->cols>=m2||n==0, "PearsonCorrM2: Cols(Y)<M2!", _state);
-    ae_assert(apservisfinitematrix(y, n, m2, _state), "PearsonCorrM2: X contains infinite/NAN elements", _state);
+    ae_assert(x.rows>=n, "PearsonCorrM2: Rows(X)<N!", _state);
+    ae_assert(x.cols>=m1||n==0, "PearsonCorrM2: Cols(X)<M1!", _state);
+    ae_assert(apservisfinitematrix(&x, n, m1, _state), "PearsonCorrM2: X contains infinite/NAN elements", _state);
+    ae_assert(y.rows>=n, "PearsonCorrM2: Rows(Y)<N!", _state);
+    ae_assert(y.cols>=m2||n==0, "PearsonCorrM2: Cols(Y)<M2!", _state);
+    ae_assert(apservisfinitematrix(&y, n, m2, _state), "PearsonCorrM2: X contains infinite/NAN elements", _state);
     
     /*
      * N<=1, return zero
@@ -4440,26 +4434,26 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
         samex.ptr.p_bool[i] = ae_true;
         sx.ptr.p_double[i] = (double)(0);
     }
-    ae_v_move(&x0.ptr.p_double[0], 1, &x->ptr.pp_double[0][0], 1, ae_v_len(0,m1-1));
+    ae_v_move(&x0.ptr.p_double[0], 1, &x.ptr.pp_double[0][0], 1, ae_v_len(0,m1-1));
     v = (double)1/(double)n;
     for(i=0; i<=n-1; i++)
     {
-        ae_v_addd(&t.ptr.p_double[0], 1, &x->ptr.pp_double[i][0], 1, ae_v_len(0,m1-1), v);
+        ae_v_addd(&t.ptr.p_double[0], 1, &x.ptr.pp_double[i][0], 1, ae_v_len(0,m1-1), v);
         for(j=0; j<=m1-1; j++)
         {
-            samex.ptr.p_bool[j] = samex.ptr.p_bool[j]&&ae_fp_eq(x->ptr.pp_double[i][j],x0.ptr.p_double[j]);
+            samex.ptr.p_bool[j] = samex.ptr.p_bool[j]&&ae_fp_eq(x.ptr.pp_double[i][j],x0.ptr.p_double[j]);
         }
     }
     for(i=0; i<=n-1; i++)
     {
-        ae_v_sub(&x->ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m1-1));
+        ae_v_sub(&x.ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m1-1));
         for(j=0; j<=m1-1; j++)
         {
             if( samex.ptr.p_bool[j] )
             {
-                x->ptr.pp_double[i][j] = (double)(0);
+                x.ptr.pp_double[i][j] = (double)(0);
             }
-            sx.ptr.p_double[j] = sx.ptr.p_double[j]+x->ptr.pp_double[i][j]*x->ptr.pp_double[i][j];
+            sx.ptr.p_double[j] = sx.ptr.p_double[j]+x.ptr.pp_double[i][j]*x.ptr.pp_double[i][j];
         }
     }
     for(j=0; j<=m1-1; j++)
@@ -4476,26 +4470,26 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
         samey.ptr.p_bool[i] = ae_true;
         sy.ptr.p_double[i] = (double)(0);
     }
-    ae_v_move(&y0.ptr.p_double[0], 1, &y->ptr.pp_double[0][0], 1, ae_v_len(0,m2-1));
+    ae_v_move(&y0.ptr.p_double[0], 1, &y.ptr.pp_double[0][0], 1, ae_v_len(0,m2-1));
     v = (double)1/(double)n;
     for(i=0; i<=n-1; i++)
     {
-        ae_v_addd(&t.ptr.p_double[0], 1, &y->ptr.pp_double[i][0], 1, ae_v_len(0,m2-1), v);
+        ae_v_addd(&t.ptr.p_double[0], 1, &y.ptr.pp_double[i][0], 1, ae_v_len(0,m2-1), v);
         for(j=0; j<=m2-1; j++)
         {
-            samey.ptr.p_bool[j] = samey.ptr.p_bool[j]&&ae_fp_eq(y->ptr.pp_double[i][j],y0.ptr.p_double[j]);
+            samey.ptr.p_bool[j] = samey.ptr.p_bool[j]&&ae_fp_eq(y.ptr.pp_double[i][j],y0.ptr.p_double[j]);
         }
     }
     for(i=0; i<=n-1; i++)
     {
-        ae_v_sub(&y->ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m2-1));
+        ae_v_sub(&y.ptr.pp_double[i][0], 1, &t.ptr.p_double[0], 1, ae_v_len(0,m2-1));
         for(j=0; j<=m2-1; j++)
         {
             if( samey.ptr.p_bool[j] )
             {
-                y->ptr.pp_double[i][j] = (double)(0);
+                y.ptr.pp_double[i][j] = (double)(0);
             }
-            sy.ptr.p_double[j] = sy.ptr.p_double[j]+y->ptr.pp_double[i][j]*y->ptr.pp_double[i][j];
+            sy.ptr.p_double[j] = sy.ptr.p_double[j]+y.ptr.pp_double[i][j]*y.ptr.pp_double[i][j];
         }
     }
     for(j=0; j<=m2-1; j++)
@@ -4506,7 +4500,7 @@ void pearsoncorrm2(/* Real    */ ae_matrix* x,
     /*
      * calculate cross-covariance matrix
      */
-    rmatrixgemm(m1, m2, n, (double)1/(double)(n-1), x, 0, 0, 1, y, 0, 0, 0, 0.0, c, 0, 0, _state);
+    rmatrixgemm(m1, m2, n, (double)1/(double)(n-1), &x, 0, 0, 1, &y, 0, 0, 0, 0.0, c, 0, 0, _state);
     
     /*
      * Divide by standard deviations
@@ -4584,8 +4578,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 28.10.2010 by Bochkanov Sergey
 *************************************************************************/
-void spearmancorrm2(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void spearmancorrm2(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_matrix* y,
      ae_int_t n,
      ae_int_t m1,
      ae_int_t m2,
@@ -4983,8 +4977,8 @@ Obsolete function, we recommend to use PearsonCorr2().
   -- ALGLIB --
      Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************/
-double pearsoncorrelation(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double pearsoncorrelation(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state)
 {
@@ -5002,8 +4996,8 @@ Obsolete function, we recommend to use SpearmanCorr2().
     -- ALGLIB --
     Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************/
-double spearmanrankcorrelation(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double spearmanrankcorrelation(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state)
 {
@@ -5925,7 +5919,7 @@ from table values.
   -- ALGLIB --
      Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************/
-void jarqueberatest(/* Real    */ ae_vector* x,
+void jarqueberatest(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* p,
      ae_state *_state)
@@ -5952,7 +5946,7 @@ void jarqueberatest(/* Real    */ ae_vector* x,
 }
 
 
-static void jarquebera_jarqueberastatistic(/* Real    */ ae_vector* x,
+static void jarquebera_jarqueberastatistic(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* s,
      ae_state *_state)
@@ -8193,9 +8187,9 @@ Output parameters:
   -- ALGLIB --
      Copyright 19.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void ftest(/* Real    */ ae_vector* x,
+void ftest(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,
@@ -8308,7 +8302,7 @@ Output parameters:
   -- ALGLIB --
      Copyright 19.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void onesamplevariancetest(/* Real    */ ae_vector* x,
+void onesamplevariancetest(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double variance,
      double* bothtails,
@@ -8425,7 +8419,7 @@ the significance level outlies this interval, the test returns 0.0001.
   -- ALGLIB --
      Copyright 08.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
+void wilcoxonsignedranktest(/* Real    */ const ae_vector* _x,
      ae_int_t n,
      double e,
      double* bothtails,
@@ -8434,7 +8428,7 @@ void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_vector _x;
+    ae_vector x;
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
@@ -8452,11 +8446,10 @@ void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
     double mu;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_x, 0, sizeof(_x));
+    memset(&x, 0, sizeof(x));
     memset(&r, 0, sizeof(r));
     memset(&c, 0, sizeof(c));
-    ae_vector_init_copy(&_x, x, _state, ae_true);
-    x = &_x;
+    ae_vector_init_copy(&x, _x, _state, ae_true);
     *bothtails = 0.0;
     *lefttail = 0.0;
     *righttail = 0.0;
@@ -8478,11 +8471,11 @@ void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
     ns = 0;
     for(i=0; i<=n-1; i++)
     {
-        if( ae_fp_eq(x->ptr.p_double[i],e) )
+        if( ae_fp_eq(x.ptr.p_double[i],e) )
         {
             continue;
         }
-        x->ptr.p_double[ns] = x->ptr.p_double[i];
+        x.ptr.p_double[ns] = x.ptr.p_double[i];
         ns = ns+1;
     }
     if( ns<5 )
@@ -8497,7 +8490,7 @@ void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
     ae_vector_set_length(&c, ns-1+1, _state);
     for(i=0; i<=ns-1; i++)
     {
-        r.ptr.p_double[i] = ae_fabs(x->ptr.p_double[i]-e, _state);
+        r.ptr.p_double[i] = ae_fabs(x.ptr.p_double[i]-e, _state);
         c.ptr.p_int[i] = i;
     }
     
@@ -8606,7 +8599,7 @@ void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
     w = (double)(0);
     for(i=0; i<=ns-1; i++)
     {
-        if( ae_fp_greater(x->ptr.p_double[c.ptr.p_int[i]],e) )
+        if( ae_fp_greater(x.ptr.p_double[c.ptr.p_int[i]],e) )
         {
             w = w+r.ptr.p_double[i];
         }
@@ -14740,9 +14733,9 @@ NOTE: P-value approximation was  optimized  for  0.0001<=p<=0.2500.  Thus,
   -- ALGLIB --
      Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************/
-void mannwhitneyutest(/* Real    */ ae_vector* x,
+void mannwhitneyutest(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,
@@ -19217,7 +19210,7 @@ approximation is used, so significance levels have about 15 exact digits.
   -- ALGLIB --
      Copyright 08.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void onesamplesigntest(/* Real    */ ae_vector* x,
+void onesamplesigntest(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double median,
      double* bothtails,
@@ -19323,7 +19316,7 @@ NOTE: this function correctly handles degenerate cases:
   -- ALGLIB --
      Copyright 08.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void studentttest1(/* Real    */ ae_vector* x,
+void studentttest1(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double mean,
      double* bothtails,
@@ -19482,9 +19475,9 @@ NOTE: this function correctly handles degenerate cases:
   -- ALGLIB --
      Copyright 18.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void studentttest2(/* Real    */ ae_vector* x,
+void studentttest2(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,
@@ -19652,9 +19645,9 @@ NOTE: this function correctly handles degenerate cases:
   -- ALGLIB --
      Copyright 18.09.2006 by Bochkanov Sergey
 *************************************************************************/
-void unequalvariancettest(/* Real    */ ae_vector* x,
+void unequalvariancettest(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,

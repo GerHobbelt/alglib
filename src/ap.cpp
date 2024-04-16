@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -17,6 +17,9 @@ A copy of the GNU General Public License is available at
 http://www.fsf.org/licensing/licenses
 >>> END OF LICENSE >>>
 *************************************************************************/
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 #include "stdafx.h"
 
 //
@@ -152,6 +155,7 @@ namespace alglib_impl
 #define _ALGLIB_GET_CORES_COUNT            1000
 #define _ALGLIB_GET_GLOBAL_THREADING       1001
 #define _ALGLIB_GET_NWORKERS               1002
+#define _ALGLIB_GET_CORES_TO_USE           1003
 
 #if defined(ALGLIB_REDZONE)
 #define _ALGLIB_REDZONE_VAL                 0x3c
@@ -450,6 +454,12 @@ ae_int64_t ae_get_dbg_value(ae_int64_t id)
         return (ae_int64_t)ae_get_global_threading();
     if( id==_ALGLIB_GET_NWORKERS )
         return (ae_int64_t)_alglib_cores_to_use;
+    if( id==_ALGLIB_GET_CORES_TO_USE )
+#if defined(AE_SMP)
+        return (ae_int64_t)ae_get_cores_to_use_positive();
+#else
+        return (ae_int64_t)1;
+#endif
     
     /* unknown value */
     return (ae_int64_t)0;
@@ -459,13 +469,21 @@ ae_int64_t ae_get_dbg_value(ae_int64_t id)
 This function sets default (global) threading model:
 * serial execution
 * multithreading, if cores_to_use allows it
+* serial callbacks
+* parallel callbacks
 
 ************************************************************************/
 void ae_set_global_threading(ae_uint64_t flg_value)
 {
-    flg_value = flg_value&_ALGLIB_FLG_THREADING_MASK;
-    AE_CRITICAL_ASSERT(flg_value==_ALGLIB_FLG_THREADING_SERIAL || flg_value==_ALGLIB_FLG_THREADING_PARALLEL);
+    flg_value = flg_value&_ALGLIB_FLG_THREADING_MASK_ALL;
+    AE_CRITICAL_ASSERT((flg_value&_ALGLIB_FLG_THREADING_MASK_WRK)==_ALGLIB_FLG_THREADING_SERIAL ||
+                       (flg_value&_ALGLIB_FLG_THREADING_MASK_WRK)==_ALGLIB_FLG_THREADING_PARALLEL ||
+                       (flg_value&_ALGLIB_FLG_THREADING_MASK_WRK)==_ALGLIB_FLG_THREADING_USE_GLOBAL);
+    AE_CRITICAL_ASSERT((flg_value&_ALGLIB_FLG_THREADING_MASK_CBK)==_ALGLIB_FLG_THREADING_SERIAL_CALLBACKS ||
+                       (flg_value&_ALGLIB_FLG_THREADING_MASK_CBK)==_ALGLIB_FLG_THREADING_PARALLEL_CALLBACKS ||
+                       (flg_value&_ALGLIB_FLG_THREADING_MASK_CBK)==_ALGLIB_FLG_THREADING_USE_GLOBAL);
     _alglib_global_threading_flags = (unsigned char)(flg_value>>_ALGLIB_FLG_THREADING_SHIFT);
+    AE_CRITICAL_ASSERT((((ae_uint64_t)_alglib_global_threading_flags)<<_ALGLIB_FLG_THREADING_SHIFT)==flg_value);
 }
 
 /************************************************************************
@@ -681,6 +699,30 @@ void ae_mfence(ae_lock *lock)
 {
     ae_acquire_lock(lock);
     ae_release_lock(lock);
+}
+
+
+/*************************************************************************
+This function performs thread-unsafe read of an integer value.
+
+Basically, it just reads the pointer contents. Its existince allows us  to
+let ThreadSanitizer ignore reads that lead to benign race conditions.
+*************************************************************************/
+ae_int_t ae_unsafe_read_aeint(ae_int_t *p)
+{
+    return *p; // TODO: fast inline!!!!
+}
+
+
+/*************************************************************************
+This function performs thread-unsafe write of an integer value.
+
+Basically, it just writes v to the target pointer. Its existence allows us
+to let ThreadSanitizer ignore writes that lead to benign race conditions.
+*************************************************************************/
+void ae_unsafe_write_aeint(ae_int_t *dst, ae_int_t v)
+{
+    *dst = v;
 }
 
 /*************************************************************************
@@ -2339,7 +2381,7 @@ Result:
 ************************************************************************/
 ae_int_t ae_obj_array_get_length(ae_obj_array *dst)
 {
-    return dst->cnt;
+    return ae_unsafe_read_aeint(&dst->cnt);
 }
 
 /************************************************************************
@@ -2438,7 +2480,7 @@ On output:
 ************************************************************************/
 void ae_obj_array_get(ae_obj_array *arr, ae_int_t idx, ae_smart_ptr *ptr, ae_state *state)
 {
-    if( idx<0 || idx>=arr->cnt )
+    if( idx<0 || idx>=ae_unsafe_read_aeint(&arr->cnt) )
         ae_assert(ae_false, "ObjArray: out of bounds read access was performed", state);
     ae_smart_ptr_assign(ptr, arr->pp_obj_ptr[idx], ae_false, ae_false, 0, NULL, NULL);
 }
@@ -2469,7 +2511,7 @@ ptr                 smart pointer structure
 void ae_obj_array_set_transfer(ae_obj_array *arr, ae_int_t idx, ae_smart_ptr *ptr, ae_state *state)
 {
     /* initial integrity checks */
-    if( idx<0 || idx>=arr->cnt )
+    if( idx<0 || idx>=ae_unsafe_read_aeint(&arr->cnt) )
         ae_assert(ae_false, "ae_obj_array_set_transfer: out of bounds idx", state);
     ae_assert(ptr->ptr==NULL || ptr->is_owner, "ae_obj_array_set_transfer: ptr does not own its pointer", state);
     ae_assert(ptr->ptr==NULL || ptr->is_dynamic, "ae_obj_array_set_transfer: ptr does not point to dynamic object", state);
@@ -2533,10 +2575,17 @@ ae_int_t ae_obj_array_append_transfer(ae_obj_array *arr, ae_smart_ptr *ptr, ae_s
     /* initial integrity checks */
     ae_assert(ptr->ptr==NULL || ptr->is_owner, "ae_obj_array_append_transfer: ptr does not own its pointer", state);
     ae_assert(ptr->ptr==NULL || ptr->is_dynamic, "ae_obj_array_append_transfer: ptr does not point to dynamic object", state);
-    ae_assert(!arr->fixed_capacity || arr->cnt<arr->capacity, "ae_obj_array_append_transfer: unable to append, all capacity is used up", state);
     
-    /* get primary lock */
+    /* get the primary lock */
     ae_acquire_lock(&arr->array_lock);
+    
+    /* array integrity check */
+    if(arr->fixed_capacity && arr->cnt>=arr->capacity )
+    {
+        /* release lock and throw exception */
+        ae_release_lock(&arr->array_lock);
+        ae_assert(ae_false, "ae_obj_array_append_transfer: unable to append, all capacity is used up", state);
+    }
     
     /* reallocate if needed */
     if( arr->cnt==arr->capacity )
@@ -2771,7 +2820,7 @@ void ae_x_attach_to_matrix(x_matrix *dst, ae_matrix *src)
     dst->cols = src->cols;
     dst->stride = src->stride;
     dst->datatype = src->datatype;
-    dst->x_ptr.p_ptr = &(src->ptr.pp_double[0][0]);
+    dst->x_ptr.p_ptr = (src->rows!=0 && src->cols!=0) ? &(src->ptr.pp_double[0][0]) : NULL;
     dst->last_action = ACT_NEW_LOCATION;
     dst->owner = OWN_CALLER;
 }
@@ -4608,7 +4657,7 @@ void ae_spin_wait(ae_int_t cnt)
     
     /* spin wait, test condition which will never be true */
     for(i=0; i<cnt; i++)
-        if( ae_never_change_it>0 )
+        if( ae_never_change_it>1 )
             ae_never_change_it--;
 }
 
@@ -5050,7 +5099,7 @@ NOTE: this function is NOT thread-safe. It does not acquire pool lock, so
 ************************************************************************/
 void ae_shared_pool_set_seed(
     ae_shared_pool  *dst,
-    void            *seed_object,
+    const void      *seed_object,
     ae_int_t        size_of_object,
     ae_constructor  constructor,
     ae_copy_constructor copy_constructor,
@@ -5396,7 +5445,7 @@ void ae_serializer_alloc_entry(ae_serializer *serializer)
     serializer->entries_needed++;
 }
 
-void ae_serializer_alloc_byte_array(ae_serializer *serializer, ae_vector *bytes)
+void ae_serializer_alloc_byte_array(ae_serializer *serializer, const ae_vector *bytes)
 {
     ae_int_t n;
     n = bytes->cnt;
@@ -5693,7 +5742,7 @@ void ae_serializer_serialize_double(ae_serializer *serializer, double v, ae_stat
     ae_break(state, ERR_ASSERTION_FAILED, emsg);
 }
 
-void ae_serializer_serialize_byte_array(ae_serializer *serializer, ae_vector *bytes, ae_state *state)
+void ae_serializer_serialize_byte_array(ae_serializer *serializer, const ae_vector *bytes, ae_state *state)
 {
     ae_int_t chunk_size, entries_count;
     
@@ -6907,6 +6956,12 @@ ae_int_t maxconcurrency(ae_state *_state)
 // THIS SECTION CONTAINS C++ RELATED FUNCTIONALITY
 //
 /////////////////////////////////////////////////////////////////////////
+#if !defined(AE_NO_EXCEPTIONS)
+#define _ALGLIB_ASSERT_THROW_OR_BREAK(cond,msg) if( !(cond) ) throw alglib::ap_error(msg)
+#else
+#define _ALGLIB_ASSERT_THROW_OR_BREAK(cond,msg) AE_CRITICAL_ASSERT(!(cond))
+#endif
+
 /********************************************************************
 Internal forwards
 ********************************************************************/
@@ -6945,12 +7000,17 @@ const double alglib::fp_neginf      =  alglib::get_aenv_neginf();
 #if defined(AE_NO_EXCEPTIONS)
 static const char *_alglib_last_error = NULL;
 #endif
-static const alglib_impl::ae_uint64_t _i64_xdefault  = 0x0;
-static const alglib_impl::ae_uint64_t _i64_xserial   = _ALGLIB_FLG_THREADING_SERIAL;
-static const alglib_impl::ae_uint64_t _i64_xparallel = _ALGLIB_FLG_THREADING_PARALLEL;
-const alglib::xparams &alglib::xdefault = *((const alglib::xparams *)(&_i64_xdefault));
-const alglib::xparams &alglib::serial   = *((const alglib::xparams *)(&_i64_xserial));
-const alglib::xparams &alglib::parallel = *((const alglib::xparams *)(&_i64_xparallel));
+static const alglib_impl::ae_uint64_t _i64_xdefault            = 0x0;
+static const alglib_impl::ae_uint64_t _i64_xserial             = _ALGLIB_FLG_THREADING_SERIAL;
+static const alglib_impl::ae_uint64_t _i64_xparallel           = _ALGLIB_FLG_THREADING_PARALLEL;
+static const alglib_impl::ae_uint64_t _i64_xserial_callbacks   = _ALGLIB_FLG_THREADING_SERIAL_CALLBACKS;
+static const alglib_impl::ae_uint64_t _i64_xparallel_callbacks = _ALGLIB_FLG_THREADING_PARALLEL_CALLBACKS;
+const alglib::xparams &alglib::xdefault             = *((const alglib::xparams *)(&_i64_xdefault));
+const alglib::xparams &alglib::serial               = *((const alglib::xparams *)(&_i64_xserial));
+const alglib::xparams &alglib::parallel             = *((const alglib::xparams *)(&_i64_xparallel));
+const alglib::xparams &alglib::serial_callbacks     = *((const alglib::xparams *)(&_i64_xserial_callbacks));
+const alglib::xparams &alglib::parallel_callbacks   = *((const alglib::xparams *)(&_i64_xparallel_callbacks));
+
 
 
 
@@ -6963,6 +7023,11 @@ alglib::ap_error::ap_error()
 }
 
 alglib::ap_error::ap_error(const char *s)
+{
+    msg = s; 
+}
+
+alglib::ap_error::ap_error(const std::string &s)
 {
     msg = s; 
 }
@@ -10066,6 +10131,279 @@ void alglib::trace_disable()
     alglib_impl::ae_trace_disable();
 }
 
+/********************************************************************
+V2 reverse communication protocol
+********************************************************************/
+alglib_impl::rcommv2_buffers::rcommv2_buffers(const alglib_impl::rcommv2_request &rq)
+{
+    tmpX.setlength(rq.vars);
+    if( rq.dim>0 )
+        tmpC.setlength(rq.dim);
+    tmpF.setlength(rq.funcs);
+    tmpG.setlength(rq.vars);
+    tmpJ.setlength(rq.funcs, rq.vars);
+}
+
+alglib_impl::rcommv2_callbacks::rcommv2_callbacks():
+    func(NULL),grad(NULL),fvec(NULL),jac(NULL),
+    func_p(NULL),grad_p(NULL),fvec_p(NULL),jac_p(NULL)
+{
+}
+
+void alglib_impl::process_v2request_2(rcommv2_request &request, ae_int_t query_idx, rcommv2_callbacks &callbacks, rcommv2_buffers &buffers)
+{   
+    //
+    // Query and reply
+    //
+    const double  *query_data = request.query_data + query_idx*(request.vars+request.dim);
+    double        *reply_fi   = request.reply_fi   + query_idx*request.funcs;
+    double        *reply_dj   = request.reply_dj   + query_idx*request.funcs*request.vars;
+    
+    //
+    // Copy inputs to buffers
+    //
+    memmove(buffers.tmpX.c_ptr()->ptr.p_double, query_data, request.vars*sizeof(double));
+    if( request.dim>0 )
+        memmove(buffers.tmpC.c_ptr()->ptr.p_double, query_data+request.vars, request.dim*sizeof(double));
+    
+    //
+    // Callback
+    //
+    if( callbacks.grad!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0 && request.funcs==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.grad(buffers.tmpX, *reply_fi, buffers.tmpG, request.ptr);
+        memmove(reply_dj, buffers.tmpG.c_ptr()->ptr.p_double, request.vars*sizeof(double));
+        return;
+    }
+    if( callbacks.grad_p!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0 && request.funcs==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.grad_p(buffers.tmpX, buffers.tmpC, *reply_fi, buffers.tmpG, request.ptr);
+        memmove(reply_dj, buffers.tmpG.c_ptr()->ptr.p_double, request.vars*sizeof(double));
+        return;
+    }
+    if( callbacks.jac!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.jac(buffers.tmpX, buffers.tmpF, buffers.tmpJ, request.ptr);
+        memmove(reply_fi, buffers.tmpF.c_ptr()->ptr.p_double, request.funcs*sizeof(double));
+        for(ae_int_t ridx=0; ridx<request.funcs; ridx++)
+            memmove(reply_dj+ridx*request.vars, buffers.tmpJ.c_ptr()->ptr.pp_double[ridx], request.vars*sizeof(double));
+        return;
+    }
+    if( callbacks.jac_p!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.jac_p(buffers.tmpX, buffers.tmpC, buffers.tmpF, buffers.tmpJ, request.ptr);
+        memmove(reply_fi, buffers.tmpF.c_ptr()->ptr.p_double, request.funcs*sizeof(double));
+        for(ae_int_t ridx=0; ridx<request.funcs; ridx++)
+            memmove(reply_dj+ridx*request.vars, buffers.tmpJ.c_ptr()->ptr.pp_double[ridx], request.vars*sizeof(double));
+        return;
+    }
+    _ALGLIB_ASSERT_THROW_OR_BREAK(ae_false, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; no callback for optimizer request");
+}
+
+void alglib_impl::process_v2request_3phase0(rcommv2_request &request, ae_int_t job_idx, rcommv2_callbacks &callbacks, rcommv2_buffers &buffers)
+{
+    //
+    // Phase 0: compute target at the origin and compute parts of the numerical differentiation formula that do NOT depend
+    // on the value at origin.
+    //
+    // This job can be completely parallelized without synchronization.
+    //
+    if( job_idx<request.size*request.vars )
+    {
+        //
+        // Compute parts of the numerical differentiation formula that do NOT depend
+        // on the value at origin.
+        //
+        const ae_int_t query_idx = job_idx/request.vars;
+        const ae_int_t var_idx   = job_idx%request.vars;
+        const ae_int_t n = request.vars;
+        const ae_int_t m = request.funcs;
+        const ae_int_t fs = request.formulasize;
+        const double  *query_data   = request.query_data + query_idx*(n+request.dim+n*request.formulasize*2);
+        const double  *formula_data = query_data+n+request.dim+var_idx*fs*2;
+        double        *reply_dj     = request.reply_dj   + query_idx*n*m;
+        
+        //
+        // Copy inputs to buffers
+        //
+        memmove(buffers.tmpX.c_ptr()->ptr.p_double, query_data, n*sizeof(double));
+        if( request.dim>0 )
+            memmove(buffers.tmpC.c_ptr()->ptr.p_double, query_data+n, request.dim*sizeof(double));
+        
+        //
+        // compute gradient using numerical differentiation formula provided by the optimizer
+        //
+        double xprev = buffers.tmpX[var_idx];
+        for(alglib_impl::ae_int_t t=0; t<m; t++)
+            reply_dj[t*n+var_idx] = 0;
+        for(alglib_impl::ae_int_t idx=0; idx<fs; idx++)
+        {
+            double xx=formula_data[idx*2+0], coeff=formula_data[idx*2+1];
+            if( coeff==0 )
+                continue;
+            if( xx==query_data[var_idx] ) // skip terms that depend on the target value at origin - it is still computed
+                continue;
+            buffers.tmpX[var_idx] = xx;
+            if( callbacks.func!=NULL )
+            {
+                _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0 && m==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+                callbacks.func(buffers.tmpX, buffers.tmpF[0], request.ptr);
+            }
+            else if( callbacks.func_p!=NULL )
+            {
+                _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0 && m==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+                callbacks.func_p(buffers.tmpX, buffers.tmpC, buffers.tmpF[0], request.ptr);
+            }
+            else if( callbacks.fvec!=NULL )
+            {
+                _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+                callbacks.fvec(buffers.tmpX, buffers.tmpF, request.ptr);
+            }
+            else if( callbacks.fvec_p!=NULL )
+            {
+                _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+                callbacks.fvec_p(buffers.tmpX, buffers.tmpC, buffers.tmpF, request.ptr);
+            }
+            else
+                _ALGLIB_ASSERT_THROW_OR_BREAK(ae_false, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; no callback for optimizer request");
+            buffers.tmpX[var_idx] = xprev;
+            for(alglib_impl::ae_int_t t=0; t<m; t++)
+                reply_dj[t*n+var_idx] += coeff*buffers.tmpF[t];
+        }
+    }
+    else
+    {
+        //
+        // Compute target value at the origin
+        //
+        const ae_int_t query_idx = job_idx-request.size*request.vars;
+        const double  *query_data = request.query_data + query_idx*(request.vars+request.dim+request.vars*request.formulasize*2);
+        double        *reply_fi   = request.reply_fi   + query_idx*request.funcs;
+        
+        //
+        // Copy inputs to buffers
+        //
+        memmove(buffers.tmpX.c_ptr()->ptr.p_double, query_data, request.vars*sizeof(double));
+        if( request.dim>0 )
+            memmove(buffers.tmpC.c_ptr()->ptr.p_double, query_data+request.vars, request.dim*sizeof(double));
+        
+        //
+        // Callback
+        //
+        if( callbacks.func!=NULL )
+        {
+            _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0 && request.funcs==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+            callbacks.func(buffers.tmpX, *reply_fi, request.ptr);
+            return;
+        }
+        if( callbacks.func_p!=NULL )
+        {
+            _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0 && request.funcs==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+            callbacks.func_p(buffers.tmpX, buffers.tmpC, *reply_fi, request.ptr);
+            return;
+        }
+        if( callbacks.fvec!=NULL )
+        {
+            _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+            callbacks.fvec(buffers.tmpX, buffers.tmpF, request.ptr);
+            memmove(reply_fi, buffers.tmpF.c_ptr()->ptr.p_double, request.funcs*sizeof(double));
+            return;
+        }
+        if( callbacks.fvec_p!=NULL )
+        {
+            _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+            callbacks.fvec_p(buffers.tmpX, buffers.tmpC, buffers.tmpF, request.ptr);
+            memmove(reply_fi, buffers.tmpF.c_ptr()->ptr.p_double, request.funcs*sizeof(double));
+            return;
+        }
+        _ALGLIB_ASSERT_THROW_OR_BREAK(ae_false, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; no callback for optimizer request");
+    }
+}
+
+void alglib_impl::process_v2request_3phase1(rcommv2_request &request)
+{
+    //
+    // Phase 1: compute parts of the numerical differentiation formula that DO depend on the value at origin.
+    //
+    // This phase does not need parallelism because all what we need is to add request.size*request.vars precomputed values.
+    //
+    for(ae_int_t query_idx=0; query_idx<request.size; query_idx++)
+        for(ae_int_t var_idx=0; var_idx<request.vars; var_idx++)
+        {
+            //
+            // Compute parts of the numerical differentiation formula that do NOT depend
+            // on the value at origin.
+            //
+            const ae_int_t n = request.vars;
+            const ae_int_t m = request.funcs;
+            const ae_int_t fs = request.formulasize;
+            const double  *query_data   = request.query_data + query_idx*(n+request.dim+n*request.formulasize*2);
+            const double  *formula_data = query_data+n+request.dim+var_idx*fs*2;
+            const double  *reply_fi     = request.reply_fi   + query_idx*m;
+            double        *reply_dj     = request.reply_dj   + query_idx*n*m;
+            for(alglib_impl::ae_int_t idx=0; idx<fs; idx++)
+            {
+                double xx=formula_data[idx*2+0], coeff=formula_data[idx*2+1];
+                if( coeff==0 || xx!=query_data[var_idx] )
+                    continue;
+                for(alglib_impl::ae_int_t t=0; t<m; t++)
+                    reply_dj[t*n+var_idx] += coeff*reply_fi[t];
+            }
+        }
+}
+
+void alglib_impl::process_v2request_4(rcommv2_request &request, ae_int_t query_idx, rcommv2_callbacks &callbacks, rcommv2_buffers &buffers)
+{
+    //
+    // Query and reply
+    //
+    const double  *query_data = request.query_data + query_idx*(request.vars+request.dim);
+    double        *reply_fi   = request.reply_fi   + query_idx*request.funcs;
+    
+    //
+    // Copy inputs to buffers
+    //
+    memmove(buffers.tmpX.c_ptr()->ptr.p_double, query_data, request.vars*sizeof(double));
+    if( request.dim>0 )
+        memmove(buffers.tmpC.c_ptr()->ptr.p_double, query_data+request.vars, request.dim*sizeof(double));
+    
+    //
+    // Callback
+    //
+    if( callbacks.func!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0 && request.funcs==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.func(buffers.tmpX, *reply_fi, request.ptr);
+        return;
+    }
+    if( callbacks.func_p!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0 && request.funcs==1, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.func_p(buffers.tmpX, buffers.tmpC, *reply_fi, request.ptr);
+        return;
+    }
+    if( callbacks.fvec!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim==0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.fvec(buffers.tmpX, buffers.tmpF, request.ptr);
+        memmove(reply_fi, buffers.tmpF.c_ptr()->ptr.p_double, request.funcs*sizeof(double));
+        return;
+    }
+    if( callbacks.fvec_p!=NULL )
+    {
+        _ALGLIB_ASSERT_THROW_OR_BREAK(request.dim>0, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; incompatible callback for optimizer request");
+        callbacks.fvec_p(buffers.tmpX, buffers.tmpC, buffers.tmpF, request.ptr);
+        memmove(reply_fi, buffers.tmpF.c_ptr()->ptr.p_double, request.funcs*sizeof(double));
+        return;
+    }
+    _ALGLIB_ASSERT_THROW_OR_BREAK(ae_false, std::string("ALGLIB: integrity check in '")+request.subpackage+"' subpackage failed; no callback for optimizer request");
+}
+
+
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -11396,10 +11734,10 @@ ae_bool _ialglib_rmatrixgemm(ae_int_t m,
      ae_int_t n,
      ae_int_t k,
      double alpha,
-     double *_a,
+     const double *_a,
      ae_int_t _a_stride,
      ae_int_t optypea,
-     double *_b,
+     const double *_b,
      ae_int_t _b_stride,
      ae_int_t optypeb,
      double beta,
@@ -11479,10 +11817,10 @@ ae_bool _ialglib_cmatrixgemm(ae_int_t m,
      ae_int_t n,
      ae_int_t k,
      ae_complex alpha,
-     ae_complex *_a,
+     const ae_complex *_a,
      ae_int_t _a_stride,
      ae_int_t optypea,
-     ae_complex *_b,
+     const ae_complex *_b,
      ae_int_t _b_stride,
      ae_int_t optypeb,
      ae_complex beta,
@@ -11562,7 +11900,7 @@ complex TRSM kernel
 ********************************************************************/
 ae_bool _ialglib_cmatrixrighttrsm(ae_int_t m,
      ae_int_t n,
-     ae_complex *_a,
+     const ae_complex *_a,
      ae_int_t _a_stride,
      ae_bool isupper,
      ae_bool isunit,
@@ -11659,7 +11997,7 @@ real TRSM kernel
 ********************************************************************/
 ae_bool _ialglib_rmatrixrighttrsm(ae_int_t m,
      ae_int_t n,
-     double *_a,
+     const double *_a,
      ae_int_t _a_stride,
      ae_bool isupper,
      ae_bool isunit,
@@ -11743,7 +12081,7 @@ complex TRSM kernel
 ********************************************************************/
 ae_bool _ialglib_cmatrixlefttrsm(ae_int_t m,
      ae_int_t n,
-     ae_complex *_a,
+     const ae_complex *_a,
      ae_int_t _a_stride,
      ae_bool isupper,
      ae_bool isunit,
@@ -11840,7 +12178,7 @@ real TRSM kernel
 ********************************************************************/
 ae_bool _ialglib_rmatrixlefttrsm(ae_int_t m,
      ae_int_t n,
-     double *_a,
+     const double *_a,
      ae_int_t _a_stride,
      ae_bool isupper,
      ae_bool isunit,
@@ -11925,7 +12263,7 @@ complex SYRK kernel
 ae_bool _ialglib_cmatrixherk(ae_int_t n,
      ae_int_t k,
      double alpha,
-     ae_complex *_a,
+     const ae_complex *_a,
      ae_int_t _a_stride,
      ae_int_t optypea,
      double beta,
@@ -12016,7 +12354,7 @@ real SYRK kernel
 ae_bool _ialglib_rmatrixsyrk(ae_int_t n,
      ae_int_t k,
      double alpha,
-     double *_a,
+     const double *_a,
      ae_int_t _a_stride,
      ae_int_t optypea,
      double beta,
@@ -12099,13 +12437,14 @@ ae_bool _ialglib_cmatrixrank1(ae_int_t m,
      ae_int_t n,
      ae_complex *_a,
      ae_int_t _a_stride,
-     ae_complex *_u,
-     ae_complex *_v)
+     const ae_complex *_u,
+     const ae_complex *_v)
 {
     /*
      * Locals
      */
-    ae_complex *arow, *pu, *pv, *vtmp, *dst;
+    ae_complex *arow, *dst;
+    const ae_complex *pu, *pv, *vtmp;
     ae_int_t n2 = n/2;
     ae_int_t i, j;
     
@@ -12166,13 +12505,14 @@ ae_bool _ialglib_rmatrixrank1(ae_int_t m,
      ae_int_t n,
      double *_a,
      ae_int_t _a_stride,
-     double *_u,
-     double *_v)
+     const double *_u,
+     const double *_v)
 {
     /*
      * Locals
      */
-    double *arow0, *arow1, *pu, *pv, *vtmp, *dst0, *dst1;
+    double *arow0, *arow1, *dst0, *dst1;
+    const double *pu, *pv, *vtmp;
     ae_int_t m2 = m/2;
     ae_int_t n2 = n/2;
     ae_int_t stride  = _a_stride;
@@ -12249,13 +12589,14 @@ ae_bool _ialglib_rmatrixger(ae_int_t m,
      double *_a,
      ae_int_t _a_stride,
      double alpha,
-     double *_u,
-     double *_v)
+     const double *_u,
+     const double *_v)
 {
     /*
      * Locals
      */
-    double *arow0, *arow1, *pu, *pv, *vtmp, *dst0, *dst1;
+    double *arow0, *arow1, *dst0, *dst1; 
+    const double *pu, *pv, *vtmp;
     ae_int_t m2 = m/2;
     ae_int_t n2 = n/2;
     ae_int_t stride  = _a_stride;
@@ -12333,11 +12674,11 @@ ae_bool _ialglib_i_rmatrixgemmf(ae_int_t m,
      ae_int_t n,
      ae_int_t k,
      double alpha,
-     ae_matrix *_a,
+     const ae_matrix *_a,
      ae_int_t ia,
      ae_int_t ja,
      ae_int_t optypea,
-     ae_matrix *_b,
+     const ae_matrix *_b,
      ae_int_t ib,
      ae_int_t jb,
      ae_int_t optypeb,
@@ -12358,11 +12699,11 @@ ae_bool _ialglib_i_cmatrixgemmf(ae_int_t m,
      ae_int_t n,
      ae_int_t k,
      ae_complex alpha,
-     ae_matrix *_a,
+     const ae_matrix *_a,
      ae_int_t ia,
      ae_int_t ja,
      ae_int_t optypea,
-     ae_matrix *_b,
+     const ae_matrix *_b,
      ae_int_t ib,
      ae_int_t jb,
      ae_int_t optypeb,
@@ -12381,7 +12722,7 @@ ae_bool _ialglib_i_cmatrixgemmf(ae_int_t m,
 
 ae_bool _ialglib_i_cmatrixrighttrsmf(ae_int_t m,
      ae_int_t n,
-     ae_matrix *a,
+     const ae_matrix *a,
      ae_int_t i1,
      ae_int_t j1,
      ae_bool isupper,
@@ -12401,7 +12742,7 @@ ae_bool _ialglib_i_cmatrixrighttrsmf(ae_int_t m,
 
 ae_bool _ialglib_i_rmatrixrighttrsmf(ae_int_t m,
      ae_int_t n,
-     ae_matrix *a,
+     const ae_matrix *a,
      ae_int_t i1,
      ae_int_t j1,
      ae_bool isupper,
@@ -12421,7 +12762,7 @@ ae_bool _ialglib_i_rmatrixrighttrsmf(ae_int_t m,
 
 ae_bool _ialglib_i_cmatrixlefttrsmf(ae_int_t m,
      ae_int_t n,
-     ae_matrix *a,
+     const ae_matrix *a,
      ae_int_t i1,
      ae_int_t j1,
      ae_bool isupper,
@@ -12441,7 +12782,7 @@ ae_bool _ialglib_i_cmatrixlefttrsmf(ae_int_t m,
 
 ae_bool _ialglib_i_rmatrixlefttrsmf(ae_int_t m,
      ae_int_t n,
-     ae_matrix *a,
+     const ae_matrix *a,
      ae_int_t i1,
      ae_int_t j1,
      ae_bool isupper,
@@ -12462,7 +12803,7 @@ ae_bool _ialglib_i_rmatrixlefttrsmf(ae_int_t m,
 ae_bool _ialglib_i_cmatrixherkf(ae_int_t n,
      ae_int_t k,
      double alpha,
-     ae_matrix *a,
+     const ae_matrix *a,
      ae_int_t ia,
      ae_int_t ja,
      ae_int_t optypea,
@@ -12483,7 +12824,7 @@ ae_bool _ialglib_i_cmatrixherkf(ae_int_t n,
 ae_bool _ialglib_i_rmatrixsyrkf(ae_int_t n,
      ae_int_t k,
      double alpha,
-     ae_matrix *a,
+     const ae_matrix *a,
      ae_int_t ia,
      ae_int_t ja,
      ae_int_t optypea,
@@ -12506,9 +12847,9 @@ ae_bool _ialglib_i_cmatrixrank1f(ae_int_t m,
      ae_matrix *a,
      ae_int_t ia,
      ae_int_t ja,
-     ae_vector *u,
+     const ae_vector *u,
      ae_int_t uoffs,
-     ae_vector *v,
+     const ae_vector *v,
      ae_int_t voffs)
 {
     return _ialglib_cmatrixrank1(m, n, &a->ptr.pp_complex[ia][ja], a->stride, &u->ptr.p_complex[uoffs], &v->ptr.p_complex[voffs]);
@@ -12519,9 +12860,9 @@ ae_bool _ialglib_i_rmatrixrank1f(ae_int_t m,
      ae_matrix *a,
      ae_int_t ia,
      ae_int_t ja,
-     ae_vector *u,
+     const ae_vector *u,
      ae_int_t uoffs,
-     ae_vector *v,
+     const ae_vector *v,
      ae_int_t voffs)
 {
     return _ialglib_rmatrixrank1(m, n, &a->ptr.pp_double[ia][ja], a->stride, &u->ptr.p_double[uoffs], &v->ptr.p_double[voffs]);
@@ -12533,9 +12874,9 @@ ae_bool _ialglib_i_rmatrixgerf(ae_int_t m,
      ae_int_t ia,
      ae_int_t ja,
      double alpha,
-     ae_vector *u,
+     const ae_vector *u,
      ae_int_t uoffs,
-     ae_vector *v,
+     const ae_vector *v,
      ae_int_t voffs)
 {
     return _ialglib_rmatrixger(m, n, &a->ptr.pp_double[ia][ja], a->stride, alpha, &u->ptr.p_double[uoffs], &v->ptr.p_double[voffs]);
@@ -13124,8 +13465,8 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 double rdotv(ae_int_t n,
-     /* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_state *_state)
 {
     ae_int_t i;
@@ -13167,8 +13508,8 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 double rdotvr(ae_int_t n,
-     /* Real    */ ae_vector* x,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_vector* x,
+     /* Real    */ const ae_matrix* a,
      ae_int_t i,
      ae_state *_state)
 {
@@ -13207,9 +13548,9 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 double rdotrr(ae_int_t n,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_int_t ia,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t ib,
      ae_state *_state)
 {
@@ -13245,7 +13586,7 @@ RESULT:
   -- ALGLIB --
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
-double rdotv2(ae_int_t n, /* Real    */ ae_vector* x, ae_state *_state)
+double rdotv2(ae_int_t n, /* Real    */ const ae_vector* x, ae_state *_state)
 {
     ae_int_t i;
     double v;
@@ -13286,7 +13627,7 @@ NOTE: destination and source should NOT overlap
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rcopyv(ae_int_t n,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state)
 {
@@ -13323,7 +13664,7 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rcopyvr(ae_int_t n,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_matrix* a,
      ae_int_t i,
      ae_state *_state)
@@ -13361,7 +13702,7 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rcopyrv(ae_int_t n,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_int_t i,
      /* Real    */ ae_vector* x,
      ae_state *_state)
@@ -13402,7 +13743,7 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rcopyrr(ae_int_t n,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_int_t i,
      /* Real    */ ae_matrix* b,
      ae_int_t k,
@@ -13441,7 +13782,7 @@ OUTPUT PARAMETERS:
 *************************************************************************/
 void rcopymulv(ae_int_t n,
      double v,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* y,
      ae_state *_state)
 {
@@ -13480,7 +13821,7 @@ OUTPUT PARAMETERS:
 *************************************************************************/
 void rcopymulvr(ae_int_t n,
      double v,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_matrix* y,
      ae_int_t ridx,
      ae_state *_state)
@@ -13516,7 +13857,7 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void icopyv(ae_int_t n,
-     /* Integer */ ae_vector* x,
+     /* Integer */ const ae_vector* x,
      /* Integer */ ae_vector* y,
      ae_state *_state)
 {
@@ -13554,7 +13895,7 @@ NOTE: destination and source should NOT overlap
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void bcopyv(ae_int_t n,
-     /* Boolean */ ae_vector* x,
+     /* Boolean */ const ae_vector* x,
      /* Boolean */ ae_vector* y,
      ae_state *_state)
 {
@@ -14002,7 +14343,7 @@ RESULT:
 *************************************************************************/
 void raddv(ae_int_t n,
      double alpha,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14041,7 +14382,7 @@ RESULT:
 *************************************************************************/
 void raddvr(ae_int_t n,
      double alpha,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
@@ -14082,7 +14423,7 @@ RESULT:
 *************************************************************************/
 void raddrv(ae_int_t n,
      double alpha,
-     /* Real    */ ae_matrix* y,
+     /* Real    */ const ae_matrix* y,
      ae_int_t ridx,
      /* Real    */ ae_vector* x,
      ae_state *_state)
@@ -14123,7 +14464,7 @@ RESULT:
 *************************************************************************/
 void raddrr(ae_int_t n,
      double alpha,
-     /* Real    */ ae_matrix* y,
+     /* Real    */ const ae_matrix* y,
      ae_int_t ridxsrc,
      /* Real    */ ae_matrix* x,
      ae_int_t ridxdst,
@@ -14165,7 +14506,7 @@ RESULT:
 *************************************************************************/
 void raddvx(ae_int_t n,
      double alpha,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t offsy,
      /* Real    */ ae_vector* x,
      ae_int_t offsx,
@@ -14204,8 +14545,8 @@ RESULT:
      Copyright 29.10.2021 by Bochkanov Sergey
 *************************************************************************/
 void rmuladdv(ae_int_t n,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* z,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* z,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14241,8 +14582,8 @@ RESULT:
      Copyright 29.10.2021 by Bochkanov Sergey
 *************************************************************************/
 void rnegmuladdv(ae_int_t n,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* z,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* z,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14279,9 +14620,9 @@ RESULT:
      Copyright 29.10.2021 by Bochkanov Sergey
 *************************************************************************/
 void rcopymuladdv(ae_int_t n,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* z,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* z,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* r,
      ae_state *_state)
 {
@@ -14316,9 +14657,9 @@ RESULT:
      Copyright 29.10.2021 by Bochkanov Sergey
 *************************************************************************/
 void rcopynegmuladdv(ae_int_t n,
-     /* Real    */ ae_vector* y,
-     /* Real    */ ae_vector* z,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* y,
+     /* Real    */ const ae_vector* z,
+     /* Real    */ const ae_vector* x,
      /* Real    */ ae_vector* r,
      ae_state *_state)
 {
@@ -14351,7 +14692,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergemulv(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14388,7 +14729,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergemulvr(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
@@ -14426,7 +14767,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergemulrv(ae_int_t n,
-     /* Real    */ ae_matrix* y,
+     /* Real    */ const ae_matrix* y,
      ae_int_t rowidx,
      /* Real    */ ae_vector* x,
      ae_state *_state)
@@ -14457,7 +14798,7 @@ Performs componentwise division of vector X[] by vector Y[]
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergedivv(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14484,7 +14825,7 @@ Performs componentwise division of row X[] by vector Y[]
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergedivvr(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
@@ -14512,7 +14853,7 @@ Performs componentwise division of row X[] by vector Y[]
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergedivrv(ae_int_t n,
-     /* Real    */ ae_matrix* y,
+     /* Real    */ const ae_matrix* y,
      ae_int_t rowidx,
      /* Real    */ ae_vector* x,
      ae_state *_state)
@@ -14546,7 +14887,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergemaxv(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14582,7 +14923,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergemaxvr(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
@@ -14619,7 +14960,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergemaxrv(ae_int_t n,
-     /* Real    */ ae_matrix* x,
+     /* Real    */ const ae_matrix* x,
      ae_int_t rowidx,
      /* Real    */ ae_vector* y,
      ae_state *_state)
@@ -14655,7 +14996,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergeminv(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_vector* x,
      ae_state *_state)
 {
@@ -14691,7 +15032,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergeminvr(ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      /* Real    */ ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
@@ -14728,7 +15069,7 @@ RESULT:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rmergeminrv(ae_int_t n,
-     /* Real    */ ae_matrix* x,
+     /* Real    */ const ae_matrix* x,
      ae_int_t rowidx,
      /* Real    */ ae_vector* y,
      ae_state *_state)
@@ -14762,7 +15103,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
-double rmaxv(ae_int_t n, /* Real    */ ae_vector* x, ae_state *_state)
+double rmaxv(ae_int_t n, /* Real    */ const ae_vector* x, ae_state *_state)
 {
     ae_int_t i;
     double v;
@@ -14804,7 +15145,7 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 double rmaxr(ae_int_t n,
-     /* Real    */ ae_matrix* x,
+     /* Real    */ const ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
 {
@@ -14847,7 +15188,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
-double rmaxabsv(ae_int_t n, /* Real    */ ae_vector* x, ae_state *_state)
+double rmaxabsv(ae_int_t n, /* Real    */ const ae_vector* x, ae_state *_state)
 {
     ae_int_t i;
     double v;
@@ -14888,7 +15229,7 @@ OUTPUT PARAMETERS:
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 double rmaxabsr(ae_int_t n,
-     /* Real    */ ae_matrix* x,
+     /* Real    */ const ae_matrix* x,
      ae_int_t rowidx,
      ae_state *_state)
 {
@@ -14934,7 +15275,7 @@ NOTE: destination and source should NOT overlap
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void rcopyvx(ae_int_t n,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_int_t offsx,
      /* Real    */ ae_vector* y,
      ae_int_t offsy,
@@ -14974,7 +15315,7 @@ NOTE: destination and source should NOT overlap
      Copyright 20.01.2020 by Bochkanov Sergey
 *************************************************************************/
 void icopyvx(ae_int_t n,
-     /* Integer */ ae_vector* x,
+     /* Integer */ const ae_vector* x,
      ae_int_t offsx,
      /* Integer */ ae_vector* y,
      ae_int_t offsy,
@@ -15037,9 +15378,9 @@ HANDLING OF SPECIAL CASES:
 void rgemv(ae_int_t m,
      ae_int_t n,
      double alpha,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_int_t opa,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      double beta,
      /* Real    */ ae_vector* y,
      ae_state *_state)
@@ -15173,11 +15514,11 @@ HANDLING OF SPECIAL CASES:
 void rgemvx(ae_int_t m,
      ae_int_t n,
      double alpha,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_int_t ia,
      ae_int_t ja,
      ae_int_t opa,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_int_t ix,
      double beta,
      /* Real    */ ae_vector* y,
@@ -15288,8 +15629,8 @@ INPUT PARAMETERS:
 void rger(ae_int_t m,
      ae_int_t n,
      double alpha,
-     /* Real    */ ae_vector* u,
-     /* Real    */ ae_vector* v,
+     /* Real    */ const ae_vector* u,
+     /* Real    */ const ae_vector* v,
      /* Real    */ ae_matrix* a,
      ae_state *_state)
 {
@@ -15345,7 +15686,7 @@ OUTPUT PARAMETERS
      (c) 07.09.2021 Bochkanov Sergey
 *************************************************************************/
 void rtrsvx(ae_int_t n,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_int_t ia,
      ae_int_t ja,
      ae_bool isupper,
@@ -15455,11 +15796,11 @@ ae_bool ablasf_rgemm32basecase(
      ae_int_t n,
      ae_int_t k,
      double alpha,
-     /* Real    */ ae_matrix* _a,
+     /* Real    */ const ae_matrix* _a,
      ae_int_t ia,
      ae_int_t ja,
      ae_int_t optypea,
-     /* Real    */ ae_matrix* _b,
+     /* Real    */ const ae_matrix* _b,
      ae_int_t ib,
      ae_int_t jb,
      ae_int_t optypeb,
@@ -15605,13 +15946,13 @@ OUTPUT PARAMETERS:
      08.09.2021
      Bochkanov Sergey
 *************************************************************************/
-void spchol_propagatefwd(/* Real    */ ae_vector* x,
+void spchol_propagatefwd(/* Real    */ const ae_vector* x,
      ae_int_t cols0,
      ae_int_t blocksize,
-     /* Integer */ ae_vector* superrowidx,
+     /* Integer */ const ae_vector* superrowidx,
      ae_int_t rbase,
      ae_int_t offdiagsize,
-     /* Real    */ ae_vector* rowstorage,
+     /* Real    */ const ae_vector* rowstorage,
      ae_int_t offss,
      ae_int_t sstride,
      /* Real    */ ae_vector* simdbuf,
@@ -15712,10 +16053,10 @@ ae_bool spchol_updatekernelabc4(/* Real    */ ae_vector* rowstorage,
      ae_int_t urank,
      ae_int_t urowstride,
      ae_int_t uwidth,
-     /* Real    */ ae_vector* diagd,
+     /* Real    */ const ae_vector* diagd,
      ae_int_t offsd,
-     /* Integer */ ae_vector* raw2smap,
-     /* Integer */ ae_vector* superrowidx,
+     /* Integer */ const ae_vector* raw2smap,
+     /* Integer */ const ae_vector* superrowidx,
      ae_int_t urbase,
      ae_state *_state)
 {
@@ -16022,10 +16363,10 @@ ae_bool spchol_updatekernel4444(/* Real    */ ae_vector* rowstorage,
      ae_int_t sheight,
      ae_int_t offsu,
      ae_int_t uheight,
-     /* Real    */ ae_vector* diagd,
+     /* Real    */ const ae_vector* diagd,
      ae_int_t offsd,
-     /* Integer */ ae_vector* raw2smap,
-     /* Integer */ ae_vector* superrowidx,
+     /* Integer */ const ae_vector* raw2smap,
+     /* Integer */ const ae_vector* superrowidx,
      ae_int_t urbase,
      ae_state *_state)
 {
@@ -16134,11 +16475,11 @@ ae_bool rbfv3farfields_bhpaneleval1fastkernel(double d0,
      double d1,
      double d2,
      ae_int_t panelp,
-     /* Real    */ ae_vector* pnma,
-     /* Real    */ ae_vector* pnmb,
-     /* Real    */ ae_vector* pmmcdiag,
-     /* Real    */ ae_vector* ynma,
-     /* Real    */ ae_vector* tblrmodmn,
+     /* Real    */ const ae_vector* pnma,
+     /* Real    */ const ae_vector* pnmb,
+     /* Real    */ const ae_vector* pmmcdiag,
+     /* Real    */ const ae_vector* ynma,
+     /* Real    */ const ae_vector* tblrmodmn,
      double* f,
      double* invpowrpplus1,
      ae_state *_state)
@@ -16166,11 +16507,11 @@ ae_bool rbfv3farfields_bhpanelevalfastkernel(double d0,
      double d2,
      ae_int_t ny,
      ae_int_t panelp,
-     /* Real    */ ae_vector* pnma,
-     /* Real    */ ae_vector* pnmb,
-     /* Real    */ ae_vector* pmmcdiag,
-     /* Real    */ ae_vector* ynma,
-     /* Real    */ ae_vector* tblrmodmn,
+     /* Real    */ const ae_vector* pnma,
+     /* Real    */ const ae_vector* pnmb,
+     /* Real    */ const ae_vector* pmmcdiag,
+     /* Real    */ const ae_vector* ynma,
+     /* Real    */ const ae_vector* tblrmodmn,
      /* Real    */ ae_vector* f,
      double* invpowrpplus1,
      ae_state *_state)
@@ -16208,6 +16549,13 @@ ae_bool rbfv3farfields_bhpanelevalfastkernel(double d0,
 /////////////////////////////////////////////////////////////////////////
 namespace alglib_impl
 {
+
+
+
+ae_int_t ae_cores_count()
+{
+    return 0;
+}
 
 
 }

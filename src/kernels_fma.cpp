@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -17,6 +17,9 @@ A copy of the GNU General Public License is available at
 http://www.fsf.org/licensing/licenses
 >>> END OF LICENSE >>>
 *************************************************************************/
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 #include "stdafx.h"
 
 //
@@ -348,17 +351,17 @@ void rcopynegmuladdv_fma(const ae_int_t n,
 }
 
 void rgemv_straight_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a,
+    const double alpha, const ae_matrix* __restrict a,
     const double* __restrict x, double* __restrict y, ae_state* _state)
 {
     ae_int_t i;
     ae_int_t j;
+    __m256d sum = _mm256_setzero_pd();
     const __m256d* __restrict pX = (const __m256d*)x;
     const ae_int_t nVec = n >> 2;
     const ae_int_t nUnroll = nVec >> 3;
     for(i=0; i<m; i++) {
         const __m256d* __restrict pRow = (const __m256d*)a->ptr.pp_double[i];
-        __m256d sum;
         if(nUnroll >= 1) {
             __m256d u0 = _mm256_mul_pd(pRow[0], pX[0]);
             __m256d u1 = _mm256_mul_pd(pRow[1], pX[1]);
@@ -455,7 +458,7 @@ void rgemv_straight_fma(const ae_int_t m, const ae_int_t n,
 }
 
 void rgemv_transposed_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a,
+    const double alpha, const ae_matrix* __restrict a,
     const double* __restrict x, double* __restrict y, ae_state* _state)
 {
     ae_int_t i;
@@ -480,7 +483,7 @@ void rgemv_transposed_fma(const ae_int_t m, const ae_int_t n,
 }
 
 void rgemvx_straight_fma_xaligned(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a, const ae_int_t ia,
+    const double alpha, const ae_matrix* __restrict a, const ae_int_t ia,
     const ae_int_t ja, const double* __restrict x,
     double* __restrict y, ae_state* _state)
 {
@@ -489,9 +492,9 @@ void rgemvx_straight_fma_xaligned(const ae_int_t m, const ae_int_t n,
     const __m256d* __restrict pX = (const __m256d*)x;
     const ae_int_t nVec = n >> 2;
     const ae_int_t nUnroll = nVec >> 3;
+    __m256d sum = _mm256_setzero_pd();
     for(i=0; i<m; i++) {
         const __m256d* __restrict pRow = (const __m256d*)(a->ptr.pp_double[i+ia]+ja);
-        __m256d sum;
         if(nUnroll >= 1) {
             __m256d u0 = _mm256_mul_pd(ULOAD256PD(pRow[0]), pX[0]);
             __m256d u1 = _mm256_mul_pd(ULOAD256PD(pRow[1]), pX[1]);
@@ -589,7 +592,7 @@ void rgemvx_straight_fma_xaligned(const ae_int_t m, const ae_int_t n,
 }
 
 void rgemvx_straight_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a, const ae_int_t ia,
+    const double alpha, const ae_matrix* __restrict a, const ae_int_t ia,
     const ae_int_t ja, const double* __restrict x,
     double* __restrict y, ae_state* _state)
 {
@@ -626,7 +629,7 @@ void rgemvx_straight_fma(const ae_int_t m, const ae_int_t n,
 }
 
 void rgemvx_transposed_fma_yaligned(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a, const ae_int_t ia,
+    const double alpha, const ae_matrix* __restrict a, const ae_int_t ia,
     const ae_int_t ja, const double* __restrict x, double* __restrict y,
     ae_state* _state)
 {
@@ -652,7 +655,7 @@ void rgemvx_transposed_fma_yaligned(const ae_int_t m, const ae_int_t n,
 }
 
 void rgemvx_transposed_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a, const ae_int_t ia,
+    const double alpha, const ae_matrix* __restrict a, const ae_int_t ia,
     const ae_int_t ja, const double* __restrict x, double* __restrict y,
     ae_state* _state)
 {
@@ -773,13 +776,13 @@ OUTPUT PARAMETERS:
      08.09.2021
      Bochkanov Sergey
 *************************************************************************/
-void spchol_propagatefwd_fma(/* Real    */ ae_vector* x,
+void spchol_propagatefwd_fma(/* Real    */ const ae_vector* x,
      ae_int_t cols0,
      ae_int_t blocksize,
-     /* Integer */ ae_vector* superrowidx,
+     /* Integer */ const ae_vector* superrowidx,
      ae_int_t rbase,
      ae_int_t offdiagsize,
-     /* Real    */ ae_vector* rowstorage,
+     /* Real    */ const ae_vector* rowstorage,
      ae_int_t offss,
      ae_int_t sstride,
      /* Real    */ ae_vector* simdbuf,
@@ -853,10 +856,10 @@ ae_bool spchol_updatekernelabc4_fma(double* rowstorage,
      ae_int_t urank,
      ae_int_t urowstride,
      ae_int_t uwidth,
-     double* diagd,
+     const double* diagd,
      ae_int_t offsd,
-     ae_int_t* raw2smap,
-     ae_int_t* superrowidx,
+     const ae_int_t* raw2smap,
+     const ae_int_t* superrowidx,
      ae_int_t urbase,
      ae_state *_state)
 {
@@ -984,10 +987,10 @@ ae_bool spchol_updatekernel4444_fma(
      ae_int_t sheight,
      ae_int_t offsu,
      ae_int_t uheight,
-     double*  diagd,
+     const double*  diagd,
      ae_int_t offsd,
-     ae_int_t* raw2smap,
-     ae_int_t* superrowidx,
+     const ae_int_t* raw2smap,
+     const ae_int_t* superrowidx,
      ae_int_t urbase,
      ae_state *_state)
 {

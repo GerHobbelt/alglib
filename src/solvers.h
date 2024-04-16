@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -40,18 +40,20 @@ typedef struct
 #if defined(AE_COMPILE_DIRECTDENSESOLVERS) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
+    ae_int_t terminationtype;
     double r1;
     double rinf;
 } densesolverreport;
 typedef struct
 {
+    ae_int_t terminationtype;
     double r2;
     ae_matrix cx;
     ae_int_t n;
     ae_int_t k;
 } densesolverlsreport;
 #endif
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+#if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
     ae_int_t terminationtype;
@@ -59,8 +61,6 @@ typedef struct
     ae_int_t iterationscount;
     double r2;
 } sparsesolverreport;
-#endif
-#if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
     ae_int_t n;
@@ -200,6 +200,8 @@ typedef struct
     ae_int_t terminationtype;
 } linlsqrreport;
 #endif
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+#endif
 #if defined(AE_COMPILE_NLEQ) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
@@ -259,7 +261,7 @@ public:
     _polynomialsolverreport_owner& operator=(const _polynomialsolverreport_owner &rhs);
     virtual ~_polynomialsolverreport_owner();
     alglib_impl::polynomialsolverreport* c_ptr();
-    alglib_impl::polynomialsolverreport* c_ptr() const;
+    const alglib_impl::polynomialsolverreport* c_ptr() const;
 protected:
     alglib_impl::polynomialsolverreport *p_struct;
 };
@@ -287,7 +289,7 @@ public:
     _densesolverreport_owner& operator=(const _densesolverreport_owner &rhs);
     virtual ~_densesolverreport_owner();
     alglib_impl::densesolverreport* c_ptr();
-    alglib_impl::densesolverreport* c_ptr() const;
+    const alglib_impl::densesolverreport* c_ptr() const;
 protected:
     alglib_impl::densesolverreport *p_struct;
 };
@@ -298,6 +300,7 @@ public:
     densesolverreport(const densesolverreport &rhs);
     densesolverreport& operator=(const densesolverreport &rhs);
     virtual ~densesolverreport();
+    ae_int_t &terminationtype;
     double &r1;
     double &rinf;
 
@@ -315,7 +318,7 @@ public:
     _densesolverlsreport_owner& operator=(const _densesolverlsreport_owner &rhs);
     virtual ~_densesolverlsreport_owner();
     alglib_impl::densesolverlsreport* c_ptr();
-    alglib_impl::densesolverlsreport* c_ptr() const;
+    const alglib_impl::densesolverlsreport* c_ptr() const;
 protected:
     alglib_impl::densesolverlsreport *p_struct;
 };
@@ -326,6 +329,7 @@ public:
     densesolverlsreport(const densesolverlsreport &rhs);
     densesolverlsreport& operator=(const densesolverlsreport &rhs);
     virtual ~densesolverlsreport();
+    ae_int_t &terminationtype;
     double &r2;
     real_2d_array cx;
     ae_int_t &n;
@@ -334,7 +338,7 @@ public:
 };
 #endif
 
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+#if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 This structure is a sparse solver report (both direct and iterative solvers
 use this structure).
@@ -355,7 +359,7 @@ public:
     _sparsesolverreport_owner& operator=(const _sparsesolverreport_owner &rhs);
     virtual ~_sparsesolverreport_owner();
     alglib_impl::sparsesolverreport* c_ptr();
-    alglib_impl::sparsesolverreport* c_ptr() const;
+    const alglib_impl::sparsesolverreport* c_ptr() const;
 protected:
     alglib_impl::sparsesolverreport *p_struct;
 };
@@ -372,9 +376,8 @@ public:
     double &r2;
 
 };
-#endif
 
-#if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
+
 /*************************************************************************
 This object stores state of the sparse linear solver object.
 
@@ -389,7 +392,7 @@ public:
     _sparsesolverstate_owner& operator=(const _sparsesolverstate_owner &rhs);
     virtual ~_sparsesolverstate_owner();
     alglib_impl::sparsesolverstate* c_ptr();
-    alglib_impl::sparsesolverstate* c_ptr() const;
+    const alglib_impl::sparsesolverstate* c_ptr() const;
 protected:
     alglib_impl::sparsesolverstate *p_struct;
 };
@@ -419,7 +422,7 @@ public:
     _lincgstate_owner& operator=(const _lincgstate_owner &rhs);
     virtual ~_lincgstate_owner();
     alglib_impl::lincgstate* c_ptr();
-    alglib_impl::lincgstate* c_ptr() const;
+    const alglib_impl::lincgstate* c_ptr() const;
 protected:
     alglib_impl::lincgstate *p_struct;
 };
@@ -445,7 +448,7 @@ public:
     _lincgreport_owner& operator=(const _lincgreport_owner &rhs);
     virtual ~_lincgreport_owner();
     alglib_impl::lincgreport* c_ptr();
-    alglib_impl::lincgreport* c_ptr() const;
+    const alglib_impl::lincgreport* c_ptr() const;
 protected:
     alglib_impl::lincgreport *p_struct;
 };
@@ -478,7 +481,7 @@ public:
     _linlsqrstate_owner& operator=(const _linlsqrstate_owner &rhs);
     virtual ~_linlsqrstate_owner();
     alglib_impl::linlsqrstate* c_ptr();
-    alglib_impl::linlsqrstate* c_ptr() const;
+    const alglib_impl::linlsqrstate* c_ptr() const;
 protected:
     alglib_impl::linlsqrstate *p_struct;
 };
@@ -504,7 +507,7 @@ public:
     _linlsqrreport_owner& operator=(const _linlsqrreport_owner &rhs);
     virtual ~_linlsqrreport_owner();
     alglib_impl::linlsqrreport* c_ptr();
-    alglib_impl::linlsqrreport* c_ptr() const;
+    const alglib_impl::linlsqrreport* c_ptr() const;
 protected:
     alglib_impl::linlsqrreport *p_struct;
 };
@@ -522,6 +525,10 @@ public:
 };
 #endif
 
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+
+#endif
+
 #if defined(AE_COMPILE_NLEQ) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 
@@ -534,7 +541,7 @@ public:
     _nleqstate_owner& operator=(const _nleqstate_owner &rhs);
     virtual ~_nleqstate_owner();
     alglib_impl::nleqstate* c_ptr();
-    alglib_impl::nleqstate* c_ptr() const;
+    const alglib_impl::nleqstate* c_ptr() const;
 protected:
     alglib_impl::nleqstate *p_struct;
 };
@@ -567,7 +574,7 @@ public:
     _nleqreport_owner& operator=(const _nleqreport_owner &rhs);
     virtual ~_nleqreport_owner();
     alglib_impl::nleqreport* c_ptr();
-    alglib_impl::nleqreport* c_ptr() const;
+    const alglib_impl::nleqreport* c_ptr() const;
 protected:
     alglib_impl::nleqreport *p_struct;
 };
@@ -664,17 +671,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
-    Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -703,7 +707,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolve(const real_2d_array &a, const ae_int_t n, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void rmatrixsolve(const real_2d_array &a, const ae_int_t n, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixsolve(const real_2d_array &a, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -727,14 +732,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -763,7 +767,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 16.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const real_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool rmatrixsolvefast(const real_2d_array &a, const ae_int_t n, real_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool rmatrixsolvefast(const real_2d_array &a, real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -808,18 +813,14 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is ill conditioned or singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -848,7 +849,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvem(const real_2d_array &a, const ae_int_t n, const real_2d_array &b, const ae_int_t m, const bool rfs, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams = alglib::xdefault);
+void rmatrixsolvem(const real_2d_array &a, const ae_int_t n, const real_2d_array &b, const ae_int_t m, const bool rfs, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixsolvem(const real_2d_array &a, const real_2d_array &b, const bool rfs, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -875,18 +877,16 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True for well-conditioned matrix
+    False for extremely badly conditioned or exactly singular problem
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -915,7 +915,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool rmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, real_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool rmatrixsolvemfast(const real_2d_array &a, real_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -956,23 +957,21 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
-    Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -994,20 +993,20 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, real_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1050,18 +1049,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1090,7 +1085,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvem(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams = alglib::xdefault);
+void rmatrixlusolvem(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixlusolvem(const real_2d_array &lua, const integer_1d_array &p, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1114,14 +1110,13 @@ INPUT PARAMETERS:
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1150,7 +1145,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, real_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, real_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1174,22 +1170,20 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1213,22 +1207,20 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams = alglib::xdefault);
+void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1271,18 +1263,14 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1311,7 +1299,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, const bool rfs, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams = alglib::xdefault);
+void cmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, const bool rfs, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void cmatrixsolvem(const complex_2d_array &a, const complex_2d_array &b, const bool rfs, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1331,14 +1320,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1367,7 +1355,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 16.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool cmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, complex_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool cmatrixsolvemfast(const complex_2d_array &a, complex_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1402,17 +1391,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1441,7 +1427,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolve(const complex_2d_array &a, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams = alglib::xdefault);
+void cmatrixsolve(const complex_2d_array &a, const ae_int_t n, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void cmatrixsolve(const complex_2d_array &a, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1458,14 +1445,13 @@ INPUT PARAMETERS:
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1494,7 +1480,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool cmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool cmatrixsolvefast(const complex_2d_array &a, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1533,17 +1520,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1572,7 +1556,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams = alglib::xdefault);
+void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1592,14 +1577,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1628,7 +1612,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, complex_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p, complex_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1668,22 +1653,20 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams = alglib::xdefault);
+void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1703,14 +1686,9 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
 
 NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
       near-degeneracy of input matrix. It  checks  for  EXACT  degeneracy,
@@ -1721,7 +1699,8 @@ NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1742,22 +1721,20 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams = alglib::xdefault);
+void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1777,22 +1754,20 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams = alglib::xdefault);
+void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1833,17 +1808,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or non-SPD.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1872,7 +1844,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvem(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams = alglib::xdefault);
+void spdmatrixsolvem(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void spdmatrixsolvem(const real_2d_array &a, const bool isupper, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1892,13 +1865,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1927,7 +1900,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool spdmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const bool isupper, real_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool spdmatrixsolvemfast(const real_2d_array &a, const bool isupper, real_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -1968,17 +1942,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or non-SPD.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2007,7 +1978,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolve(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void spdmatrixsolve(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void spdmatrixsolve(const real_2d_array &a, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2027,13 +1999,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or non-SPD
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2062,7 +2034,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool spdmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const bool isupper, real_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool spdmatrixsolvefast(const real_2d_array &a, const bool isupper, real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2107,22 +2080,20 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or badly conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N]:
-                * for info>0 contains solution
-                * for info=-3 filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvem(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams = alglib::xdefault);
+void spdmatrixcholeskysolvem(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void spdmatrixcholeskysolvem(const real_2d_array &cha, const bool isupper, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2145,19 +2116,19 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or badly conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N]:
-                * for info>0 overwritten by solution
-                * for info=-3 filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvemfast(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool spdmatrixcholeskysolvemfast(const real_2d_array &cha, const ae_int_t n, const bool isupper, real_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool spdmatrixcholeskysolvemfast(const real_2d_array &cha, const bool isupper, real_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2199,22 +2170,20 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N]:
-                * for info>0  - solution
-                * for info=-3 - filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolve(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void spdmatrixcholeskysolve(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void spdmatrixcholeskysolve(const real_2d_array &cha, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2235,19 +2204,19 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * for info>0  - overwritten by solution
-                * for info=-3 - filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvefast(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool spdmatrixcholeskysolvefast(const real_2d_array &cha, const ae_int_t n, const bool isupper, real_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool spdmatrixcholeskysolvefast(const real_2d_array &cha, const bool isupper, real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2288,8 +2257,6 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   same as in RMatrixSolve.
-                Returns -3 for non-HPD matrices.
     Rep     -   same as in RMatrixSolve
     X       -   same as in RMatrixSolve
 
@@ -2320,7 +2287,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams = alglib::xdefault);
+void hpdmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void hpdmatrixsolvem(const complex_2d_array &a, const bool isupper, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2340,14 +2308,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly  singular or is not positive definite.
-                        B is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[0..N-1]:
-                * overwritten by solution
-                * zeros, if problem was not solved
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2376,7 +2343,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const bool isupper, complex_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixsolvemfast(const complex_2d_array &a, const bool isupper, complex_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2417,8 +2385,6 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   same as in RMatrixSolve
-                Returns -3 for non-HPD matrices.
     Rep     -   same as in RMatrixSolve
     X       -   same as in RMatrixSolve
 
@@ -2449,7 +2415,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolve(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams = alglib::xdefault);
+void hpdmatrixsolve(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void hpdmatrixsolve(const complex_2d_array &a, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2469,15 +2436,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or not positive definite
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[0..N-1]:
-                * overwritten by solution
-                * zeros, if A is exactly singular (diagonal of its LU
-                  decomposition has exact zeros).
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2506,7 +2471,8 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const bool isupper, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixsolvefast(const complex_2d_array &a, const bool isupper, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2552,22 +2518,20 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    A is singular, or VERY close to singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
-    X       -   array[N]:
-                * for info>0 contains solution
-                * for info=-3 filled by zeros
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams = alglib::xdefault);
+void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const bool isupper, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2589,19 +2553,19 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    A is singular, or VERY close to singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N]:
-                * for info>0 overwritten by solution
-                * for info=-3 filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, complex_2d_array &b, const ae_int_t m, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const bool isupper, complex_2d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2643,22 +2607,20 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
-    X       -   array[N]:
-                * for info>0  - solution
-                * for info=-3 - filled by zeros
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolve(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams = alglib::xdefault);
+void hpdmatrixcholeskysolve(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void hpdmatrixcholeskysolve(const complex_2d_array &cha, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2679,19 +2641,19 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        B is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * for info>0  - overwritten by solution
-                * for info=-3 - filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvefast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixcholeskysolvefast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
+bool hpdmatrixcholeskysolvefast(const complex_2d_array &cha, const bool isupper, complex_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -2712,16 +2674,12 @@ INPUT PARAMETERS
     NRows   -   vertical size of A
     NCols   -   horizontal size of A
     B       -   array[0..NCols-1], right part
-    Threshold-  a number in [0,1]. Singular values  beyond  Threshold  are
+    Threshold-  a number in [0,1]. Singular values  beyond  Threshold*Largest are
                 considered  zero.  Set  it to 0.0, if you don't understand
                 what it means, so the solver will choose good value on its
                 own.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -4    SVD subroutine failed
-                * -1    if NRows<=0 or NCols<=0 or Threshold<0 was passed
-                *  1    if task is solved
     Rep     -   solver report, see below for more info
     X       -   array[0..N-1,0..M-1], it contains:
                 * solution of A*X=B (even for singular A)
@@ -2730,6 +2688,9 @@ OUTPUT PARAMETERS
 SOLVER REPORT
 
 Subroutine sets following fields of the Rep structure:
+* TerminationType is set to:
+            * -4 for SVD failure
+            * >0 for success
 * R2        reciprocal of condition number: 1/cond(A), 2-norm.
 * N         = NCols
 * K         dim(Null(A))
@@ -2763,147 +2724,8 @@ Subroutine sets following fields of the Rep structure:
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvels(const real_2d_array &a, const ae_int_t nrows, const ae_int_t ncols, const real_1d_array &b, const double threshold, ae_int_t &info, densesolverlsreport &rep, real_1d_array &x, const xparams _xparams = alglib::xdefault);
-#endif
-
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
-definite matrix A, N*1 vectors x and b.
-
-This solver  converts  input  matrix  to  SKS  format,  performs  Cholesky
-factorization using  SKS  Cholesky  subroutine  (works  well  for  limited
-bandwidth matrices) and uses sparse triangular solvers to get solution  of
-the original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdsolvesks(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
-definite matrix A, N*1 vectors x and b.
-
-This solver  converts  input  matrix  to  CRS  format,  performs  Cholesky
-factorization using supernodal Cholesky  decomposition  with  permutation-
-reducing ordering and uses sparse triangular solver to get solution of the
-original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[N], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdsolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N real  symmetric  positive definite
-matrix A given by its Cholesky decomposition, and N*1 vectors x and b.
-
-IMPORTANT: this solver requires input matrix to be in  the  SKS  (Skyline)
-           or CRS (compressed row storage) format. An  exception  will  be
-           generated if you pass matrix in some other format.
-
-INPUT PARAMETERS
-    A       -   sparse NxN matrix stored in CRs or SKS format, must be NxN
-                exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[N], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdcholeskysolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
-matrix A, N*1 vectors x and b.
-
-This solver converts input matrix to CRS format, performs LU factorization
-and uses sparse triangular solvers to get solution of the original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly, any storage format
-    N       -   size of A, N>0
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsesolve(const sparsematrix &a, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
-matrix A given by its LU factorization, N*1 vectors x and b.
-
-IMPORTANT: this solver requires input matrix  to  be  in  the  CRS  sparse
-           storage format. An exception will  be  generated  if  you  pass
-           matrix in some other format (HASH or SKS).
-
-INPUT PARAMETERS
-    A       -   LU factorization of the sparse matrix, must be NxN exactly
-                in CRS storage format
-    P, Q    -   pivot indexes from LU factorization
-    N       -   size of A, N>0
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparselusolve(const sparsematrix &a, const integer_1d_array &p, const integer_1d_array &q, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixsolvels(const real_2d_array &a, const ae_int_t nrows, const ae_int_t ncols, const real_1d_array &b, const double threshold, real_1d_array &x, densesolverlsreport &rep, const xparams _xparams = alglib::xdefault);
+void rmatrixsolvels(const real_2d_array &a, const real_1d_array &b, const double threshold, real_1d_array &x, densesolverlsreport &rep, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
@@ -3105,7 +2927,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetalgogmres(const sparsesolverstate &state, const ae_int_t k, const xparams _xparams = alglib::xdefault);
+void sparsesolversetalgogmres(sparsesolverstate &state, const ae_int_t k, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3122,7 +2944,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetstartingpoint(const sparsesolverstate &state, const real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void sparsesolversetstartingpoint(sparsesolverstate &state, const real_1d_array &x, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3144,7 +2966,7 @@ value.
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetcond(const sparsesolverstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
+void sparsesolversetcond(sparsesolverstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3182,7 +3004,7 @@ RESULT:
   -- ALGLIB --
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversolvesymmetric(const sparsesolverstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
+void sparsesolversolvesymmetric(sparsesolverstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3212,7 +3034,7 @@ RESULT:
   -- ALGLIB --
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversolve(const sparsesolverstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
+void sparsesolversolve(sparsesolverstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3246,7 +3068,7 @@ s
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolverresults(const sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void sparsesolverresults(sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3273,7 +3095,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.10.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetxrep(const sparsesolverstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
+void sparsesolversetxrep(sparsesolverstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3296,7 +3118,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocstart(const sparsesolverstate &state, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
+void sparsesolveroocstart(sparsesolverstate &state, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3316,7 +3138,7 @@ related functions of this subspackage in a loop like one given below:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-bool sparsesolverooccontinue(const sparsesolverstate &state, const xparams _xparams = alglib::xdefault);
+bool sparsesolverooccontinue(sparsesolverstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3355,7 +3177,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocgetrequestinfo(const sparsesolverstate &state, ae_int_t &requesttype, const xparams _xparams = alglib::xdefault);
+void sparsesolveroocgetrequestinfo(sparsesolverstate &state, ae_int_t &requesttype, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3390,7 +3212,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocgetrequestdata(const sparsesolverstate &state, real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void sparsesolveroocgetrequestdata(sparsesolverstate &state, real_1d_array &x, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3409,7 +3231,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocgetrequestdata1(const sparsesolverstate &state, double &v, const xparams _xparams = alglib::xdefault);
+void sparsesolveroocgetrequestdata1(sparsesolverstate &state, double &v, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3436,7 +3258,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocsendresult(const sparsesolverstate &state, const real_1d_array &ax, const xparams _xparams = alglib::xdefault);
+void sparsesolveroocsendresult(sparsesolverstate &state, const real_1d_array &ax, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3479,7 +3301,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocstop(const sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void sparsesolveroocstop(sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3508,7 +3330,7 @@ NOTE: solver clears termination flag on its start, it means that  if  some
   -- ALGLIB --
      Copyright 01.10.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolverrequesttermination(const sparsesolverstate &state, const xparams _xparams = alglib::xdefault);
+void sparsesolverrequesttermination(sparsesolverstate &state, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_LINCG) || !defined(AE_PARTIAL_BUILD)
@@ -3554,7 +3376,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetstartingpoint(const lincgstate &state, const real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void lincgsetstartingpoint(lincgstate &state, const real_1d_array &x, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3569,7 +3391,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetprecunit(const lincgstate &state, const xparams _xparams = alglib::xdefault);
+void lincgsetprecunit(lincgstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3583,7 +3405,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetprecdiag(const lincgstate &state, const xparams _xparams = alglib::xdefault);
+void lincgsetprecdiag(lincgstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3605,7 +3427,7 @@ value.
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetcond(const lincgstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
+void lincgsetcond(lincgstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3635,7 +3457,7 @@ NOTE: this function uses lightweight preconditioning -  multiplication  by
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsolvesparse(const lincgstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
+void lincgsolvesparse(lincgstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3674,7 +3496,7 @@ after N subsequent iterations.
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetrestartfreq(const lincgstate &state, const ae_int_t srf, const xparams _xparams = alglib::xdefault);
+void lincgsetrestartfreq(lincgstate &state, const ae_int_t srf, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3695,7 +3517,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetrupdatefreq(const lincgstate &state, const ae_int_t freq, const xparams _xparams = alglib::xdefault);
+void lincgsetrupdatefreq(lincgstate &state, const ae_int_t freq, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3711,7 +3533,7 @@ provided to MinCGOptimize().
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetxrep(const lincgstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
+void lincgsetxrep(lincgstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_LINLSQR) || !defined(AE_PARTIAL_BUILD)
@@ -3761,7 +3583,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2018 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrcreatebuf(const ae_int_t m, const ae_int_t n, const linlsqrstate &state, const xparams _xparams = alglib::xdefault);
+void linlsqrcreatebuf(const ae_int_t m, const ae_int_t n, linlsqrstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3776,7 +3598,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetprecunit(const linlsqrstate &state, const xparams _xparams = alglib::xdefault);
+void linlsqrsetprecunit(linlsqrstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3790,7 +3612,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetprecdiag(const linlsqrstate &state, const xparams _xparams = alglib::xdefault);
+void linlsqrsetprecdiag(linlsqrstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3806,7 +3628,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetlambdai(const linlsqrstate &state, const double lambdai, const xparams _xparams = alglib::xdefault);
+void linlsqrsetlambdai(linlsqrstate &state, const double lambdai, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3832,7 +3654,7 @@ NOTE: this function uses lightweight preconditioning -  multiplication  by
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsolvesparse(const linlsqrstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
+void linlsqrsolvesparse(linlsqrstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3853,7 +3675,7 @@ be setted as default values.
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetcond(const linlsqrstate &state, const double epsa, const double epsb, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
+void linlsqrsetcond(linlsqrstate &state, const double epsa, const double epsb, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3898,7 +3720,7 @@ provided to MinCGOptimize().
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetxrep(const linlsqrstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
+void linlsqrsetxrep(linlsqrstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -3944,7 +3766,234 @@ NOTE: solver clears termination flag on its start, it means that  if  some
   -- ALGLIB --
      Copyright 08.10.2014 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrrequesttermination(const linlsqrstate &state, const xparams _xparams = alglib::xdefault);
+void linlsqrrequesttermination(linlsqrstate &state, const xparams _xparams = alglib::xdefault);
+#endif
+
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
+definite matrix A, N*1 vectors x and b.
+
+This solver  converts  input  matrix  to  SKS  format,  performs  Cholesky
+factorization using  SKS  Cholesky  subroutine  (works  well  for  limited
+bandwidth matrices) and uses sparse triangular solvers to get solution  of
+the original system.
+
+IMPORTANT: this  function  is  intended  for  low  profile (variable band)
+           linear systems with dense or nearly-dense bands. Only  in  such
+           cases  it  provides  some  performance  improvement  over  more
+           general sparsrspdsolve(). If your  system  has  high  bandwidth
+           or sparse band, the general sparsrspdsolve() is  likely  to  be
+           more efficient.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly
+    IsUpper -   which half of A is provided (another half is ignored)
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdsolvesks(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
+definite matrix A, N*1 vectors x and b.
+
+This solver  converts  input  matrix  to  CRS  format,  performs  Cholesky
+factorization using supernodal Cholesky  decomposition  with  permutation-
+reducing ordering and uses sparse triangular solver to get solution of the
+original system.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly.
+                Can be stored in any sparse storage format, CRS is preferred.
+    IsUpper -   which half of A is provided (another half is ignored).
+                It is better to store the lower triangle because it allows
+                us to avoid one transposition during internal conversion.
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdsolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N real  symmetric  positive definite
+matrix A given by its Cholesky decomposition, and N*1 vectors x and b.
+
+IMPORTANT: this solver requires input matrix to be in  the  SKS  (Skyline)
+           or CRS (compressed row storage) format. An  exception  will  be
+           generated if you pass matrix in some other format.
+
+INPUT PARAMETERS
+    A       -   sparse NxN matrix stored in CRs or SKS format, must be NxN
+                exactly
+    IsUpper -   which half of A is provided (another half is ignored)
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdcholeskysolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A, N*1 vectors x and b.
+
+This function internally uses several solvers:
+* supernodal solver with static pivoting applied to  a  2N*2N  regularized
+  augmented  system, followed by iterative refinement. This solver  is   a
+  recommended option because it provides the best speed and has the lowest
+  memory requirements.
+* sparse LU with dynamic pivoting for stability. Provides better  accuracy
+  at the cost of a significantly lower performance. Recommended  only  for
+  extremely unstable problems.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly, any storage format
+    B       -   array[N], right part
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+                * 20    use sparse LU with dynamic pivoting for stability.
+                        Not intended for large-scale problems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void sparsesolve(const sparsematrix &a, const real_1d_array &b, const ae_int_t solvertype, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void sparsesolve(const sparsematrix &a, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Sparse linear least squares solver for A*x=b with  general  (nonsymmetric)
+N*N sparse real matrix A, N*1 vectors x and b.
+
+This function solves a regularized linear least squares problem of the form
+
+        (                      )
+    min ( |Ax-b|^2 + reg*|x|^2 ), with reg>=sqrt(MachineAccuracy)
+        (                      )
+
+The function internally uses supernodal  solver  to  solve  an  augmented-
+regularized sparse system. The solver, which was initially used  to  solve
+sparse square system, can also  be  used  to  solve  rectangular  systems,
+provided that the system is regularized with regularizing  coefficient  at
+least sqrt(MachineAccuracy), which is ~10^8 (double precision).
+
+It can be used to solve both full rank and rank deficient systems.
+
+INPUT PARAMETERS
+    A       -   sparse MxN matrix, any storage format
+    B       -   array[M], right part
+    Reg     -   regularization coefficient, Reg>=sqrt(MachineAccuracy),
+                lower values will be silently increased.
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], least squares solution
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success.
+
+                  Present version of the solver does NOT returns negative
+                  completion codes because  it  does  not  fail.  However,
+                  future ALGLIB versions may include solvers which  return
+                  negative completion codes.
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void sparsesolvelsreg(const sparsematrix &a, const real_1d_array &b, const double reg, const ae_int_t solvertype, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+void sparsesolvelsreg(const sparsematrix &a, const real_1d_array &b, const double reg, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A given by its LU factorization, N*1 vectors x and b.
+
+IMPORTANT: this solver requires input matrix  to  be  in  the  CRS  sparse
+           storage format. An exception will  be  generated  if  you  pass
+           matrix in some other format (HASH or SKS).
+
+INPUT PARAMETERS
+    A       -   LU factorization of the sparse matrix, must be NxN exactly
+                in CRS storage format
+    P, Q    -   pivot indexes from LU factorization
+    N       -   size of A, N>0
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparselusolve(const sparsematrix &a, const integer_1d_array &p, const integer_1d_array &q, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams = alglib::xdefault);
 #endif
 
 #if defined(AE_COMPILE_NLEQ) || !defined(AE_PARTIAL_BUILD)
@@ -4041,7 +4090,7 @@ NOTES:
   -- ALGLIB --
      Copyright 20.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqsetcond(const nleqstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
+void nleqsetcond(nleqstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4057,7 +4106,7 @@ provided to NLEQSolve().
   -- ALGLIB --
      Copyright 20.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqsetxrep(const nleqstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
+void nleqsetxrep(nleqstate &state, const bool needxrep, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4077,7 +4126,7 @@ function value at the x+stp*d.
   -- ALGLIB --
      Copyright 20.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqsetstpmax(const nleqstate &state, const double stpmax, const xparams _xparams = alglib::xdefault);
+void nleqsetstpmax(nleqstate &state, const double stpmax, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -4085,11 +4134,11 @@ This function provides reverse communication interface
 Reverse communication interface is not documented or recommended to use.
 See below for functions which provide better documented API
 *************************************************************************/
-bool nleqiteration(const nleqstate &state, const xparams _xparams = alglib::xdefault);
+bool nleqiteration(nleqstate &state, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
-This family of functions is used to launcn iterations of nonlinear solver
+This family of functions is used to launch iterations of nonlinear solver
 
 These functions accept following parameters:
     state   -   algorithm state
@@ -4105,6 +4154,7 @@ These functions accept following parameters:
 
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
+
 
 *************************************************************************/
 void nleqsolve(nleqstate &state,
@@ -4174,7 +4224,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 30.07.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqrestartfrom(const nleqstate &state, const real_1d_array &x, const xparams _xparams = alglib::xdefault);
+void nleqrestartfrom(nleqstate &state, const real_1d_array &x, const xparams _xparams = alglib::xdefault);
 #endif
 }
 
@@ -4186,7 +4236,7 @@ void nleqrestartfrom(const nleqstate &state, const real_1d_array &x, const xpara
 namespace alglib_impl
 {
 #if defined(AE_COMPILE_POLYNOMIALSOLVER) || !defined(AE_PARTIAL_BUILD)
-void polynomialsolve(/* Real    */ ae_vector* a,
+void polynomialsolve(/* Real    */ const ae_vector* _a,
      ae_int_t n,
      /* Complex */ ae_vector* x,
      polynomialsolverreport* rep,
@@ -4197,286 +4247,249 @@ void _polynomialsolverreport_clear(void* _p);
 void _polynomialsolverreport_destroy(void* _p);
 #endif
 #if defined(AE_COMPILE_DIRECTDENSESOLVERS) || !defined(AE_PARTIAL_BUILD)
-void rmatrixsolve(/* Real    */ ae_matrix* a,
+void rmatrixsolve(/* Real    */ const ae_matrix* a,
      ae_int_t n,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void rmatrixsolvefast(/* Real    */ ae_matrix* a,
+ae_bool rmatrixsolvefast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void rmatrixsolvem(/* Real    */ ae_matrix* a,
+void rmatrixsolvem(/* Real    */ const ae_matrix* a,
      ae_int_t n,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
      ae_bool rfs,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void rmatrixsolvemfast(/* Real    */ ae_matrix* a,
+ae_bool rmatrixsolvemfast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void rmatrixlusolve(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixlusolve(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void rmatrixlusolvefast(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool rmatrixlusolvefast(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void rmatrixlusolvem(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixlusolvem(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void rmatrixlusolvemfast(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool rmatrixlusolvemfast(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void rmatrixmixedsolve(/* Real    */ ae_matrix* a,
-     /* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixmixedsolve(/* Real    */ const ae_matrix* a,
+     /* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
-     ae_state *_state);
-void rmatrixmixedsolvem(/* Real    */ ae_matrix* a,
-     /* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
-     ae_int_t n,
-     /* Real    */ ae_matrix* b,
-     ae_int_t m,
-     ae_int_t* info,
      densesolverreport* rep,
-     /* Real    */ ae_matrix* x,
      ae_state *_state);
-void cmatrixsolvem(/* Complex */ ae_matrix* a,
+void rmatrixmixedsolvem(/* Real    */ const ae_matrix* a,
+     /* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
+     ae_int_t m,
+     /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
+     ae_state *_state);
+void cmatrixsolvem(/* Complex */ const ae_matrix* a,
+     ae_int_t n,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
      ae_bool rfs,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void cmatrixsolvemfast(/* Complex */ ae_matrix* a,
+ae_bool cmatrixsolvemfast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void cmatrixsolve(/* Complex */ ae_matrix* a,
+void cmatrixsolve(/* Complex */ const ae_matrix* a,
      ae_int_t n,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void cmatrixsolvefast(/* Complex */ ae_matrix* a,
+ae_bool cmatrixsolvefast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void cmatrixlusolvem(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixlusolvem(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void cmatrixlusolvemfast(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool cmatrixlusolvemfast(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void cmatrixlusolve(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixlusolve(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void cmatrixlusolvefast(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool cmatrixlusolvefast(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void cmatrixmixedsolvem(/* Complex */ ae_matrix* a,
-     /* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixmixedsolvem(/* Complex */ const ae_matrix* a,
+     /* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
-     ae_state *_state);
-void cmatrixmixedsolve(/* Complex */ ae_matrix* a,
-     /* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
-     ae_int_t n,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
      densesolverreport* rep,
-     /* Complex */ ae_vector* x,
      ae_state *_state);
-void spdmatrixsolvem(/* Real    */ ae_matrix* a,
+void cmatrixmixedsolve(/* Complex */ const ae_matrix* a,
+     /* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
+     ae_int_t n,
+     /* Complex */ const ae_vector* b,
+     /* Complex */ ae_vector* x,
+     densesolverreport* rep,
+     ae_state *_state);
+void spdmatrixsolvem(/* Real    */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void spdmatrixsolvemfast(/* Real    */ ae_matrix* a,
+ae_bool spdmatrixsolvemfast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void spdmatrixsolve(/* Real    */ ae_matrix* a,
+void spdmatrixsolve(/* Real    */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void spdmatrixsolvefast(/* Real    */ ae_matrix* a,
+ae_bool spdmatrixsolvefast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void spdmatrixcholeskysolvem(/* Real    */ ae_matrix* cha,
+void spdmatrixcholeskysolvem(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void spdmatrixcholeskysolvemfast(/* Real    */ ae_matrix* cha,
+ae_bool spdmatrixcholeskysolvemfast(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void spdmatrixcholeskysolve(/* Real    */ ae_matrix* cha,
+void spdmatrixcholeskysolve(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void spdmatrixcholeskysolvefast(/* Real    */ ae_matrix* cha,
+ae_bool spdmatrixcholeskysolvefast(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void hpdmatrixsolvem(/* Complex */ ae_matrix* a,
+void hpdmatrixsolvem(/* Complex */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void hpdmatrixsolvemfast(/* Complex */ ae_matrix* a,
+ae_bool hpdmatrixsolvemfast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void hpdmatrixsolve(/* Complex */ ae_matrix* a,
+void hpdmatrixsolve(/* Complex */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void hpdmatrixsolvefast(/* Complex */ ae_matrix* a,
+ae_bool hpdmatrixsolvefast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void hpdmatrixcholeskysolvem(/* Complex */ ae_matrix* cha,
+void hpdmatrixcholeskysolvem(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-void hpdmatrixcholeskysolvemfast(/* Complex */ ae_matrix* cha,
+ae_bool hpdmatrixcholeskysolvemfast(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state);
-void hpdmatrixcholeskysolve(/* Complex */ ae_matrix* cha,
+void hpdmatrixcholeskysolve(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state);
-void hpdmatrixcholeskysolvefast(/* Complex */ ae_matrix* cha,
+ae_bool hpdmatrixcholeskysolvefast(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state);
-void rmatrixsolvels(/* Real    */ ae_matrix* a,
+void rmatrixsolvels(/* Real    */ const ae_matrix* a,
      ae_int_t nrows,
      ae_int_t ncols,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      double threshold,
-     ae_int_t* info,
-     densesolverlsreport* rep,
      /* Real    */ ae_vector* x,
+     densesolverlsreport* rep,
      ae_state *_state);
 void _densesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _densesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
@@ -4487,55 +4500,18 @@ void _densesolverlsreport_init_copy(void* _dst, const void* _src, ae_state *_sta
 void _densesolverlsreport_clear(void* _p);
 void _densesolverlsreport_destroy(void* _p);
 #endif
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
-void sparsespdsolvesks(sparsematrix* a,
-     ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state);
-void sparsespdsolve(sparsematrix* a,
-     ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state);
-void sparsespdcholeskysolve(sparsematrix* a,
-     ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state);
-void sparsesolve(sparsematrix* a,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state);
-void sparselusolve(sparsematrix* a,
-     /* Integer */ ae_vector* p,
-     /* Integer */ ae_vector* q,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state);
-void initsparsesolverreport(sparsesolverreport* rep, ae_state *_state);
-void _sparsesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
-void _sparsesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
-void _sparsesolverreport_clear(void* _p);
-void _sparsesolverreport_destroy(void* _p);
-#endif
 #if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
-void sparsesolvesymmetricgmres(sparsematrix* a,
+void sparsesolvesymmetricgmres(const sparsematrix* a,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_int_t k,
      double epsf,
      ae_int_t maxits,
      /* Real    */ ae_vector* x,
      sparsesolverreport* rep,
      ae_state *_state);
-void sparsesolvegmres(sparsematrix* a,
-     /* Real    */ ae_vector* b,
+void sparsesolvegmres(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
      ae_int_t k,
      double epsf,
      ae_int_t maxits,
@@ -4549,20 +4525,20 @@ void sparsesolversetalgogmres(sparsesolverstate* state,
      ae_int_t k,
      ae_state *_state);
 void sparsesolversetstartingpoint(sparsesolverstate* state,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_state *_state);
 void sparsesolversetcond(sparsesolverstate* state,
      double epsf,
      ae_int_t maxits,
      ae_state *_state);
 void sparsesolversolvesymmetric(sparsesolverstate* state,
-     sparsematrix* a,
+     const sparsematrix* a,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
 void sparsesolversolve(sparsesolverstate* state,
-     sparsematrix* a,
-     /* Real    */ ae_vector* b,
+     const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
 void sparsesolverresults(sparsesolverstate* state,
      /* Real    */ ae_vector* x,
@@ -4572,7 +4548,7 @@ void sparsesolversetxrep(sparsesolverstate* state,
      ae_bool needxrep,
      ae_state *_state);
 void sparsesolveroocstart(sparsesolverstate* state,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
 ae_bool sparsesolverooccontinue(sparsesolverstate* state,
      ae_state *_state);
@@ -4586,7 +4562,7 @@ void sparsesolveroocgetrequestdata1(sparsesolverstate* state,
      double* v,
      ae_state *_state);
 void sparsesolveroocsendresult(sparsesolverstate* state,
-     /* Real    */ ae_vector* ax,
+     /* Real    */ const ae_vector* ax,
      ae_state *_state);
 void sparsesolveroocstop(sparsesolverstate* state,
      /* Real    */ ae_vector* x,
@@ -4594,6 +4570,11 @@ void sparsesolveroocstop(sparsesolverstate* state,
      ae_state *_state);
 void sparsesolverrequesttermination(sparsesolverstate* state,
      ae_state *_state);
+void initsparsesolverreport(sparsesolverreport* rep, ae_state *_state);
+void _sparsesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _sparsesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
+void _sparsesolverreport_clear(void* _p);
+void _sparsesolverreport_destroy(void* _p);
 void _sparsesolverstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _sparsesolverstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _sparsesolverstate_clear(void* _p);
@@ -4602,10 +4583,10 @@ void _sparsesolverstate_destroy(void* _p);
 #if defined(AE_COMPILE_LINCG) || !defined(AE_PARTIAL_BUILD)
 void lincgcreate(ae_int_t n, lincgstate* state, ae_state *_state);
 void lincgsetstartingpoint(lincgstate* state,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_state *_state);
 void lincgsetb(lincgstate* state,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
 void lincgsetprecunit(lincgstate* state, ae_state *_state);
 void lincgsetprecdiag(lincgstate* state, ae_state *_state);
@@ -4615,11 +4596,11 @@ void lincgsetcond(lincgstate* state,
      ae_state *_state);
 ae_bool lincgiteration(lincgstate* state, ae_state *_state);
 void lincgsolvesparse(lincgstate* state,
-     sparsematrix* a,
+     const sparsematrix* a,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
-void lincgresults(lincgstate* state,
+void lincgresults(const lincgstate* state,
      /* Real    */ ae_vector* x,
      lincgreport* rep,
      ae_state *_state);
@@ -4650,7 +4631,7 @@ void linlsqrcreatebuf(ae_int_t m,
      linlsqrstate* state,
      ae_state *_state);
 void linlsqrsetb(linlsqrstate* state,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
 void linlsqrsetprecunit(linlsqrstate* state, ae_state *_state);
 void linlsqrsetprecdiag(linlsqrstate* state, ae_state *_state);
@@ -4659,15 +4640,15 @@ void linlsqrsetlambdai(linlsqrstate* state,
      ae_state *_state);
 ae_bool linlsqriteration(linlsqrstate* state, ae_state *_state);
 void linlsqrsolvesparse(linlsqrstate* state,
-     sparsematrix* a,
-     /* Real    */ ae_vector* b,
+     const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
      ae_state *_state);
 void linlsqrsetcond(linlsqrstate* state,
      double epsa,
      double epsb,
      ae_int_t maxits,
      ae_state *_state);
-void linlsqrresults(linlsqrstate* state,
+void linlsqrresults(const linlsqrstate* state,
      /* Real    */ ae_vector* x,
      linlsqrreport* rep,
      ae_state *_state);
@@ -4675,7 +4656,8 @@ void linlsqrsetxrep(linlsqrstate* state,
      ae_bool needxrep,
      ae_state *_state);
 void linlsqrrestart(linlsqrstate* state, ae_state *_state);
-ae_int_t linlsqrpeekiterationscount(linlsqrstate* s, ae_state *_state);
+ae_int_t linlsqrpeekiterationscount(const linlsqrstate* s,
+     ae_state *_state);
 void linlsqrrequesttermination(linlsqrstate* state, ae_state *_state);
 void _linlsqrstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _linlsqrstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
@@ -4686,10 +4668,50 @@ void _linlsqrreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae
 void _linlsqrreport_clear(void* _p);
 void _linlsqrreport_destroy(void* _p);
 #endif
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+void sparsespdsolvesks(const sparsematrix* a,
+     ae_bool isupper,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
+void sparsespdsolve(const sparsematrix* a,
+     ae_bool isupper,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
+void sparsespdcholeskysolve(const sparsematrix* a,
+     ae_bool isupper,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
+void sparsesolve(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
+     ae_int_t solvertype,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
+void sparsesolvelsreg(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
+     double reg,
+     ae_int_t solvertype,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
+void sparselusolve(const sparsematrix* a,
+     /* Integer */ const ae_vector* p,
+     /* Integer */ const ae_vector* q,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
+#endif
 #if defined(AE_COMPILE_NLEQ) || !defined(AE_PARTIAL_BUILD)
 void nleqcreatelm(ae_int_t n,
      ae_int_t m,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      nleqstate* state,
      ae_state *_state);
 void nleqsetcond(nleqstate* state,
@@ -4699,17 +4721,18 @@ void nleqsetcond(nleqstate* state,
 void nleqsetxrep(nleqstate* state, ae_bool needxrep, ae_state *_state);
 void nleqsetstpmax(nleqstate* state, double stpmax, ae_state *_state);
 ae_bool nleqiteration(nleqstate* state, ae_state *_state);
-void nleqresults(nleqstate* state,
+void nleqresults(const nleqstate* state,
      /* Real    */ ae_vector* x,
      nleqreport* rep,
      ae_state *_state);
-void nleqresultsbuf(nleqstate* state,
+void nleqresultsbuf(const nleqstate* state,
      /* Real    */ ae_vector* x,
      nleqreport* rep,
      ae_state *_state);
 void nleqrestartfrom(nleqstate* state,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_state *_state);
+void nleqsetprotocolv1(nleqstate* state, ae_state *_state);
 void _nleqstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
 void _nleqstate_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic);
 void _nleqstate_clear(void* _p);

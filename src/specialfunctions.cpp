@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -17,6 +17,9 @@ A copy of the GNU General Public License is available at
 http://www.fsf.org/licensing/licenses
 >>> END OF LICENSE >>>
 *************************************************************************/
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 #include "stdafx.h"
 #include "specialfunctions.h"
 
@@ -1862,7 +1865,7 @@ double chebyshevsum(const real_1d_array &c, const ae_int_t r, const ae_int_t n, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::chebyshevsum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), r, n, x, &_alglib_env_state);
+    double result = alglib_impl::chebyshevsum(c.c_ptr(), r, n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -1893,7 +1896,7 @@ void chebyshevcoefficients(const ae_int_t n, real_1d_array &c, const xparams _xp
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::chebyshevcoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::chebyshevcoefficients(n, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1928,7 +1931,7 @@ void fromchebyshev(const real_1d_array &a, const ae_int_t n, real_1d_array &b, c
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::fromchebyshev(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
+    alglib_impl::fromchebyshev(a.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2415,7 +2418,7 @@ double hermitesum(const real_1d_array &c, const ae_int_t n, const double x, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::hermitesum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, x, &_alglib_env_state);
+    double result = alglib_impl::hermitesum(c.c_ptr(), n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -2446,7 +2449,7 @@ void hermitecoefficients(const ae_int_t n, real_1d_array &c, const xparams _xpar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hermitecoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::hermitecoefficients(n, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2515,7 +2518,7 @@ double legendresum(const real_1d_array &c, const ae_int_t n, const double x, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::legendresum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, x, &_alglib_env_state);
+    double result = alglib_impl::legendresum(c.c_ptr(), n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -2546,7 +2549,7 @@ void legendrecoefficients(const ae_int_t n, real_1d_array &c, const xparams _xpa
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::legendrecoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::legendrecoefficients(n, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -3110,7 +3113,7 @@ double laguerresum(const real_1d_array &c, const ae_int_t n, const double x, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    double result = alglib_impl::laguerresum(const_cast<alglib_impl::ae_vector*>(c.c_ptr()), n, x, &_alglib_env_state);
+    double result = alglib_impl::laguerresum(c.c_ptr(), n, x, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return double(result);
 }
@@ -3141,7 +3144,7 @@ void laguerrecoefficients(const ae_int_t n, real_1d_array &c, const xparams _xpa
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::laguerrecoefficients(n, const_cast<alglib_impl::ae_vector*>(c.c_ptr()), &_alglib_env_state);
+    alglib_impl::laguerrecoefficients(n, c.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -7644,7 +7647,7 @@ Parameters:
 Result:
     the value of the Chebyshev polynomial at x
 *************************************************************************/
-double chebyshevsum(/* Real    */ ae_vector* c,
+double chebyshevsum(/* Real    */ const ae_vector* c,
      ae_int_t r,
      ae_int_t n,
      double x,
@@ -7726,7 +7729,7 @@ Input parameters:
 Output parameters
     B   -   power series coefficients
 *************************************************************************/
-void fromchebyshev(/* Real    */ ae_vector* a,
+void fromchebyshev(/* Real    */ const ae_vector* a,
      ae_int_t n,
      /* Real    */ ae_vector* b,
      ae_state *_state)
@@ -8809,7 +8812,7 @@ Parameters:
 Result:
     the value of the Hermite polynomial at x
 *************************************************************************/
-double hermitesum(/* Real    */ ae_vector* c,
+double hermitesum(/* Real    */ const ae_vector* c,
      ae_int_t n,
      double x,
      ae_state *_state)
@@ -8921,7 +8924,7 @@ Parameters:
 Result:
     the value of the Legendre polynomial at x
 *************************************************************************/
-double legendresum(/* Real    */ ae_vector* c,
+double legendresum(/* Real    */ const ae_vector* c,
      ae_int_t n,
      double x,
      ae_state *_state)
@@ -10241,7 +10244,7 @@ Parameters:
 Result:
     the value of the Laguerre polynomial at x
 *************************************************************************/
-double laguerresum(/* Real    */ ae_vector* c,
+double laguerresum(/* Real    */ const ae_vector* c,
      ae_int_t n,
      double x,
      ae_state *_state)

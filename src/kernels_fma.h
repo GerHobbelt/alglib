@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -66,17 +66,17 @@ void rcopynegmuladdv_fma(const ae_int_t n,
      double* __restrict r,
      const ae_state* _state);
 void rgemv_straight_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a,
+    const double alpha, const ae_matrix* __restrict a,
     const double* __restrict x, double* __restrict y, ae_state* _state);
 void rgemv_transposed_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a,
+    const double alpha, const ae_matrix* __restrict a,
     const double* __restrict x, double* __restrict y, ae_state* _state);
 void rgemvx_straight_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a, const ae_int_t ia,
+    const double alpha, const ae_matrix* __restrict a, const ae_int_t ia,
     const ae_int_t ja, const double* __restrict x,
     double* __restrict y, ae_state* _state);
 void rgemvx_transposed_fma(const ae_int_t m, const ae_int_t n,
-    const double alpha, ae_matrix* __restrict a, const ae_int_t ia,
+    const double alpha, const ae_matrix* __restrict a, const ae_int_t ia,
     const ae_int_t ja, const double* __restrict x, double* __restrict y,
     ae_state* _state);
 
@@ -88,13 +88,13 @@ void ablasf_dotblkh_fma(
     ae_int_t micro_size,
     double *dst,
     ae_int_t dst_stride);
-void spchol_propagatefwd_fma(/* Real    */ ae_vector* x,
+void spchol_propagatefwd_fma(/* Real    */ const ae_vector* x,
      ae_int_t cols0,
      ae_int_t blocksize,
-     /* Integer */ ae_vector* superrowidx,
+     /* Integer */ const ae_vector* superrowidx,
      ae_int_t rbase,
      ae_int_t offdiagsize,
-     /* Real    */ ae_vector* rowstorage,
+     /* Real    */ const ae_vector* rowstorage,
      ae_int_t offss,
      ae_int_t sstride,
      /* Real    */ ae_vector* simdbuf,
@@ -108,10 +108,10 @@ ae_bool spchol_updatekernelabc4_fma(double* rowstorage,
      ae_int_t urank,
      ae_int_t urowstride,
      ae_int_t uwidth,
-     double* diagd,
+     const double* diagd,
      ae_int_t offsd,
-     ae_int_t* raw2smap,
-     ae_int_t* superrowidx,
+     const ae_int_t* raw2smap,
+     const ae_int_t* superrowidx,
      ae_int_t urbase,
      ae_state *_state);
 ae_bool spchol_updatekernel4444_fma(
@@ -120,10 +120,10 @@ ae_bool spchol_updatekernel4444_fma(
      ae_int_t sheight,
      ae_int_t offsu,
      ae_int_t uheight,
-     double*  diagd,
+     const double*  diagd,
      ae_int_t offsd,
-     ae_int_t* raw2smap,
-     ae_int_t* superrowidx,
+     const ae_int_t* raw2smap,
+     const ae_int_t* superrowidx,
      ae_int_t urbase,
      ae_state *_state);
 

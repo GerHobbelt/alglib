@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.19.0 (source code generated 2022-06-07)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -595,7 +595,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.04.2013 by Bochkanov Sergey
 *************************************************************************/
-void rankdata(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams = alglib::xdefault);
+void rankdata(real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams = alglib::xdefault);
 void rankdata(real_2d_array &xy, const xparams _xparams = alglib::xdefault);
 
 
@@ -632,7 +632,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.04.2013 by Bochkanov Sergey
 *************************************************************************/
-void rankdatacentered(const real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams = alglib::xdefault);
+void rankdatacentered(real_2d_array &xy, const ae_int_t npoints, const ae_int_t nfeatures, const xparams _xparams = alglib::xdefault);
 void rankdatacentered(real_2d_array &xy, const xparams _xparams = alglib::xdefault);
 
 
@@ -1160,81 +1160,81 @@ void unequalvariancettest(const real_1d_array &x, const ae_int_t n, const real_1
 namespace alglib_impl
 {
 #if defined(AE_COMPILE_BASESTAT) || !defined(AE_PARTIAL_BUILD)
-void samplemoments(/* Real    */ ae_vector* x,
+void samplemoments(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* mean,
      double* variance,
      double* skewness,
      double* kurtosis,
      ae_state *_state);
-double samplemean(/* Real    */ ae_vector* x,
+double samplemean(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state);
-double samplevariance(/* Real    */ ae_vector* x,
+double samplevariance(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state);
-double sampleskewness(/* Real    */ ae_vector* x,
+double sampleskewness(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state);
-double samplekurtosis(/* Real    */ ae_vector* x,
+double samplekurtosis(/* Real    */ const ae_vector* x,
      ae_int_t n,
      ae_state *_state);
-void sampleadev(/* Real    */ ae_vector* x,
+void sampleadev(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* adev,
      ae_state *_state);
-void samplemedian(/* Real    */ ae_vector* x,
+void samplemedian(/* Real    */ const ae_vector* _x,
      ae_int_t n,
      double* median,
      ae_state *_state);
-void samplepercentile(/* Real    */ ae_vector* x,
+void samplepercentile(/* Real    */ const ae_vector* _x,
      ae_int_t n,
      double p,
      double* v,
      ae_state *_state);
-double cov2(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double cov2(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state);
-double pearsoncorr2(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double pearsoncorr2(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state);
-double spearmancorr2(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double spearmancorr2(/* Real    */ const ae_vector* _x,
+     /* Real    */ const ae_vector* _y,
      ae_int_t n,
      ae_state *_state);
-void covm(/* Real    */ ae_matrix* x,
-     ae_int_t n,
-     ae_int_t m,
-     /* Real    */ ae_matrix* c,
-     ae_state *_state);
-void pearsoncorrm(/* Real    */ ae_matrix* x,
+void covm(/* Real    */ const ae_matrix* _x,
      ae_int_t n,
      ae_int_t m,
      /* Real    */ ae_matrix* c,
      ae_state *_state);
-void spearmancorrm(/* Real    */ ae_matrix* x,
+void pearsoncorrm(/* Real    */ const ae_matrix* x,
      ae_int_t n,
      ae_int_t m,
      /* Real    */ ae_matrix* c,
      ae_state *_state);
-void covm2(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void spearmancorrm(/* Real    */ const ae_matrix* x,
+     ae_int_t n,
+     ae_int_t m,
+     /* Real    */ ae_matrix* c,
+     ae_state *_state);
+void covm2(/* Real    */ const ae_matrix* _x,
+     /* Real    */ const ae_matrix* _y,
      ae_int_t n,
      ae_int_t m1,
      ae_int_t m2,
      /* Real    */ ae_matrix* c,
      ae_state *_state);
-void pearsoncorrm2(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void pearsoncorrm2(/* Real    */ const ae_matrix* _x,
+     /* Real    */ const ae_matrix* _y,
      ae_int_t n,
      ae_int_t m1,
      ae_int_t m2,
      /* Real    */ ae_matrix* c,
      ae_state *_state);
-void spearmancorrm2(/* Real    */ ae_matrix* x,
-     /* Real    */ ae_matrix* y,
+void spearmancorrm2(/* Real    */ const ae_matrix* x,
+     /* Real    */ const ae_matrix* y,
      ae_int_t n,
      ae_int_t m1,
      ae_int_t m2,
@@ -1254,12 +1254,12 @@ void rankdatacentered(/* Real    */ ae_matrix* xy,
 ae_bool _trypexec_rankdatacentered(/* Real    */ ae_matrix* xy,
     ae_int_t npoints,
     ae_int_t nfeatures, ae_state *_state);
-double pearsoncorrelation(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double pearsoncorrelation(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state);
-double spearmanrankcorrelation(/* Real    */ ae_vector* x,
-     /* Real    */ ae_vector* y,
+double spearmanrankcorrelation(/* Real    */ const ae_vector* x,
+     /* Real    */ const ae_vector* y,
      ae_int_t n,
      ae_state *_state);
 #endif
@@ -1278,21 +1278,21 @@ void spearmanrankcorrelationsignificance(double r,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_JARQUEBERA) || !defined(AE_PARTIAL_BUILD)
-void jarqueberatest(/* Real    */ ae_vector* x,
+void jarqueberatest(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double* p,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_VARIANCETESTS) || !defined(AE_PARTIAL_BUILD)
-void ftest(/* Real    */ ae_vector* x,
+void ftest(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,
      double* righttail,
      ae_state *_state);
-void onesamplevariancetest(/* Real    */ ae_vector* x,
+void onesamplevariancetest(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double variance,
      double* bothtails,
@@ -1301,7 +1301,7 @@ void onesamplevariancetest(/* Real    */ ae_vector* x,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_WSR) || !defined(AE_PARTIAL_BUILD)
-void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
+void wilcoxonsignedranktest(/* Real    */ const ae_vector* _x,
      ae_int_t n,
      double e,
      double* bothtails,
@@ -1310,9 +1310,9 @@ void wilcoxonsignedranktest(/* Real    */ ae_vector* x,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_MANNWHITNEYU) || !defined(AE_PARTIAL_BUILD)
-void mannwhitneyutest(/* Real    */ ae_vector* x,
+void mannwhitneyutest(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,
@@ -1320,7 +1320,7 @@ void mannwhitneyutest(/* Real    */ ae_vector* x,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_STEST) || !defined(AE_PARTIAL_BUILD)
-void onesamplesigntest(/* Real    */ ae_vector* x,
+void onesamplesigntest(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double median,
      double* bothtails,
@@ -1329,24 +1329,24 @@ void onesamplesigntest(/* Real    */ ae_vector* x,
      ae_state *_state);
 #endif
 #if defined(AE_COMPILE_STUDENTTTESTS) || !defined(AE_PARTIAL_BUILD)
-void studentttest1(/* Real    */ ae_vector* x,
+void studentttest1(/* Real    */ const ae_vector* x,
      ae_int_t n,
      double mean,
      double* bothtails,
      double* lefttail,
      double* righttail,
      ae_state *_state);
-void studentttest2(/* Real    */ ae_vector* x,
+void studentttest2(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,
      double* righttail,
      ae_state *_state);
-void unequalvariancettest(/* Real    */ ae_vector* x,
+void unequalvariancettest(/* Real    */ const ae_vector* x,
      ae_int_t n,
-     /* Real    */ ae_vector* y,
+     /* Real    */ const ae_vector* y,
      ae_int_t m,
      double* bothtails,
      double* lefttail,

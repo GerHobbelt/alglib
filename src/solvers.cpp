@@ -1,5 +1,5 @@
 /*************************************************************************
-ALGLIB 3.20.0 (source code generated 2022-12-19)
+ALGLIB 4.01.0 (source code generated 2023-12-27)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
@@ -17,6 +17,9 @@ A copy of the GNU General Public License is available at
 http://www.fsf.org/licensing/licenses
 >>> END OF LICENSE >>>
 *************************************************************************/
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 #include "stdafx.h"
 #include "solvers.h"
 
@@ -45,10 +48,6 @@ namespace alglib
 
 #endif
 
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
-
-#endif
-
 #if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
 
 #endif
@@ -58,6 +57,10 @@ namespace alglib
 #endif
 
 #if defined(AE_COMPILE_LINLSQR) || !defined(AE_PARTIAL_BUILD)
+
+#endif
+
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
 
 #endif
 
@@ -169,9 +172,9 @@ alglib_impl::polynomialsolverreport* _polynomialsolverreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::polynomialsolverreport* _polynomialsolverreport_owner::c_ptr() const
+const alglib_impl::polynomialsolverreport* _polynomialsolverreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::polynomialsolverreport*>(p_struct);
+    return p_struct;
 }
 polynomialsolverreport::polynomialsolverreport() : _polynomialsolverreport_owner() ,maxerr(p_struct->maxerr)
 {
@@ -250,7 +253,7 @@ void polynomialsolve(const real_1d_array &a, const ae_int_t n, complex_1d_array 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::polynomialsolve(const_cast<alglib_impl::ae_vector*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::polynomialsolverreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::polynomialsolve(a.c_ptr(), n, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -360,15 +363,15 @@ alglib_impl::densesolverreport* _densesolverreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::densesolverreport* _densesolverreport_owner::c_ptr() const
+const alglib_impl::densesolverreport* _densesolverreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::densesolverreport*>(p_struct);
+    return p_struct;
 }
-densesolverreport::densesolverreport() : _densesolverreport_owner() ,r1(p_struct->r1),rinf(p_struct->rinf)
+densesolverreport::densesolverreport() : _densesolverreport_owner() ,terminationtype(p_struct->terminationtype),r1(p_struct->r1),rinf(p_struct->rinf)
 {
 }
 
-densesolverreport::densesolverreport(const densesolverreport &rhs):_densesolverreport_owner(rhs) ,r1(p_struct->r1),rinf(p_struct->rinf)
+densesolverreport::densesolverreport(const densesolverreport &rhs):_densesolverreport_owner(rhs) ,terminationtype(p_struct->terminationtype),r1(p_struct->r1),rinf(p_struct->rinf)
 {
 }
 
@@ -488,15 +491,15 @@ alglib_impl::densesolverlsreport* _densesolverlsreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::densesolverlsreport* _densesolverlsreport_owner::c_ptr() const
+const alglib_impl::densesolverlsreport* _densesolverlsreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::densesolverlsreport*>(p_struct);
+    return p_struct;
 }
-densesolverlsreport::densesolverlsreport() : _densesolverlsreport_owner() ,r2(p_struct->r2),cx(&p_struct->cx),n(p_struct->n),k(p_struct->k)
+densesolverlsreport::densesolverlsreport() : _densesolverlsreport_owner() ,terminationtype(p_struct->terminationtype),r2(p_struct->r2),cx(&p_struct->cx),n(p_struct->n),k(p_struct->k)
 {
 }
 
-densesolverlsreport::densesolverlsreport(const densesolverlsreport &rhs):_densesolverlsreport_owner(rhs) ,r2(p_struct->r2),cx(&p_struct->cx),n(p_struct->n),k(p_struct->k)
+densesolverlsreport::densesolverlsreport(const densesolverlsreport &rhs):_densesolverlsreport_owner(rhs) ,terminationtype(p_struct->terminationtype),r2(p_struct->r2),cx(&p_struct->cx),n(p_struct->n),k(p_struct->k)
 {
 }
 
@@ -545,17 +548,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
-    Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -584,7 +584,7 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolve(const real_2d_array &a, const ae_int_t n, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams)
+void rmatrixsolve(const real_2d_array &a, const ae_int_t n, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -601,10 +601,101 @@ void rmatrixsolve(const real_2d_array &a, const ae_int_t n, const real_1d_array 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixsolve(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::rmatrixsolve(a.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+
+/*************************************************************************
+Dense solver for A*x=b with N*N real matrix A and N*1 real vectorx  x  and
+b. This is "slow-but-feature rich" version of the  linear  solver.  Faster
+version is RMatrixSolveFast() function.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(N^3) complexity
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear  system
+           ! and  performs  iterative   refinement,   which   results   in
+           ! significant performance penalty  when  compared  with  "fast"
+           ! version  which  just  performs  LU  decomposition  and  calls
+           ! triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations. It is also very significant on small matrices.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, RMatrixSolveFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixsolve(const real_2d_array &a, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixsolve': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::rmatrixsolve(a.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
 
 /*************************************************************************
 Dense solver.
@@ -627,14 +718,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -663,7 +753,185 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 16.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const real_1d_array &b, ae_int_t &info, const xparams _xparams)
+bool rmatrixsolvefast(const real_2d_array &a, const ae_int_t n, real_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::rmatrixsolvefast(a.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Dense solver.
+
+This  subroutine  solves  a  system  A*x=b,  where A is NxN non-denegerate
+real matrix, x  and  b  are  vectors.  This is a "fast" version of  linear
+solver which does NOT provide  any  additional  functions  like  condition
+number estimation or iterative refinement.
+
+Algorithm features:
+* efficient algorithm O(N^3) complexity
+* no performance overhead from additional functionality
+
+If you need condition number estimation or iterative refinement, use  more
+feature-rich version - RMatrixSolve().
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 16.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool rmatrixsolvefast(const real_2d_array &a, real_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixsolvefast': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::rmatrixsolvefast(a.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+Similar to RMatrixSolve() but solves task with multiple right parts (where
+b and x are NxM matrices). This is  "slow-but-robust"  version  of  linear
+solver with additional functionality  like  condition  number  estimation.
+There also exists faster version - RMatrixSolveMFast().
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* optional iterative refinement
+* O(N^3+M*N^2) complexity
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear  system
+           ! and  performs  iterative   refinement,   which   results   in
+           ! significant performance penalty  when  compared  with  "fast"
+           ! version  which  just  performs  LU  decomposition  and  calls
+           ! triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations. It also very significant on small matrices.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, RMatrixSolveMFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+    RFS     -   iterative refinement switch:
+                * True - refinement is used.
+                  Less performance, more precision.
+                * False - refinement is not used.
+                  More performance, less precision.
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void rmatrixsolvem(const real_2d_array &a, const ae_int_t n, const real_2d_array &b, const ae_int_t m, const bool rfs, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -680,7 +948,7 @@ void rmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const real_1d_ar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixsolvefast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::rmatrixsolvem(a.c_ptr(), n, b.c_ptr(), m, rfs, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -727,18 +995,14 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is ill conditioned or singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -767,7 +1031,93 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvem(const real_2d_array &a, const ae_int_t n, const real_2d_array &b, const ae_int_t m, const bool rfs, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixsolvem(const real_2d_array &a, const real_2d_array &b, const bool rfs, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixsolvem': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::rmatrixsolvem(a.c_ptr(), n, b.c_ptr(), m, rfs, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+Similar to RMatrixSolve() but solves task with multiple right parts (where
+b and x are NxM matrices). This is "fast" version of linear  solver  which
+does NOT offer additional functions like condition  number  estimation  or
+iterative refinement.
+
+Algorithm features:
+* O(N^3+M*N^2) complexity
+* no additional functionality, highest performance
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+    RFS     -   iterative refinement switch:
+                * True - refinement is used.
+                  Less performance, more precision.
+                * False - refinement is not used.
+                  More performance, less precision.
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True for well-conditioned matrix
+    False for extremely badly conditioned or exactly singular problem
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+bool rmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, real_2d_array &b, const ae_int_t m, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -778,15 +1128,15 @@ void rmatrixsolvem(const real_2d_array &a, const ae_int_t n, const real_2d_array
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixsolvem(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, rfs, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::rmatrixsolvemfast(a.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -813,18 +1163,16 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True for well-conditioned matrix
+    False for extremely badly conditioned or exactly singular problem
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -853,7 +1201,82 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool rmatrixsolvemfast(const real_2d_array &a, real_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixsolvemfast': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::rmatrixsolvemfast(a.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+This  subroutine  solves  a  system  A*x=b,  where A is NxN non-denegerate
+real matrix given by its LU decomposition, x and b are real vectors.  This
+is "slow-but-robust" version of the linear LU-based solver. Faster version
+is RMatrixLUSolveFast() function.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(N^2) complexity
+* condition number estimation
+
+No iterative refinement  is provided because exact form of original matrix
+is not known to subroutine. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which results in 10-15x  performance  penalty  when  compared
+           ! with "fast" version which just calls triangular solver.
+           !
+           ! This performance penalty is insignificant  when compared with
+           ! cost of large LU decomposition.  However,  if you  call  this
+           ! function many times for the same  left  side,  this  overhead
+           ! BECOMES significant. It  also  becomes significant for small-
+           ! scale problems.
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! RMatrixLUSolveFast() function.
+
+INPUT PARAMETERS
+    LUA     -   array[N,N], LU decomposition, RMatrixLU result
+    P       -   array[N], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -870,7 +1293,7 @@ void rmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const real_2d_a
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixsolvemfast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::rmatrixlusolve(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -913,23 +1336,73 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
-    Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()) || (lua.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixlusolve': looks like one of arguments has wrong size");
+    n = lua.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::rmatrixlusolve(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+This  subroutine  solves  a  system  A*x=b,  where A is NxN non-denegerate
+real matrix given by its LU decomposition, x and b are real vectors.  This
+is "fast-without-any-checks" version of the linear LU-based solver. Slower
+but more robust version is RMatrixLUSolve() function.
+
+Algorithm features:
+* O(N^2) complexity
+* fast algorithm without ANY additional checks, just triangular solver
+
+INPUT PARAMETERS
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, RMatrixLU result
+    P       -   array[0..N-1], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+
+  -- ALGLIB --
+     Copyright 18.03.2015 by Bochkanov Sergey
+*************************************************************************/
+bool rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -940,15 +1413,15 @@ void rmatrixlusolve(const real_2d_array &lua, const integer_1d_array &p, const a
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixlusolve(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::rmatrixlusolvefast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -970,20 +1443,117 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, real_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixlusolvefast': looks like one of arguments has wrong size");
+    n = lua.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::rmatrixlusolvefast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+Similar to RMatrixLUSolve() but solves  task  with  multiple  right  parts
+(where b and x are NxM matrices). This  is  "robust-but-slow"  version  of
+LU-based solver which performs additional  checks  for  non-degeneracy  of
+inputs (condition number estimation). If you need  best  performance,  use
+"fast-without-any-checks" version, RMatrixLUSolveMFast().
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(M*N^2) complexity
+* condition number estimation
+
+No iterative refinement  is provided because exact form of original matrix
+is not known to subroutine. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant  performance   penalty   when
+           ! compared with "fast"  version  which  just  calls  triangular
+           ! solver.
+           !
+           ! This performance penalty is especially apparent when you  use
+           ! ALGLIB parallel capabilities (condition number estimation  is
+           ! inherently  sequential).  It   also   becomes significant for
+           ! small-scale problems.
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! RMatrixLUSolveMFast() function.
+
+INPUT PARAMETERS
+    LUA     -   array[N,N], LU decomposition, RMatrixLU result
+    P       -   array[N], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N,M], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void rmatrixlusolvem(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1000,7 +1570,7 @@ void rmatrixlusolvefast(const real_2d_array &lua, const integer_1d_array &p, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixlusolvefast(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::rmatrixlusolvem(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1045,18 +1615,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1085,27 +1651,29 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvem(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixlusolvem(const real_2d_array &lua, const integer_1d_array &p, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()) || (lua.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixlusolvem': looks like one of arguments has wrong size");
+    n = lua.rows();
+    m = b.cols();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixlusolvem(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::rmatrixlusolvem(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+#endif
 
 /*************************************************************************
 Dense solver.
@@ -1128,14 +1696,13 @@ INPUT PARAMETERS:
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1164,7 +1731,142 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+bool rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, real_2d_array &b, const ae_int_t m, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::rmatrixlusolvemfast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Dense solver.
+
+Similar to RMatrixLUSolve() but solves  task  with  multiple  right parts,
+where b and x are NxM matrices.  This is "fast-without-any-checks" version
+of LU-based solver. It does not estimate  condition number  of  a  system,
+so it is extremely fast. If you need better detection  of  near-degenerate
+cases, use RMatrixLUSolveM() function.
+
+Algorithm features:
+* O(M*N^2) complexity
+* fast algorithm without ANY additional checks, just triangular solver
+
+INPUT PARAMETERS:
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, RMatrixLU result
+    P       -   array[0..N-1], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS:
+    B       -   array[N,M]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 18.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, real_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()) || (lua.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixlusolvemfast': looks like one of arguments has wrong size");
+    n = lua.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::rmatrixlusolvemfast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+This  subroutine  solves  a  system  A*x=b,  where BOTH ORIGINAL A AND ITS
+LU DECOMPOSITION ARE KNOWN. You can use it if for some  reasons  you  have
+both A and its LU decomposition.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(N^2) complexity
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, RMatrixLU result
+    P       -   array[0..N-1], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1181,7 +1883,7 @@ void rmatrixlusolvemfast(const real_2d_array &lua, const integer_1d_array &p, co
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixlusolvemfast(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::rmatrixmixedsolve(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1207,22 +1909,74 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=lua.rows()) || (a.rows()!=lua.cols()) || (a.rows()!=p.length()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixmixedsolve': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::rmatrixmixedsolve(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver.
+
+Similar to RMatrixMixedSolve() but  solves task with multiple right  parts
+(where b and x are NxM matrices).
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(M*N^2) complexity
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, RMatrixLU result
+    P       -   array[0..N-1], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N,M], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1239,7 +1993,7 @@ void rmatrixmixedsolve(const real_2d_array &a, const real_2d_array &lua, const i
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixmixedsolve(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::rmatrixmixedsolvem(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1265,22 +2019,119 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const integer_1d_array &p, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=lua.rows()) || (a.rows()!=lua.cols()) || (a.rows()!=p.length()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixmixedsolvem': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::rmatrixmixedsolvem(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Complex dense solver for A*X=B with N*N  complex  matrix  A,  N*M  complex
+matrices  X  and  B.  "Slow-but-feature-rich"   version   which   provides
+additional functions, at the cost of slower  performance.  Faster  version
+may be invoked with CMatrixSolveMFast() function.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(N^3+M*N^2) complexity
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear  system
+           ! and  performs  iterative   refinement,   which   results   in
+           ! significant performance penalty  when  compared  with  "fast"
+           ! version  which  just  performs  LU  decomposition  and  calls
+           ! triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, CMatrixSolveMFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+    RFS     -   iterative refinement switch:
+                * True - refinement is used.
+                  Less performance, more precision.
+                * False - refinement is not used.
+                  More performance, less precision.
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N,M], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void cmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, const bool rfs, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1297,7 +2148,7 @@ void rmatrixmixedsolvem(const real_2d_array &a, const real_2d_array &lua, const 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixmixedsolvem(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::cmatrixsolvem(a.c_ptr(), n, b.c_ptr(), m, rfs, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1342,18 +2193,14 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1382,27 +2229,29 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, const bool rfs, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void cmatrixsolvem(const complex_2d_array &a, const complex_2d_array &b, const bool rfs, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixsolvem': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixsolvem(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, rfs, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::cmatrixsolvem(a.c_ptr(), n, b.c_ptr(), m, rfs, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+#endif
 
 /*************************************************************************
 Complex dense solver for A*X=B with N*N  complex  matrix  A,  N*M  complex
@@ -1421,14 +2270,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1457,7 +2305,173 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 16.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+bool cmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, complex_2d_array &b, const ae_int_t m, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::cmatrixsolvemfast(a.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Complex dense solver for A*X=B with N*N  complex  matrix  A,  N*M  complex
+matrices  X  and  B.  "Fast-but-lightweight" version which  provides  just
+triangular solver - and no additional functions like iterative  refinement
+or condition number estimation.
+
+Algorithm features:
+* O(N^3+M*N^2) complexity
+* no additional time consuming functions
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS:
+    B       -   array[N,M]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 16.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool cmatrixsolvemfast(const complex_2d_array &a, complex_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixsolvemfast': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::cmatrixsolvemfast(a.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Complex dense solver for A*x=B with N*N complex matrix A and  N*1  complex
+vectors x and b. "Slow-but-feature-rich" version of the solver.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(N^3) complexity
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear  system
+           ! and  performs  iterative   refinement,   which   results   in
+           ! significant performance penalty  when  compared  with  "fast"
+           ! version  which  just  performs  LU  decomposition  and  calls
+           ! triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, CMatrixSolveFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void cmatrixsolve(const complex_2d_array &a, const ae_int_t n, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1474,7 +2488,7 @@ void cmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const comple
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixsolvemfast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::cmatrixsolve(a.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1511,17 +2525,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1550,7 +2561,78 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolve(const complex_2d_array &a, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void cmatrixsolve(const complex_2d_array &a, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixsolve': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::cmatrixsolve(a.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Complex dense solver for A*x=B with N*N complex matrix A and  N*1  complex
+vectors x and b. "Fast-but-lightweight" version of the solver.
+
+Algorithm features:
+* O(N^3) complexity
+* no additional time consuming features, just triangular solver
+
+INPUT PARAMETERS:
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS:
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+bool cmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, complex_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1561,15 +2643,15 @@ void cmatrixsolve(const complex_2d_array &a, const ae_int_t n, const complex_1d_
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixsolve(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::cmatrixsolvefast(a.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -1586,14 +2668,13 @@ INPUT PARAMETERS:
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1622,7 +2703,101 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool cmatrixsolvefast(const complex_2d_array &a, complex_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixsolvefast': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::cmatrixsolvefast(a.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N complex A given by its  LU  decomposition,
+and N*M matrices X and B (multiple right sides).   "Slow-but-feature-rich"
+version of the solver.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(M*N^2) complexity
+* condition number estimation
+
+No iterative refinement  is provided because exact form of original matrix
+is not known to subroutine. Use CMatrixSolve or CMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant  performance   penalty   when
+           ! compared with "fast"  version  which  just  calls  triangular
+           ! solver.
+           !
+           ! This performance penalty is especially apparent when you  use
+           ! ALGLIB parallel capabilities (condition number estimation  is
+           ! inherently  sequential).  It   also   becomes significant for
+           ! small-scale problems.
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! CMatrixLUSolveMFast() function.
+
+INPUT PARAMETERS
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, RMatrixLU result
+    P       -   array[0..N-1], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N,M], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1639,7 +2814,7 @@ void cmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const complex
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixsolvefast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::cmatrixlusolvem(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1680,17 +2855,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1719,7 +2891,83 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()) || (lua.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixlusolvem': looks like one of arguments has wrong size");
+    n = lua.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::cmatrixlusolvem(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N complex A given by its  LU  decomposition,
+and N*M matrices X and B (multiple  right  sides).  "Fast-but-lightweight"
+version of the solver.
+
+Algorithm features:
+* O(M*N^2) complexity
+* no additional time-consuming features
+
+INPUT PARAMETERS
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, RMatrixLU result
+    P       -   array[0..N-1], pivots array, RMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    B       -   array[N,M]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+bool cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, complex_2d_array &b, const ae_int_t m, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1730,15 +2978,15 @@ void cmatrixlusolvem(const complex_2d_array &lua, const integer_1d_array &p, con
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixlusolvem(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::cmatrixlusolvemfast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -1758,14 +3006,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -1794,7 +3041,80 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p, complex_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()) || (lua.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixlusolvemfast': looks like one of arguments has wrong size");
+    n = lua.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::cmatrixlusolvemfast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Complex dense linear solver for A*x=b with complex N*N A  given  by its LU
+decomposition and N*1 vectors x and b. This is  "slow-but-robust"  version
+of  the  complex  linear  solver  with  additional  features   which   add
+significant performance overhead. Faster version  is  CMatrixLUSolveFast()
+function.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(N^2) complexity
+* condition number estimation
+
+No iterative refinement is provided because exact form of original matrix
+is not known to subroutine. Use CMatrixSolve or CMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which results in 10-15x  performance  penalty  when  compared
+           ! with "fast" version which just calls triangular solver.
+           !
+           ! This performance penalty is insignificant  when compared with
+           ! cost of large LU decomposition.  However,  if you  call  this
+           ! function many times for the same  left  side,  this  overhead
+           ! BECOMES significant. It  also  becomes significant for small-
+           ! scale problems.
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! CMatrixLUSolveFast() function.
+
+INPUT PARAMETERS
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, CMatrixLU result
+    P       -   array[0..N-1], pivots array, CMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1811,7 +3131,7 @@ void cmatrixlusolvemfast(const complex_2d_array &lua, const integer_1d_array &p,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixlusolvemfast(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::cmatrixlusolve(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1853,22 +3173,71 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()) || (lua.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixlusolve': looks like one of arguments has wrong size");
+    n = lua.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::cmatrixlusolve(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Complex dense linear solver for A*x=b with N*N complex A given by  its  LU
+decomposition and N*1 vectors x and b. This is  fast  lightweight  version
+of solver, which is significantly faster than CMatrixLUSolve(),  but  does
+not provide additional information (like condition numbers).
+
+Algorithm features:
+* O(N^2) complexity
+* no additional time-consuming features, just triangular solver
+
+INPUT PARAMETERS
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, CMatrixLU result
+    P       -   array[0..N-1], pivots array, CMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
+      near-degeneracy of input matrix. It  checks  for  EXACT  degeneracy,
+      because this check is easy to do. However,  very  badly  conditioned
+      matrices may went unnoticed.
+
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+bool cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, complex_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1879,15 +3248,15 @@ void cmatrixlusolve(const complex_2d_array &lua, const integer_1d_array &p, cons
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixlusolve(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::cmatrixlusolvefast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -1907,14 +3276,9 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
 
 NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
       near-degeneracy of input matrix. It  checks  for  EXACT  degeneracy,
@@ -1925,7 +3289,59 @@ NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, complex_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (lua.rows()!=lua.cols()) || (lua.rows()!=p.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixlusolvefast': looks like one of arguments has wrong size");
+    n = lua.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::cmatrixlusolvefast(lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver. Same as RMatrixMixedSolveM(), but for complex matrices.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(M*N^2) complexity
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, CMatrixLU result
+    P       -   array[0..N-1], pivots array, CMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N,M], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1942,7 +3358,7 @@ void cmatrixlusolvefast(const complex_2d_array &lua, const integer_1d_array &p, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixlusolvefast(const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::cmatrixmixedsolvem(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -1965,22 +3381,72 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=lua.rows()) || (a.rows()!=lua.cols()) || (a.rows()!=p.length()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixmixedsolvem': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::cmatrixmixedsolvem(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver. Same as RMatrixMixedSolve(), but for complex matrices.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* iterative refinement
+* O(N^2) complexity
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    LUA     -   array[0..N-1,0..N-1], LU decomposition, CMatrixLU result
+    P       -   array[0..N-1], pivots array, CMatrixLU result
+    N       -   size of A
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -1997,7 +3463,7 @@ void cmatrixmixedsolvem(const complex_2d_array &a, const complex_2d_array &lua, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixmixedsolvem(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::cmatrixmixedsolve(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2019,22 +3485,115 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const ae_int_t n, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, const integer_1d_array &p, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=lua.rows()) || (a.rows()!=lua.cols()) || (a.rows()!=p.length()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'cmatrixmixedsolve': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::cmatrixmixedsolve(a.c_ptr(), lua.c_ptr(), p.c_ptr(), n, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N symmetric positive definite matrix A,  and
+N*M vectors X and B. It is "slow-but-feature-rich" version of the solver.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* O(N^3+M*N^2) complexity
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant   performance   penalty  when
+           ! compared with "fast" version  which  just  performs  Cholesky
+           ! decomposition and calls triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, SPDMatrixSolveMFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N,M], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void spdmatrixsolvem(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2051,7 +3610,7 @@ void cmatrixmixedsolve(const complex_2d_array &a, const complex_2d_array &lua, c
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::cmatrixmixedsolve(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), const_cast<alglib_impl::ae_matrix*>(lua.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), n, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::spdmatrixsolvem(a.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2094,17 +3653,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or non-SPD.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2133,27 +3689,29 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvem(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void spdmatrixsolvem(const real_2d_array &a, const bool isupper, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixsolvem': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixsolvem(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::spdmatrixsolvem(a.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+#endif
 
 /*************************************************************************
 Dense solver for A*X=B with N*N symmetric positive definite matrix A,  and
@@ -2172,13 +3730,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2207,7 +3765,179 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+bool spdmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const bool isupper, real_2d_array &b, const ae_int_t m, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::spdmatrixsolvemfast(a.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Dense solver for A*X=B with N*N symmetric positive definite matrix A,  and
+N*M vectors X and B. It is "fast-but-lightweight" version of the solver.
+
+Algorithm features:
+* O(N^3+M*N^2) complexity
+* matrix is represented by its upper or lower triangle
+* no additional time consuming features
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    B       -   array[N,M], it contains:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 17.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool spdmatrixsolvemfast(const real_2d_array &a, const bool isupper, real_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixsolvemfast': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::spdmatrixsolvemfast(a.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense linear solver for A*x=b with N*N real  symmetric  positive  definite
+matrix A,  N*1 vectors x and b.  "Slow-but-feature-rich"  version  of  the
+solver.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* O(N^3) complexity
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant   performance   penalty  when
+           ! compared with "fast" version  which  just  performs  Cholesky
+           ! decomposition and calls triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, SPDMatrixSolveFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void spdmatrixsolve(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2224,7 +3954,7 @@ void spdmatrixsolvemfast(const real_2d_array &a, const ae_int_t n, const bool is
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixsolvemfast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::spdmatrixsolve(a.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2267,17 +3997,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or non-SPD.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2306,27 +4033,27 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolve(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void spdmatrixsolve(const real_2d_array &a, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixsolve': looks like one of arguments has wrong size");
+    n = a.rows();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixsolve(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::spdmatrixsolve(a.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+#endif
 
 /*************************************************************************
 Dense linear solver for A*x=b with N*N real  symmetric  positive  definite
@@ -2345,13 +4072,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or non-SPD
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2380,7 +4107,157 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, const xparams _xparams)
+bool spdmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const bool isupper, real_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::spdmatrixsolvefast(a.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Dense linear solver for A*x=b with N*N real  symmetric  positive  definite
+matrix A,  N*1 vectors x and  b.  "Fast-but-lightweight"  version  of  the
+solver.
+
+Algorithm features:
+* O(N^3) complexity
+* matrix is represented by its upper or lower triangle
+* no additional time consuming features like condition number estimation
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    B       -   array[N], it contains:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 17.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool spdmatrixsolvefast(const real_2d_array &a, const bool isupper, real_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixsolvefast': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::spdmatrixsolvefast(a.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N symmetric positive definite matrix A given
+by its Cholesky decomposition, and N*M vectors X and B. It  is  "slow-but-
+feature-rich" version of the solver which estimates  condition  number  of
+the system.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(M*N^2) complexity
+* condition number estimation
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant  performance   penalty   when
+           ! compared with "fast"  version  which  just  calls  triangular
+           ! solver. Amount of  overhead  introduced  depends  on  M  (the
+           ! larger - the more efficient).
+           !
+           ! This performance penalty is insignificant  when compared with
+           ! cost of large LU decomposition.  However,  if you  call  this
+           ! function many times for the same  left  side,  this  overhead
+           ! BECOMES significant. It  also  becomes significant for small-
+           ! scale problems (N<50).
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! SPDMatrixCholeskySolveMFast() function.
+
+INPUT PARAMETERS
+    CHA     -   array[0..N-1,0..N-1], Cholesky decomposition,
+                SPDMatrixCholesky result
+    N       -   size of CHA
+    IsUpper -   what half of CHA is provided
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N]:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void spdmatrixcholeskysolvem(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2397,7 +4274,7 @@ void spdmatrixsolvefast(const real_2d_array &a, const ae_int_t n, const bool isu
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixsolvefast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::spdmatrixcholeskysolvem(cha.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2444,22 +4321,74 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or badly conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N]:
-                * for info>0 contains solution
-                * for info=-3 filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvem(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, real_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void spdmatrixcholeskysolvem(const real_2d_array &cha, const bool isupper, const real_2d_array &b, real_2d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixcholeskysolvem': looks like one of arguments has wrong size");
+    n = cha.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::spdmatrixcholeskysolvem(cha.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N symmetric positive definite matrix A given
+by its Cholesky decomposition, and N*M vectors X and B. It  is  "fast-but-
+lightweight" version of  the  solver  which  just  solves  linear  system,
+without any additional functions.
+
+Algorithm features:
+* O(M*N^2) complexity
+* matrix is represented by its upper or lower triangle
+* no additional functionality
+
+INPUT PARAMETERS
+    CHA     -   array[N,N], Cholesky decomposition,
+                SPDMatrixCholesky result
+    N       -   size of CHA
+    IsUpper -   what half of CHA is provided
+    B       -   array[N,M], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  -- ALGLIB --
+     Copyright 18.03.2015 by Bochkanov Sergey
+*************************************************************************/
+bool spdmatrixcholeskysolvemfast(const real_2d_array &cha, const ae_int_t n, const bool isupper, real_2d_array &b, const ae_int_t m, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2470,15 +4399,15 @@ void spdmatrixcholeskysolvem(const real_2d_array &cha, const ae_int_t n, const b
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixcholeskysolvem(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::spdmatrixcholeskysolvemfast(cha.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -2501,19 +4430,93 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or badly conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N]:
-                * for info>0 overwritten by solution
-                * for info=-3 filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvemfast(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool spdmatrixcholeskysolvemfast(const real_2d_array &cha, const bool isupper, real_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixcholeskysolvemfast': looks like one of arguments has wrong size");
+    n = cha.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::spdmatrixcholeskysolvemfast(cha.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*x=b with N*N symmetric positive definite matrix A given
+by its Cholesky decomposition, and N*1 real vectors x and b. This is "slow-
+but-feature-rich"  version  of  the  solver  which,  in  addition  to  the
+solution, performs condition number estimation.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(N^2) complexity
+* condition number estimation
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which results in 10-15x  performance  penalty  when  compared
+           ! with "fast" version which just calls triangular solver.
+           !
+           ! This performance penalty is insignificant  when compared with
+           ! cost of large LU decomposition.  However,  if you  call  this
+           ! function many times for the same  left  side,  this  overhead
+           ! BECOMES significant. It  also  becomes significant for small-
+           ! scale problems (N<50).
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! SPDMatrixCholeskySolveFast() function.
+
+INPUT PARAMETERS
+    CHA     -   array[N,N], Cholesky decomposition,
+                SPDMatrixCholesky result
+    N       -   size of A
+    IsUpper -   what half of CHA is provided
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1    condition number in 1-norm
+                * rep.rinf  condition number in inf-norm
+    X       -   array[N]:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void spdmatrixcholeskysolve(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2530,7 +4533,7 @@ void spdmatrixcholeskysolvemfast(const real_2d_array &cha, const ae_int_t n, con
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixcholeskysolvemfast(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::spdmatrixcholeskysolve(cha.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2574,22 +4577,70 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N]:
-                * for info>0  - solution
-                * for info=-3 - filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolve(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, densesolverreport &rep, real_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void spdmatrixcholeskysolve(const real_2d_array &cha, const bool isupper, const real_1d_array &b, real_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixcholeskysolve': looks like one of arguments has wrong size");
+    n = cha.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::spdmatrixcholeskysolve(cha.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*x=b with N*N symmetric positive definite matrix A given
+by its Cholesky decomposition, and N*1 real vectors x and b. This is "fast-
+but-lightweight" version of the solver.
+
+Algorithm features:
+* O(N^2) complexity
+* matrix is represented by its upper or lower triangle
+* no additional features
+
+INPUT PARAMETERS
+    CHA     -   array[N,N], Cholesky decomposition,
+                SPDMatrixCholesky result
+    N       -   size of A
+    IsUpper -   what half of CHA is provided
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+bool spdmatrixcholeskysolvefast(const real_2d_array &cha, const ae_int_t n, const bool isupper, real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2600,15 +4651,15 @@ void spdmatrixcholeskysolve(const real_2d_array &cha, const ae_int_t n, const bo
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixcholeskysolve(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::spdmatrixcholeskysolvefast(cha.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -2629,19 +4680,108 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * for info>0  - overwritten by solution
-                * for info=-3 - filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvefast(const real_2d_array &cha, const ae_int_t n, const bool isupper, const real_1d_array &b, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool spdmatrixcholeskysolvefast(const real_2d_array &cha, const bool isupper, real_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'spdmatrixcholeskysolvefast': looks like one of arguments has wrong size");
+    n = cha.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::spdmatrixcholeskysolvefast(cha.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B, with N*N Hermitian positive definite matrix A  and
+N*M  complex  matrices  X  and  B.  "Slow-but-feature-rich" version of the
+solver.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* O(N^3+M*N^2) complexity
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant  performance   penalty   when
+           ! compared with "fast"  version  which  just  calls  triangular
+           ! solver.
+           !
+           ! This performance penalty is especially apparent when you  use
+           ! ALGLIB parallel capabilities (condition number estimation  is
+           ! inherently  sequential).  It   also   becomes significant for
+           ! small-scale problems (N<100).
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! HPDMatrixSolveMFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    Rep     -   same as in RMatrixSolve
+    X       -   same as in RMatrixSolve
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void hpdmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2658,7 +4798,7 @@ void spdmatrixcholeskysolvefast(const real_2d_array &cha, const ae_int_t n, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::spdmatrixcholeskysolvefast(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::hpdmatrixsolvem(a.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2701,8 +4841,6 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   same as in RMatrixSolve.
-                Returns -3 for non-HPD matrices.
     Rep     -   same as in RMatrixSolve
     X       -   same as in RMatrixSolve
 
@@ -2733,27 +4871,29 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvem(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void hpdmatrixsolvem(const complex_2d_array &a, const bool isupper, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixsolvem': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixsolvem(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::hpdmatrixsolvem(a.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+#endif
 
 /*************************************************************************
 Dense solver for A*X=B, with N*N Hermitian positive definite matrix A  and
@@ -2772,14 +4912,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly  singular or is not positive definite.
-                        B is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[0..N-1]:
-                * overwritten by solution
-                * zeros, if problem was not solved
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2808,7 +4947,173 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+bool hpdmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const bool isupper, complex_2d_array &b, const ae_int_t m, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::hpdmatrixsolvemfast(a.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Dense solver for A*X=B, with N*N Hermitian positive definite matrix A  and
+N*M complex matrices X and B. "Fast-but-lightweight" version of the solver.
+
+Algorithm features:
+* O(N^3+M*N^2) complexity
+* matrix is represented by its upper or lower triangle
+* no additional time consuming features like condition number estimation
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1,0..M-1], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS
+    B       -   array[0..N-1]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 17.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool hpdmatrixsolvemfast(const complex_2d_array &a, const bool isupper, complex_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixsolvemfast': looks like one of arguments has wrong size");
+    n = a.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::hpdmatrixsolvemfast(a.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*x=b, with N*N Hermitian positive definite matrix A, and
+N*1 complex vectors  x  and  b.  "Slow-but-feature-rich"  version  of  the
+solver.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* condition number estimation
+* O(N^3) complexity
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant   performance   penalty  when
+           ! compared with "fast" version  which  just  performs  Cholesky
+           ! decomposition and calls triangular solver.
+           !
+           ! This  performance  penalty  is  especially  visible  in   the
+           ! multithreaded mode, because both condition number  estimation
+           ! and   iterative    refinement   are   inherently   sequential
+           ! calculations.
+           !
+           ! Thus, if you need high performance and if you are pretty sure
+           ! that your system is well conditioned, we  strongly  recommend
+           ! you to use faster solver, HPDMatrixSolveFast() function.
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   same as in RMatrixSolve
+    X       -   same as in RMatrixSolve
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void hpdmatrixsolve(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2825,7 +5130,7 @@ void hpdmatrixsolvemfast(const complex_2d_array &a, const ae_int_t n, const bool
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixsolvemfast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::hpdmatrixsolve(a.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -2868,8 +5173,6 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   same as in RMatrixSolve
-                Returns -3 for non-HPD matrices.
     Rep     -   same as in RMatrixSolve
     X       -   same as in RMatrixSolve
 
@@ -2900,27 +5203,27 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolve(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void hpdmatrixsolve(const complex_2d_array &a, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixsolve': looks like one of arguments has wrong size");
+    n = a.rows();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixsolve(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::hpdmatrixsolve(a.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
+#endif
 
 /*************************************************************************
 Dense solver for A*x=b, with N*N Hermitian positive definite matrix A, and
@@ -2939,15 +5242,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or not positive definite
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[0..N-1]:
-                * overwritten by solution
-                * zeros, if A is exactly singular (diagonal of its LU
-                  decomposition has exact zeros).
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   ! FREE EDITION OF ALGLIB:
   !
@@ -2976,7 +5277,158 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, const xparams _xparams)
+bool hpdmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const bool isupper, complex_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return 0;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::hpdmatrixsolvefast(a.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return bool(result);
+}
+
+/*************************************************************************
+Dense solver for A*x=b, with N*N Hermitian positive definite matrix A, and
+N*1 complex vectors  x  and  b.  "Fast-but-lightweight"  version  of   the
+solver without additional functions.
+
+Algorithm features:
+* O(N^3) complexity
+* matrix is represented by its upper or lower triangle
+* no additional time consuming functions
+
+INPUT PARAMETERS
+    A       -   array[0..N-1,0..N-1], system matrix
+    N       -   size of A
+    IsUpper -   what half of A is provided
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    B       -   array[0..N-1]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 17.03.2015 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+bool hpdmatrixsolvefast(const complex_2d_array &a, const bool isupper, complex_1d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (a.rows()!=a.cols()) || (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixsolvefast': looks like one of arguments has wrong size");
+    n = a.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::hpdmatrixsolvefast(a.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N Hermitian positive definite matrix A given
+by its Cholesky decomposition and N*M complex matrices X  and  B.  This is
+"slow-but-feature-rich" version of the solver which, in  addition  to  the
+solution, estimates condition number of the system.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(M*N^2) complexity
+* condition number estimation
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which  results  in  significant  performance   penalty   when
+           ! compared with "fast"  version  which  just  calls  triangular
+           ! solver. Amount of  overhead  introduced  depends  on  M  (the
+           ! larger - the more efficient).
+           !
+           ! This performance penalty is insignificant  when compared with
+           ! cost of large Cholesky decomposition.  However,  if  you call
+           ! this  function  many  times  for  the same  left  side,  this
+           ! overhead BECOMES significant. It  also   becomes  significant
+           ! for small-scale problems (N<50).
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! HPDMatrixCholeskySolveMFast() function.
+
+
+INPUT PARAMETERS
+    CHA     -   array[N,N], Cholesky decomposition,
+                HPDMatrixCholesky result
+    N       -   size of CHA
+    IsUpper -   what half of CHA is provided
+    B       -   array[N,M], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS:
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -2993,7 +5445,7 @@ void hpdmatrixsolvefast(const complex_2d_array &a, const ae_int_t n, const bool 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixsolvefast(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    alglib_impl::hpdmatrixcholeskysolvem(cha.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -3041,22 +5493,73 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    A is singular, or VERY close to singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
-    X       -   array[N]:
-                * for info>0 contains solution
-                * for info=-3 filled by zeros
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, densesolverreport &rep, complex_2d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const bool isupper, const complex_2d_array &b, complex_2d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixcholeskysolvem': looks like one of arguments has wrong size");
+    n = cha.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::hpdmatrixcholeskysolvem(cha.c_ptr(), n, isupper, b.c_ptr(), m, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*X=B with N*N Hermitian positive definite matrix A given
+by its Cholesky decomposition and N*M complex matrices X  and  B.  This is
+"fast-but-lightweight" version of the solver.
+
+Algorithm features:
+* O(M*N^2) complexity
+* matrix is represented by its upper or lower triangle
+* no additional time-consuming features
+
+INPUT PARAMETERS
+    CHA     -   array[N,N], Cholesky decomposition,
+                HPDMatrixCholesky result
+    N       -   size of CHA
+    IsUpper -   what half of CHA is provided
+    B       -   array[N,M], right part
+    M       -   right part size
+
+OUTPUT PARAMETERS:
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
+
+  -- ALGLIB --
+     Copyright 18.03.2015 by Bochkanov Sergey
+*************************************************************************/
+bool hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, complex_2d_array &b, const ae_int_t m, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -3067,15 +5570,15 @@ void hpdmatrixcholeskysolvem(const complex_2d_array &cha, const ae_int_t n, cons
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixcholeskysolvem(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_matrix*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::hpdmatrixcholeskysolvemfast(cha.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -3097,19 +5600,93 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    A is singular, or VERY close to singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N]:
-                * for info>0 overwritten by solution
-                * for info=-3 filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_2d_array &b, const ae_int_t m, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const bool isupper, complex_2d_array &b, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    ae_int_t m;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.rows()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixcholeskysolvemfast': looks like one of arguments has wrong size");
+    n = cha.rows();
+    m = b.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    ae_bool result = alglib_impl::hpdmatrixcholeskysolvemfast(cha.c_ptr(), n, isupper, b.c_ptr(), m, &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return *(reinterpret_cast<bool*>(&result));
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*x=b with N*N Hermitian positive definite matrix A given
+by its Cholesky decomposition, and N*1 complex vectors x and  b.  This  is
+"slow-but-feature-rich" version of the solver  which  estimates  condition
+number of the system.
+
+Algorithm features:
+* automatic detection of degenerate cases
+* O(N^2) complexity
+* condition number estimation
+* matrix is represented by its upper or lower triangle
+
+No iterative refinement is provided because such partial representation of
+matrix does not allow efficient calculation of extra-precise  matrix-vector
+products for large matrices. Use RMatrixSolve or RMatrixMixedSolve  if  you
+need iterative refinement.
+
+IMPORTANT: ! this function is NOT the most efficient linear solver provided
+           ! by ALGLIB. It estimates condition  number  of  linear system,
+           ! which results in 10-15x  performance  penalty  when  compared
+           ! with "fast" version which just calls triangular solver.
+           !
+           ! This performance penalty is insignificant  when compared with
+           ! cost of large LU decomposition.  However,  if you  call  this
+           ! function many times for the same  left  side,  this  overhead
+           ! BECOMES significant. It  also  becomes significant for small-
+           ! scale problems (N<50).
+           !
+           ! In such cases we strongly recommend you to use faster solver,
+           ! HPDMatrixCholeskySolveFast() function.
+
+INPUT PARAMETERS
+    CHA     -   array[0..N-1,0..N-1], Cholesky decomposition,
+                SPDMatrixCholesky result
+    N       -   size of A
+    IsUpper -   what half of CHA is provided
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
+
+  -- ALGLIB --
+     Copyright 27.01.2010 by Bochkanov Sergey
+*************************************************************************/
+void hpdmatrixcholeskysolve(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -3126,7 +5703,7 @@ void hpdmatrixcholeskysolvemfast(const complex_2d_array &cha, const ae_int_t n, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixcholeskysolvemfast(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_matrix*>(b.c_ptr()), m, &info, &_alglib_env_state);
+    alglib_impl::hpdmatrixcholeskysolve(cha.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -3170,22 +5747,70 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
-    X       -   array[N]:
-                * for info>0  - solution
-                * for info=-3 - filled by zeros
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolve(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, densesolverreport &rep, complex_1d_array &x, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+void hpdmatrixcholeskysolve(const complex_2d_array &cha, const bool isupper, const complex_1d_array &b, complex_1d_array &x, densesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixcholeskysolve': looks like one of arguments has wrong size");
+    n = cha.rows();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::hpdmatrixcholeskysolve(cha.c_ptr(), n, isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Dense solver for A*x=b with N*N Hermitian positive definite matrix A given
+by its Cholesky decomposition, and N*1 complex vectors x and  b.  This  is
+"fast-but-lightweight" version of the solver.
+
+Algorithm features:
+* O(N^2) complexity
+* matrix is represented by its upper or lower triangle
+* no additional time-consuming features
+
+INPUT PARAMETERS
+    CHA     -   array[0..N-1,0..N-1], Cholesky decomposition,
+                SPDMatrixCholesky result
+    N       -   size of A
+    IsUpper -   what half of CHA is provided
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    B       -   array[N]:
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
+
+  -- ALGLIB --
+     Copyright 18.03.2015 by Bochkanov Sergey
+*************************************************************************/
+bool hpdmatrixcholeskysolvefast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, complex_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -3196,15 +5821,15 @@ void hpdmatrixcholeskysolve(const complex_2d_array &cha, const ae_int_t n, const
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
 #else
         _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
+        return 0;
 #endif
     }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixcholeskysolve(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, const_cast<alglib_impl::densesolverreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::hpdmatrixcholeskysolvefast(cha.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return bool(result);
 }
 
 /*************************************************************************
@@ -3225,39 +5850,38 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        B is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * for info>0  - overwritten by solution
-                * for info=-3 - filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvefast(const complex_2d_array &cha, const ae_int_t n, const bool isupper, const complex_1d_array &b, ae_int_t &info, const xparams _xparams)
+#if !defined(AE_NO_EXCEPTIONS)
+bool hpdmatrixcholeskysolvefast(const complex_2d_array &cha, const bool isupper, complex_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t n;
+    if( (cha.rows()!=cha.cols()) || (cha.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'hpdmatrixcholeskysolvefast': looks like one of arguments has wrong size");
+    n = cha.rows();
     alglib_impl::ae_state_init(&_alglib_env_state);
     if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::hpdmatrixcholeskysolvefast(const_cast<alglib_impl::ae_matrix*>(cha.c_ptr()), n, isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &info, &_alglib_env_state);
+    ae_bool result = alglib_impl::hpdmatrixcholeskysolvefast(cha.c_ptr(), n, isupper, b.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
+    return *(reinterpret_cast<bool*>(&result));
 }
+#endif
 
 /*************************************************************************
 Dense solver.
@@ -3277,16 +5901,12 @@ INPUT PARAMETERS
     NRows   -   vertical size of A
     NCols   -   horizontal size of A
     B       -   array[0..NCols-1], right part
-    Threshold-  a number in [0,1]. Singular values  beyond  Threshold  are
+    Threshold-  a number in [0,1]. Singular values  beyond  Threshold*Largest are
                 considered  zero.  Set  it to 0.0, if you don't understand
                 what it means, so the solver will choose good value on its
                 own.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -4    SVD subroutine failed
-                * -1    if NRows<=0 or NCols<=0 or Threshold<0 was passed
-                *  1    if task is solved
     Rep     -   solver report, see below for more info
     X       -   array[0..N-1,0..M-1], it contains:
                 * solution of A*X=B (even for singular A)
@@ -3295,6 +5915,9 @@ OUTPUT PARAMETERS
 SOLVER REPORT
 
 Subroutine sets following fields of the Rep structure:
+* TerminationType is set to:
+            * -4 for SVD failure
+            * >0 for success
 * R2        reciprocal of condition number: 1/cond(A), 2-norm.
 * N         = NCols
 * K         dim(Null(A))
@@ -3328,7 +5951,7 @@ Subroutine sets following fields of the Rep structure:
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvels(const real_2d_array &a, const ae_int_t nrows, const ae_int_t ncols, const real_1d_array &b, const double threshold, ae_int_t &info, densesolverlsreport &rep, real_1d_array &x, const xparams _xparams)
+void rmatrixsolvels(const real_2d_array &a, const ae_int_t nrows, const ae_int_t ncols, const real_1d_array &b, const double threshold, real_1d_array &x, densesolverlsreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -3345,13 +5968,105 @@ void rmatrixsolvels(const real_2d_array &a, const ae_int_t nrows, const ae_int_t
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::rmatrixsolvels(const_cast<alglib_impl::ae_matrix*>(a.c_ptr()), nrows, ncols, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), threshold, &info, const_cast<alglib_impl::densesolverlsreport*>(rep.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::rmatrixsolvels(a.c_ptr(), nrows, ncols, b.c_ptr(), threshold, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+
+/*************************************************************************
+Dense solver.
+
+This subroutine finds solution of the linear system A*X=B with non-square,
+possibly degenerate A.  System  is  solved in the least squares sense, and
+general least squares solution  X = X0 + CX*y  which  minimizes |A*X-B| is
+returned. If A is non-degenerate, solution in the usual sense is returned.
+
+Algorithm features:
+* automatic detection (and correct handling!) of degenerate cases
+* iterative refinement
+* O(N^3) complexity
+
+INPUT PARAMETERS
+    A       -   array[0..NRows-1,0..NCols-1], system matrix
+    NRows   -   vertical size of A
+    NCols   -   horizontal size of A
+    B       -   array[0..NCols-1], right part
+    Threshold-  a number in [0,1]. Singular values  beyond  Threshold*Largest are
+                considered  zero.  Set  it to 0.0, if you don't understand
+                what it means, so the solver will choose good value on its
+                own.
+
+OUTPUT PARAMETERS
+    Rep     -   solver report, see below for more info
+    X       -   array[0..N-1,0..M-1], it contains:
+                * solution of A*X=B (even for singular A)
+                * zeros, if SVD subroutine failed
+
+SOLVER REPORT
+
+Subroutine sets following fields of the Rep structure:
+* TerminationType is set to:
+            * -4 for SVD failure
+            * >0 for success
+* R2        reciprocal of condition number: 1/cond(A), 2-norm.
+* N         = NCols
+* K         dim(Null(A))
+* CX        array[0..N-1,0..K-1], kernel of A.
+            Columns of CX store such vectors that A*CX[i]=0.
+
+  ! FREE EDITION OF ALGLIB:
+  !
+  ! Free Edition of ALGLIB supports following important features for  this
+  ! function:
+  ! * C++ version: x64 SIMD support using C++ intrinsics
+  ! * C#  version: x64 SIMD support using NET5/NetCore hardware intrinsics
+  !
+  ! We  recommend  you  to  read  'Compiling ALGLIB' section of the ALGLIB
+  ! Reference Manual in order  to  find  out  how to activate SIMD support
+  ! in ALGLIB.
+
+  ! COMMERCIAL EDITION OF ALGLIB:
+  !
+  ! Commercial Edition of ALGLIB includes following important improvements
+  ! of this function:
+  ! * high-performance native backend with same C# interface (C# version)
+  ! * multithreading support (C++ and C# versions)
+  ! * hardware vendor (Intel) implementations of linear algebra primitives
+  !   (C++ and C# versions, x86/x64 platform)
+  !
+  ! We recommend you to read 'Working with commercial version' section  of
+  ! ALGLIB Reference Manual in order to find out how to  use  performance-
+  ! related features provided by commercial edition of ALGLIB.
+
+  -- ALGLIB --
+     Copyright 24.08.2009 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+void rmatrixsolvels(const real_2d_array &a, const real_1d_array &b, const double threshold, real_1d_array &x, densesolverlsreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t nrows;
+    ae_int_t ncols;
+    if( (a.rows()!=b.length()))
+        _ALGLIB_CPP_EXCEPTION("Error while calling 'rmatrixsolvels': looks like one of arguments has wrong size");
+    nrows = a.rows();
+    ncols = a.cols();
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::rmatrixsolvels(a.c_ptr(), nrows, ncols, b.c_ptr(), threshold, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
 #endif
+#endif
 
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+#if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 This structure is a sparse solver report (both direct and iterative solvers
 use this structure).
@@ -3464,9 +6179,9 @@ alglib_impl::sparsesolverreport* _sparsesolverreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::sparsesolverreport* _sparsesolverreport_owner::c_ptr() const
+const alglib_impl::sparsesolverreport* _sparsesolverreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::sparsesolverreport*>(p_struct);
+    return p_struct;
 }
 sparsesolverreport::sparsesolverreport() : _sparsesolverreport_owner() ,terminationtype(p_struct->terminationtype),nmv(p_struct->nmv),iterationscount(p_struct->iterationscount),r2(p_struct->r2)
 {
@@ -3488,242 +6203,7 @@ sparsesolverreport::~sparsesolverreport()
 {
 }
 
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
-definite matrix A, N*1 vectors x and b.
 
-This solver  converts  input  matrix  to  SKS  format,  performs  Cholesky
-factorization using  SKS  Cholesky  subroutine  (works  well  for  limited
-bandwidth matrices) and uses sparse triangular solvers to get solution  of
-the original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdsolvesks(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
-{
-    jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
-    alglib_impl::ae_state_init(&_alglib_env_state);
-    if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
-        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
-    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
-        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsespdsolvesks(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
-    alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
-}
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
-definite matrix A, N*1 vectors x and b.
-
-This solver  converts  input  matrix  to  CRS  format,  performs  Cholesky
-factorization using supernodal Cholesky  decomposition  with  permutation-
-reducing ordering and uses sparse triangular solver to get solution of the
-original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[N], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdsolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
-{
-    jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
-    alglib_impl::ae_state_init(&_alglib_env_state);
-    if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
-        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
-    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
-        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsespdsolve(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
-    alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
-}
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N real  symmetric  positive definite
-matrix A given by its Cholesky decomposition, and N*1 vectors x and b.
-
-IMPORTANT: this solver requires input matrix to be in  the  SKS  (Skyline)
-           or CRS (compressed row storage) format. An  exception  will  be
-           generated if you pass matrix in some other format.
-
-INPUT PARAMETERS
-    A       -   sparse NxN matrix stored in CRs or SKS format, must be NxN
-                exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[N], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdcholeskysolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
-{
-    jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
-    alglib_impl::ae_state_init(&_alglib_env_state);
-    if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
-        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
-    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
-        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsespdcholeskysolve(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
-    alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
-}
-
-/*************************************************************************
-Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
-matrix A, N*1 vectors x and b.
-
-This solver converts input matrix to CRS format, performs LU factorization
-and uses sparse triangular solvers to get solution of the original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly, any storage format
-    N       -   size of A, N>0
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsesolve(const sparsematrix &a, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
-{
-    jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
-    alglib_impl::ae_state_init(&_alglib_env_state);
-    if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
-        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
-    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
-        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolve(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(b.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
-    alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
-}
-
-/*************************************************************************
-Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
-matrix A given by its LU factorization, N*1 vectors x and b.
-
-IMPORTANT: this solver requires input matrix  to  be  in  the  CRS  sparse
-           storage format. An exception will  be  generated  if  you  pass
-           matrix in some other format (HASH or SKS).
-
-INPUT PARAMETERS
-    A       -   LU factorization of the sparse matrix, must be NxN exactly
-                in CRS storage format
-    P, Q    -   pivot indexes from LU factorization
-    N       -   size of A, N>0
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparselusolve(const sparsematrix &a, const integer_1d_array &p, const integer_1d_array &q, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
-{
-    jmp_buf _break_jump;
-    alglib_impl::ae_state _alglib_env_state;
-    alglib_impl::ae_state_init(&_alglib_env_state);
-    if( setjmp(_break_jump) )
-    {
-#if !defined(AE_NO_EXCEPTIONS)
-        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
-#else
-        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
-        return;
-#endif
-    }
-    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
-    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
-        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparselusolve(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(p.c_ptr()), const_cast<alglib_impl::ae_vector*>(q.c_ptr()), const_cast<alglib_impl::ae_vector*>(b.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
-    alglib_impl::ae_state_clear(&_alglib_env_state);
-    return;
-}
-#endif
-
-#if defined(AE_COMPILE_ITERATIVESPARSE) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 This object stores state of the sparse linear solver object.
 
@@ -3830,9 +6310,9 @@ alglib_impl::sparsesolverstate* _sparsesolverstate_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::sparsesolverstate* _sparsesolverstate_owner::c_ptr() const
+const alglib_impl::sparsesolverstate* _sparsesolverstate_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::sparsesolverstate*>(p_struct);
+    return p_struct;
 }
 sparsesolverstate::sparsesolverstate() : _sparsesolverstate_owner() 
 {
@@ -3928,7 +6408,7 @@ void sparsesolvesymmetricgmres(const sparsematrix &a, const bool isupper, const 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolvesymmetricgmres(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), k, epsf, maxits, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolvesymmetricgmres(a.c_ptr(), isupper, b.c_ptr(), k, epsf, maxits, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -3999,7 +6479,7 @@ void sparsesolvegmres(const sparsematrix &a, const real_1d_array &b, const ae_in
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolvegmres(const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(b.c_ptr()), k, epsf, maxits, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolvegmres(a.c_ptr(), b.c_ptr(), k, epsf, maxits, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4083,7 +6563,7 @@ void sparsesolvercreate(const ae_int_t n, sparsesolverstate &state, const xparam
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolvercreate(n, const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolvercreate(n, state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4109,7 +6589,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetalgogmres(const sparsesolverstate &state, const ae_int_t k, const xparams _xparams)
+void sparsesolversetalgogmres(sparsesolverstate &state, const ae_int_t k, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4126,7 +6606,7 @@ void sparsesolversetalgogmres(const sparsesolverstate &state, const ae_int_t k, 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolversetalgogmres(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), k, &_alglib_env_state);
+    alglib_impl::sparsesolversetalgogmres(state.c_ptr(), k, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4145,7 +6625,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetstartingpoint(const sparsesolverstate &state, const real_1d_array &x, const xparams _xparams)
+void sparsesolversetstartingpoint(sparsesolverstate &state, const real_1d_array &x, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4162,7 +6642,7 @@ void sparsesolversetstartingpoint(const sparsesolverstate &state, const real_1d_
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolversetstartingpoint(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolversetstartingpoint(state.c_ptr(), x.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4186,7 +6666,7 @@ value.
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetcond(const sparsesolverstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams)
+void sparsesolversetcond(sparsesolverstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4203,7 +6683,7 @@ void sparsesolversetcond(const sparsesolverstate &state, const double epsf, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolversetcond(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), epsf, maxits, &_alglib_env_state);
+    alglib_impl::sparsesolversetcond(state.c_ptr(), epsf, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4243,7 +6723,7 @@ RESULT:
   -- ALGLIB --
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversolvesymmetric(const sparsesolverstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams)
+void sparsesolversolvesymmetric(sparsesolverstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4260,7 +6740,7 @@ void sparsesolversolvesymmetric(const sparsesolverstate &state, const sparsematr
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolversolvesymmetric(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolversolvesymmetric(state.c_ptr(), a.c_ptr(), isupper, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4292,7 +6772,7 @@ RESULT:
   -- ALGLIB --
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversolve(const sparsesolverstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams)
+void sparsesolversolve(sparsesolverstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4309,7 +6789,7 @@ void sparsesolversolve(const sparsesolverstate &state, const sparsematrix &a, co
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolversolve(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolversolve(state.c_ptr(), a.c_ptr(), b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4345,7 +6825,7 @@ s
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolverresults(const sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+void sparsesolverresults(sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4362,7 +6842,7 @@ void sparsesolverresults(const sparsesolverstate &state, real_1d_array &x, spars
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolverresults(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolverresults(state.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4391,7 +6871,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 01.10.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolversetxrep(const sparsesolverstate &state, const bool needxrep, const xparams _xparams)
+void sparsesolversetxrep(sparsesolverstate &state, const bool needxrep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4408,7 +6888,7 @@ void sparsesolversetxrep(const sparsesolverstate &state, const bool needxrep, co
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolversetxrep(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), needxrep, &_alglib_env_state);
+    alglib_impl::sparsesolversetxrep(state.c_ptr(), needxrep, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4433,7 +6913,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocstart(const sparsesolverstate &state, const real_1d_array &b, const xparams _xparams)
+void sparsesolveroocstart(sparsesolverstate &state, const real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4450,7 +6930,7 @@ void sparsesolveroocstart(const sparsesolverstate &state, const real_1d_array &b
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolveroocstart(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolveroocstart(state.c_ptr(), b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4472,7 +6952,7 @@ related functions of this subspackage in a loop like one given below:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-bool sparsesolverooccontinue(const sparsesolverstate &state, const xparams _xparams)
+bool sparsesolverooccontinue(sparsesolverstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4489,7 +6969,7 @@ bool sparsesolverooccontinue(const sparsesolverstate &state, const xparams _xpar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    ae_bool result = alglib_impl::sparsesolverooccontinue(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::sparsesolverooccontinue(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return bool(result);
 }
@@ -4530,7 +7010,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocgetrequestinfo(const sparsesolverstate &state, ae_int_t &requesttype, const xparams _xparams)
+void sparsesolveroocgetrequestinfo(sparsesolverstate &state, ae_int_t &requesttype, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4547,7 +7027,7 @@ void sparsesolveroocgetrequestinfo(const sparsesolverstate &state, ae_int_t &req
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolveroocgetrequestinfo(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), &requesttype, &_alglib_env_state);
+    alglib_impl::sparsesolveroocgetrequestinfo(state.c_ptr(), &requesttype, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4584,7 +7064,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocgetrequestdata(const sparsesolverstate &state, real_1d_array &x, const xparams _xparams)
+void sparsesolveroocgetrequestdata(sparsesolverstate &state, real_1d_array &x, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4601,7 +7081,7 @@ void sparsesolveroocgetrequestdata(const sparsesolverstate &state, real_1d_array
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolveroocgetrequestdata(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolveroocgetrequestdata(state.c_ptr(), x.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4622,7 +7102,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocgetrequestdata1(const sparsesolverstate &state, double &v, const xparams _xparams)
+void sparsesolveroocgetrequestdata1(sparsesolverstate &state, double &v, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4639,7 +7119,7 @@ void sparsesolveroocgetrequestdata1(const sparsesolverstate &state, double &v, c
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolveroocgetrequestdata1(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), &v, &_alglib_env_state);
+    alglib_impl::sparsesolveroocgetrequestdata1(state.c_ptr(), &v, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4668,7 +7148,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocsendresult(const sparsesolverstate &state, const real_1d_array &ax, const xparams _xparams)
+void sparsesolveroocsendresult(sparsesolverstate &state, const real_1d_array &ax, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4685,7 +7165,7 @@ void sparsesolveroocsendresult(const sparsesolverstate &state, const real_1d_arr
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolveroocsendresult(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(ax.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolveroocsendresult(state.c_ptr(), ax.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4730,7 +7210,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolveroocstop(const sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+void sparsesolveroocstop(sparsesolverstate &state, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4747,7 +7227,7 @@ void sparsesolveroocstop(const sparsesolverstate &state, real_1d_array &x, spars
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolveroocstop(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::sparsesolverreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolveroocstop(state.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4778,7 +7258,7 @@ NOTE: solver clears termination flag on its start, it means that  if  some
   -- ALGLIB --
      Copyright 01.10.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolverrequesttermination(const sparsesolverstate &state, const xparams _xparams)
+void sparsesolverrequesttermination(sparsesolverstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -4795,7 +7275,7 @@ void sparsesolverrequesttermination(const sparsesolverstate &state, const xparam
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::sparsesolverrequesttermination(const_cast<alglib_impl::sparsesolverstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::sparsesolverrequesttermination(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -4908,9 +7388,9 @@ alglib_impl::lincgstate* _lincgstate_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::lincgstate* _lincgstate_owner::c_ptr() const
+const alglib_impl::lincgstate* _lincgstate_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::lincgstate*>(p_struct);
+    return p_struct;
 }
 lincgstate::lincgstate() : _lincgstate_owner() 
 {
@@ -5036,9 +7516,9 @@ alglib_impl::lincgreport* _lincgreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::lincgreport* _lincgreport_owner::c_ptr() const
+const alglib_impl::lincgreport* _lincgreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::lincgreport*>(p_struct);
+    return p_struct;
 }
 lincgreport::lincgreport() : _lincgreport_owner() ,iterationscount(p_struct->iterationscount),nmv(p_struct->nmv),terminationtype(p_struct->terminationtype),r2(p_struct->r2)
 {
@@ -5103,7 +7583,7 @@ void lincgcreate(const ae_int_t n, lincgstate &state, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgcreate(n, const_cast<alglib_impl::lincgstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::lincgcreate(n, state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5121,7 +7601,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetstartingpoint(const lincgstate &state, const real_1d_array &x, const xparams _xparams)
+void lincgsetstartingpoint(lincgstate &state, const real_1d_array &x, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5138,7 +7618,7 @@ void lincgsetstartingpoint(const lincgstate &state, const real_1d_array &x, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetstartingpoint(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::lincgsetstartingpoint(state.c_ptr(), x.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5155,7 +7635,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetprecunit(const lincgstate &state, const xparams _xparams)
+void lincgsetprecunit(lincgstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5172,7 +7652,7 @@ void lincgsetprecunit(const lincgstate &state, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetprecunit(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::lincgsetprecunit(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5188,7 +7668,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetprecdiag(const lincgstate &state, const xparams _xparams)
+void lincgsetprecdiag(lincgstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5205,7 +7685,7 @@ void lincgsetprecdiag(const lincgstate &state, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetprecdiag(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::lincgsetprecdiag(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5229,7 +7709,7 @@ value.
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetcond(const lincgstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams)
+void lincgsetcond(lincgstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5246,7 +7726,7 @@ void lincgsetcond(const lincgstate &state, const double epsf, const ae_int_t max
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetcond(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), epsf, maxits, &_alglib_env_state);
+    alglib_impl::lincgsetcond(state.c_ptr(), epsf, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5278,7 +7758,7 @@ NOTE: this function uses lightweight preconditioning -  multiplication  by
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsolvesparse(const lincgstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams)
+void lincgsolvesparse(lincgstate &state, const sparsematrix &a, const bool isupper, const real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5295,7 +7775,7 @@ void lincgsolvesparse(const lincgstate &state, const sparsematrix &a, const bool
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsolvesparse(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), isupper, const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
+    alglib_impl::lincgsolvesparse(state.c_ptr(), a.c_ptr(), isupper, b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5343,7 +7823,7 @@ void lincgresults(const lincgstate &state, real_1d_array &x, lincgreport &rep, c
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgresults(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::lincgreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::lincgresults(state.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5355,7 +7835,7 @@ after N subsequent iterations.
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetrestartfreq(const lincgstate &state, const ae_int_t srf, const xparams _xparams)
+void lincgsetrestartfreq(lincgstate &state, const ae_int_t srf, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5372,7 +7852,7 @@ void lincgsetrestartfreq(const lincgstate &state, const ae_int_t srf, const xpar
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetrestartfreq(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), srf, &_alglib_env_state);
+    alglib_impl::lincgsetrestartfreq(state.c_ptr(), srf, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5395,7 +7875,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetrupdatefreq(const lincgstate &state, const ae_int_t freq, const xparams _xparams)
+void lincgsetrupdatefreq(lincgstate &state, const ae_int_t freq, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5412,7 +7892,7 @@ void lincgsetrupdatefreq(const lincgstate &state, const ae_int_t freq, const xpa
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetrupdatefreq(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), freq, &_alglib_env_state);
+    alglib_impl::lincgsetrupdatefreq(state.c_ptr(), freq, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5430,7 +7910,7 @@ provided to MinCGOptimize().
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgsetxrep(const lincgstate &state, const bool needxrep, const xparams _xparams)
+void lincgsetxrep(lincgstate &state, const bool needxrep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5447,7 +7927,7 @@ void lincgsetxrep(const lincgstate &state, const bool needxrep, const xparams _x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::lincgsetxrep(const_cast<alglib_impl::lincgstate*>(state.c_ptr()), needxrep, &_alglib_env_state);
+    alglib_impl::lincgsetxrep(state.c_ptr(), needxrep, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5559,9 +8039,9 @@ alglib_impl::linlsqrstate* _linlsqrstate_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::linlsqrstate* _linlsqrstate_owner::c_ptr() const
+const alglib_impl::linlsqrstate* _linlsqrstate_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::linlsqrstate*>(p_struct);
+    return p_struct;
 }
 linlsqrstate::linlsqrstate() : _linlsqrstate_owner() 
 {
@@ -5687,9 +8167,9 @@ alglib_impl::linlsqrreport* _linlsqrreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::linlsqrreport* _linlsqrreport_owner::c_ptr() const
+const alglib_impl::linlsqrreport* _linlsqrreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::linlsqrreport*>(p_struct);
+    return p_struct;
 }
 linlsqrreport::linlsqrreport() : _linlsqrreport_owner() ,iterationscount(p_struct->iterationscount),nmv(p_struct->nmv),terminationtype(p_struct->terminationtype)
 {
@@ -5756,7 +8236,7 @@ void linlsqrcreate(const ae_int_t m, const ae_int_t n, linlsqrstate &state, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrcreate(m, n, const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrcreate(m, n, state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5776,7 +8256,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2018 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrcreatebuf(const ae_int_t m, const ae_int_t n, const linlsqrstate &state, const xparams _xparams)
+void linlsqrcreatebuf(const ae_int_t m, const ae_int_t n, linlsqrstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5793,7 +8273,7 @@ void linlsqrcreatebuf(const ae_int_t m, const ae_int_t n, const linlsqrstate &st
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrcreatebuf(m, n, const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrcreatebuf(m, n, state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5810,7 +8290,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetprecunit(const linlsqrstate &state, const xparams _xparams)
+void linlsqrsetprecunit(linlsqrstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5827,7 +8307,7 @@ void linlsqrsetprecunit(const linlsqrstate &state, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrsetprecunit(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrsetprecunit(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5843,7 +8323,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 19.11.2012 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetprecdiag(const linlsqrstate &state, const xparams _xparams)
+void linlsqrsetprecdiag(linlsqrstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5860,7 +8340,7 @@ void linlsqrsetprecdiag(const linlsqrstate &state, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrsetprecdiag(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrsetprecdiag(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5878,7 +8358,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetlambdai(const linlsqrstate &state, const double lambdai, const xparams _xparams)
+void linlsqrsetlambdai(linlsqrstate &state, const double lambdai, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5895,7 +8375,7 @@ void linlsqrsetlambdai(const linlsqrstate &state, const double lambdai, const xp
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrsetlambdai(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), lambdai, &_alglib_env_state);
+    alglib_impl::linlsqrsetlambdai(state.c_ptr(), lambdai, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5923,7 +8403,7 @@ NOTE: this function uses lightweight preconditioning -  multiplication  by
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsolvesparse(const linlsqrstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams)
+void linlsqrsolvesparse(linlsqrstate &state, const sparsematrix &a, const real_1d_array &b, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5940,7 +8420,7 @@ void linlsqrsolvesparse(const linlsqrstate &state, const sparsematrix &a, const 
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrsolvesparse(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), const_cast<alglib_impl::sparsematrix*>(a.c_ptr()), const_cast<alglib_impl::ae_vector*>(b.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrsolvesparse(state.c_ptr(), a.c_ptr(), b.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -5963,7 +8443,7 @@ be setted as default values.
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetcond(const linlsqrstate &state, const double epsa, const double epsb, const ae_int_t maxits, const xparams _xparams)
+void linlsqrsetcond(linlsqrstate &state, const double epsa, const double epsb, const ae_int_t maxits, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -5980,7 +8460,7 @@ void linlsqrsetcond(const linlsqrstate &state, const double epsa, const double e
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrsetcond(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), epsa, epsb, maxits, &_alglib_env_state);
+    alglib_impl::linlsqrsetcond(state.c_ptr(), epsa, epsb, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6028,7 +8508,7 @@ void linlsqrresults(const linlsqrstate &state, real_1d_array &x, linlsqrreport &
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrresults(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::linlsqrreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrresults(state.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6046,7 +8526,7 @@ provided to MinCGOptimize().
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrsetxrep(const linlsqrstate &state, const bool needxrep, const xparams _xparams)
+void linlsqrsetxrep(linlsqrstate &state, const bool needxrep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6063,7 +8543,7 @@ void linlsqrsetxrep(const linlsqrstate &state, const bool needxrep, const xparam
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrsetxrep(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), needxrep, &_alglib_env_state);
+    alglib_impl::linlsqrsetxrep(state.c_ptr(), needxrep, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6098,7 +8578,7 @@ ae_int_t linlsqrpeekiterationscount(const linlsqrstate &s, const xparams _xparam
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_int_t result = alglib_impl::linlsqrpeekiterationscount(const_cast<alglib_impl::linlsqrstate*>(s.c_ptr()), &_alglib_env_state);
+    alglib_impl::ae_int_t result = alglib_impl::linlsqrpeekiterationscount(s.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return ae_int_t(result);
 }
@@ -6130,7 +8610,7 @@ NOTE: solver clears termination flag on its start, it means that  if  some
   -- ALGLIB --
      Copyright 08.10.2014 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrrequesttermination(const linlsqrstate &state, const xparams _xparams)
+void linlsqrrequesttermination(linlsqrstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6147,7 +8627,484 @@ void linlsqrrequesttermination(const linlsqrstate &state, const xparams _xparams
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::linlsqrrequesttermination(const_cast<alglib_impl::linlsqrstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::linlsqrrequesttermination(state.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
+definite matrix A, N*1 vectors x and b.
+
+This solver  converts  input  matrix  to  SKS  format,  performs  Cholesky
+factorization using  SKS  Cholesky  subroutine  (works  well  for  limited
+bandwidth matrices) and uses sparse triangular solvers to get solution  of
+the original system.
+
+IMPORTANT: this  function  is  intended  for  low  profile (variable band)
+           linear systems with dense or nearly-dense bands. Only  in  such
+           cases  it  provides  some  performance  improvement  over  more
+           general sparsrspdsolve(). If your  system  has  high  bandwidth
+           or sparse band, the general sparsrspdsolve() is  likely  to  be
+           more efficient.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly
+    IsUpper -   which half of A is provided (another half is ignored)
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdsolvesks(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsespdsolvesks(a.c_ptr(), isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
+definite matrix A, N*1 vectors x and b.
+
+This solver  converts  input  matrix  to  CRS  format,  performs  Cholesky
+factorization using supernodal Cholesky  decomposition  with  permutation-
+reducing ordering and uses sparse triangular solver to get solution of the
+original system.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly.
+                Can be stored in any sparse storage format, CRS is preferred.
+    IsUpper -   which half of A is provided (another half is ignored).
+                It is better to store the lower triangle because it allows
+                us to avoid one transposition during internal conversion.
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdsolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsespdsolve(a.c_ptr(), isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N real  symmetric  positive definite
+matrix A given by its Cholesky decomposition, and N*1 vectors x and b.
+
+IMPORTANT: this solver requires input matrix to be in  the  SKS  (Skyline)
+           or CRS (compressed row storage) format. An  exception  will  be
+           generated if you pass matrix in some other format.
+
+INPUT PARAMETERS
+    A       -   sparse NxN matrix stored in CRs or SKS format, must be NxN
+                exactly
+    IsUpper -   which half of A is provided (another half is ignored)
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdcholeskysolve(const sparsematrix &a, const bool isupper, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsespdcholeskysolve(a.c_ptr(), isupper, b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A, N*1 vectors x and b.
+
+This function internally uses several solvers:
+* supernodal solver with static pivoting applied to  a  2N*2N  regularized
+  augmented  system, followed by iterative refinement. This solver  is   a
+  recommended option because it provides the best speed and has the lowest
+  memory requirements.
+* sparse LU with dynamic pivoting for stability. Provides better  accuracy
+  at the cost of a significantly lower performance. Recommended  only  for
+  extremely unstable problems.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly, any storage format
+    B       -   array[N], right part
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+                * 20    use sparse LU with dynamic pivoting for stability.
+                        Not intended for large-scale problems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void sparsesolve(const sparsematrix &a, const real_1d_array &b, const ae_int_t solvertype, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsesolve(a.c_ptr(), b.c_ptr(), solvertype, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A, N*1 vectors x and b.
+
+This function internally uses several solvers:
+* supernodal solver with static pivoting applied to  a  2N*2N  regularized
+  augmented  system, followed by iterative refinement. This solver  is   a
+  recommended option because it provides the best speed and has the lowest
+  memory requirements.
+* sparse LU with dynamic pivoting for stability. Provides better  accuracy
+  at the cost of a significantly lower performance. Recommended  only  for
+  extremely unstable problems.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly, any storage format
+    B       -   array[N], right part
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+                * 20    use sparse LU with dynamic pivoting for stability.
+                        Not intended for large-scale problems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+void sparsesolve(const sparsematrix &a, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t solvertype;
+
+    solvertype = 0;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsesolve(a.c_ptr(), b.c_ptr(), solvertype, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Sparse linear least squares solver for A*x=b with  general  (nonsymmetric)
+N*N sparse real matrix A, N*1 vectors x and b.
+
+This function solves a regularized linear least squares problem of the form
+
+        (                      )
+    min ( |Ax-b|^2 + reg*|x|^2 ), with reg>=sqrt(MachineAccuracy)
+        (                      )
+
+The function internally uses supernodal  solver  to  solve  an  augmented-
+regularized sparse system. The solver, which was initially used  to  solve
+sparse square system, can also  be  used  to  solve  rectangular  systems,
+provided that the system is regularized with regularizing  coefficient  at
+least sqrt(MachineAccuracy), which is ~10^8 (double precision).
+
+It can be used to solve both full rank and rank deficient systems.
+
+INPUT PARAMETERS
+    A       -   sparse MxN matrix, any storage format
+    B       -   array[M], right part
+    Reg     -   regularization coefficient, Reg>=sqrt(MachineAccuracy),
+                lower values will be silently increased.
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], least squares solution
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success.
+
+                  Present version of the solver does NOT returns negative
+                  completion codes because  it  does  not  fail.  However,
+                  future ALGLIB versions may include solvers which  return
+                  negative completion codes.
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void sparsesolvelsreg(const sparsematrix &a, const real_1d_array &b, const double reg, const ae_int_t solvertype, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsesolvelsreg(a.c_ptr(), b.c_ptr(), reg, solvertype, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+
+/*************************************************************************
+Sparse linear least squares solver for A*x=b with  general  (nonsymmetric)
+N*N sparse real matrix A, N*1 vectors x and b.
+
+This function solves a regularized linear least squares problem of the form
+
+        (                      )
+    min ( |Ax-b|^2 + reg*|x|^2 ), with reg>=sqrt(MachineAccuracy)
+        (                      )
+
+The function internally uses supernodal  solver  to  solve  an  augmented-
+regularized sparse system. The solver, which was initially used  to  solve
+sparse square system, can also  be  used  to  solve  rectangular  systems,
+provided that the system is regularized with regularizing  coefficient  at
+least sqrt(MachineAccuracy), which is ~10^8 (double precision).
+
+It can be used to solve both full rank and rank deficient systems.
+
+INPUT PARAMETERS
+    A       -   sparse MxN matrix, any storage format
+    B       -   array[M], right part
+    Reg     -   regularization coefficient, Reg>=sqrt(MachineAccuracy),
+                lower values will be silently increased.
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], least squares solution
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success.
+
+                  Present version of the solver does NOT returns negative
+                  completion codes because  it  does  not  fail.  However,
+                  future ALGLIB versions may include solvers which  return
+                  negative completion codes.
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+#if !defined(AE_NO_EXCEPTIONS)
+void sparsesolvelsreg(const sparsematrix &a, const real_1d_array &b, const double reg, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;    
+    ae_int_t solvertype;
+
+    solvertype = 0;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparsesolvelsreg(a.c_ptr(), b.c_ptr(), reg, solvertype, x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
+
+    alglib_impl::ae_state_clear(&_alglib_env_state);
+    return;
+}
+#endif
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A given by its LU factorization, N*1 vectors x and b.
+
+IMPORTANT: this solver requires input matrix  to  be  in  the  CRS  sparse
+           storage format. An exception will  be  generated  if  you  pass
+           matrix in some other format (HASH or SKS).
+
+INPUT PARAMETERS
+    A       -   LU factorization of the sparse matrix, must be NxN exactly
+                in CRS storage format
+    P, Q    -   pivot indexes from LU factorization
+    N       -   size of A, N>0
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparselusolve(const sparsematrix &a, const integer_1d_array &p, const integer_1d_array &q, const real_1d_array &b, real_1d_array &x, sparsesolverreport &rep, const xparams _xparams)
+{
+    jmp_buf _break_jump;
+    alglib_impl::ae_state _alglib_env_state;
+    alglib_impl::ae_state_init(&_alglib_env_state);
+    if( setjmp(_break_jump) )
+    {
+#if !defined(AE_NO_EXCEPTIONS)
+        _ALGLIB_CPP_EXCEPTION(_alglib_env_state.error_msg);
+#else
+        _ALGLIB_SET_ERROR_FLAG(_alglib_env_state.error_msg);
+        return;
+#endif
+    }
+    ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
+    if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
+        ae_state_set_flags(&_alglib_env_state, _xparams.flags);
+    alglib_impl::sparselusolve(a.c_ptr(), p.c_ptr(), q.c_ptr(), b.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6257,9 +9214,9 @@ alglib_impl::nleqstate* _nleqstate_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::nleqstate* _nleqstate_owner::c_ptr() const
+const alglib_impl::nleqstate* _nleqstate_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::nleqstate*>(p_struct);
+    return p_struct;
 }
 nleqstate::nleqstate() : _nleqstate_owner() ,needf(p_struct->needf),needfij(p_struct->needfij),xupdated(p_struct->xupdated),f(p_struct->f),fi(&p_struct->fi),j(&p_struct->j),x(&p_struct->x)
 {
@@ -6385,9 +9342,9 @@ alglib_impl::nleqreport* _nleqreport_owner::c_ptr()
     return p_struct;
 }
 
-alglib_impl::nleqreport* _nleqreport_owner::c_ptr() const
+const alglib_impl::nleqreport* _nleqreport_owner::c_ptr() const
 {
-    return const_cast<alglib_impl::nleqreport*>(p_struct);
+    return p_struct;
 }
 nleqreport::nleqreport() : _nleqreport_owner() ,iterationscount(p_struct->iterationscount),nfunc(p_struct->nfunc),njac(p_struct->njac),terminationtype(p_struct->terminationtype)
 {
@@ -6496,7 +9453,7 @@ void nleqcreatelm(const ae_int_t n, const ae_int_t m, const real_1d_array &x, nl
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqcreatelm(n, m, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::nleqstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::nleqcreatelm(n, m, x.c_ptr(), state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6585,7 +9542,7 @@ void nleqcreatelm(const ae_int_t m, const real_1d_array &x, nleqstate &state, co
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqcreatelm(n, m, const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::nleqstate*>(state.c_ptr()), &_alglib_env_state);
+    alglib_impl::nleqcreatelm(n, m, x.c_ptr(), state.c_ptr(), &_alglib_env_state);
 
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
@@ -6611,7 +9568,7 @@ NOTES:
   -- ALGLIB --
      Copyright 20.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqsetcond(const nleqstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams)
+void nleqsetcond(nleqstate &state, const double epsf, const ae_int_t maxits, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6628,7 +9585,7 @@ void nleqsetcond(const nleqstate &state, const double epsf, const ae_int_t maxit
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqsetcond(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), epsf, maxits, &_alglib_env_state);
+    alglib_impl::nleqsetcond(state.c_ptr(), epsf, maxits, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6646,7 +9603,7 @@ provided to NLEQSolve().
   -- ALGLIB --
      Copyright 20.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqsetxrep(const nleqstate &state, const bool needxrep, const xparams _xparams)
+void nleqsetxrep(nleqstate &state, const bool needxrep, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6663,7 +9620,7 @@ void nleqsetxrep(const nleqstate &state, const bool needxrep, const xparams _xpa
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqsetxrep(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), needxrep, &_alglib_env_state);
+    alglib_impl::nleqsetxrep(state.c_ptr(), needxrep, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6685,7 +9642,7 @@ function value at the x+stp*d.
   -- ALGLIB --
      Copyright 20.08.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqsetstpmax(const nleqstate &state, const double stpmax, const xparams _xparams)
+void nleqsetstpmax(nleqstate &state, const double stpmax, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6702,7 +9659,7 @@ void nleqsetstpmax(const nleqstate &state, const double stpmax, const xparams _x
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqsetstpmax(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), stpmax, &_alglib_env_state);
+    alglib_impl::nleqsetstpmax(state.c_ptr(), stpmax, &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6712,7 +9669,7 @@ This function provides reverse communication interface
 Reverse communication interface is not documented or recommended to use.
 See below for functions which provide better documented API
 *************************************************************************/
-bool nleqiteration(const nleqstate &state, const xparams _xparams)
+bool nleqiteration(nleqstate &state, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6729,7 +9686,7 @@ bool nleqiteration(const nleqstate &state, const xparams _xparams)
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    ae_bool result = alglib_impl::nleqiteration(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), &_alglib_env_state);
+    ae_bool result = alglib_impl::nleqiteration(state.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return bool(result);
 }
@@ -6738,7 +9695,7 @@ bool nleqiteration(const nleqstate &state, const xparams _xparams)
 void nleqsolve(nleqstate &state,
     void (*func)(const real_1d_array &x, double &func, void *ptr),
     void  (*jac)(const real_1d_array &x, real_1d_array &fi, real_2d_array &jac, void *ptr),
-    void  (*rep)(const real_1d_array &x, double func, void *ptr), 
+    void  (*rep)(const real_1d_array &x, double func, void *ptr),
     void *ptr,
     const xparams _xparams)
 {
@@ -6759,6 +9716,7 @@ void nleqsolve(nleqstate &state,
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
     alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'nleqsolve()' (func is NULL)", &_alglib_env_state);
     alglib_impl::ae_assert(jac!=NULL,  "ALGLIB: error in 'nleqsolve()' (jac is NULL)", &_alglib_env_state);
+    alglib_impl::nleqsetprotocolv1(state.c_ptr(), &_alglib_env_state);
     while( alglib_impl::nleqiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -6830,7 +9788,7 @@ void nleqresults(const nleqstate &state, real_1d_array &x, nleqreport &rep, cons
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqresults(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::nleqreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::nleqresults(state.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6863,7 +9821,7 @@ void nleqresultsbuf(const nleqstate &state, real_1d_array &x, nleqreport &rep, c
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqresultsbuf(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), const_cast<alglib_impl::nleqreport*>(rep.c_ptr()), &_alglib_env_state);
+    alglib_impl::nleqresultsbuf(state.c_ptr(), x.c_ptr(), rep.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6885,7 +9843,7 @@ INPUT PARAMETERS:
   -- ALGLIB --
      Copyright 30.07.2010 by Bochkanov Sergey
 *************************************************************************/
-void nleqrestartfrom(const nleqstate &state, const real_1d_array &x, const xparams _xparams)
+void nleqrestartfrom(nleqstate &state, const real_1d_array &x, const xparams _xparams)
 {
     jmp_buf _break_jump;
     alglib_impl::ae_state _alglib_env_state;
@@ -6902,7 +9860,7 @@ void nleqrestartfrom(const nleqstate &state, const real_1d_array &x, const xpara
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=(alglib_impl::ae_uint64_t)0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::nleqrestartfrom(const_cast<alglib_impl::nleqstate*>(state.c_ptr()), const_cast<alglib_impl::ae_vector*>(x.c_ptr()), &_alglib_env_state);
+    alglib_impl::nleqrestartfrom(state.c_ptr(), x.c_ptr(), &_alglib_env_state);
     alglib_impl::ae_state_clear(&_alglib_env_state);
     return;
 }
@@ -6921,49 +9879,45 @@ namespace alglib_impl
 
 #endif
 #if defined(AE_COMPILE_DIRECTDENSESOLVERS) || !defined(AE_PARTIAL_BUILD)
-static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_bool havea,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
-static void directdensesolvers_spdmatrixcholeskysolveinternal(/* Real    */ ae_matrix* cha,
+static void directdensesolvers_spdmatrixcholeskysolveinternal(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_bool havea,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
-     ae_state *_state);
-static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
-     ae_int_t n,
-     /* Complex */ ae_matrix* a,
-     ae_bool havea,
-     /* Complex */ ae_matrix* b,
-     ae_int_t m,
-     ae_int_t* info,
      densesolverreport* rep,
-     /* Complex */ ae_matrix* x,
      ae_state *_state);
-static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ ae_matrix* cha,
+static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
+     ae_int_t n,
+     /* Complex */ const ae_matrix* a,
+     ae_bool havea,
+     /* Complex */ const ae_matrix* b,
+     ae_int_t m,
+     /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
+     ae_state *_state);
+static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_matrix* a,
+     /* Complex */ const ae_matrix* a,
      ae_bool havea,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state);
 static ae_int_t directdensesolvers_densesolverrfsmax(ae_int_t n,
      double r1,
@@ -6972,30 +9926,26 @@ static ae_int_t directdensesolvers_densesolverrfsmax(ae_int_t n,
 static ae_int_t directdensesolvers_densesolverrfsmaxv2(ae_int_t n,
      double r2,
      ae_state *_state);
-static void directdensesolvers_rbasiclusolve(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_rbasiclusolve(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Real    */ ae_vector* xb,
      ae_state *_state);
-static void directdensesolvers_spdbasiccholeskysolve(/* Real    */ ae_matrix* cha,
+static void directdensesolvers_spdbasiccholeskysolve(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_vector* xb,
      ae_state *_state);
-static void directdensesolvers_cbasiclusolve(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_cbasiclusolve(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Complex */ ae_vector* xb,
      ae_state *_state);
-static void directdensesolvers_hpdbasiccholeskysolve(/* Complex */ ae_matrix* cha,
+static void directdensesolvers_hpdbasiccholeskysolve(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_vector* xb,
      ae_state *_state);
-
-
-#endif
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
 
 
 #endif
@@ -7020,6 +9970,21 @@ static void lincg_updateitersdata(lincgstate* state, ae_state *_state);
 static double linlsqr_atol = 1.0E-6;
 static double linlsqr_btol = 1.0E-6;
 static void linlsqr_clearrfields(linlsqrstate* state, ae_state *_state);
+
+
+#endif
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+static void directsparsesolvers_sparsesolveaug(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
+     double reg1f,
+     double reg2f,
+     double reg1r,
+     double reg2r,
+     ae_int_t gmresk,
+     ae_int_t maxits,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state);
 
 
 #endif
@@ -7080,14 +10045,14 @@ NOTE:   roots are not "polished" and  no  matrix  balancing  is  performed
   -- ALGLIB --
      Copyright 24.02.2014 by Bochkanov Sergey
 *************************************************************************/
-void polynomialsolve(/* Real    */ ae_vector* a,
+void polynomialsolve(/* Real    */ const ae_vector* _a,
      ae_int_t n,
      /* Complex */ ae_vector* x,
      polynomialsolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_vector _a;
+    ae_vector a;
     ae_matrix c;
     ae_matrix vl;
     ae_matrix vr;
@@ -7102,14 +10067,13 @@ void polynomialsolve(/* Real    */ ae_vector* a,
     ae_complex vv;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
+    memset(&a, 0, sizeof(a));
     memset(&c, 0, sizeof(c));
     memset(&vl, 0, sizeof(vl));
     memset(&vr, 0, sizeof(vr));
     memset(&wr, 0, sizeof(wr));
     memset(&wi, 0, sizeof(wi));
-    ae_vector_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
+    ae_vector_init_copy(&a, _a, _state, ae_true);
     ae_vector_clear(x);
     _polynomialsolverreport_clear(rep);
     ae_matrix_init(&c, 0, 0, DT_REAL, _state, ae_true);
@@ -7119,9 +10083,9 @@ void polynomialsolve(/* Real    */ ae_vector* a,
     ae_vector_init(&wi, 0, DT_REAL, _state, ae_true);
 
     ae_assert(n>0, "PolynomialSolve: N<=0", _state);
-    ae_assert(a->cnt>=n+1, "PolynomialSolve: Length(A)<N+1", _state);
-    ae_assert(isfinitevector(a, n+1, _state), "PolynomialSolve: A contains infitite numbers", _state);
-    ae_assert(ae_fp_neq(a->ptr.p_double[n],(double)(0)), "PolynomialSolve: A[N]=0", _state);
+    ae_assert(a.cnt>=n+1, "PolynomialSolve: Length(A)<N+1", _state);
+    ae_assert(isfinitevector(&a, n+1, _state), "PolynomialSolve: A contains infitite numbers", _state);
+    ae_assert(ae_fp_neq(a.ptr.p_double[n],(double)(0)), "PolynomialSolve: A[N]=0", _state);
     
     /*
      * Prepare
@@ -7136,14 +10100,14 @@ void polynomialsolve(/* Real    */ ae_vector* a,
      *   (here NE=N-NZ)
      */
     nz = 0;
-    while(nz<n&&ae_fp_eq(a->ptr.p_double[nz],(double)(0)))
+    while(nz<n&&ae_fp_eq(a.ptr.p_double[nz],(double)(0)))
     {
         nz = nz+1;
     }
     ne = n-nz;
     for(i=nz; i<=n; i++)
     {
-        a->ptr.p_double[i-nz] = a->ptr.p_double[i]/a->ptr.p_double[n];
+        a.ptr.p_double[i-nz] = a.ptr.p_double[i]/a.ptr.p_double[n];
     }
     
     /*
@@ -7159,11 +10123,11 @@ void polynomialsolve(/* Real    */ ae_vector* a,
                 c.ptr.pp_double[i][j] = (double)(0);
             }
         }
-        c.ptr.pp_double[0][ne-1] = -a->ptr.p_double[0];
+        c.ptr.pp_double[0][ne-1] = -a.ptr.p_double[0];
         for(i=1; i<=ne-1; i++)
         {
             c.ptr.pp_double[i][i-1] = (double)(1);
-            c.ptr.pp_double[i][ne-1] = -a->ptr.p_double[i];
+            c.ptr.pp_double[i][ne-1] = -a.ptr.p_double[i];
         }
         status = rmatrixevd(&c, ne, 0, &wr, &wi, &vl, &vr, _state);
         ae_assert(status, "PolynomialSolve: inernal error - EVD solver failed", _state);
@@ -7192,7 +10156,7 @@ void polynomialsolve(/* Real    */ ae_vector* a,
         vv = ae_complex_from_i(1);
         for(j=0; j<=ne; j++)
         {
-            v = ae_c_add(v,ae_c_mul_d(vv,a->ptr.p_double[j]));
+            v = ae_c_add(v,ae_c_mul_d(vv,a.ptr.p_double[j]));
             vv = ae_c_mul(vv,x->ptr.p_complex[i]);
         }
         rep->maxerr = ae_maxreal(rep->maxerr, ae_c_abs(v, _state), _state);
@@ -7267,17 +10231,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
-    Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -7306,12 +10267,11 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolve(/* Real    */ ae_matrix* a,
+void rmatrixsolve(/* Real    */ const ae_matrix* a,
      ae_int_t n,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -7321,23 +10281,22 @@ void rmatrixsolve(/* Real    */ ae_matrix* a,
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_REAL, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "RMatrixSolve: N<=0", _state);
+    ae_assert(a->rows>=n, "RMatrixSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "RMatrixSolve: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "RMatrixSolve: length(B)<N", _state);
+    ae_assert(apservisfinitematrix(a, n, n, _state), "RMatrixSolve: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "RMatrixSolve: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&bm, n, 1, _state);
-    ae_v_move(&bm.ptr.pp_double[0][0], bm.stride, &b->ptr.p_double[0], 1, ae_v_len(0,n-1));
-    rmatrixsolvem(a, n, &bm, 1, ae_true, info, rep, &xm, _state);
+    rcopyvc(n, b, &bm, 0, _state);
+    rmatrixsolvem(a, n, &bm, 1, ae_true, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
-    ae_v_move(&x->ptr.p_double[0], 1, &xm.ptr.pp_double[0][0], xm.stride, ae_v_len(0,n-1));
+    rcopycv(n, &xm, 0, x, _state);
     ae_frame_leave(_state);
 }
 
@@ -7363,14 +10322,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved 
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+                
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -7399,49 +10357,48 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 16.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvefast(/* Real    */ ae_matrix* a,
+ae_bool rmatrixsolvefast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_int_t i;
     ae_int_t j;
     ae_vector p;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
+    memset(&a, 0, sizeof(a));
     memset(&p, 0, sizeof(p));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
     ae_vector_init(&p, 0, DT_INT, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    rmatrixlu(a, n, n, &p, _state);
+    ae_assert(n>0, "RMatrixSolveFast: N<=0", _state);
+    ae_assert(a.rows>=n, "RMatrixSolveFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "RMatrixSolveFast: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "RMatrixSolveFast: length(B)<N", _state);
+    ae_assert(apservisfinitematrix(&a, n, n, _state), "RMatrixSolveFast: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "RMatrixSolveFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
+    rmatrixlu(&a, n, n, &p, _state);
     for(i=0; i<=n-1; i++)
     {
-        if( ae_fp_eq(a->ptr.pp_double[i][i],(double)(0)) )
+        if( ae_fp_eq(a.ptr.pp_double[i][i],(double)(0)) )
         {
             for(j=0; j<=n-1; j++)
             {
                 b->ptr.p_double[j] = 0.0;
             }
-            *info = -3;
+            result = ae_false;
             ae_frame_leave(_state);
-            return;
+            return result;
         }
     }
-    directdensesolvers_rbasiclusolve(a, &p, n, b, _state);
-    *info = 1;
+    directdensesolvers_rbasiclusolve(&a, &p, n, b, _state);
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -7487,18 +10444,14 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is ill conditioned or singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -7527,14 +10480,13 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvem(/* Real    */ ae_matrix* a,
+void rmatrixsolvem(/* Real    */ const ae_matrix* a,
      ae_int_t n,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
      ae_bool rfs,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -7547,23 +10499,20 @@ void rmatrixsolvem(/* Real    */ ae_matrix* a,
     memset(&da, 0, sizeof(da));
     memset(&emptya, 0, sizeof(emptya));
     memset(&p, 0, sizeof(p));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&da, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&emptya, 0, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&p, 0, DT_INT, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "RMatrixSolveM: N<=0", _state);
+    ae_assert(m>0, "RMatrixSolveM: M<=0", _state);
+    ae_assert(a->rows>=n, "RMatrixSolveM: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "RMatrixSolveM: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "RMatrixSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "RMatrixSolveM: cols(B)<M", _state);
+    ae_assert(apservisfinitematrix(a, n, n, _state), "RMatrixSolveM: A contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "RMatrixSolveM: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&da, n, n, _state);
     
     /*
@@ -7577,11 +10526,11 @@ void rmatrixsolvem(/* Real    */ ae_matrix* a,
     rmatrixlu(&da, n, n, &p, _state);
     if( rfs )
     {
-        directdensesolvers_rmatrixlusolveinternal(&da, &p, n, a, ae_true, b, m, info, rep, x, _state);
+        directdensesolvers_rmatrixlusolveinternal(&da, &p, n, a, ae_true, b, m, x, rep, _state);
     }
     else
     {
-        directdensesolvers_rmatrixlusolveinternal(&da, &p, n, &emptya, ae_false, b, m, info, rep, x, _state);
+        directdensesolvers_rmatrixlusolveinternal(&da, &p, n, &emptya, ae_false, b, m, x, rep, _state);
     }
     ae_frame_leave(_state);
 }
@@ -7611,18 +10560,16 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+                
+RETURNS:
+    True for well-conditioned matrix
+    False for extremely badly conditioned or exactly singular problem
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -7651,43 +10598,40 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvemfast(/* Real    */ ae_matrix* a,
+ae_bool rmatrixsolvemfast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     double v;
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
     ae_vector p;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
+    memset(&a, 0, sizeof(a));
     memset(&p, 0, sizeof(p));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
     ae_vector_init(&p, 0, DT_INT, _state, ae_true);
 
-    
-    /*
-     * Check for exact degeneracy
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    rmatrixlu(a, n, n, &p, _state);
+    ae_assert(n>0, "RMatrixSolveMFast: N<=0", _state);
+    ae_assert(m>0, "RMatrixSolveMFast: M<=0", _state);
+    ae_assert(a.rows>=n, "RMatrixSolveMFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "RMatrixSolveMFast: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "RMatrixSolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "RMatrixSolveMFast: cols(B)<M", _state);
+    ae_assert(apservisfinitematrix(&a, n, n, _state), "RMatrixSolveMFast: A contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "RMatrixSolveMFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
+    rmatrixlu(&a, n, n, &p, _state);
     for(i=0; i<=n-1; i++)
     {
-        if( ae_fp_eq(a->ptr.pp_double[i][i],(double)(0)) )
+        if( ae_fp_eq(a.ptr.pp_double[i][i],(double)(0)) )
         {
             for(j=0; j<=n-1; j++)
             {
@@ -7696,9 +10640,9 @@ void rmatrixsolvemfast(/* Real    */ ae_matrix* a,
                     b->ptr.pp_double[j][k] = 0.0;
                 }
             }
-            *info = -3;
+            result = ae_false;
             ae_frame_leave(_state);
-            return;
+            return result;
         }
     }
     
@@ -7717,10 +10661,10 @@ void rmatrixsolvemfast(/* Real    */ ae_matrix* a,
             }
         }
     }
-    rmatrixlefttrsm(n, m, a, 0, 0, ae_false, ae_true, 0, b, 0, 0, _state);
-    rmatrixlefttrsm(n, m, a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
-    *info = 1;
+    rmatrixlefttrsm(n, m, &a, 0, 0, ae_false, ae_true, 0, b, 0, 0, _state);
+    rmatrixlefttrsm(n, m, &a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -7762,55 +10706,56 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
-    Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+    Rep     -   additional report, the following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
     
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolve(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixlusolve(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
     ae_matrix bm;
     ae_matrix xm;
+    ae_int_t i;
 
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_REAL, _state, ae_true);
 
-    if( n<=0 )
+    ae_assert(n>0, "RMatrixLUSolve: N<=0", _state);
+    ae_assert(lua->rows>=n, "RMatrixLUSolve: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "RMatrixLUSolve: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "RMatrixLUSolve: length(P)<N", _state);
+    ae_assert(b->cnt>=n, "RMatrixLUSolve: length(B)<N", _state);
+    ae_assert(apservisfinitematrix(lua, n, n, _state), "RMatrixLUSolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "RMatrixLUSolve: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
     ae_matrix_set_length(&bm, n, 1, _state);
-    ae_v_move(&bm.ptr.pp_double[0][0], bm.stride, &b->ptr.p_double[0], 1, ae_v_len(0,n-1));
-    rmatrixlusolvem(lua, p, n, &bm, 1, info, rep, &xm, _state);
+    rcopyvc(n, b, &bm, 0, _state);
+    rmatrixlusolvem(lua, p, n, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
-    ae_v_move(&x->ptr.p_double[0], 1, &xm.ptr.pp_double[0][0], xm.stride, ae_v_len(0,n-1));
+    rcopycv(n, &xm, 0, x, _state);
     ae_frame_leave(_state);
 }
 
@@ -7834,35 +10779,39 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved 
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvefast(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool rmatrixlusolvefast(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t j;
+    ae_bool result;
 
-    *info = 0;
 
-    if( n<=0 )
+    ae_assert(n>0, "RMatrixLUSolveFast: N<=0", _state);
+    ae_assert(lua->rows>=n, "RMatrixLUSolveFast: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "RMatrixLUSolveFast: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "RMatrixLUSolveFast: length(P)<N", _state);
+    ae_assert(b->cnt>=n, "RMatrixLUSolveFast: length(B)<N", _state);
+    ae_assert(apservisfinitematrix(lua, n, n, _state), "RMatrixLUSolveFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "RMatrixLUSolveFast: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
     for(i=0; i<=n-1; i++)
     {
@@ -7872,12 +10821,13 @@ void rmatrixlusolvefast(/* Real    */ ae_matrix* lua,
             {
                 b->ptr.p_double[j] = 0.0;
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
+    result = ae_true;
     directdensesolvers_rbasiclusolve(lua, p, n, b, _state);
-    *info = 1;
+    return result;
 }
 
 
@@ -7921,18 +10871,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -7961,41 +10907,39 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvem(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixlusolvem(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
     ae_matrix emptya;
+    ae_int_t i;
 
     ae_frame_make(_state, &_frame_block);
     memset(&emptya, 0, sizeof(emptya));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&emptya, 0, 0, DT_REAL, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
+    ae_assert(n>0, "RMatrixLUSolveM: N<=0", _state);
+    ae_assert(m>0, "RMatrixLUSolveM: M<=0", _state);
+    ae_assert(lua->rows>=n, "RMatrixLUSolveM: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "RMatrixLUSolveM: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "RMatrixLUSolveM: length(P)<N", _state);
+    ae_assert(b->rows>=n, "RMatrixLUSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "RMatrixLUSolveM: cols(B)<M", _state);
+    ae_assert(apservisfinitematrix(lua, n, n, _state), "RMatrixLUSolveM: LUA contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "RMatrixLUSolveM: LUA contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
-    
-    /*
-     * solve
-     */
-    directdensesolvers_rmatrixlusolveinternal(lua, p, n, &emptya, ae_false, b, m, info, rep, x, _state);
+    directdensesolvers_rmatrixlusolveinternal(lua, p, n, &emptya, ae_false, b, m, x, rep, _state);
     ae_frame_leave(_state);
 }
 
@@ -8021,14 +10965,13 @@ INPUT PARAMETERS:
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8057,29 +11000,36 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixlusolvemfast(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool rmatrixlusolvemfast(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     double v;
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
+    ae_bool result;
 
-    *info = 0;
 
     
     /*
      * Check for exact degeneracy
      */
-    if( n<=0||m<=0 )
+    ae_assert(n>0, "RMatrixLUSolveMFast: N<=0", _state);
+    ae_assert(m>0, "RMatrixLUSolveMFast: M<=0", _state);
+    ae_assert(lua->rows>=n, "RMatrixLUSolveMFast: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "RMatrixLUSolveMFast: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "RMatrixLUSolveMFast: length(P)<N", _state);
+    ae_assert(b->rows>=n, "RMatrixLUSolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "RMatrixLUSolveMFast: cols(B)<M", _state);
+    ae_assert(apservisfinitematrix(lua, n, n, _state), "RMatrixLUSolveMFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "RMatrixLUSolveMFast: LUA contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
     for(i=0; i<=n-1; i++)
     {
@@ -8092,10 +11042,11 @@ void rmatrixlusolvemfast(/* Real    */ ae_matrix* lua,
                     b->ptr.pp_double[j][k] = 0.0;
                 }
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
+    result = ae_true;
     
     /*
      * Solve with TRSM()
@@ -8114,7 +11065,7 @@ void rmatrixlusolvemfast(/* Real    */ ae_matrix* lua,
     }
     rmatrixlefttrsm(n, m, lua, 0, 0, ae_false, ae_true, 0, b, 0, 0, _state);
     rmatrixlefttrsm(n, m, lua, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
-    *info = 1;
+    return result;
 }
 
 
@@ -8139,55 +11090,59 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixmixedsolve(/* Real    */ ae_matrix* a,
-     /* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixmixedsolve(/* Real    */ const ae_matrix* a,
+     /* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
     ae_matrix bm;
     ae_matrix xm;
+    ae_int_t i;
 
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_REAL, _state, ae_true);
 
-    if( n<=0 )
+    ae_assert(n>0, "RMatrixMixedSolve: N<=0", _state);
+    ae_assert(a->rows>=n, "RMatrixMixedSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "RMatrixMixedSolve: cols(A)<N", _state);
+    ae_assert(lua->rows>=n, "RMatrixMixedSolve: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "RMatrixMixedSolve: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "RMatrixMixedSolve: length(P)<N", _state);
+    ae_assert(b->cnt>=n, "RMatrixMixedSolve: length(B)<N", _state);
+    ae_assert(apservisfinitematrix(a, n, n, _state), "RMatrixMixedSolve: A contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(lua, n, n, _state), "RMatrixMixedSolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "RMatrixMixedSolve: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
     ae_matrix_set_length(&bm, n, 1, _state);
-    ae_v_move(&bm.ptr.pp_double[0][0], bm.stride, &b->ptr.p_double[0], 1, ae_v_len(0,n-1));
-    rmatrixmixedsolvem(a, lua, p, n, &bm, 1, info, rep, &xm, _state);
+    rcopyvc(n, b, &bm, 0, _state);
+    rmatrixmixedsolvem(a, lua, p, n, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
-    ae_v_move(&x->ptr.p_double[0], 1, &xm.ptr.pp_double[0][0], xm.stride, ae_v_len(0,n-1));
+    rcopycv(n, &xm, 0, x, _state);
     ae_frame_leave(_state);
 }
 
@@ -8213,51 +11168,50 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixmixedsolvem(/* Real    */ ae_matrix* a,
-     /* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void rmatrixmixedsolvem(/* Real    */ const ae_matrix* a,
+     /* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
+    ae_int_t i;
 
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
+    ae_assert(n>0, "RMatrixMixedSolveM: N<=0", _state);
+    ae_assert(m>0, "RMatrixMixedSolveM: M<=0", _state);
+    ae_assert(a->rows>=n, "RMatrixMixedSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "RMatrixMixedSolve: cols(A)<N", _state);
+    ae_assert(lua->rows>=n, "RMatrixMixedSolve: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "RMatrixMixedSolve: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "RMatrixMixedSolve: length(P)<N", _state);
+    ae_assert(b->rows>=n, "RMatrixMixedSolve: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "RMatrixMixedSolve: cols(B)<M", _state);
+    ae_assert(apservisfinitematrix(a, n, n, _state), "RMatrixMixedSolve: A contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(lua, n, n, _state), "RMatrixMixedSolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "RMatrixMixedSolve: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
-    
-    /*
-     * solve
-     */
-    directdensesolvers_rmatrixlusolveinternal(lua, p, n, a, ae_true, b, m, info, rep, x, _state);
+    directdensesolvers_rmatrixlusolveinternal(lua, p, n, a, ae_true, b, m, x, rep, _state);
 }
 
 
@@ -8301,18 +11255,14 @@ INPUT PARAMETERS
                   More performance, less precision.
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8341,14 +11291,13 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvem(/* Complex */ ae_matrix* a,
+void cmatrixsolvem(/* Complex */ const ae_matrix* a,
      ae_int_t n,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
      ae_bool rfs,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -8361,23 +11310,20 @@ void cmatrixsolvem(/* Complex */ ae_matrix* a,
     memset(&da, 0, sizeof(da));
     memset(&emptya, 0, sizeof(emptya));
     memset(&p, 0, sizeof(p));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&da, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_matrix_init(&emptya, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&p, 0, DT_INT, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "CMatrixSolveM: N<=0", _state);
+    ae_assert(m>0, "CMatrixSolveM: M<=0", _state);
+    ae_assert(a->rows>=n, "CMatrixSolveM: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "CMatrixSolveM: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "CMatrixSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "CMatrixSolveM: cols(B)<M", _state);
+    ae_assert(isfinitecmatrix(a, n, n, _state), "CMatrixSolveM: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "CMatrixSolveM: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&da, n, n, _state);
     
     /*
@@ -8390,11 +11336,11 @@ void cmatrixsolvem(/* Complex */ ae_matrix* a,
     cmatrixlu(&da, n, n, &p, _state);
     if( rfs )
     {
-        directdensesolvers_cmatrixlusolveinternal(&da, &p, n, a, ae_true, b, m, info, rep, x, _state);
+        directdensesolvers_cmatrixlusolveinternal(&da, &p, n, a, ae_true, b, m, x, rep, _state);
     }
     else
     {
-        directdensesolvers_cmatrixlusolveinternal(&da, &p, n, &emptya, ae_false, b, m, info, rep, x, _state);
+        directdensesolvers_cmatrixlusolveinternal(&da, &p, n, &emptya, ae_false, b, m, x, rep, _state);
     }
     ae_frame_leave(_state);
 }
@@ -8417,14 +11363,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved 
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8453,43 +11398,43 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 16.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvemfast(/* Complex */ ae_matrix* a,
+ae_bool cmatrixsolvemfast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_complex v;
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
     ae_vector p;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
+    memset(&a, 0, sizeof(a));
     memset(&p, 0, sizeof(p));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
     ae_vector_init(&p, 0, DT_INT, _state, ae_true);
 
+    ae_assert(n>0, "CMatrixSolveMFast: N<=0", _state);
+    ae_assert(m>0, "CMatrixSolveMFast: M<=0", _state);
+    ae_assert(a.rows>=n, "CMatrixSolveMFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "CMatrixSolveMFast: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "CMatrixSolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "CMatrixSolveMFast: cols(B)<M", _state);
+    ae_assert(isfinitecmatrix(&a, n, n, _state), "CMatrixSolveMFast: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "CMatrixSolveMFast: B contains infinite or NaN values!", _state);
     
     /*
      * Check for exact degeneracy
      */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    cmatrixlu(a, n, n, &p, _state);
+    cmatrixlu(&a, n, n, &p, _state);
     for(i=0; i<=n-1; i++)
     {
-        if( ae_c_eq_d(a->ptr.pp_complex[i][i],(double)(0)) )
+        if( ae_c_eq_d(a.ptr.pp_complex[i][i],(double)(0)) )
         {
             for(j=0; j<=n-1; j++)
             {
@@ -8498,11 +11443,12 @@ void cmatrixsolvemfast(/* Complex */ ae_matrix* a,
                     b->ptr.pp_complex[j][k] = ae_complex_from_d(0.0);
                 }
             }
-            *info = -3;
+            result = ae_false;
             ae_frame_leave(_state);
-            return;
+            return result;
         }
     }
+    result = ae_true;
     
     /*
      * Solve with TRSM()
@@ -8519,10 +11465,10 @@ void cmatrixsolvemfast(/* Complex */ ae_matrix* a,
             }
         }
     }
-    cmatrixlefttrsm(n, m, a, 0, 0, ae_false, ae_true, 0, b, 0, 0, _state);
-    cmatrixlefttrsm(n, m, a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
-    *info = 1;
+    cmatrixlefttrsm(n, m, &a, 0, 0, ae_false, ae_true, 0, b, 0, 0, _state);
+    cmatrixlefttrsm(n, m, &a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -8558,17 +11504,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8597,12 +11540,11 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolve(/* Complex */ ae_matrix* a,
+void cmatrixsolve(/* Complex */ const ae_matrix* a,
      ae_int_t n,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -8612,21 +11554,20 @@ void cmatrixsolve(/* Complex */ ae_matrix* a,
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "CMatrixSolve: N<=0", _state);
+    ae_assert(a->rows>=n, "CMatrixSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "CMatrixSolve: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "CMatrixSolve: length(B)<N", _state);
+    ae_assert(isfinitecmatrix(a, n, n, _state), "CMatrixSolve: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "CMatrixSolve: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_cmove(&bm.ptr.pp_complex[0][0], bm.stride, &b->ptr.p_complex[0], 1, "N", ae_v_len(0,n-1));
-    cmatrixsolvem(a, n, &bm, 1, ae_true, info, rep, &xm, _state);
+    cmatrixsolvem(a, n, &bm, 1, ae_true, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_cmove(&x->ptr.p_complex[0], 1, &xm.ptr.pp_complex[0][0], xm.stride, "N", ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -8647,14 +11588,13 @@ INPUT PARAMETERS:
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved 
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8683,49 +11623,48 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixsolvefast(/* Complex */ ae_matrix* a,
+ae_bool cmatrixsolvefast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_int_t i;
     ae_int_t j;
     ae_vector p;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
+    memset(&a, 0, sizeof(a));
     memset(&p, 0, sizeof(p));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
     ae_vector_init(&p, 0, DT_INT, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    cmatrixlu(a, n, n, &p, _state);
+    ae_assert(n>0, "CMatrixSolveFast: N<=0", _state);
+    ae_assert(a.rows>=n, "CMatrixSolveFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "CMatrixSolveFast: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "CMatrixSolveFast: length(B)<N", _state);
+    ae_assert(isfinitecmatrix(&a, n, n, _state), "CMatrixSolveFast: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "CMatrixSolveFast: B contains infinite or NaN values!", _state);
+    cmatrixlu(&a, n, n, &p, _state);
     for(i=0; i<=n-1; i++)
     {
-        if( ae_c_eq_d(a->ptr.pp_complex[i][i],(double)(0)) )
+        if( ae_c_eq_d(a.ptr.pp_complex[i][i],(double)(0)) )
         {
             for(j=0; j<=n-1; j++)
             {
                 b->ptr.p_complex[j] = ae_complex_from_d(0.0);
             }
-            *info = -3;
+            result = ae_false;
             ae_frame_leave(_state);
-            return;
+            return result;
         }
     }
-    directdensesolvers_cbasiclusolve(a, &p, n, b, _state);
-    *info = 1;
+    directdensesolvers_cbasiclusolve(&a, &p, n, b, _state);
+    result = ae_true;
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -8765,17 +11704,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8804,41 +11740,39 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvem(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixlusolvem(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
     ae_matrix emptya;
+    ae_int_t i;
 
     ae_frame_make(_state, &_frame_block);
     memset(&emptya, 0, sizeof(emptya));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&emptya, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
+    ae_assert(n>0, "CMatrixLUSolveM: N<=0", _state);
+    ae_assert(m>0, "CMatrixLUSolveM: M<=0", _state);
+    ae_assert(lua->rows>=n, "CMatrixLUSolveM: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "CMatrixLUSolveM: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "CMatrixLUSolveM: length(P)<N", _state);
+    ae_assert(b->rows>=n, "CMatrixLUSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "CMatrixLUSolveM: cols(B)<M", _state);
+    ae_assert(isfinitecmatrix(lua, n, n, _state), "CMatrixLUSolveM: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "CMatrixLUSolveM: LUA contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "CMatrixLUSolveM: P contains values outside of [0,N)", _state);
     }
-    
-    /*
-     * solve
-     */
-    directdensesolvers_cmatrixlusolveinternal(lua, p, n, &emptya, ae_false, b, m, info, rep, x, _state);
+    directdensesolvers_cmatrixlusolveinternal(lua, p, n, &emptya, ae_false, b, m, x, rep, _state);
     ae_frame_leave(_state);
 }
 
@@ -8860,14 +11794,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved 
     B       -   array[N,M]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -8896,30 +11829,37 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvemfast(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool cmatrixlusolvemfast(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_complex v;
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
+    ae_bool result;
 
-    *info = 0;
 
+    ae_assert(n>0, "CMatrixLUSolveMFast: N<=0", _state);
+    ae_assert(m>0, "CMatrixLUSolveMFast: M<=0", _state);
+    ae_assert(lua->rows>=n, "CMatrixLUSolveMFast: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "CMatrixLUSolveMFast: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "CMatrixLUSolveMFast: length(P)<N", _state);
+    ae_assert(b->rows>=n, "CMatrixLUSolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "CMatrixLUSolveMFast: cols(B)<M", _state);
+    ae_assert(isfinitecmatrix(lua, n, n, _state), "CMatrixLUSolveMFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "CMatrixLUSolveMFast: LUA contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
+    {
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "RMatrixLUSolve: P contains values outside of [0,N)", _state);
+    }
     
     /*
      * Check for exact degeneracy
      */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        return;
-    }
     for(i=0; i<=n-1; i++)
     {
         if( ae_c_eq_d(lua->ptr.pp_complex[i][i],(double)(0)) )
@@ -8931,10 +11871,11 @@ void cmatrixlusolvemfast(/* Complex */ ae_matrix* lua,
                     b->ptr.pp_complex[j][k] = ae_complex_from_d(0.0);
                 }
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
+    result = ae_true;
     
     /*
      * Solve with TRSM()
@@ -8953,7 +11894,7 @@ void cmatrixlusolvemfast(/* Complex */ ae_matrix* lua,
     }
     cmatrixlefttrsm(n, m, lua, 0, 0, ae_false, ae_true, 0, b, 0, 0, _state);
     cmatrixlefttrsm(n, m, lua, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
-    *info = 1;
+    return result;
 }
 
 
@@ -8994,52 +11935,53 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolve(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixlusolve(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
     ae_matrix bm;
     ae_matrix xm;
+    ae_int_t i;
 
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    if( n<=0 )
+    ae_assert(n>0, "CMatrixLUSolve: N<=0", _state);
+    ae_assert(lua->rows>=n, "CMatrixLUSolve: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "CMatrixLUSolve: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "CMatrixLUSolve: length(P)<N", _state);
+    ae_assert(b->cnt>=n, "CMatrixLUSolve: length(B)<N", _state);
+    ae_assert(isfinitecmatrix(lua, n, n, _state), "CMatrixLUSolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "CMatrixLUSolve: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "CMatrixLUSolve: P contains values outside of [0,N)", _state);
     }
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_cmove(&bm.ptr.pp_complex[0][0], bm.stride, &b->ptr.p_complex[0], 1, "N", ae_v_len(0,n-1));
-    cmatrixlusolvem(lua, p, n, &bm, 1, info, rep, &xm, _state);
+    cmatrixlusolvem(lua, p, n, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_cmove(&x->ptr.p_complex[0], 1, &xm.ptr.pp_complex[0][0], xm.stride, "N", ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -9063,14 +12005,9 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is exactly singular (ill conditioned matrices
-                        are not recognized).
-                * -1    N<=0 was passed
-                *  1    task is solved 
     B       -   array[N]:
-                * info>0    =>  overwritten by solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
     
 NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
       near-degeneracy of input matrix. It  checks  for  EXACT  degeneracy,
@@ -9081,22 +12018,27 @@ NOTE: unlike  CMatrixLUSolve(),  this   function   does   NOT   check  for
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixlusolvefast(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+ae_bool cmatrixlusolvefast(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t j;
+    ae_bool result;
 
-    *info = 0;
 
-    if( n<=0 )
+    ae_assert(n>0, "CMatrixLUSolveFast: N<=0", _state);
+    ae_assert(lua->rows>=n, "CMatrixLUSolveFast: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "CMatrixLUSolveFast: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "CMatrixLUSolveFast: length(P)<N", _state);
+    ae_assert(b->cnt>=n, "CMatrixLUSolveFast: length(B)<N", _state);
+    ae_assert(isfinitecmatrix(lua, n, n, _state), "CMatrixLUSolveFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "CMatrixLUSolveFast: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "CMatrixLUSolveFast: P contains values outside of [0,N)", _state);
     }
     for(i=0; i<=n-1; i++)
     {
@@ -9106,12 +12048,13 @@ void cmatrixlusolvefast(/* Complex */ ae_matrix* lua,
             {
                 b->ptr.p_complex[j] = ae_complex_from_d(0.0);
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
     directdensesolvers_cbasiclusolve(lua, p, n, b, _state);
-    *info = 1;
+    result = ae_true;
+    return result;
 }
 
 
@@ -9133,51 +12076,50 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixmixedsolvem(/* Complex */ ae_matrix* a,
-     /* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixmixedsolvem(/* Complex */ const ae_matrix* a,
+     /* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
+    ae_int_t i;
 
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
+    ae_assert(n>0, "CMatrixMixedSolveM: N<=0", _state);
+    ae_assert(m>0, "CMatrixMixedSolveM: M<=0", _state);
+    ae_assert(a->rows>=n, "CMatrixMixedSolveM: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "CMatrixMixedSolveM: cols(A)<N", _state);
+    ae_assert(lua->rows>=n, "CMatrixMixedSolveM: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "CMatrixMixedSolveM: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "CMatrixMixedSolveM: length(P)<N", _state);
+    ae_assert(b->rows>=n, "CMatrixMixedSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "CMatrixMixedSolveM: cols(B)<M", _state);
+    ae_assert(isfinitecmatrix(a, n, n, _state), "CMatrixMixedSolveM: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(lua, n, n, _state), "CMatrixMixedSolveM: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "CMatrixMixedSolveM: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "CMatrixMixedSolveM: P contains values outside of [0,N)", _state);
     }
-    
-    /*
-     * solve
-     */
-    directdensesolvers_cmatrixlusolveinternal(lua, p, n, a, ae_true, b, m, info, rep, x, _state);
+    directdensesolvers_cmatrixlusolveinternal(lua, p, n, a, ae_true, b, m, x, rep, _state);
 }
 
 
@@ -9198,53 +12140,57 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or exactly singular.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or exactly singular matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void cmatrixmixedsolve(/* Complex */ ae_matrix* a,
-     /* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+void cmatrixmixedsolve(/* Complex */ const ae_matrix* a,
+     /* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
     ae_matrix bm;
     ae_matrix xm;
+    ae_int_t i;
 
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    if( n<=0 )
+    ae_assert(n>0, "CMatrixMixedSolve: N<=0", _state);
+    ae_assert(a->rows>=n, "CMatrixMixedSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "CMatrixMixedSolve: cols(A)<N", _state);
+    ae_assert(lua->rows>=n, "CMatrixMixedSolve: rows(LUA)<N", _state);
+    ae_assert(lua->cols>=n, "CMatrixMixedSolve: cols(LUA)<N", _state);
+    ae_assert(p->cnt>=n, "CMatrixMixedSolve: length(P)<N", _state);
+    ae_assert(b->cnt>=n, "CMatrixMixedSolve: length(B)<N", _state);
+    ae_assert(isfinitecmatrix(a, n, n, _state), "CMatrixMixedSolve: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(lua, n, n, _state), "CMatrixMixedSolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "CMatrixMixedSolve: B contains infinite or NaN values!", _state);
+    for(i=0; i<=n-1; i++)
     {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
+        ae_assert(p->ptr.p_int[i]>=0&&p->ptr.p_int[i]<n, "CMatrixMixedSolve: P contains values outside of [0,N)", _state);
     }
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_cmove(&bm.ptr.pp_complex[0][0], bm.stride, &b->ptr.p_complex[0], 1, "N", ae_v_len(0,n-1));
-    cmatrixmixedsolvem(a, lua, p, n, &bm, 1, info, rep, &xm, _state);
+    cmatrixmixedsolvem(a, lua, p, n, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_cmove(&x->ptr.p_complex[0], 1, &xm.ptr.pp_complex[0][0], xm.stride, "N", ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -9289,17 +12235,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or non-SPD.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -9328,14 +12271,13 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvem(/* Real    */ ae_matrix* a,
+void spdmatrixsolvem(/* Real    */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -9347,21 +12289,18 @@ void spdmatrixsolvem(/* Real    */ ae_matrix* a,
 
     ae_frame_make(_state, &_frame_block);
     memset(&da, 0, sizeof(da));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&da, 0, 0, DT_REAL, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "SPDMatrixSolveM: N<=0", _state);
+    ae_assert(m>0, "SPDMatrixSolveM: M<=0", _state);
+    ae_assert(a->rows>=n, "SPDMatrixSolveM: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "SPDMatrixSolveM: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "SPDMatrixSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "SPDMatrixSolveM: cols(B)<M", _state);
+    ae_assert(isfinitertrmatrix(a, n, isupper, _state), "SPDMatrixSolveM: A contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "SPDMatrixSolveM: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&da, n, n, _state);
     
     /*
@@ -9394,12 +12333,12 @@ void spdmatrixsolvem(/* Real    */ ae_matrix* a,
         }
         rep->r1 = (double)(0);
         rep->rinf = (double)(0);
-        *info = -3;
+        rep->terminationtype = -3;
         ae_frame_leave(_state);
         return;
     }
-    *info = 1;
-    directdensesolvers_spdmatrixcholeskysolveinternal(&da, n, isupper, a, ae_true, b, m, info, rep, x, _state);
+    rep->terminationtype = 1;
+    directdensesolvers_spdmatrixcholeskysolveinternal(&da, n, isupper, a, ae_true, b, m, x, rep, _state);
     ae_frame_leave(_state);
 }
 
@@ -9421,13 +12360,13 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N,M], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -9456,33 +12395,32 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvemfast(/* Real    */ ae_matrix* a,
+ae_bool spdmatrixsolvemfast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_int_t i;
     ae_int_t j;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    memset(&a, 0, sizeof(a));
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    if( !spdmatrixcholesky(a, n, isupper, _state) )
+    ae_assert(n>0, "SPDMatrixSolveMFast: N<=0", _state);
+    ae_assert(a.rows>=n, "SPDMatrixSolveMFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "SPDMatrixSolveMFast: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "SPDMatrixSolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "SPDMatrixSolveMFast: cols(B)<M", _state);
+    ae_assert(isfinitertrmatrix(&a, n, isupper, _state), "SPDMatrixSolveMFast: A contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "SPDMatrixSolveMFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
+    if( !spdmatrixcholesky(&a, n, isupper, _state) )
     {
         for(i=0; i<=n-1; i++)
         {
@@ -9491,21 +12429,22 @@ void spdmatrixsolvemfast(/* Real    */ ae_matrix* a,
                 b->ptr.pp_double[i][j] = 0.0;
             }
         }
-        *info = -3;
+        result = ae_false;
         ae_frame_leave(_state);
-        return;
+        return result;
     }
     if( isupper )
     {
-        rmatrixlefttrsm(n, m, a, 0, 0, ae_true, ae_false, 1, b, 0, 0, _state);
-        rmatrixlefttrsm(n, m, a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
+        rmatrixlefttrsm(n, m, &a, 0, 0, ae_true, ae_false, 1, b, 0, 0, _state);
+        rmatrixlefttrsm(n, m, &a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
     }
     else
     {
-        rmatrixlefttrsm(n, m, a, 0, 0, ae_false, ae_false, 0, b, 0, 0, _state);
-        rmatrixlefttrsm(n, m, a, 0, 0, ae_false, ae_false, 1, b, 0, 0, _state);
+        rmatrixlefttrsm(n, m, &a, 0, 0, ae_false, ae_false, 0, b, 0, 0, _state);
+        rmatrixlefttrsm(n, m, &a, 0, 0, ae_false, ae_false, 1, b, 0, 0, _state);
     }
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -9547,17 +12486,14 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    matrix is very badly conditioned or non-SPD.
-                * -1    N<=0 was passed
-                *  1    task is solved (but matrix A may be ill-conditioned,
-                        check R1/RInf parameters for condition numbers).
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -9586,13 +12522,12 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolve(/* Real    */ ae_matrix* a,
+void spdmatrixsolve(/* Real    */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -9602,21 +12537,20 @@ void spdmatrixsolve(/* Real    */ ae_matrix* a,
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_REAL, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "SPDMatrixSolve: N<=0", _state);
+    ae_assert(a->rows>=n, "SPDMatrixSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "SPDMatrixSolve: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "SPDMatrixSolve: length(B)<N", _state);
+    ae_assert(isfinitertrmatrix(a, n, isupper, _state), "SPDMatrixSolve: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "SPDMatrixSolve: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_move(&bm.ptr.pp_double[0][0], bm.stride, &b->ptr.p_double[0], 1, ae_v_len(0,n-1));
-    spdmatrixsolvem(a, n, isupper, &bm, 1, info, rep, &xm, _state);
+    spdmatrixsolvem(a, n, isupper, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_move(&x->ptr.p_double[0], 1, &xm.ptr.pp_double[0][0], xm.stride, ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -9640,13 +12574,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or non-SPD
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N], it contains:
-                * info>0    =>  solution
-                * info=-3   =>  filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -9675,42 +12609,41 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixsolvefast(/* Real    */ ae_matrix* a,
+ae_bool spdmatrixsolvefast(/* Real    */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_int_t i;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    memset(&a, 0, sizeof(a));
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    if( !spdmatrixcholesky(a, n, isupper, _state) )
+    ae_assert(n>0, "SPDMatrixSolveFast: N<=0", _state);
+    ae_assert(a.rows>=n, "SPDMatrixSolveFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "SPDMatrixSolveFast: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "SPDMatrixSolveFast: length(B)<N", _state);
+    ae_assert(isfinitertrmatrix(&a, n, isupper, _state), "SPDMatrixSolveFast: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "SPDMatrixSolveFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
+    if( !spdmatrixcholesky(&a, n, isupper, _state) )
     {
         for(i=0; i<=n-1; i++)
         {
             b->ptr.p_double[i] = 0.0;
         }
-        *info = -3;
+        result = ae_false;
         ae_frame_leave(_state);
-        return;
+        return result;
     }
-    directdensesolvers_spdbasiccholeskysolve(a, n, isupper, b, _state);
+    directdensesolvers_spdbasiccholeskysolve(&a, n, isupper, b, _state);
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -9756,29 +12689,25 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or badly conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N]:
-                * for info>0 contains solution
-                * for info=-3 filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvem(/* Real    */ ae_matrix* cha,
+void spdmatrixcholeskysolvem(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -9786,26 +12715,19 @@ void spdmatrixcholeskysolvem(/* Real    */ ae_matrix* cha,
 
     ae_frame_make(_state, &_frame_block);
     memset(&emptya, 0, sizeof(emptya));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&emptya, 0, 0, DT_REAL, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    
-    /*
-     * solve
-     */
-    directdensesolvers_spdmatrixcholeskysolveinternal(cha, n, isupper, &emptya, ae_false, b, m, info, rep, x, _state);
+    ae_assert(n>0, "SPDMatrixCholeskySolveM: N<=0", _state);
+    ae_assert(m>0, "SPDMatrixCholeskySolveM: M<=0", _state);
+    ae_assert(cha->rows>=n, "SPDMatrixCholeskySolveM: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "SPDMatrixCholeskySolveM: cols(CHA)<N", _state);
+    ae_assert(b->rows>=n, "SPDMatrixCholeskySolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "SPDMatrixCholeskySolveM: cols(B)<M", _state);
+    ae_assert(isfinitertrmatrix(cha, n, isupper, _state), "SPDMatrixCholeskySolveM: LUA contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "SPDMatrixCholeskySolveM: LUA contains infinite or NaN values!", _state);
+    directdensesolvers_spdmatrixcholeskysolveinternal(cha, n, isupper, &emptya, ae_false, b, m, x, rep, _state);
     ae_frame_leave(_state);
 }
 
@@ -9830,38 +12752,39 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or badly conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N]:
-                * for info>0 overwritten by solution
-                * for info=-3 filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
 
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+    
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvemfast(/* Real    */ ae_matrix* cha,
+ae_bool spdmatrixcholeskysolvemfast(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
+    ae_bool result;
 
-    *info = 0;
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        return;
-    }
+    ae_assert(n>0, "SPDMatrixCholeskySolveMFast: N<=0", _state);
+    ae_assert(m>0, "SPDMatrixCholeskySolveMFast: M<=0", _state);
+    ae_assert(cha->rows>=n, "SPDMatrixCholeskySolveMFast: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "SPDMatrixCholeskySolveMFast: cols(CHA)<N", _state);
+    ae_assert(b->rows>=n, "SPDMatrixCholeskySolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "SPDMatrixCholeskySolveMFast: cols(B)<M", _state);
+    ae_assert(isfinitertrmatrix(cha, n, isupper, _state), "SPDMatrixCholeskySolveMFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(apservisfinitematrix(b, n, m, _state), "SPDMatrixCholeskySolveMFast: LUA contains infinite or NaN values!", _state);
+    result = ae_true;
     for(k=0; k<=n-1; k++)
     {
         if( ae_fp_eq(cha->ptr.pp_double[k][k],0.0) )
@@ -9873,8 +12796,8 @@ void spdmatrixcholeskysolvemfast(/* Real    */ ae_matrix* cha,
                     b->ptr.pp_double[i][j] = 0.0;
                 }
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
     if( isupper )
@@ -9887,6 +12810,7 @@ void spdmatrixcholeskysolvemfast(/* Real    */ ae_matrix* cha,
         rmatrixlefttrsm(n, m, cha, 0, 0, ae_false, ae_false, 0, b, 0, 0, _state);
         rmatrixlefttrsm(n, m, cha, 0, 0, ae_false, ae_false, 1, b, 0, 0, _state);
     }
+    return result;
 }
 
 
@@ -9929,28 +12853,24 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
                 * rep.r1    condition number in 1-norm
                 * rep.rinf  condition number in inf-norm
     X       -   array[N]:
-                * for info>0  - solution
-                * for info=-3 - filled by zeros
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolve(/* Real    */ ae_matrix* cha,
+void spdmatrixcholeskysolve(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Real    */ const ae_vector* b,
      /* Real    */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -9960,21 +12880,20 @@ void spdmatrixcholeskysolve(/* Real    */ ae_matrix* cha,
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_REAL, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "SPDMatrixCholeskySolve: N<=0", _state);
+    ae_assert(cha->rows>=n, "SPDMatrixCholeskySolve: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "SPDMatrixCholeskySolve: cols(CHA)<N", _state);
+    ae_assert(b->cnt>=n, "SPDMatrixCholeskySolve: length(B)<N", _state);
+    ae_assert(isfinitertrmatrix(cha, n, isupper, _state), "SPDMatrixCholeskySolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "SPDMatrixCholeskySolve: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_move(&bm.ptr.pp_double[0][0], bm.stride, &b->ptr.p_double[0], 1, ae_v_len(0,n-1));
-    spdmatrixcholeskysolvem(cha, n, isupper, &bm, 1, info, rep, &xm, _state);
+    spdmatrixcholeskysolvem(cha, n, isupper, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_move(&x->ptr.p_double[0], 1, &xm.ptr.pp_double[0][0], xm.stride, ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -9999,36 +12918,35 @@ INPUT PARAMETERS
     B       -   array[N], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * for info>0  - overwritten by solution
-                * for info=-3 - filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
 
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or exactly singular system
+    
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void spdmatrixcholeskysolvefast(/* Real    */ ae_matrix* cha,
+ae_bool spdmatrixcholeskysolvefast(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t k;
+    ae_bool result;
 
-    *info = 0;
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        return;
-    }
+    ae_assert(n>0, "SPDMatrixCholeskySolveFast: N<=0", _state);
+    ae_assert(cha->rows>=n, "SPDMatrixCholeskySolveFast: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "SPDMatrixCholeskySolveFast: cols(CHA)<N", _state);
+    ae_assert(b->cnt>=n, "SPDMatrixCholeskySolveFast: length(B)<N", _state);
+    ae_assert(isfinitertrmatrix(cha, n, isupper, _state), "SPDMatrixCholeskySolveFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, n, _state), "SPDMatrixCholeskySolveFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
     for(k=0; k<=n-1; k++)
     {
         if( ae_fp_eq(cha->ptr.pp_double[k][k],0.0) )
@@ -10037,11 +12955,12 @@ void spdmatrixcholeskysolvefast(/* Real    */ ae_matrix* cha,
             {
                 b->ptr.p_double[i] = 0.0;
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
     directdensesolvers_spdbasiccholeskysolve(cha, n, isupper, b, _state);
+    return result;
 }
 
 
@@ -10083,8 +13002,6 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   same as in RMatrixSolve.
-                Returns -3 for non-HPD matrices.
     Rep     -   same as in RMatrixSolve
     X       -   same as in RMatrixSolve
 
@@ -10115,14 +13032,13 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvem(/* Complex */ ae_matrix* a,
+void hpdmatrixsolvem(/* Complex */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -10134,21 +13050,18 @@ void hpdmatrixsolvem(/* Complex */ ae_matrix* a,
 
     ae_frame_make(_state, &_frame_block);
     memset(&da, 0, sizeof(da));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&da, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "HPDMatrixSolveM: N<=0", _state);
+    ae_assert(m>0, "HPDMatrixSolveM: M<=0", _state);
+    ae_assert(a->rows>=n, "HPDMatrixSolveM: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "HPDMatrixSolveM: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "HPDMatrixSolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "HPDMatrixSolveM: cols(B)<M", _state);
+    ae_assert(isfinitectrmatrix(a, n, isupper, _state), "HPDMatrixSolveM: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "HPDMatrixSolveM: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&da, n, n, _state);
     
     /*
@@ -10180,12 +13093,12 @@ void hpdmatrixsolvem(/* Complex */ ae_matrix* a,
         }
         rep->r1 = (double)(0);
         rep->rinf = (double)(0);
-        *info = -3;
+        rep->terminationtype = -3;
         ae_frame_leave(_state);
         return;
     }
-    *info = 1;
-    directdensesolvers_hpdmatrixcholeskysolveinternal(&da, n, isupper, a, ae_true, b, m, info, rep, x, _state);
+    rep->terminationtype = 1;
+    directdensesolvers_hpdmatrixcholeskysolveinternal(&da, n, isupper, a, ae_true, b, m, x, rep, _state);
     ae_frame_leave(_state);
 }
 
@@ -10207,15 +13120,14 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly  singular or is not positive definite.
-                        B is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[0..N-1]:
-                * overwritten by solution
-                * zeros, if problem was not solved
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
 
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
+    
   ! FREE EDITION OF ALGLIB:
   ! 
   ! Free Edition of ALGLIB supports following important features for  this
@@ -10243,33 +13155,32 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvemfast(/* Complex */ ae_matrix* a,
+ae_bool hpdmatrixsolvemfast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_int_t i;
     ae_int_t j;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    memset(&a, 0, sizeof(a));
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    if( !hpdmatrixcholesky(a, n, isupper, _state) )
+    ae_assert(n>0, "HPDMatrixSolveMFast: N<=0", _state);
+    ae_assert(a.rows>=n, "HPDMatrixSolveMFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "HPDMatrixSolveMFast: cols(A)<N", _state);
+    ae_assert(b->rows>=n, "HPDMatrixSolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "HPDMatrixSolveMFast: cols(B)<M", _state);
+    ae_assert(isfinitectrmatrix(&a, n, isupper, _state), "HPDMatrixSolveMFast: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "HPDMatrixSolveMFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
+    if( !hpdmatrixcholesky(&a, n, isupper, _state) )
     {
         for(i=0; i<=n-1; i++)
         {
@@ -10278,21 +13189,22 @@ void hpdmatrixsolvemfast(/* Complex */ ae_matrix* a,
                 b->ptr.pp_complex[i][j] = ae_complex_from_d(0.0);
             }
         }
-        *info = -3;
+        result = ae_false;
         ae_frame_leave(_state);
-        return;
+        return result;
     }
     if( isupper )
     {
-        cmatrixlefttrsm(n, m, a, 0, 0, ae_true, ae_false, 2, b, 0, 0, _state);
-        cmatrixlefttrsm(n, m, a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
+        cmatrixlefttrsm(n, m, &a, 0, 0, ae_true, ae_false, 2, b, 0, 0, _state);
+        cmatrixlefttrsm(n, m, &a, 0, 0, ae_true, ae_false, 0, b, 0, 0, _state);
     }
     else
     {
-        cmatrixlefttrsm(n, m, a, 0, 0, ae_false, ae_false, 0, b, 0, 0, _state);
-        cmatrixlefttrsm(n, m, a, 0, 0, ae_false, ae_false, 2, b, 0, 0, _state);
+        cmatrixlefttrsm(n, m, &a, 0, 0, ae_false, ae_false, 0, b, 0, 0, _state);
+        cmatrixlefttrsm(n, m, &a, 0, 0, ae_false, ae_false, 2, b, 0, 0, _state);
     }
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -10334,8 +13246,6 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   same as in RMatrixSolve
-                Returns -3 for non-HPD matrices.
     Rep     -   same as in RMatrixSolve
     X       -   same as in RMatrixSolve
 
@@ -10366,13 +13276,12 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolve(/* Complex */ ae_matrix* a,
+void hpdmatrixsolve(/* Complex */ const ae_matrix* a,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -10382,21 +13291,20 @@ void hpdmatrixsolve(/* Complex */ ae_matrix* a,
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "HPDMatrixSolve: N<=0", _state);
+    ae_assert(a->rows>=n, "HPDMatrixSolve: rows(A)<N", _state);
+    ae_assert(a->cols>=n, "HPDMatrixSolve: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "HPDMatrixSolve: length(B)<N", _state);
+    ae_assert(isfinitectrmatrix(a, n, isupper, _state), "HPDMatrixSolve: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "HPDMatrixSolve: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_cmove(&bm.ptr.pp_complex[0][0], bm.stride, &b->ptr.p_complex[0], 1, "N", ae_v_len(0,n-1));
-    hpdmatrixsolvem(a, n, isupper, &bm, 1, info, rep, &xm, _state);
+    hpdmatrixsolvem(a, n, isupper, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_cmove(&x->ptr.p_complex[0], 1, &xm.ptr.pp_complex[0][0], xm.stride, "N", ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -10420,15 +13328,13 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or not positive definite
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved 
     B       -   array[0..N-1]:
-                * overwritten by solution
-                * zeros, if A is exactly singular (diagonal of its LU
-                  decomposition has exact zeros).
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   ! FREE EDITION OF ALGLIB:
   ! 
@@ -10457,42 +13363,41 @@ OUTPUT PARAMETERS
   -- ALGLIB --
      Copyright 17.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixsolvefast(/* Complex */ ae_matrix* a,
+ae_bool hpdmatrixsolvefast(/* Complex */ const ae_matrix* _a,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_frame _frame_block;
-    ae_matrix _a;
+    ae_matrix a;
     ae_int_t i;
+    ae_bool result;
 
     ae_frame_make(_state, &_frame_block);
-    memset(&_a, 0, sizeof(_a));
-    ae_matrix_init_copy(&_a, a, _state, ae_true);
-    a = &_a;
-    *info = 0;
+    memset(&a, 0, sizeof(a));
+    ae_matrix_init_copy(&a, _a, _state, ae_true);
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    if( !hpdmatrixcholesky(a, n, isupper, _state) )
+    ae_assert(n>0, "HPDMatrixSolveFast: N<=0", _state);
+    ae_assert(a.rows>=n, "HPDMatrixSolveFast: rows(A)<N", _state);
+    ae_assert(a.cols>=n, "HPDMatrixSolveFast: cols(A)<N", _state);
+    ae_assert(b->cnt>=n, "HPDMatrixSolveFast: length(B)<N", _state);
+    ae_assert(isfinitectrmatrix(&a, n, isupper, _state), "HPDMatrixSolveFast: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "HPDMatrixSolveFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
+    if( !hpdmatrixcholesky(&a, n, isupper, _state) )
     {
         for(i=0; i<=n-1; i++)
         {
             b->ptr.p_complex[i] = ae_complex_from_d(0.0);
         }
-        *info = -3;
+        result = ae_false;
         ae_frame_leave(_state);
-        return;
+        return result;
     }
-    directdensesolvers_hpdbasiccholeskysolve(a, n, isupper, b, _state);
+    directdensesolvers_hpdbasiccholeskysolve(&a, n, isupper, b, _state);
     ae_frame_leave(_state);
+    return result;
 }
 
 
@@ -10539,29 +13444,25 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    A is singular, or VERY close to singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
-    X       -   array[N]:
-                * for info>0 contains solution
-                * for info=-3 filled by zeros
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvem(/* Complex */ ae_matrix* cha,
+void hpdmatrixcholeskysolvem(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -10569,28 +13470,19 @@ void hpdmatrixcholeskysolvem(/* Complex */ ae_matrix* cha,
 
     ae_frame_make(_state, &_frame_block);
     memset(&emptya, 0, sizeof(emptya));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&emptya, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    
-    /*
-     * prepare: check inputs, allocate space...
-     */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
-    
-    /*
-     * 1. scale matrix, max(|U[i,j]|)
-     * 2. factorize scaled matrix
-     * 3. solve
-     */
-    directdensesolvers_hpdmatrixcholeskysolveinternal(cha, n, isupper, &emptya, ae_false, b, m, info, rep, x, _state);
+    ae_assert(n>0, "HPDMatrixCholeskySolveM: N<=0", _state);
+    ae_assert(m>0, "HPDMatrixCholeskySolveM: M<=0", _state);
+    ae_assert(cha->rows>=n, "HPDMatrixCholeskySolveM: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "HPDMatrixCholeskySolveM: cols(CHA)<N", _state);
+    ae_assert(b->rows>=n, "HPDMatrixCholeskySolveM: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "HPDMatrixCholeskySolveM: cols(B)<M", _state);
+    ae_assert(isfinitectrmatrix(cha, n, isupper, _state), "HPDMatrixCholeskySolveM: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "HPDMatrixCholeskySolveM: LUA contains infinite or NaN values!", _state);
+    directdensesolvers_hpdmatrixcholeskysolveinternal(cha, n, isupper, &emptya, ae_false, b, m, x, rep, _state);
     ae_frame_leave(_state);
 }
 
@@ -10614,38 +13506,39 @@ INPUT PARAMETERS
     M       -   right part size
 
 OUTPUT PARAMETERS:
-    Info    -   return code:
-                * -3    A is singular, or VERY close to singular.
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task was solved
     B       -   array[N]:
-                * for info>0 overwritten by solution
-                * for info=-3 filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvemfast(/* Complex */ ae_matrix* cha,
+ae_bool hpdmatrixcholeskysolvemfast(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t j;
     ae_int_t k;
+    ae_bool result;
 
-    *info = 0;
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        return;
-    }
+    ae_assert(n>0, "HPDMatrixCholeskySolveMFast: N<=0", _state);
+    ae_assert(m>0, "HPDMatrixCholeskySolveMFast: M<=0", _state);
+    ae_assert(cha->rows>=n, "HPDMatrixCholeskySolveMFast: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "HPDMatrixCholeskySolveMFast: cols(CHA)<N", _state);
+    ae_assert(b->rows>=n, "HPDMatrixCholeskySolveMFast: rows(B)<N", _state);
+    ae_assert(b->cols>=m, "HPDMatrixCholeskySolveMFast: cols(B)<M", _state);
+    ae_assert(isfinitectrmatrix(cha, n, isupper, _state), "HPDMatrixCholeskySolveMFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecmatrix(b, n, m, _state), "HPDMatrixCholeskySolveMFast: LUA contains infinite or NaN values!", _state);
+    result = ae_true;
     for(k=0; k<=n-1; k++)
     {
         if( ae_fp_eq(cha->ptr.pp_complex[k][k].x,0.0)&&ae_fp_eq(cha->ptr.pp_complex[k][k].y,0.0) )
@@ -10657,8 +13550,8 @@ void hpdmatrixcholeskysolvemfast(/* Complex */ ae_matrix* cha,
                     b->ptr.pp_complex[i][j] = ae_complex_from_d(0.0);
                 }
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
     if( isupper )
@@ -10671,6 +13564,7 @@ void hpdmatrixcholeskysolvemfast(/* Complex */ ae_matrix* cha,
         cmatrixlefttrsm(n, m, cha, 0, 0, ae_false, ae_false, 0, b, 0, 0, _state);
         cmatrixlefttrsm(n, m, cha, 0, 0, ae_false, ae_false, 2, b, 0, 0, _state);
     }
+    return result;
 }
 
 
@@ -10713,28 +13607,24 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        X is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     Rep     -   additional report, following fields are set:
-                * rep.r1    condition number in 1-norm
-                * rep.rinf  condition number in inf-norm
-    X       -   array[N]:
-                * for info>0  - solution
-                * for info=-3 - filled by zeros
+                * rep.terminationtype   >0 for success
+                                        -3 for badly conditioned or indefinite matrix
+                * rep.r1                condition number in 1-norm
+                * rep.rinf              condition number in inf-norm
+    X       -   array[N], it contains:
+                * rep.terminationtype>0  => solution
+                * rep.terminationtype=-3 => filled by zeros
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolve(/* Complex */ ae_matrix* cha,
+void hpdmatrixcholeskysolve(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_vector* b,
-     ae_int_t* info,
-     densesolverreport* rep,
+     /* Complex */ const ae_vector* b,
      /* Complex */ ae_vector* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -10744,21 +13634,20 @@ void hpdmatrixcholeskysolve(/* Complex */ ae_matrix* cha,
     ae_frame_make(_state, &_frame_block);
     memset(&bm, 0, sizeof(bm));
     memset(&xm, 0, sizeof(xm));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverreport_clear(rep);
     ae_matrix_init(&bm, 0, 0, DT_COMPLEX, _state, ae_true);
     ae_matrix_init(&xm, 0, 0, DT_COMPLEX, _state, ae_true);
 
-    if( n<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0, "HPDMatrixCholeskySolve: N<=0", _state);
+    ae_assert(cha->rows>=n, "HPDMatrixCholeskySolve: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "HPDMatrixCholeskySolve: cols(CHA)<N", _state);
+    ae_assert(b->cnt>=n, "HPDMatrixCholeskySolve: length(B)<N", _state);
+    ae_assert(isfinitectrmatrix(cha, n, isupper, _state), "HPDMatrixCholeskySolve: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "HPDMatrixCholeskySolve: B contains infinite or NaN values!", _state);
     ae_matrix_set_length(&bm, n, 1, _state);
     ae_v_cmove(&bm.ptr.pp_complex[0][0], bm.stride, &b->ptr.p_complex[0], 1, "N", ae_v_len(0,n-1));
-    hpdmatrixcholeskysolvem(cha, n, isupper, &bm, 1, info, rep, &xm, _state);
+    hpdmatrixcholeskysolvem(cha, n, isupper, &bm, 1, &xm, rep, _state);
     ae_vector_set_length(x, n, _state);
     ae_v_cmove(&x->ptr.p_complex[0], 1, &xm.ptr.pp_complex[0][0], xm.stride, "N", ae_v_len(0,n-1));
     ae_frame_leave(_state);
@@ -10783,36 +13672,35 @@ INPUT PARAMETERS
     B       -   array[0..N-1], right part
 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -3    A is is exactly singular or ill conditioned
-                        B is filled by zeros in such cases.
-                * -1    N<=0 was passed
-                *  1    task is solved
     B       -   array[N]:
-                * for info>0  - overwritten by solution
-                * for info=-3 - filled by zeros
+                * result=true    =>  overwritten by solution
+                * result=false   =>  filled by zeros
+
+RETURNS:
+    True, if the system was solved
+    False, for an extremely badly conditioned or indefinite system
 
   -- ALGLIB --
      Copyright 18.03.2015 by Bochkanov Sergey
 *************************************************************************/
-void hpdmatrixcholeskysolvefast(/* Complex */ ae_matrix* cha,
+ae_bool hpdmatrixcholeskysolvefast(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_vector* b,
-     ae_int_t* info,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t k;
+    ae_bool result;
 
-    *info = 0;
 
-    *info = 1;
-    if( n<=0 )
-    {
-        *info = -1;
-        return;
-    }
+    ae_assert(n>0, "HPDMatrixCholeskySolveFast: N<=0", _state);
+    ae_assert(cha->rows>=n, "HPDMatrixCholeskySolveFast: rows(CHA)<N", _state);
+    ae_assert(cha->cols>=n, "HPDMatrixCholeskySolveFast: cols(CHA)<N", _state);
+    ae_assert(b->cnt>=n, "HPDMatrixCholeskySolveFast: length(B)<N", _state);
+    ae_assert(isfinitectrmatrix(cha, n, isupper, _state), "HPDMatrixCholeskySolveFast: LUA contains infinite or NaN values!", _state);
+    ae_assert(isfinitecvector(b, n, _state), "HPDMatrixCholeskySolveFast: B contains infinite or NaN values!", _state);
+    result = ae_true;
     for(k=0; k<=n-1; k++)
     {
         if( ae_fp_eq(cha->ptr.pp_complex[k][k].x,0.0)&&ae_fp_eq(cha->ptr.pp_complex[k][k].y,0.0) )
@@ -10821,11 +13709,12 @@ void hpdmatrixcholeskysolvefast(/* Complex */ ae_matrix* cha,
             {
                 b->ptr.p_complex[i] = ae_complex_from_d(0.0);
             }
-            *info = -3;
-            return;
+            result = ae_false;
+            return result;
         }
     }
     directdensesolvers_hpdbasiccholeskysolve(cha, n, isupper, b, _state);
+    return result;
 }
 
 
@@ -10847,16 +13736,12 @@ INPUT PARAMETERS
     NRows   -   vertical size of A
     NCols   -   horizontal size of A
     B       -   array[0..NCols-1], right part
-    Threshold-  a number in [0,1]. Singular values  beyond  Threshold  are
+    Threshold-  a number in [0,1]. Singular values  beyond  Threshold*Largest are
                 considered  zero.  Set  it to 0.0, if you don't understand
                 what it means, so the solver will choose good value on its
                 own.
                 
 OUTPUT PARAMETERS
-    Info    -   return code:
-                * -4    SVD subroutine failed
-                * -1    if NRows<=0 or NCols<=0 or Threshold<0 was passed
-                *  1    if task is solved
     Rep     -   solver report, see below for more info
     X       -   array[0..N-1,0..M-1], it contains:
                 * solution of A*X=B (even for singular A)
@@ -10865,6 +13750,9 @@ OUTPUT PARAMETERS
 SOLVER REPORT
 
 Subroutine sets following fields of the Rep structure:
+* TerminationType is set to:
+            * -4 for SVD failure
+            * >0 for success
 * R2        reciprocal of condition number: 1/cond(A), 2-norm.
 * N         = NCols
 * K         dim(Null(A))
@@ -10898,14 +13786,13 @@ Subroutine sets following fields of the Rep structure:
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void rmatrixsolvels(/* Real    */ ae_matrix* a,
+void rmatrixsolvels(/* Real    */ const ae_matrix* a,
      ae_int_t nrows,
      ae_int_t ncols,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      double threshold,
-     ae_int_t* info,
-     densesolverlsreport* rep,
      /* Real    */ ae_vector* x,
+     densesolverlsreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -10945,9 +13832,8 @@ void rmatrixsolvels(/* Real    */ ae_matrix* a,
     memset(&tx, 0, sizeof(tx));
     memset(&buf, 0, sizeof(buf));
     memset(&w, 0, sizeof(w));
-    *info = 0;
-    _densesolverlsreport_clear(rep);
     ae_vector_clear(x);
+    _densesolverlsreport_clear(rep);
     ae_vector_init(&sv, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&u, 0, 0, DT_REAL, _state, ae_true);
     ae_matrix_init(&vt, 0, 0, DT_REAL, _state, ae_true);
@@ -10960,12 +13846,14 @@ void rmatrixsolvels(/* Real    */ ae_matrix* a,
     ae_vector_init(&buf, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&w, 0, DT_REAL, _state, ae_true);
 
-    if( (nrows<=0||ncols<=0)||ae_fp_less(threshold,(double)(0)) )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(nrows>0, "RMatrixSolveLS: NRows<=0", _state);
+    ae_assert(ncols>0, "RMatrixSolveLS: NCols<=0", _state);
+    ae_assert(ae_isfinite(threshold, _state)&&ae_fp_greater_eq(threshold,(double)(0)), "RMatrixSolveLS: Threshold<0 or is infinite", _state);
+    ae_assert(a->rows>=nrows, "RMatrixSolveLS: rows(A)<NRows", _state);
+    ae_assert(a->cols>=ncols, "RMatrixSolveLS: cols(A)<NCols", _state);
+    ae_assert(b->cnt>=nrows, "RMatrixSolveLS: length(B)<NRows", _state);
+    ae_assert(apservisfinitematrix(a, nrows, ncols, _state), "RMatrixSolveLS: A contains infinite or NaN values!", _state);
+    ae_assert(isfinitevector(b, nrows, _state), "RMatrixSolveLS: B contains infinite or NaN values!", _state);
     if( ae_fp_eq(threshold,(double)(0)) )
     {
         threshold = (double)1000*ae_machineepsilon;
@@ -10980,11 +13868,11 @@ void rmatrixsolvels(/* Real    */ ae_matrix* a,
     {
         if( svdfailed )
         {
-            *info = -4;
+            rep->terminationtype = -4;
         }
         else
         {
-            *info = 1;
+            rep->terminationtype = 1;
         }
         ae_vector_set_length(x, ncols, _state);
         for(i=0; i<=ncols-1; i++)
@@ -11022,7 +13910,7 @@ void rmatrixsolvels(/* Real    */ ae_matrix* a,
         rep->r2 = (double)(0);
     }
     rep->n = ncols;
-    *info = 1;
+    rep->terminationtype = 1;
     
     /*
      * Iterative refinement of xc combined with solution:
@@ -11153,16 +14041,15 @@ Internal LU solver
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_bool havea,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -11190,9 +14077,8 @@ static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ ae_matrix* l
     memset(&xa, 0, sizeof(xa));
     memset(&xb, 0, sizeof(xb));
     memset(&tx, 0, sizeof(tx));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_vector_init(&xc, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&y, 0, DT_REAL, _state, ae_true);
     ae_vector_init(&bc, 0, DT_REAL, _state, ae_true);
@@ -11204,20 +14090,10 @@ static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ ae_matrix* l
     /*
      * prepare: check inputs, allocate space...
      */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0&&m>0, "RMatrixLUSolveInternal: integrity check 7656 failed", _state);
     for(i=0; i<=n-1; i++)
     {
-        if( p->ptr.p_int[i]>n-1||p->ptr.p_int[i]<i )
-        {
-            *info = -1;
-            ae_frame_leave(_state);
-            return;
-        }
+        ae_assert(p->ptr.p_int[i]<=n-1&&p->ptr.p_int[i]>=i, "RMatrixLUSolveInternal: incorrect pivot, P[i]<i or P[i]>=N", _state);
     }
     ae_matrix_set_length(x, n, m, _state);
     ae_vector_set_length(&y, n, _state);
@@ -11232,6 +14108,7 @@ static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ ae_matrix* l
      */
     rep->r1 = rmatrixlurcond1(lua, n, _state);
     rep->rinf = rmatrixlurcondinf(lua, n, _state);
+    rep->terminationtype = 1;
     if( ae_fp_less(rep->r1,rcondthreshold(_state))||ae_fp_less(rep->rinf,rcondthreshold(_state)) )
     {
         for(i=0; i<=n-1; i++)
@@ -11243,11 +14120,10 @@ static void directdensesolvers_rmatrixlusolveinternal(/* Real    */ ae_matrix* l
         }
         rep->r1 = (double)(0);
         rep->rinf = (double)(0);
-        *info = -3;
+        rep->terminationtype = -3;
         ae_frame_leave(_state);
         return;
     }
-    *info = 1;
     
     /*
      * First stage of solution: rough solution with TRSM()
@@ -11330,34 +14206,28 @@ Internal Cholesky solver
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_spdmatrixcholeskysolveinternal(/* Real    */ ae_matrix* cha,
+static void directdensesolvers_spdmatrixcholeskysolveinternal(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Real    */ ae_matrix* a,
+     /* Real    */ const ae_matrix* a,
      ae_bool havea,
-     /* Real    */ ae_matrix* b,
+     /* Real    */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Real    */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_int_t i;
     ae_int_t j;
 
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
 
     
     /*
      * prepare: check inputs, allocate space...
      */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        return;
-    }
+    ae_assert(n>0&&m>0, "SPDMatrixCholeskySolveInternal: integrity check 9858 failed", _state);
     ae_matrix_set_length(x, n, m, _state);
     
     /*
@@ -11365,6 +14235,7 @@ static void directdensesolvers_spdmatrixcholeskysolveinternal(/* Real    */ ae_m
      */
     rep->r1 = spdmatrixcholeskyrcond(cha, n, isupper, _state);
     rep->rinf = rep->r1;
+    rep->terminationtype = 1;
     if( ae_fp_less(rep->r1,rcondthreshold(_state)) )
     {
         for(i=0; i<=n-1; i++)
@@ -11376,10 +14247,9 @@ static void directdensesolvers_spdmatrixcholeskysolveinternal(/* Real    */ ae_m
         }
         rep->r1 = (double)(0);
         rep->rinf = (double)(0);
-        *info = -3;
+        rep->terminationtype = -3;
         return;
     }
-    *info = 1;
     
     /*
      * Solve with TRSM()
@@ -11410,16 +14280,15 @@ Internal LU solver
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
-     /* Complex */ ae_matrix* a,
+     /* Complex */ const ae_matrix* a,
      ae_bool havea,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -11448,9 +14317,8 @@ static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ ae_matrix* l
     memset(&xb, 0, sizeof(xb));
     memset(&tx, 0, sizeof(tx));
     memset(&tmpbuf, 0, sizeof(tmpbuf));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_vector_init(&xc, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&y, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&bc, 0, DT_COMPLEX, _state, ae_true);
@@ -11463,20 +14331,10 @@ static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ ae_matrix* l
     /*
      * prepare: check inputs, allocate space...
      */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
+    ae_assert(n>0&&m>0, "CMatrixLUSolveInternal: integrity check 9302 failed", _state);
     for(i=0; i<=n-1; i++)
     {
-        if( p->ptr.p_int[i]>n-1||p->ptr.p_int[i]<i )
-        {
-            *info = -1;
-            ae_frame_leave(_state);
-            return;
-        }
+        ae_assert(p->ptr.p_int[i]<=n-1&&p->ptr.p_int[i]>=i, "CMatrixLUSolveInternal: incorrect pivot P[i]<i or P[I]>=N", _state);
     }
     ae_matrix_set_length(x, n, m, _state);
     ae_vector_set_length(&y, n, _state);
@@ -11492,6 +14350,7 @@ static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ ae_matrix* l
      */
     rep->r1 = cmatrixlurcond1(lua, n, _state);
     rep->rinf = cmatrixlurcondinf(lua, n, _state);
+    rep->terminationtype = 1;
     if( ae_fp_less(rep->r1,rcondthreshold(_state))||ae_fp_less(rep->rinf,rcondthreshold(_state)) )
     {
         for(i=0; i<=n-1; i++)
@@ -11503,11 +14362,10 @@ static void directdensesolvers_cmatrixlusolveinternal(/* Complex */ ae_matrix* l
         }
         rep->r1 = (double)(0);
         rep->rinf = (double)(0);
-        *info = -3;
+        rep->terminationtype = -3;
         ae_frame_leave(_state);
         return;
     }
-    *info = 1;
     
     /*
      * First phase: solve with TRSM()
@@ -11606,16 +14464,15 @@ Internal Cholesky solver
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ ae_matrix* cha,
+static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
-     /* Complex */ ae_matrix* a,
+     /* Complex */ const ae_matrix* a,
      ae_bool havea,
-     /* Complex */ ae_matrix* b,
+     /* Complex */ const ae_matrix* b,
      ae_int_t m,
-     ae_int_t* info,
-     densesolverreport* rep,
      /* Complex */ ae_matrix* x,
+     densesolverreport* rep,
      ae_state *_state)
 {
     ae_frame _frame_block;
@@ -11635,9 +14492,8 @@ static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ ae_m
     memset(&xa, 0, sizeof(xa));
     memset(&xb, 0, sizeof(xb));
     memset(&tx, 0, sizeof(tx));
-    *info = 0;
-    _densesolverreport_clear(rep);
     ae_matrix_clear(x);
+    _densesolverreport_clear(rep);
     ae_vector_init(&xc, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&y, 0, DT_COMPLEX, _state, ae_true);
     ae_vector_init(&bc, 0, DT_COMPLEX, _state, ae_true);
@@ -11649,12 +14505,6 @@ static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ ae_m
     /*
      * prepare: check inputs, allocate space...
      */
-    if( n<=0||m<=0 )
-    {
-        *info = -1;
-        ae_frame_leave(_state);
-        return;
-    }
     ae_matrix_set_length(x, n, m, _state);
     ae_vector_set_length(&y, n, _state);
     ae_vector_set_length(&xc, n, _state);
@@ -11668,6 +14518,7 @@ static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ ae_m
      */
     rep->r1 = hpdmatrixcholeskyrcond(cha, n, isupper, _state);
     rep->rinf = rep->r1;
+    rep->terminationtype = 1;
     if( ae_fp_less(rep->r1,rcondthreshold(_state)) )
     {
         for(i=0; i<=n-1; i++)
@@ -11679,11 +14530,10 @@ static void directdensesolvers_hpdmatrixcholeskysolveinternal(/* Complex */ ae_m
         }
         rep->r1 = (double)(0);
         rep->rinf = (double)(0);
-        *info = -3;
+        rep->terminationtype = -3;
         ae_frame_leave(_state);
         return;
     }
-    *info = 1;
     
     /*
      * solve
@@ -11763,8 +14613,8 @@ This subroutine assumes that:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_rbasiclusolve(/* Real    */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_rbasiclusolve(/* Real    */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Real    */ ae_vector* xb,
      ae_state *_state)
@@ -11806,7 +14656,7 @@ This subroutine assumes that:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_spdbasiccholeskysolve(/* Real    */ ae_matrix* cha,
+static void directdensesolvers_spdbasiccholeskysolve(/* Real    */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Real    */ ae_vector* xb,
@@ -11891,8 +14741,8 @@ This subroutine assumes that:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_cbasiclusolve(/* Complex */ ae_matrix* lua,
-     /* Integer */ ae_vector* p,
+static void directdensesolvers_cbasiclusolve(/* Complex */ const ae_matrix* lua,
+     /* Integer */ const ae_vector* p,
      ae_int_t n,
      /* Complex */ ae_vector* xb,
      ae_state *_state)
@@ -11934,7 +14784,7 @@ This subroutine assumes that:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************/
-static void directdensesolvers_hpdbasiccholeskysolve(/* Complex */ ae_matrix* cha,
+static void directdensesolvers_hpdbasiccholeskysolve(/* Complex */ const ae_matrix* cha,
      ae_int_t n,
      ae_bool isupper,
      /* Complex */ ae_vector* xb,
@@ -12020,6 +14870,7 @@ void _densesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state
 {
     densesolverreport       *dst = (densesolverreport*)_dst;
     const densesolverreport *src = (const densesolverreport*)_src;
+    dst->terminationtype = src->terminationtype;
     dst->r1 = src->r1;
     dst->rinf = src->rinf;
 }
@@ -12051,6 +14902,7 @@ void _densesolverlsreport_init_copy(void* _dst, const void* _src, ae_state *_sta
 {
     densesolverlsreport       *dst = (densesolverlsreport*)_dst;
     const densesolverlsreport *src = (const densesolverlsreport*)_src;
+    dst->terminationtype = src->terminationtype;
     dst->r2 = src->r2;
     ae_matrix_init_copy(&dst->cx, &src->cx, _state, make_automatic);
     dst->n = src->n;
@@ -12071,496 +14923,6 @@ void _densesolverlsreport_destroy(void* _p)
     densesolverlsreport *p = (densesolverlsreport*)_p;
     ae_touch_ptr((void*)p);
     ae_matrix_destroy(&p->cx);
-}
-
-
-#endif
-#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
-definite matrix A, N*1 vectors x and b.
-
-This solver  converts  input  matrix  to  SKS  format,  performs  Cholesky
-factorization using  SKS  Cholesky  subroutine  (works  well  for  limited
-bandwidth matrices) and uses sparse triangular solvers to get solution  of
-the original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdsolvesks(sparsematrix* a,
-     ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state)
-{
-    ae_frame _frame_block;
-    ae_int_t i;
-    sparsematrix a2;
-    ae_int_t n;
-
-    ae_frame_make(_state, &_frame_block);
-    memset(&a2, 0, sizeof(a2));
-    ae_vector_clear(x);
-    _sparsesolverreport_clear(rep);
-    _sparsematrix_init(&a2, _state, ae_true);
-
-    n = sparsegetnrows(a, _state);
-    ae_assert(n>0, "SparseSPDSolveSKS: N<=0", _state);
-    ae_assert(sparsegetnrows(a, _state)==n, "SparseSPDSolveSKS: rows(A)!=N", _state);
-    ae_assert(sparsegetncols(a, _state)==n, "SparseSPDSolveSKS: cols(A)!=N", _state);
-    ae_assert(b->cnt>=n, "SparseSPDSolveSKS: length(B)<N", _state);
-    ae_assert(isfinitevector(b, n, _state), "SparseSPDSolveSKS: B contains infinities or NANs", _state);
-    initsparsesolverreport(rep, _state);
-    ae_vector_set_length(x, n, _state);
-    sparsecopytosks(a, &a2, _state);
-    if( !sparsecholeskyskyline(&a2, n, isupper, _state) )
-    {
-        rep->terminationtype = -3;
-        for(i=0; i<=n-1; i++)
-        {
-            x->ptr.p_double[i] = (double)(0);
-        }
-        ae_frame_leave(_state);
-        return;
-    }
-    for(i=0; i<=n-1; i++)
-    {
-        x->ptr.p_double[i] = b->ptr.p_double[i];
-    }
-    if( isupper )
-    {
-        sparsetrsv(&a2, isupper, ae_false, 1, x, _state);
-        sparsetrsv(&a2, isupper, ae_false, 0, x, _state);
-    }
-    else
-    {
-        sparsetrsv(&a2, isupper, ae_false, 0, x, _state);
-        sparsetrsv(&a2, isupper, ae_false, 1, x, _state);
-    }
-    rep->terminationtype = 1;
-    ae_frame_leave(_state);
-}
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
-definite matrix A, N*1 vectors x and b.
-
-This solver  converts  input  matrix  to  CRS  format,  performs  Cholesky
-factorization using supernodal Cholesky  decomposition  with  permutation-
-reducing ordering and uses sparse triangular solver to get solution of the
-original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[N], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdsolve(sparsematrix* a,
-     ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state)
-{
-    ae_frame _frame_block;
-    ae_int_t i;
-    ae_int_t j;
-    sparsematrix a2;
-    ae_int_t n;
-    double v;
-    ae_vector p;
-
-    ae_frame_make(_state, &_frame_block);
-    memset(&a2, 0, sizeof(a2));
-    memset(&p, 0, sizeof(p));
-    ae_vector_clear(x);
-    _sparsesolverreport_clear(rep);
-    _sparsematrix_init(&a2, _state, ae_true);
-    ae_vector_init(&p, 0, DT_INT, _state, ae_true);
-
-    n = sparsegetnrows(a, _state);
-    ae_assert(n>0, "SparseSPDSolve: N<=0", _state);
-    ae_assert(sparsegetnrows(a, _state)==n, "SparseSPDSolve: rows(A)!=N", _state);
-    ae_assert(sparsegetncols(a, _state)==n, "SparseSPDSolve: cols(A)!=N", _state);
-    ae_assert(b->cnt>=n, "SparseSPDSolve: length(B)<N", _state);
-    ae_assert(isfinitevector(b, n, _state), "SparseSPDSolve: B contains infinities or NANs", _state);
-    initsparsesolverreport(rep, _state);
-    sparsecopytocrs(a, &a2, _state);
-    if( !sparsecholeskyp(&a2, isupper, &p, _state) )
-    {
-        rep->terminationtype = -3;
-        rsetallocv(n, 0.0, x, _state);
-        ae_frame_leave(_state);
-        return;
-    }
-    rcopyallocv(n, b, x, _state);
-    for(i=0; i<=n-1; i++)
-    {
-        j = p.ptr.p_int[i];
-        v = x->ptr.p_double[i];
-        x->ptr.p_double[i] = x->ptr.p_double[j];
-        x->ptr.p_double[j] = v;
-    }
-    if( isupper )
-    {
-        sparsetrsv(&a2, isupper, ae_false, 1, x, _state);
-        sparsetrsv(&a2, isupper, ae_false, 0, x, _state);
-    }
-    else
-    {
-        sparsetrsv(&a2, isupper, ae_false, 0, x, _state);
-        sparsetrsv(&a2, isupper, ae_false, 1, x, _state);
-    }
-    for(i=n-1; i>=0; i--)
-    {
-        j = p.ptr.p_int[i];
-        v = x->ptr.p_double[i];
-        x->ptr.p_double[i] = x->ptr.p_double[j];
-        x->ptr.p_double[j] = v;
-    }
-    rep->terminationtype = 1;
-    ae_frame_leave(_state);
-}
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with N*N real  symmetric  positive definite
-matrix A given by its Cholesky decomposition, and N*1 vectors x and b.
-
-IMPORTANT: this solver requires input matrix to be in  the  SKS  (Skyline)
-           or CRS (compressed row storage) format. An  exception  will  be
-           generated if you pass matrix in some other format.
-
-INPUT PARAMETERS
-    A       -   sparse NxN matrix stored in CRs or SKS format, must be NxN
-                exactly
-    IsUpper -   which half of A is provided (another half is ignored)
-    B       -   array[N], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate or non-SPD system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsespdcholeskysolve(sparsematrix* a,
-     ae_bool isupper,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state)
-{
-    ae_int_t i;
-    ae_int_t n;
-
-    ae_vector_clear(x);
-    _sparsesolverreport_clear(rep);
-
-    n = sparsegetnrows(a, _state);
-    ae_assert(n>0, "SparseSPDCholeskySolve: N<=0", _state);
-    ae_assert(sparsegetnrows(a, _state)==n, "SparseSPDCholeskySolve: rows(A)!=N", _state);
-    ae_assert(sparsegetncols(a, _state)==n, "SparseSPDCholeskySolve: cols(A)!=N", _state);
-    ae_assert(sparseissks(a, _state)||sparseiscrs(a, _state), "SparseSPDCholeskySolve: A is not an SKS/CRS matrix", _state);
-    ae_assert(b->cnt>=n, "SparseSPDCholeskySolve: length(B)<N", _state);
-    ae_assert(isfinitevector(b, n, _state), "SparseSPDCholeskySolve: B contains infinities or NANs", _state);
-    initsparsesolverreport(rep, _state);
-    ae_vector_set_length(x, n, _state);
-    for(i=0; i<=n-1; i++)
-    {
-        if( ae_fp_eq(sparseget(a, i, i, _state),0.0) )
-        {
-            rep->terminationtype = -3;
-            for(i=0; i<=n-1; i++)
-            {
-                x->ptr.p_double[i] = (double)(0);
-            }
-            return;
-        }
-    }
-    for(i=0; i<=n-1; i++)
-    {
-        x->ptr.p_double[i] = b->ptr.p_double[i];
-    }
-    if( isupper )
-    {
-        sparsetrsv(a, isupper, ae_false, 1, x, _state);
-        sparsetrsv(a, isupper, ae_false, 0, x, _state);
-    }
-    else
-    {
-        sparsetrsv(a, isupper, ae_false, 0, x, _state);
-        sparsetrsv(a, isupper, ae_false, 1, x, _state);
-    }
-    rep->terminationtype = 1;
-}
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
-matrix A, N*1 vectors x and b.
-
-This solver converts input matrix to CRS format, performs LU factorization
-and uses sparse triangular solvers to get solution of the original system.
-
-INPUT PARAMETERS
-    A       -   sparse matrix, must be NxN exactly, any storage format
-    N       -   size of A, N>0
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparsesolve(sparsematrix* a,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state)
-{
-    ae_frame _frame_block;
-    ae_int_t i;
-    ae_int_t j;
-    ae_int_t n;
-    double v;
-    sparsematrix a2;
-    ae_vector pivp;
-    ae_vector pivq;
-
-    ae_frame_make(_state, &_frame_block);
-    memset(&a2, 0, sizeof(a2));
-    memset(&pivp, 0, sizeof(pivp));
-    memset(&pivq, 0, sizeof(pivq));
-    ae_vector_clear(x);
-    _sparsesolverreport_clear(rep);
-    _sparsematrix_init(&a2, _state, ae_true);
-    ae_vector_init(&pivp, 0, DT_INT, _state, ae_true);
-    ae_vector_init(&pivq, 0, DT_INT, _state, ae_true);
-
-    n = sparsegetnrows(a, _state);
-    ae_assert(n>0, "SparseSolve: N<=0", _state);
-    ae_assert(sparsegetnrows(a, _state)==n, "SparseSolve: rows(A)!=N", _state);
-    ae_assert(sparsegetncols(a, _state)==n, "SparseSolve: cols(A)!=N", _state);
-    ae_assert(b->cnt>=n, "SparseSolve: length(B)<N", _state);
-    ae_assert(isfinitevector(b, n, _state), "SparseSolve: B contains infinities or NANs", _state);
-    initsparsesolverreport(rep, _state);
-    ae_vector_set_length(x, n, _state);
-    sparsecopytocrs(a, &a2, _state);
-    if( !sparselu(&a2, 0, &pivp, &pivq, _state) )
-    {
-        rep->terminationtype = -3;
-        for(i=0; i<=n-1; i++)
-        {
-            x->ptr.p_double[i] = (double)(0);
-        }
-        ae_frame_leave(_state);
-        return;
-    }
-    for(i=0; i<=n-1; i++)
-    {
-        x->ptr.p_double[i] = b->ptr.p_double[i];
-    }
-    for(i=0; i<=n-1; i++)
-    {
-        j = pivp.ptr.p_int[i];
-        v = x->ptr.p_double[i];
-        x->ptr.p_double[i] = x->ptr.p_double[j];
-        x->ptr.p_double[j] = v;
-    }
-    sparsetrsv(&a2, ae_false, ae_true, 0, x, _state);
-    sparsetrsv(&a2, ae_true, ae_false, 0, x, _state);
-    for(i=n-1; i>=0; i--)
-    {
-        j = pivq.ptr.p_int[i];
-        v = x->ptr.p_double[i];
-        x->ptr.p_double[i] = x->ptr.p_double[j];
-        x->ptr.p_double[j] = v;
-    }
-    rep->terminationtype = 1;
-    ae_frame_leave(_state);
-}
-
-
-/*************************************************************************
-Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
-matrix A given by its LU factorization, N*1 vectors x and b.
-
-IMPORTANT: this solver requires input matrix  to  be  in  the  CRS  sparse
-           storage format. An exception will  be  generated  if  you  pass
-           matrix in some other format (HASH or SKS).
-
-INPUT PARAMETERS
-    A       -   LU factorization of the sparse matrix, must be NxN exactly
-                in CRS storage format
-    P, Q    -   pivot indexes from LU factorization
-    N       -   size of A, N>0
-    B       -   array[0..N-1], right part
-
-OUTPUT PARAMETERS
-    X       -   array[N], it contains:
-                * rep.terminationtype>0    =>  solution
-                * rep.terminationtype=-3   =>  filled by zeros
-    Rep     -   solver report, following fields are set:
-                * rep.terminationtype - solver status; >0 for success,
-                  set to -3 on failure (degenerate system).
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void sparselusolve(sparsematrix* a,
-     /* Integer */ ae_vector* p,
-     /* Integer */ ae_vector* q,
-     /* Real    */ ae_vector* b,
-     /* Real    */ ae_vector* x,
-     sparsesolverreport* rep,
-     ae_state *_state)
-{
-    ae_int_t i;
-    ae_int_t j;
-    double v;
-    ae_int_t n;
-
-    ae_vector_clear(x);
-    _sparsesolverreport_clear(rep);
-
-    n = sparsegetnrows(a, _state);
-    ae_assert(n>0, "SparseLUSolve: N<=0", _state);
-    ae_assert(sparsegetnrows(a, _state)==n, "SparseLUSolve: rows(A)!=N", _state);
-    ae_assert(sparsegetncols(a, _state)==n, "SparseLUSolve: cols(A)!=N", _state);
-    ae_assert(sparseiscrs(a, _state), "SparseLUSolve: A is not an SKS matrix", _state);
-    ae_assert(b->cnt>=n, "SparseLUSolve: length(B)<N", _state);
-    ae_assert(isfinitevector(b, n, _state), "SparseLUSolve: B contains infinities or NANs", _state);
-    ae_assert(p->cnt>=n, "SparseLUSolve: length(P)<N", _state);
-    ae_assert(q->cnt>=n, "SparseLUSolve: length(Q)<N", _state);
-    for(i=0; i<=n-1; i++)
-    {
-        ae_assert(p->ptr.p_int[i]>=i&&p->ptr.p_int[i]<n, "SparseLUSolve: P is corrupted", _state);
-        ae_assert(q->ptr.p_int[i]>=i&&q->ptr.p_int[i]<n, "SparseLUSolve: Q is corrupted", _state);
-    }
-    initsparsesolverreport(rep, _state);
-    ae_vector_set_length(x, n, _state);
-    for(i=0; i<=n-1; i++)
-    {
-        if( a->didx.ptr.p_int[i]==a->uidx.ptr.p_int[i]||a->vals.ptr.p_double[a->didx.ptr.p_int[i]]==0.0 )
-        {
-            rep->terminationtype = -3;
-            for(i=0; i<=n-1; i++)
-            {
-                x->ptr.p_double[i] = (double)(0);
-            }
-            return;
-        }
-    }
-    for(i=0; i<=n-1; i++)
-    {
-        x->ptr.p_double[i] = b->ptr.p_double[i];
-    }
-    for(i=0; i<=n-1; i++)
-    {
-        j = p->ptr.p_int[i];
-        v = x->ptr.p_double[i];
-        x->ptr.p_double[i] = x->ptr.p_double[j];
-        x->ptr.p_double[j] = v;
-    }
-    sparsetrsv(a, ae_false, ae_true, 0, x, _state);
-    sparsetrsv(a, ae_true, ae_false, 0, x, _state);
-    for(i=n-1; i>=0; i--)
-    {
-        j = q->ptr.p_int[i];
-        v = x->ptr.p_double[i];
-        x->ptr.p_double[i] = x->ptr.p_double[j];
-        x->ptr.p_double[j] = v;
-    }
-    rep->terminationtype = 1;
-}
-
-
-/*************************************************************************
-Reset report fields
-
-  -- ALGLIB --
-     Copyright 26.12.2017 by Bochkanov Sergey
-*************************************************************************/
-void initsparsesolverreport(sparsesolverreport* rep, ae_state *_state)
-{
-
-
-    rep->terminationtype = 0;
-    rep->nmv = 0;
-    rep->iterationscount = 0;
-    rep->r2 = (double)(0);
-}
-
-
-void _sparsesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
-{
-    sparsesolverreport *p = (sparsesolverreport*)_p;
-    ae_touch_ptr((void*)p);
-}
-
-
-void _sparsesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
-{
-    sparsesolverreport       *dst = (sparsesolverreport*)_dst;
-    const sparsesolverreport *src = (const sparsesolverreport*)_src;
-    dst->terminationtype = src->terminationtype;
-    dst->nmv = src->nmv;
-    dst->iterationscount = src->iterationscount;
-    dst->r2 = src->r2;
-}
-
-
-void _sparsesolverreport_clear(void* _p)
-{
-    sparsesolverreport *p = (sparsesolverreport*)_p;
-    ae_touch_ptr((void*)p);
-}
-
-
-void _sparsesolverreport_destroy(void* _p)
-{
-    sparsesolverreport *p = (sparsesolverreport*)_p;
-    ae_touch_ptr((void*)p);
 }
 
 
@@ -12625,9 +14987,9 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolvesymmetricgmres(sparsematrix* a,
+void sparsesolvesymmetricgmres(const sparsematrix* a,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_int_t k,
      double epsf,
      ae_int_t maxits,
@@ -12737,8 +15099,8 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
-void sparsesolvegmres(sparsematrix* a,
-     /* Real    */ ae_vector* b,
+void sparsesolvegmres(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
      ae_int_t k,
      double epsf,
      ae_int_t maxits,
@@ -12939,7 +15301,7 @@ OUTPUT PARAMETERS:
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
 void sparsesolversetstartingpoint(sparsesolverstate* state,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_state *_state)
 {
 
@@ -13027,9 +15389,9 @@ RESULT:
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
 void sparsesolversolvesymmetric(sparsesolverstate* state,
-     sparsematrix* a,
+     const sparsematrix* a,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
     ae_int_t n;
@@ -13103,8 +15465,8 @@ RESULT:
      Copyright 25.09.2021 by Bochkanov Sergey
 *************************************************************************/
 void sparsesolversolve(sparsesolverstate* state,
-     sparsematrix* a,
-     /* Real    */ ae_vector* b,
+     const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
     ae_int_t n;
@@ -13249,7 +15611,7 @@ INPUT PARAMETERS:
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
 void sparsesolveroocstart(sparsesolverstate* state,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
 
@@ -13439,7 +15801,7 @@ INPUT PARAMETERS:
      Copyright 24.09.2021 by Bochkanov Sergey
 *************************************************************************/
 void sparsesolveroocsendresult(sparsesolverstate* state,
-     /* Real    */ ae_vector* ax,
+     /* Real    */ const ae_vector* ax,
      ae_state *_state)
 {
 
@@ -13542,6 +15904,23 @@ void sparsesolverrequesttermination(sparsesolverstate* state,
 
 
     state->userterminationneeded = ae_true;
+}
+
+
+/*************************************************************************
+Reset report fields
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void initsparsesolverreport(sparsesolverreport* rep, ae_state *_state)
+{
+
+
+    rep->terminationtype = 0;
+    rep->nmv = 0;
+    rep->iterationscount = 0;
+    rep->r2 = (double)(0);
 }
 
 
@@ -13826,6 +16205,38 @@ static void iterativesparse_clearreportfields(sparsesolverstate* state,
 }
 
 
+void _sparsesolverreport_init(void* _p, ae_state *_state, ae_bool make_automatic)
+{
+    sparsesolverreport *p = (sparsesolverreport*)_p;
+    ae_touch_ptr((void*)p);
+}
+
+
+void _sparsesolverreport_init_copy(void* _dst, const void* _src, ae_state *_state, ae_bool make_automatic)
+{
+    sparsesolverreport       *dst = (sparsesolverreport*)_dst;
+    const sparsesolverreport *src = (const sparsesolverreport*)_src;
+    dst->terminationtype = src->terminationtype;
+    dst->nmv = src->nmv;
+    dst->iterationscount = src->iterationscount;
+    dst->r2 = src->r2;
+}
+
+
+void _sparsesolverreport_clear(void* _p)
+{
+    sparsesolverreport *p = (sparsesolverreport*)_p;
+    ae_touch_ptr((void*)p);
+}
+
+
+void _sparsesolverreport_destroy(void* _p)
+{
+    sparsesolverreport *p = (sparsesolverreport*)_p;
+    ae_touch_ptr((void*)p);
+}
+
+
 void _sparsesolverstate_init(void* _p, ae_state *_state, ae_bool make_automatic)
 {
     sparsesolverstate *p = (sparsesolverstate*)_p;
@@ -13998,7 +16409,7 @@ OUTPUT PARAMETERS:
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
 void lincgsetstartingpoint(lincgstate* state,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_state *_state)
 {
 
@@ -14023,7 +16434,7 @@ OUTPUT PARAMETERS:
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
 void lincgsetb(lincgstate* state,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
 
@@ -14612,9 +17023,9 @@ NOTE: this function uses lightweight preconditioning -  multiplication  by
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
 void lincgsolvesparse(lincgstate* state,
-     sparsematrix* a,
+     const sparsematrix* a,
      ae_bool isupper,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
     ae_int_t n;
@@ -14724,7 +17135,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 14.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void lincgresults(lincgstate* state,
+void lincgresults(const lincgstate* state,
      /* Real    */ ae_vector* x,
      lincgreport* rep,
      ae_state *_state)
@@ -15129,7 +17540,7 @@ OUTPUT PARAMETERS:
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
 void linlsqrsetb(linlsqrstate* state,
-     /* Real    */ ae_vector* b,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
     ae_int_t i;
@@ -15709,8 +18120,8 @@ NOTE: this function uses lightweight preconditioning -  multiplication  by
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
 void linlsqrsolvesparse(linlsqrstate* state,
-     sparsematrix* a,
-     /* Real    */ ae_vector* b,
+     const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
      ae_state *_state)
 {
     ae_int_t n;
@@ -15882,7 +18293,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 30.11.2011 by Bochkanov Sergey
 *************************************************************************/
-void linlsqrresults(linlsqrstate* state,
+void linlsqrresults(const linlsqrstate* state,
      /* Real    */ ae_vector* x,
      linlsqrreport* rep,
      ae_state *_state)
@@ -15957,7 +18368,8 @@ RESULT:
   -- ALGLIB --
      Copyright 21.05.2018 by Bochkanov Sergey
 *************************************************************************/
-ae_int_t linlsqrpeekiterationscount(linlsqrstate* s, ae_state *_state)
+ae_int_t linlsqrpeekiterationscount(const linlsqrstate* s,
+     ae_state *_state)
 {
     ae_int_t result;
 
@@ -16179,6 +18591,967 @@ void _linlsqrreport_destroy(void* _p)
 
 
 #endif
+#if defined(AE_COMPILE_DIRECTSPARSESOLVERS) || !defined(AE_PARTIAL_BUILD)
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
+definite matrix A, N*1 vectors x and b.
+
+This solver  converts  input  matrix  to  SKS  format,  performs  Cholesky
+factorization using  SKS  Cholesky  subroutine  (works  well  for  limited
+bandwidth matrices) and uses sparse triangular solvers to get solution  of
+the original system.
+
+IMPORTANT: this  function  is  intended  for  low  profile (variable band)
+           linear systems with dense or nearly-dense bands. Only  in  such
+           cases  it  provides  some  performance  improvement  over  more
+           general sparsrspdsolve(). If your  system  has  high  bandwidth
+           or sparse band, the general sparsrspdsolve() is  likely  to  be
+           more efficient.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly
+    IsUpper -   which half of A is provided (another half is ignored)
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdsolvesks(const sparsematrix* a,
+     ae_bool isupper,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t i;
+    sparsematrix a2;
+    ae_int_t n;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&a2, 0, sizeof(a2));
+    ae_vector_clear(x);
+    _sparsesolverreport_clear(rep);
+    _sparsematrix_init(&a2, _state, ae_true);
+
+    n = sparsegetnrows(a, _state);
+    ae_assert(n>0, "SparseSPDSolveSKS: N<=0", _state);
+    ae_assert(sparsegetnrows(a, _state)==n, "SparseSPDSolveSKS: rows(A)!=N", _state);
+    ae_assert(sparsegetncols(a, _state)==n, "SparseSPDSolveSKS: cols(A)!=N", _state);
+    ae_assert(b->cnt>=n, "SparseSPDSolveSKS: length(B)<N", _state);
+    ae_assert(isfinitevector(b, n, _state), "SparseSPDSolveSKS: B contains infinities or NANs", _state);
+    initsparsesolverreport(rep, _state);
+    ae_vector_set_length(x, n, _state);
+    sparsecopytosks(a, &a2, _state);
+    if( !sparsecholeskyskyline(&a2, n, isupper, _state) )
+    {
+        rep->terminationtype = -3;
+        for(i=0; i<=n-1; i++)
+        {
+            x->ptr.p_double[i] = (double)(0);
+        }
+        ae_frame_leave(_state);
+        return;
+    }
+    for(i=0; i<=n-1; i++)
+    {
+        x->ptr.p_double[i] = b->ptr.p_double[i];
+    }
+    if( isupper )
+    {
+        sparsetrsv(&a2, isupper, ae_false, 1, x, _state);
+        sparsetrsv(&a2, isupper, ae_false, 0, x, _state);
+    }
+    else
+    {
+        sparsetrsv(&a2, isupper, ae_false, 0, x, _state);
+        sparsetrsv(&a2, isupper, ae_false, 1, x, _state);
+    }
+    rep->terminationtype = 1;
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N  sparse  real  symmetric  positive
+definite matrix A, N*1 vectors x and b.
+
+This solver  converts  input  matrix  to  CRS  format,  performs  Cholesky
+factorization using supernodal Cholesky  decomposition  with  permutation-
+reducing ordering and uses sparse triangular solver to get solution of the
+original system.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly.
+                Can be stored in any sparse storage format, CRS is preferred.
+    IsUpper -   which half of A is provided (another half is ignored).
+                It is better to store the lower triangle because it allows
+                us to avoid one transposition during internal conversion.
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdsolve(const sparsematrix* a,
+     ae_bool isupper,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    sparsematrix a2;
+    sparsematrix a3;
+    ae_int_t n;
+    ae_vector p;
+    ae_vector idummy;
+    ae_int_t donotreusemem;
+    spcholanalysis analysis;
+    ae_bool flg;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&a2, 0, sizeof(a2));
+    memset(&a3, 0, sizeof(a3));
+    memset(&p, 0, sizeof(p));
+    memset(&idummy, 0, sizeof(idummy));
+    memset(&analysis, 0, sizeof(analysis));
+    ae_vector_clear(x);
+    _sparsesolverreport_clear(rep);
+    _sparsematrix_init(&a2, _state, ae_true);
+    _sparsematrix_init(&a3, _state, ae_true);
+    ae_vector_init(&p, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&idummy, 0, DT_INT, _state, ae_true);
+    _spcholanalysis_init(&analysis, _state, ae_true);
+
+    n = sparsegetnrows(a, _state);
+    ae_assert(n>0, "SparseSPDSolve: N<=0", _state);
+    ae_assert(sparsegetnrows(a, _state)==n, "SparseSPDSolve: rows(A)!=N", _state);
+    ae_assert(sparsegetncols(a, _state)==n, "SparseSPDSolve: cols(A)!=N", _state);
+    ae_assert(b->cnt>=n, "SparseSPDSolve: length(B)<N", _state);
+    ae_assert(isfinitevector(b, n, _state), "SparseSPDSolve: B contains infinities or NANs", _state);
+    initsparsesolverreport(rep, _state);
+    
+    /*
+     * Perform factorization, depending on the sparse storage format and triangle being specified
+     */
+    donotreusemem = -1;
+    if( !sparseiscrs(a, _state) )
+    {
+        
+        /*
+         * Non-CRS matrix, first has to be converted to CRS, then a transposition may be needed
+         */
+        sparsecopytocrs(a, &a2, _state);
+        if( isupper )
+        {
+            sparsecopytransposecrs(&a2, &a3, _state);
+            flg = spsymmanalyze(&a3, &idummy, 0.0, 0, 0, 0, donotreusemem, &analysis, _state);
+        }
+        else
+        {
+            flg = spsymmanalyze(&a2, &idummy, 0.0, 0, 0, 0, donotreusemem, &analysis, _state);
+        }
+    }
+    else
+    {
+        
+        /*
+         * A CRS matrix
+         */
+        if( isupper )
+        {
+            sparsecopytransposecrs(a, &a2, _state);
+            flg = spsymmanalyze(&a2, &idummy, 0.0, 0, 0, 0, donotreusemem, &analysis, _state);
+        }
+        else
+        {
+            flg = spsymmanalyze(a, &idummy, 0.0, 0, 0, 0, donotreusemem, &analysis, _state);
+        }
+    }
+    if( !flg )
+    {
+        rep->terminationtype = -3;
+        rsetallocv(n, 0.0, x, _state);
+        ae_frame_leave(_state);
+        return;
+    }
+    
+    /*
+     * Factorize
+     */
+    if( !spsymmfactorize(&analysis, _state) )
+    {
+        rep->terminationtype = -3;
+        rsetallocv(n, 0.0, x, _state);
+        ae_frame_leave(_state);
+        return;
+    }
+    
+    /*
+     * Solve
+     */
+    rcopyallocv(n, b, x, _state);
+    spsymmsolve(&analysis, x, _state);
+    rep->terminationtype = 1;
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with N*N real  symmetric  positive definite
+matrix A given by its Cholesky decomposition, and N*1 vectors x and b.
+
+IMPORTANT: this solver requires input matrix to be in  the  SKS  (Skyline)
+           or CRS (compressed row storage) format. An  exception  will  be
+           generated if you pass matrix in some other format.
+
+INPUT PARAMETERS
+    A       -   sparse NxN matrix stored in CRs or SKS format, must be NxN
+                exactly
+    IsUpper -   which half of A is provided (another half is ignored)
+    B       -   array[N], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate or non-SPD system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparsespdcholeskysolve(const sparsematrix* a,
+     ae_bool isupper,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t n;
+
+    ae_vector_clear(x);
+    _sparsesolverreport_clear(rep);
+
+    n = sparsegetnrows(a, _state);
+    ae_assert(n>0, "SparseSPDCholeskySolve: N<=0", _state);
+    ae_assert(sparsegetnrows(a, _state)==n, "SparseSPDCholeskySolve: rows(A)!=N", _state);
+    ae_assert(sparsegetncols(a, _state)==n, "SparseSPDCholeskySolve: cols(A)!=N", _state);
+    ae_assert(sparseissks(a, _state)||sparseiscrs(a, _state), "SparseSPDCholeskySolve: A is not an SKS/CRS matrix", _state);
+    ae_assert(b->cnt>=n, "SparseSPDCholeskySolve: length(B)<N", _state);
+    ae_assert(isfinitevector(b, n, _state), "SparseSPDCholeskySolve: B contains infinities or NANs", _state);
+    initsparsesolverreport(rep, _state);
+    ae_vector_set_length(x, n, _state);
+    for(i=0; i<=n-1; i++)
+    {
+        if( ae_fp_eq(sparseget(a, i, i, _state),0.0) )
+        {
+            rep->terminationtype = -3;
+            for(i=0; i<=n-1; i++)
+            {
+                x->ptr.p_double[i] = (double)(0);
+            }
+            return;
+        }
+    }
+    for(i=0; i<=n-1; i++)
+    {
+        x->ptr.p_double[i] = b->ptr.p_double[i];
+    }
+    if( isupper )
+    {
+        sparsetrsv(a, isupper, ae_false, 1, x, _state);
+        sparsetrsv(a, isupper, ae_false, 0, x, _state);
+    }
+    else
+    {
+        sparsetrsv(a, isupper, ae_false, 0, x, _state);
+        sparsetrsv(a, isupper, ae_false, 1, x, _state);
+    }
+    rep->terminationtype = 1;
+}
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A, N*1 vectors x and b.
+
+This function internally uses several solvers:
+* supernodal solver with static pivoting applied to  a  2N*2N  regularized
+  augmented  system, followed by iterative refinement. This solver  is   a
+  recommended option because it provides the best speed and has the lowest
+  memory requirements.
+* sparse LU with dynamic pivoting for stability. Provides better  accuracy
+  at the cost of a significantly lower performance. Recommended  only  for
+  extremely unstable problems.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, must be NxN exactly, any storage format
+    B       -   array[N], right part
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+                * 20    use sparse LU with dynamic pivoting for stability.
+                        Not intended for large-scale problems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void sparsesolve(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
+     ae_int_t solvertype,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t i;
+    ae_int_t j;
+    ae_int_t n;
+    double v;
+    sparsematrix a2;
+    ae_vector pivp;
+    ae_vector pivq;
+    ae_vector b2;
+    ae_vector sr;
+    ae_vector sc;
+    double reg;
+    normestimatorstate e;
+    ae_int_t gmresk;
+    ae_int_t maxits;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&a2, 0, sizeof(a2));
+    memset(&pivp, 0, sizeof(pivp));
+    memset(&pivq, 0, sizeof(pivq));
+    memset(&b2, 0, sizeof(b2));
+    memset(&sr, 0, sizeof(sr));
+    memset(&sc, 0, sizeof(sc));
+    memset(&e, 0, sizeof(e));
+    ae_vector_clear(x);
+    _sparsesolverreport_clear(rep);
+    _sparsematrix_init(&a2, _state, ae_true);
+    ae_vector_init(&pivp, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&pivq, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&b2, 0, DT_REAL, _state, ae_true);
+    ae_vector_init(&sr, 0, DT_REAL, _state, ae_true);
+    ae_vector_init(&sc, 0, DT_REAL, _state, ae_true);
+    _normestimatorstate_init(&e, _state, ae_true);
+
+    n = sparsegetnrows(a, _state);
+    ae_assert(n>0, "SparseSolve: N<=0", _state);
+    ae_assert((((solvertype==0||solvertype==-19)||solvertype==10)||solvertype==11)||solvertype==20, "SparseSolve: unexpected SolverType", _state);
+    ae_assert(sparsegetnrows(a, _state)==n, "SparseSolve: rows(A)!=N", _state);
+    ae_assert(sparsegetncols(a, _state)==n, "SparseSolve: cols(A)!=N", _state);
+    ae_assert(b->cnt>=n, "SparseSolve: length(B)<N", _state);
+    ae_assert(isfinitevector(b, n, _state), "SparseSolve: B contains infinities or NANs", _state);
+    
+    /*
+     * Default solver
+     */
+    if( solvertype==0 )
+    {
+        solvertype = 10;
+    }
+    
+    /*
+     * Initialization
+     */
+    initsparsesolverreport(rep, _state);
+    rsetallocv(n, 0.0, x, _state);
+    sparsecopytocrs(a, &a2, _state);
+    
+    /*
+     * Augmented system-based solver
+     */
+    if( (solvertype==-19||solvertype==10)||solvertype==11 )
+    {
+        gmresk = 200;
+        maxits = 200;
+        if( solvertype==11 )
+        {
+            
+            /*
+             * Limited memory profile - decreased amount of GMRES memory
+             */
+            gmresk = 25;
+            maxits = 200;
+        }
+        if( solvertype==-19 )
+        {
+            
+            /*
+             * Debug profile - deliberately limited GMRES
+             */
+            gmresk = 5;
+            maxits = 200;
+        }
+        sparsescale(&a2, 0, ae_true, ae_true, ae_true, &sr, &sc, _state);
+        rcopyallocv(n, b, &b2, _state);
+        rmergedivv(n, &sr, &b2, _state);
+        normestimatorcreate(n, n, 5, 5, &e, _state);
+        normestimatorsetseed(&e, 117, _state);
+        normestimatorestimatesparse(&e, &a2, _state);
+        normestimatorresults(&e, &v, _state);
+        reg = ae_sqrt(ae_machineepsilon, _state)*coalesce(v, (double)(1), _state);
+        directsparsesolvers_sparsesolveaug(&a2, &b2, reg, reg, 0.0, 0.0, gmresk, maxits, x, rep, _state);
+        rmergedivv(n, &sc, x, _state);
+        ae_frame_leave(_state);
+        return;
+    }
+    
+    /*
+     * LU-based solver
+     */
+    if( solvertype==20 )
+    {
+        if( !sparselu(&a2, 0, &pivp, &pivq, _state) )
+        {
+            rep->terminationtype = -3;
+            for(i=0; i<=n-1; i++)
+            {
+                x->ptr.p_double[i] = (double)(0);
+            }
+            ae_frame_leave(_state);
+            return;
+        }
+        for(i=0; i<=n-1; i++)
+        {
+            x->ptr.p_double[i] = b->ptr.p_double[i];
+        }
+        for(i=0; i<=n-1; i++)
+        {
+            j = pivp.ptr.p_int[i];
+            v = x->ptr.p_double[i];
+            x->ptr.p_double[i] = x->ptr.p_double[j];
+            x->ptr.p_double[j] = v;
+        }
+        sparsetrsv(&a2, ae_false, ae_true, 0, x, _state);
+        sparsetrsv(&a2, ae_true, ae_false, 0, x, _state);
+        for(i=n-1; i>=0; i--)
+        {
+            j = pivq.ptr.p_int[i];
+            v = x->ptr.p_double[i];
+            x->ptr.p_double[i] = x->ptr.p_double[j];
+            x->ptr.p_double[j] = v;
+        }
+        rep->terminationtype = 1;
+        ae_frame_leave(_state);
+        return;
+    }
+    
+    /*
+     * unexpected solver type
+     */
+    ae_assert(ae_false, "DIRECTSPARSESOLVERS: integrity check 1038 failed", _state);
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Sparse linear least squares solver for A*x=b with  general  (nonsymmetric)
+N*N sparse real matrix A, N*1 vectors x and b.
+
+This function solves a regularized linear least squares problem of the form
+
+        (                      )
+    min ( |Ax-b|^2 + reg*|x|^2 ), with reg>=sqrt(MachineAccuracy)
+        (                      )
+
+The function internally uses supernodal  solver  to  solve  an  augmented-
+regularized sparse system. The solver, which was initially used  to  solve
+sparse square system, can also  be  used  to  solve  rectangular  systems,
+provided that the system is regularized with regularizing  coefficient  at
+least sqrt(MachineAccuracy), which is ~10^8 (double precision).
+
+It can be used to solve both full rank and rank deficient systems.
+
+INPUT PARAMETERS
+    A       -   sparse MxN matrix, any storage format
+    B       -   array[M], right part
+    Reg     -   regularization coefficient, Reg>=sqrt(MachineAccuracy),
+                lower values will be silently increased.
+    SolverType- solver type to use:
+                * 0     use the best solver. It is augmented system in the
+                        current version, but may change in future releases
+                * 10    use 'default profile' of the supernodal solver with
+                        static   pivoting.   The  'default'   profile   is
+                        intended for systems with plenty of memory; it  is
+                        optimized for the best convergence at the cost  of
+                        increased RAM usage. Recommended option.
+                * 11    use 'limited memory'  profile  of  the  supernodal
+                        solver with static  pivoting.  The  limited-memory
+                        profile is intended for problems with millions  of
+                        variables.  On  most  systems  it  has  the   same
+                        convergence as the default profile, having somewhat
+                        worse results only for ill-conditioned systems.
+
+OUTPUT PARAMETERS
+    X       -   array[N], least squares solution
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success.
+                  
+                  Present version of the solver does NOT returns negative
+                  completion codes because  it  does  not  fail.  However,
+                  future ALGLIB versions may include solvers which  return
+                  negative completion codes.
+
+  -- ALGLIB --
+     Copyright 18.11.2023 by Bochkanov Sergey
+*************************************************************************/
+void sparsesolvelsreg(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
+     double reg,
+     ae_int_t solvertype,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t n;
+    ae_int_t m;
+    double v;
+    sparsematrix a2;
+    ae_vector pivp;
+    ae_vector pivq;
+    ae_vector b2;
+    ae_vector sr;
+    ae_vector sc;
+    double augreg;
+    normestimatorstate e;
+    ae_int_t gmresk;
+    ae_int_t maxits;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&a2, 0, sizeof(a2));
+    memset(&pivp, 0, sizeof(pivp));
+    memset(&pivq, 0, sizeof(pivq));
+    memset(&b2, 0, sizeof(b2));
+    memset(&sr, 0, sizeof(sr));
+    memset(&sc, 0, sizeof(sc));
+    memset(&e, 0, sizeof(e));
+    ae_vector_clear(x);
+    _sparsesolverreport_clear(rep);
+    _sparsematrix_init(&a2, _state, ae_true);
+    ae_vector_init(&pivp, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&pivq, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&b2, 0, DT_REAL, _state, ae_true);
+    ae_vector_init(&sr, 0, DT_REAL, _state, ae_true);
+    ae_vector_init(&sc, 0, DT_REAL, _state, ae_true);
+    _normestimatorstate_init(&e, _state, ae_true);
+
+    m = sparsegetnrows(a, _state);
+    n = sparsegetncols(a, _state);
+    ae_assert(m>0, "SparseSolveLS: M<=0", _state);
+    ae_assert(n>0, "SparseSolveLS: N<=0", _state);
+    ae_assert(ae_isfinite(reg, _state)&&ae_fp_greater(reg,(double)(0)), "SparseSolveLS: Reg is not finite or non-positive", _state);
+    ae_assert(((solvertype==0||solvertype==-19)||solvertype==10)||solvertype==11, "SparseSolveLS: unexpected SolverType", _state);
+    ae_assert(b->cnt>=m, "SparseSolveLS: length(B)<M", _state);
+    ae_assert(isfinitevector(b, m, _state), "SparseSolveLS: B contains infinities or NANs", _state);
+    
+    /*
+     * Default solver
+     */
+    if( solvertype==0 )
+    {
+        solvertype = 10;
+    }
+    
+    /*
+     * Initialization
+     */
+    initsparsesolverreport(rep, _state);
+    rsetallocv(n, 0.0, x, _state);
+    sparsecopytocrs(a, &a2, _state);
+    rep->terminationtype = 1;
+    
+    /*
+     * Augmented system-based solver
+     */
+    if( (solvertype==-19||solvertype==10)||solvertype==11 )
+    {
+        reg = ae_maxreal(reg, ae_sqrt(ae_machineepsilon, _state), _state);
+        gmresk = 200;
+        maxits = 200;
+        if( solvertype==11 )
+        {
+            
+            /*
+             * Limited memory profile
+             */
+            gmresk = 25;
+            maxits = 200;
+        }
+        if( solvertype==-19 )
+        {
+            
+            /*
+             * Debug profile - deliberately limited GMRES
+             */
+            gmresk = 5;
+            maxits = 200;
+        }
+        sparsescale(&a2, 0, ae_false, ae_true, ae_true, &sr, &sc, _state);
+        rcopyallocv(m, b, &b2, _state);
+        rmergedivv(m, &sr, &b2, _state);
+        normestimatorcreate(m, n, 5, 5, &e, _state);
+        normestimatorsetseed(&e, 117, _state);
+        normestimatorestimatesparse(&e, &a2, _state);
+        normestimatorresults(&e, &v, _state);
+        augreg = (double)10*ae_sqrt(ae_machineepsilon, _state)*coalesce(v, (double)(1), _state);
+        directsparsesolvers_sparsesolveaug(&a2, &b2, (double)(1), ae_maxreal(ae_sqr(augreg, _state), ae_sqr(reg, _state), _state), (double)(1), ae_sqr(reg, _state), gmresk, maxits, x, rep, _state);
+        rmergedivv(n, &sc, x, _state);
+        ae_frame_leave(_state);
+        return;
+    }
+    
+    /*
+     * unexpected solver type
+     */
+    ae_assert(ae_false, "DIRECTSPARSESOLVERS: integrity check 1622 failed", _state);
+    ae_frame_leave(_state);
+}
+
+
+/*************************************************************************
+Sparse linear solver for A*x=b with general (nonsymmetric) N*N sparse real
+matrix A given by its LU factorization, N*1 vectors x and b.
+
+IMPORTANT: this solver requires input matrix  to  be  in  the  CRS  sparse
+           storage format. An exception will  be  generated  if  you  pass
+           matrix in some other format (HASH or SKS).
+
+INPUT PARAMETERS
+    A       -   LU factorization of the sparse matrix, must be NxN exactly
+                in CRS storage format
+    P, Q    -   pivot indexes from LU factorization
+    N       -   size of A, N>0
+    B       -   array[0..N-1], right part
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+void sparselusolve(const sparsematrix* a,
+     /* Integer */ const ae_vector* p,
+     /* Integer */ const ae_vector* q,
+     /* Real    */ const ae_vector* b,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_int_t i;
+    ae_int_t j;
+    double v;
+    ae_int_t n;
+
+    ae_vector_clear(x);
+    _sparsesolverreport_clear(rep);
+
+    n = sparsegetnrows(a, _state);
+    ae_assert(n>0, "SparseLUSolve: N<=0", _state);
+    ae_assert(sparsegetnrows(a, _state)==n, "SparseLUSolve: rows(A)!=N", _state);
+    ae_assert(sparsegetncols(a, _state)==n, "SparseLUSolve: cols(A)!=N", _state);
+    ae_assert(sparseiscrs(a, _state), "SparseLUSolve: A is not an SKS matrix", _state);
+    ae_assert(b->cnt>=n, "SparseLUSolve: length(B)<N", _state);
+    ae_assert(isfinitevector(b, n, _state), "SparseLUSolve: B contains infinities or NANs", _state);
+    ae_assert(p->cnt>=n, "SparseLUSolve: length(P)<N", _state);
+    ae_assert(q->cnt>=n, "SparseLUSolve: length(Q)<N", _state);
+    for(i=0; i<=n-1; i++)
+    {
+        ae_assert(p->ptr.p_int[i]>=i&&p->ptr.p_int[i]<n, "SparseLUSolve: P is corrupted", _state);
+        ae_assert(q->ptr.p_int[i]>=i&&q->ptr.p_int[i]<n, "SparseLUSolve: Q is corrupted", _state);
+    }
+    initsparsesolverreport(rep, _state);
+    ae_vector_set_length(x, n, _state);
+    for(i=0; i<=n-1; i++)
+    {
+        if( a->didx.ptr.p_int[i]==a->uidx.ptr.p_int[i]||a->vals.ptr.p_double[a->didx.ptr.p_int[i]]==0.0 )
+        {
+            rep->terminationtype = -3;
+            for(i=0; i<=n-1; i++)
+            {
+                x->ptr.p_double[i] = (double)(0);
+            }
+            return;
+        }
+    }
+    for(i=0; i<=n-1; i++)
+    {
+        x->ptr.p_double[i] = b->ptr.p_double[i];
+    }
+    for(i=0; i<=n-1; i++)
+    {
+        j = p->ptr.p_int[i];
+        v = x->ptr.p_double[i];
+        x->ptr.p_double[i] = x->ptr.p_double[j];
+        x->ptr.p_double[j] = v;
+    }
+    sparsetrsv(a, ae_false, ae_true, 0, x, _state);
+    sparsetrsv(a, ae_true, ae_false, 0, x, _state);
+    for(i=n-1; i>=0; i--)
+    {
+        j = q->ptr.p_int[i];
+        v = x->ptr.p_double[i];
+        x->ptr.p_double[i] = x->ptr.p_double[j];
+        x->ptr.p_double[j] = v;
+    }
+    rep->terminationtype = 1;
+}
+
+
+/*************************************************************************
+Internal function which creates and solves a sparse augmented system
+
+    (        |        )
+    ( REG1*I |   A    )
+    (        |        )
+    (-----------------)
+    (        |        )
+    (    A'  | -REG2*I)
+    (        |        )
+
+This function uses supernodal LDLT to factorize the system,  then  applies
+iterative refinement (actually, a preconditioned GMRES which  acts  as  an
+improved version of the iterative refinement).
+
+It can be   used  to  solve  square  nonsymmetric  systems,  or  to  solve
+rectangular systems in a least squares  sense.  Its  performance  somewhat
+deteriorates for rank-deficient systems.
+
+INPUT PARAMETERS
+    A       -   sparse matrix, M*N, CRS format
+    B       -   array[N], right part
+    Reg1F,Reg2F-regularizing factors used during the factorization of  the
+                system, Reg1F>0, Reg2F>0
+    Reg1R,Reg2R-regularizing factors used during the refinement stage,
+                Reg1R>=0, Reg2R>=0
+    X       -   preallocated buffer
+
+OUTPUT PARAMETERS
+    X       -   array[N], it contains:
+                * rep.terminationtype>0    =>  solution
+                * rep.terminationtype=-3   =>  filled by zeros
+    Rep     -   solver report, following fields are set:
+                * rep.terminationtype - solver status; >0 for success,
+                  set to -3 on failure (degenerate system).
+                * rep.iterationscount - set ot an amount of GMRES
+                  iterations performed
+
+  -- ALGLIB --
+     Copyright 26.12.2017 by Bochkanov Sergey
+*************************************************************************/
+static void directsparsesolvers_sparsesolveaug(const sparsematrix* a,
+     /* Real    */ const ae_vector* b,
+     double reg1f,
+     double reg2f,
+     double reg1r,
+     double reg2r,
+     ae_int_t gmresk,
+     ae_int_t maxits,
+     /* Real    */ ae_vector* x,
+     sparsesolverreport* rep,
+     ae_state *_state)
+{
+    ae_frame _frame_block;
+    ae_int_t i;
+    ae_int_t k;
+    ae_int_t jj;
+    ae_int_t j0;
+    ae_int_t j1;
+    ae_int_t m;
+    ae_int_t n;
+    ae_int_t nzaug;
+    sparsematrix aug;
+    ae_vector priorities;
+    ae_vector bx;
+    spcholanalysis analysis;
+    sparsesolverstate solver;
+    sparsesolverreport innerrep;
+    ae_int_t requesttype;
+    ae_vector rr;
+    ae_vector q;
+    ae_vector y;
+    ae_int_t priorityordering;
+    ae_int_t donotreusememory;
+
+    ae_frame_make(_state, &_frame_block);
+    memset(&aug, 0, sizeof(aug));
+    memset(&priorities, 0, sizeof(priorities));
+    memset(&bx, 0, sizeof(bx));
+    memset(&analysis, 0, sizeof(analysis));
+    memset(&solver, 0, sizeof(solver));
+    memset(&innerrep, 0, sizeof(innerrep));
+    memset(&rr, 0, sizeof(rr));
+    memset(&q, 0, sizeof(q));
+    memset(&y, 0, sizeof(y));
+    _sparsematrix_init(&aug, _state, ae_true);
+    ae_vector_init(&priorities, 0, DT_INT, _state, ae_true);
+    ae_vector_init(&bx, 0, DT_REAL, _state, ae_true);
+    _spcholanalysis_init(&analysis, _state, ae_true);
+    _sparsesolverstate_init(&solver, _state, ae_true);
+    _sparsesolverreport_init(&innerrep, _state, ae_true);
+    ae_vector_init(&rr, 0, DT_REAL, _state, ae_true);
+    ae_vector_init(&q, 0, DT_REAL, _state, ae_true);
+    ae_vector_init(&y, 0, DT_REAL, _state, ae_true);
+
+    ae_assert(sparseiscrs(a, _state), "SparseSolveAug: A is not stored in the CRS format", _state);
+    m = sparsegetnrows(a, _state);
+    n = sparsegetncols(a, _state);
+    ae_assert(ae_isfinite(reg1f, _state)&&ae_fp_greater(reg1f,(double)(0)), "SparseSolveAug: Reg1F is non-positive", _state);
+    ae_assert(ae_isfinite(reg2f, _state)&&ae_fp_greater(reg2f,(double)(0)), "SparseSolveAug: Reg2F is non-positive", _state);
+    ae_assert(ae_isfinite(reg1r, _state)&&ae_fp_greater_eq(reg1r,(double)(0)), "SparseSolveAug: Reg1R is non-positive", _state);
+    ae_assert(ae_isfinite(reg2r, _state)&&ae_fp_greater_eq(reg2r,(double)(0)), "SparseSolveAug: Reg2R is non-positive", _state);
+    ae_assert(b->cnt>=m, "SparseSolveAug: length(B)<N", _state);
+    ae_assert(isfinitevector(b, m, _state), "SparseSolveAug: B contains infinities or NANs", _state);
+    ae_assert(x->cnt>=n, "SparseSolveAug: length(X)<N", _state);
+    
+    /*
+     * Generate augmented matrix
+     */
+    rallocv(n+m, &rr, _state);
+    nzaug = a->ridx.ptr.p_int[a->m]+n+m;
+    aug.matrixtype = 1;
+    aug.m = m+n;
+    aug.n = m+n;
+    iallocv(aug.m+1, &aug.ridx, _state);
+    iallocv(nzaug, &aug.idx, _state);
+    rallocv(nzaug, &aug.vals, _state);
+    aug.ridx.ptr.p_int[0] = 0;
+    for(i=0; i<=n-1; i++)
+    {
+        rr.ptr.p_double[i] = -reg2f;
+        aug.idx.ptr.p_int[i] = i;
+        aug.vals.ptr.p_double[i] = rr.ptr.p_double[i];
+        aug.ridx.ptr.p_int[i+1] = i+1;
+    }
+    for(i=0; i<=m-1; i++)
+    {
+        rr.ptr.p_double[n+i] = reg1f;
+        k = aug.ridx.ptr.p_int[n+i];
+        j0 = a->ridx.ptr.p_int[i];
+        j1 = a->ridx.ptr.p_int[i+1]-1;
+        for(jj=j0; jj<=j1; jj++)
+        {
+            aug.idx.ptr.p_int[k] = a->idx.ptr.p_int[jj];
+            aug.vals.ptr.p_double[k] = a->vals.ptr.p_double[jj];
+            k = k+1;
+        }
+        aug.idx.ptr.p_int[k] = n+i;
+        aug.vals.ptr.p_double[k] = rr.ptr.p_double[n+i];
+        k = k+1;
+        aug.ridx.ptr.p_int[n+i+1] = k;
+    }
+    ae_assert(aug.ridx.ptr.p_int[n+m]==nzaug, "SparseSolveAug: integrity check 2141 failed", _state);
+    sparsecreatecrsinplace(&aug, _state);
+    
+    /*
+     * Factorize augmented system
+     */
+    priorityordering = 3;
+    donotreusememory = -1;
+    isetallocv(n+m, 1, &priorities, _state);
+    isetv(n, 0, &priorities, _state);
+    if( !spsymmanalyze(&aug, &priorities, 0.0, 0, 1, priorityordering, donotreusememory, &analysis, _state) )
+    {
+        ae_assert(ae_false, "SparseSolveAug: integrity check 4141 failed", _state);
+    }
+    while(!spsymmfactorize(&analysis, _state))
+    {
+        
+        /*
+         * Factorization failure. Extremely rare, almost unable to reproduce.
+         */
+        rmulv(n+m, 10.0, &rr, _state);
+        spsymmreloaddiagonal(&analysis, &rr, _state);
+    }
+    
+    /*
+     * Solve using GMRES as an improved iterative refinement
+     */
+    rsetallocv(n+m, reg1r, &rr, _state);
+    rsetv(n, -reg2r, &rr, _state);
+    rallocv(m+n, &q, _state);
+    rallocv(m+n, &y, _state);
+    rsetallocv(m+n, 0.0, &bx, _state);
+    rcopyvx(m, b, 0, &bx, n, _state);
+    sparsesolvercreate(m+n, &solver, _state);
+    sparsesolversetalgogmres(&solver, gmresk, _state);
+    sparsesolversetcond(&solver, (double)10*ae_machineepsilon, maxits, _state);
+    sparsesolveroocstart(&solver, &bx, _state);
+    while(sparsesolverooccontinue(&solver, _state))
+    {
+        sparsesolveroocgetrequestinfo(&solver, &requesttype, _state);
+        ae_assert(requesttype==0, "SPARSESOLVE: integrity check 8618 failed", _state);
+        sparsesolveroocgetrequestdata(&solver, &q, _state);
+        spsymmsolve(&analysis, &q, _state);
+        sparsegemv(a, 1.0, 0, &q, 0, 0.0, &y, n, _state);
+        sparsegemv(a, 1.0, 1, &q, n, 0.0, &y, 0, _state);
+        rmuladdv(m+n, &q, &rr, &y, _state);
+        sparsesolveroocsendresult(&solver, &y, _state);
+    }
+    sparsesolveroocstop(&solver, &bx, &innerrep, _state);
+    if( innerrep.terminationtype<=0 )
+    {
+        rep->terminationtype = innerrep.terminationtype;
+        ae_frame_leave(_state);
+        return;
+    }
+    spsymmsolve(&analysis, &bx, _state);
+    rcopyvx(n, &bx, 0, x, 0, _state);
+    rep->terminationtype = 1;
+    rep->iterationscount = innerrep.iterationscount;
+    ae_frame_leave(_state);
+}
+
+
+#endif
 #if defined(AE_COMPILE_NLEQ) || !defined(AE_PARTIAL_BUILD)
 
 
@@ -16254,7 +19627,7 @@ NOTES:
 *************************************************************************/
 void nleqcreatelm(ae_int_t n,
      ae_int_t m,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      nleqstate* state,
      ae_state *_state)
 {
@@ -16728,7 +20101,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 20.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void nleqresults(nleqstate* state,
+void nleqresults(const nleqstate* state,
      /* Real    */ ae_vector* x,
      nleqreport* rep,
      ae_state *_state)
@@ -16752,7 +20125,7 @@ where array reallocation penalty is too large to be ignored.
   -- ALGLIB --
      Copyright 20.08.2009 by Bochkanov Sergey
 *************************************************************************/
-void nleqresultsbuf(nleqstate* state,
+void nleqresultsbuf(const nleqstate* state,
      /* Real    */ ae_vector* x,
      nleqreport* rep,
      ae_state *_state)
@@ -16789,7 +20162,7 @@ INPUT PARAMETERS:
      Copyright 30.07.2010 by Bochkanov Sergey
 *************************************************************************/
 void nleqrestartfrom(nleqstate* state,
-     /* Real    */ ae_vector* x,
+     /* Real    */ const ae_vector* x,
      ae_state *_state)
 {
 
@@ -16802,6 +20175,16 @@ void nleqrestartfrom(nleqstate* state,
     ae_vector_set_length(&state->rstate.ra, 5+1, _state);
     state->rstate.stage = -1;
     nleq_clearrequestfields(state, _state);
+}
+
+
+/*************************************************************************
+Sets V1 reverse communication protocol
+*************************************************************************/
+void nleqsetprotocolv1(nleqstate* state, ae_state *_state)
+{
+
+
 }
 
 
